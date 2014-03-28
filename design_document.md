@@ -200,3 +200,31 @@ Ethan Gottlieb: Focusing on interaction with Data team.
 
 Sam Ginsburg: Focusing on interaction with Game Player team.
 
+Game Player:
+----
+--
+
+Design goals:
+
+Player - Serve as the I/O interface connecting engine with player. Will initialize game from data and allow user to play. Highscores+savestate+outer menu.
+
+Assumptions: All games use same data structure, are locally played. Users have scores of some kind. 
+
+Flexible: Multiple players, Goals (any state can be victory condition), Player - world interactions through multiple input methods, Text/graphics/menu options/stats
+
+Classes and methods:
+
+	Player.java load(Data)
+	new() 
+	run()
+	Parser.java parseData()
+
+Example Code:
+
+	main(){ 
+		Data gameData = load(Data newGame); 
+		run(); 
+	}
+
+Alternatives: Handle data storage/user interactions from Player.
+
