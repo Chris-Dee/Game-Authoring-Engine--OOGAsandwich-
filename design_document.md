@@ -54,7 +54,7 @@ game data. It will have methods
 Graphical Authoring Environment
 ----
 Design Goals:
---------------
+--
 The goals of the Authoring Environment are as follows: the environment should be modular to allow for isolation of elements and a minimization of dependencies, the environment should be extendable to allow for future elements to be added to a game through the authoring environment, and the environment should be intuitive to use, making it easier for developers to use the environment than to manually code an entire game.
 
 The goal of modularity can be accomplished by separating elements into separate classes, with one centralized class (a level or gameobject class) holding all of the individual components together.  In this way, the only dependency between all of the objects is the commmon level they share - the behavior of one object or force should not rely on the behavior of another object or class.
@@ -67,7 +67,7 @@ The goal of intuitiveness will be more difficult to plan from the start, as how 
 
 
 Primary Classes and Methods for authoring environment module:
---------------------------------------------------------------
+-
 writeToData: Takes in data from the authoring environment (namely the variables of interest from each object class that represents each object in the environment) and puts them into a format that works with the data module's writing method.  Currently, this format will be a linked list implementation built in the form of a tree: the highest level on the tree will be the game object we create as a starting node, the next level on the tree will be all of the levels that the game has (main levels, minigame levels, boss levels, etc...), and the third level will hold all of the objects and objectives for the particular level that is the parent node.
 
 addLevel: This method will create the framework for a particular level in a game.  Since we are developing a side-scrolling platformer, the level will be one long stretch of game real estate that will hold all of the platforms, obstacles, objects, and other elements added to the game.  This method will create the basic rules needed for the level, and establish the particular node that will later be used in our writeToData tree.
@@ -89,7 +89,7 @@ Object template: This template will be available for implementation by all of th
 Force template: This template will be available for implementation by all of the forces in the authoring environment.  By using a single template that other objects implement, the authoring environment can simplify addition, subtraction, or changing of objects.
 
 Example Code:
--------------
+-
 	For the authoring enviornment:
 		When adding an item/force:
 			addObject(JGObject object)/addForce(Force force)
