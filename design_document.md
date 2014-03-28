@@ -50,3 +50,86 @@ game data. It will have methods
   - Returns a list of attribute maps of objects of type `type`
 - `public void save()`
   - Save the file
+
+Graphical Authoring Environment
+----
+Design Goals:
+--------------
+The goals of the Authoring Environment are as follows: the environment should be modular to allow for isolation of elements and a minimization of dependencies, the environment should be extendable to allow for future elements to be added to a game through the authoring environment, and the environment should be intuitive to use, making it easier for developers to use the environment than to manually code an entire game.
+
+The goal of modularity can be accomplished by separating elements into separate classes, with one centralized class (a level or gameobject class) holding all of the individual components together.  In this way, the only dependency between all of the objects is the commmon level they share - the behavior of one object or force should not rely on the behavior of another object or class.
+
+The goal of extendability can be accomplished through the use of object and force templates to allow for new types of objects and forces to be created from the same source.  The methods used to add the objects or forces to the level of a game will rely on the templates as opposed to the individual classes, meaning there will be minimal code modification required to add in new objects or forces.
+
+The goal of intuitiveness will be more difficult to plan from the start, as how "intuitive" a certain program is depends on feedback from individual users.  However, to set a solid foundation to make the program more intuitive, the program can use an interactive GUI that minimizes user input through text and makes adjustments simple (i.e. using sliders to toggle variables, checkboxes to add/remove forces, the ability to immediately save information in the enviornment for quick-play capabilities).  We believe that such features of our code will make it easier for the designer to use the authoring environment, and thereby make the front-end authoring GUI seem more intuitive.
+
+
+
+
+Primary Classes and Methods for authoring environment module:
+--------------------------------------------------------------
+writeToData: Takes in data from the authoring environment (namely the variables of interest from each object class that represents each object in the environment) and puts them into a format that works with the data module's writing method.  Currently, this format will be a linked list implementation built in the form of a tree: the highest level on the tree will be the game object we create as a starting node, the next level on the tree will be all of the levels that the game has (main levels, minigame levels, boss levels, etc...), and the third level will hold all of the objects and objectives for the particular level that is the parent node.
+
+addLevel: This method will create the framework for a particular level in a game.  Since we are developing a side-scrolling platformer, the level will be one long stretch of game real estate that will hold all of the platforms, obstacles, objects, and other elements added to the game.  This method will create the basic rules needed for the level, and establish the particular node that will later be used in our writeToData tree.
+
+addObject: The method will add the class associated with a particular object to the level in question.  Instead of having a bunch of individual classes, an object template will be established, from which each object (enemy, block, powerup, etc...) will extend from.  This will allow for one method to add items to the game, even though those items may have their own behaviors or movements that differ from other types of object.
+
+addEnvironmentalForce: This method will implement forces on the objects, both computer and player controlled, by adding them in the same object level to the writeToData tree as other objects.  However, because environmental forces will interact with the engine differently than standard objects will, a new method needs to be implemented to add these forces to the game itself. Forces could include gravity, repulsion, wind, etc.... depending on the requirements of the game.
+
+deleteLevel: This method is fairly self-explanatory - it removes a particular level from the writeToData tree, and therefore removes all of the objects, forces, rules, and states attached to it.
+
+deleteObject: This method is fairly self-explanatory - it removes a particular object from a level based on the user input.  It will delete the object either because the user has manually deleted the object, or because the object no longer is part of the environment due to other means (replacement of one object with another, etc...)
+
+deleteEnviornmentalForce: This method is fairly self-explanatory - it removes a particular environmental force from the given level, either because it has been manually deleted or because it has been replaced by another force.
+
+changeVariable: This method is what will be used to change a variable to a particular object.  This method will be called when the user changes the characteristics of a certain object or force.  Since each object or force will ideally have a set of variables tied to it, this single method can change the variable based on what is put in as a parameter and the new value tied to it.
+
+Object template: This template will be available for implementation by all of the objects in the authoring environment.  By using a single template that other objects implement, the authoring environment can simplify addition, subtraction, or changing of objects.
+
+Force template: This template will be available for implementation by all of the forces in the authoring environment.  By using a single template that other objects implement, the authoring environment can simplify addition, subtraction, or changing of objects.
+
+Example Code:
+-------------
+	For the authoring enviornment:
+		When adding an item/force:
+			addObject(JGObject object)/addForce(Force force)
+				// Method defines object/force parameters based on GUI
+				// input and adds object/force node to game tree
+			writeToData(Gameobject node)
+				//The object added to the game tree is accessed from node
+				//(responsibility of data module), so writing data will
+				// require authoring environment to pass node
+		When removing an item/force:
+			deleteObject(JGObject object)/deleteForce(Force force)
+				// Method will delete the object/force from memory and
+				// remove reference to object from game object tree
+			writeToData(Gameobject node)
+				// Updates game tree and writes it to data file, so that
+				// if user should choose to hit play the updates are
+				// included in the new level
+		Changing a variable:
+			changeVariable(Object object, objectVariable variable)
+			OR
+			changeVariable(Force force, forceVariable variable, Int value)
+				// Based on type of changeVariable used, the particular
+				// object or force that is passed in will have the 
+				//	variable
+				// associated with that object/force set to the value
+				//	given
+			writeToData(Gameobject node)
+				// Updates the game tree to store the object with the
+				// new variable
+				
+			
+			
+ALternative methods considered: 
+We considered storing all objects in a separate tree, but decided storing them all as parameters of others would build on the engine's
+plan more effectively, and would be easier for us to implement.
+
+We considered several ideas for the GUI, and decided on drag-and-drop with both pop-up and internal menus, as it uses space more efficeintly than text boxes/only tabs.
+
+We considered initializing all objects externally and then copying them into the game. This was deemed unnecessary, and we're creating every object individually.
+
+Team Breakdown:
+Brett Fox, Chris Dee, Dennis Lynch
+--Roles within GAE as yet undecided, and most likely will be fluid.
