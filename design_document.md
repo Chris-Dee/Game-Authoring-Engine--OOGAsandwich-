@@ -136,56 +136,10 @@ Brett Fox, Chris Dee, Dennis Lynch
 
 Game Engine
 ----
+--
 
-	The game engine API will have to manage JGame in a way that is general enough as to be able to play any sidescrolling platformer, but specific enough to be able to make each game significantly different from one another. The way we plan on doing this is through first defining some qualities of all sidescrolling platformers and then based on those universal qualities, making Object representations of those in Java which can be easily used in a JGame game. These objects will also allow for specificity by taking in all of the parameters which describe more about the object. As an example, all platformers use some sort of tiles, ground or platforms for the player to walk/jump on, so we would have a “Platform” class that takes in as a parameter the image that should represent it in the actual game. We could do a similar thing with “Enemy”, as most platformers have at least a couple enemies, but with different behavior, which would be defined as parameters.
-	The primary class of the engine will be a class called “Game” which represents an entire game created by the user. Game will have all of the basic functionality for things such as the start screen and advancing levels, but will not have hard coded in anything specific to each game. This Game, however, will be able to hold a list of “Level” objects, which is the other primary class of the engine. A level is the highest layer of a game where all of the details are defined. A level is a collection of information and other objects which define how that level will look and act. Each other component of a game that we have defined as being almost universal will have its own classes and objects which are stored by each “Level” if needed. For example, a level object representing level 2 might hold 15 Objects of class “Enemy” which have been passed specific parameters such as starting position and behavior. The level could also hold 200 “Platform” objects with images to represent them and a single “Player” object with its behavior included as parameters when created. The level will also hold its own image that will be the background for the level, as well as a Goal object, which will represent what the player must do to advance from that level to the next. This goal will be checked each frame for completion so that the Game knows when to switch which Level object it is currently using. Basically, the idea here is to represent every part of a typical “sidescrolling platformer” as an object which is flexible enough to be able to be significantly changed as needed based on its parameters.
-	The main method that will be called on the engine will be the “playGame()” method in the Game class. There aren’t a large variety of public methods in the engine because the GamePlayer group will be constructing the Game and its Levels and other objects based on our specifications and then just running the game.
-	
-	Example games that we want to support in our engine include normal platform games like Mario, but also gravity-switching games like GravityGuy, and puzzle games like Trine, and simple platform games like Doodle Jump. To do this, we will have separate classes for each part of the game including a forces class and a platform class. These classes will take in many parameters when created including position, image, and movement.
+The game engine API will have to manage JGame in a way that is general enough as to be able to play any sidescrolling platformer, but specific enough to be able to make each game significantly different from one another. The way we plan on doing this is through first defining some qualities of all sidescrolling platformers and then based on those universal qualities, making Object representations of those in Java which can be easily used in a JGame game. These objects will also allow for specificity by taking in all of the parameters which describe more about the object. As an example, all platformers use some sort of tiles, ground or platforms for the player to walk/jump on, so we would have a “Platform” class that takes in as a parameter the image that should represent it in the actual game. We could do a similar thing with “Enemy”, as most platformers have at least a couple enemies, but with different behavior, which would be defined as parameters.
 
-Some sample code:
+The primary class of the engine will be a class called “Game” which represents an entire game created by the user. Game will have all of the basic functionality for things such as the start screen and advancing levels, but will not have hard coded in anything specific to each game. This Game, however, will be able to hold a list of “Level” objects, which is the other primary class of the engine. A level is the highest layer of a game where all of the details are defined. A level is a collection of information and other objects which define how that level will look and act. Each other component of a game that we have defined as being almost universal will have its own classes and objects which are stored by each “Level” if needed. For example, a level object representing level 2 might hold 15 Objects of class “Enemy” which have been passed specific parameters such as starting position and behavior. The level could also hold 200 “Platform” objects with images to represent them and a single “Player” object with its behavior included as parameters when created. The level will also hold its own image that will be the background for the level, as well as a Goal object, which will represent what the player must do to advance from that level to the next. This goal will be checked each frame for completion so that the Game knows when to switch which Level object it is currently using. Basically, the idea here is to represent every part of a typical “sidescrolling platformer” as an object which is flexible enough to be able to be significantly changed as needed based on its parameters.
 
-Public class Game {
-	private List<Level> allLevels;
-
-doFrame(){
-	currentLevel.doFrame();
-}
-}
-
-Public class Player {
-	Player (int x, int y, image){
-
-	}
-doFrame(){
-	Inputs.checkKeys();
-}
-}
-
-Public class Level {
-	private List<Enemy> allEnemies;
-private List<Platform> allPlatforms;
-private Player myPlayer;
-
-doFrame(){
-Forces.doForces();
-	For (Enemy E: allEnemies){
-		E.act();
-	}
-For (Platform P: allPlatforms){
-		P.act();
-	}
-}
-
-}
-Alternative Design:
-
-We have decided to use many parameters to interact with the data group. Another way to design our program would be to use more of the JGame features. For example, we could have used the JGame level-changing feature of using different states. However, this would have restricted us a lot in terms of having a variable number of levels. Similarly, we could have used the JGame tile features to make the platforms. However, this would restrict the flexibility of our platforms and would make it so we couldn’t do things like have moving platforms.
-
-Game Engine Team:
-
-Ethan Gottlieb: Focusing on interaction with Data team.
-
-Sam Ginsburg: Focusing on interaction with Game Player team.
-
-
+The main method that will be called on the engine will be the “playGame()” method in the Game class. There aren’t a large variety of public methods in the engine because the GamePlayer group will be constructing the Game and its Levels and other objects based on our specifications and then just running the game.
