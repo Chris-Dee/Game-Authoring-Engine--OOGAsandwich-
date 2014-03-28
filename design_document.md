@@ -2,6 +2,11 @@ OOGASandwich Design Doc
 
 Genre: Platform Games
 
+Our Design is split into 4 groups which work together in the following way: The user intereacts with the game authoring environment and the user's choices are saved into a data file by the data group. This data is then parsed and given to the game player which will then use the data to construct a game in the game engine. The game engine will accept the data using parameters and run the game in Jgame.
+
+One of the difficult parts of making platform games is that there are many different types including puzzle and action games. In order to make our project flexible, our design has to be general enough to be able to make all these varieties of platform games, while also making the creation and gameplay experience smooth for the user.
+
+
 Data
 ----
 Our game data will be saved using JSON, in a way that is easy to serialize,
