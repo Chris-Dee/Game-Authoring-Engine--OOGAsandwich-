@@ -157,38 +157,38 @@ Example games that we want to support in our engine include normal platform game
 
 Some sample code:
 
-Public class Game {
-	private List<Level> allLevels;
+	Public class Game {
+		private List<Level> allLevels;
 
-doFrame(){
-	currentLevel.doFrame();
-}
-}
-
-Public class Player {
-	Player (int x, int y, image){
-
+		doFrame(){
+		currentLevel.doFrame();
+		}
 	}
-doFrame(){
-	Inputs.checkKeys();
-}
-}
 
-Public class Level {
-	private List<Enemy> allEnemies;
-private List<Platform> allPlatforms;
-private Player myPlayer;
+	Public class Player {
+		Player (int x, int y, image){
 
-doFrame(){
-Forces.doForces();
-	For (Enemy E: allEnemies){
-		E.act();
+		}
+		doFrame(){
+			Inputs.checkKeys();
+		}
 	}
-For (Platform P: allPlatforms){
-		P.act();
+
+	Public class Level {
+		private List<Enemy> allEnemies;
+		private List<Platform> allPlatforms;
+		private Player myPlayer;
+
+		doFrame(){
+			Forces.doForces();
+			For (Enemy E: allEnemies){
+				E.act();
+			}
+			For (Platform P: allPlatforms){
+				P.act();
+			}
+		}
 	}
-}
-}
 
 Alternative Design:
 
