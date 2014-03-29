@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import FrontEnd.LevelPanelComponent;
+
 public class LevelPanel extends JPanel {
 	private List<LevelPanelComponent> levelList=new ArrayList<LevelPanelComponent>();
 public LevelPanel(){
@@ -27,7 +29,6 @@ public void initialize(){
 public void makeLevelPanel(){
 }
 public void fillPanels(){
-	System.out.println(this.getComponentCount());
 	this.removeAll();
 	for(int i=0;i<levelList.size();i++){
 		System.out.println(levelList);
@@ -36,9 +37,10 @@ public void fillPanels(){
 	for(int i=0;i<5-levelList.size();i++){
 		this.add(new LevelPanelComponent(new Color(255,255,255),""+i));
 	}
+	this.revalidate();
+	this.repaint();
 }
 public void addLevel(String name){
-
 	levelList.add(new LevelPanelComponent(new Color(0,200,200),name));
 	fillPanels();
 }

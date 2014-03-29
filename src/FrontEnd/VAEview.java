@@ -33,7 +33,7 @@ public VAEview(){
 		ScrollPane scroller=new ScrollPane();
 		scroller.setSize(400,600);
 		LevelPanel l=new LevelPanel();
-		scroller.add(new LevelPanel());
+		scroller.add(l);
 		editPanel.add(scroller,BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(l),BorderLayout.EAST);
 		//mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
