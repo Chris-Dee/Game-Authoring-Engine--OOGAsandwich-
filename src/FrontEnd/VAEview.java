@@ -3,14 +3,19 @@ package FrontEnd;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.ScrollPane;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class VAEview extends JFrame {
+	LevelPanel levels;
 public VAEview(){
 	initialize();
 }
@@ -29,15 +34,36 @@ public VAEview(){
 	public void setMainPanel(){
 		JPanel mainPanel=(JPanel) this.getContentPane();
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
-		JPanel editPanel=new JPanel(new FlowLayout());
+		JPanel editPanel=new JPanel(new BorderLayout());
 		ScrollPane scroller=new ScrollPane();
-		scroller.setSize(400,600);
+		scroller.setSize(600,600);
 		LevelPanel l=new LevelPanel();
+		levels=l;
 		scroller.add(l);
 		editPanel.add(scroller,BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(l),BorderLayout.EAST);
 		//mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 		mainPanel.add(editPanel);
 		pack();
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		 KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+	     MyDispatcher dispatch=new MyDispatcher();  
+		 manager.addKeyEventDispatcher(dispatch);
+	}
+	private class MyDispatcher implements KeyEventDispatcher {
+	    @Override
+	    public boolean dispatchKeyEvent(KeyEvent e) {
+	        if (e.getID() == KeyEvent.KEY_PRESSED) {
+	           
+	        } else if (e.getID() == KeyEvent.KEY_RELEASED) {
+	        	if(e.getExtendedKeyCode()==38)
+	        		levels.switchLevels(levels.findActivePanel(), -1);
+	        	if(e.getExtendedKeyCode()==40){
+	        		levels.switchLevels(levels.findActivePanel(),1);
+	        	}
+	        } else if (e.getID() == KeyEvent.KEY_TYPED) {
+	        }
+	        return false;
+	    }
 	}
 }
