@@ -6,11 +6,14 @@ import jgame.JGColor;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
+	LevelMover myMover;
+	private final String defaultImage="Resources/red.gif";
 public LevelEditor(){
 	super();
 	int height = 900;
 	double aspect = 0.5;
 	initEngineComponent((int) (height * aspect), height);
+	defineImage("srball","",0,defaultImage,"-");
 }
 	@Override
 	public void initCanvas() {
@@ -20,10 +23,12 @@ public LevelEditor(){
 	@Override
 	public void initGame() {
 		setFrameRate(250, 3);
-		setPFSize(30,30);
-		
+		setPFSize(60,60);
+		myMover=new LevelMover(this);
 		}
-
+public void doFrame(){
+	moveObjects(null,0);
+}
 
 
 }

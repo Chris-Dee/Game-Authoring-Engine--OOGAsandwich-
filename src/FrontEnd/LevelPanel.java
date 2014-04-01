@@ -50,10 +50,9 @@ public class LevelPanel extends JPanel {
 	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev, int switchAmt) {
 		//need to switch it in game array as well
 		int index = levelList.indexOf(lev);
-		System.out.println("ind "+index);
-		LevelPanelComponent temp = levelList.get(index);
-		if (index + switchAmt < 0 || index + switchAmt > levelList.size() - 1)
+		if (index + switchAmt < 0 || index + switchAmt > levelList.size() - 1||index==-1)
 			return levelList;
+		LevelPanelComponent temp = levelList.get(index);
 		LevelPanelComponent l = levelList.get(index + switchAmt);
 		levelList.set(index, l);
 		levelList.set(index + switchAmt, temp);
