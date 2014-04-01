@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import FrontEnd.LevelPanelComponent;
 
 public class LevelPanel extends JPanel {
+	//Game game
 	private List<LevelPanelComponent> levelList = new ArrayList<LevelPanelComponent>();
 
 	public LevelPanel() {
@@ -47,6 +48,7 @@ public class LevelPanel extends JPanel {
 	}
 
 	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev, int switchAmt) {
+		//need to switch it in game array as well
 		int index = levelList.indexOf(lev);
 		System.out.println("ind "+index);
 		LevelPanelComponent temp = levelList.get(index);
@@ -62,11 +64,9 @@ public class LevelPanel extends JPanel {
 	public LevelPanelComponent findActivePanel() {
 		for (LevelPanelComponent lev : levelList) {
 			if(lev.isActive()){
-				System.out.println("111");
 				return lev;
 			}
 		}
-		System.out.println("1");
 		return null;
 	}
 
@@ -79,7 +79,6 @@ public class LevelPanel extends JPanel {
 		for (LevelPanelComponent l : levelList) {
 			l.setBackground(Color.BLUE);
 			l.setActive(false);
-			System.out.println(l.getBackground());
 			l.revalidate();
 			l.repaint();
 
