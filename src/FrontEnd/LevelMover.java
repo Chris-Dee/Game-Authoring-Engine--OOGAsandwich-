@@ -26,7 +26,6 @@ public class LevelMover extends JGObject {
 			ydir=-1;
 		if(checkKey(myEngine.KeyDown))
 			ydir=1;
-		System.out.println(xspeed+"  "+yspeed+"  "+xdir+"   "+ydir+"  "+x);
 	}
 
 
