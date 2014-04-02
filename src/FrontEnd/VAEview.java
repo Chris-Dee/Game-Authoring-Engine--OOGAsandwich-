@@ -51,7 +51,6 @@ public VAEview(){
 		 manager.addKeyEventDispatcher(dispatch);
 	}
 	private class MyDispatcher implements KeyEventDispatcher {
-	    @Override
 	    public boolean dispatchKeyEvent(KeyEvent e) {
 	        if (e.getID() == KeyEvent.KEY_PRESSED) {
 	           

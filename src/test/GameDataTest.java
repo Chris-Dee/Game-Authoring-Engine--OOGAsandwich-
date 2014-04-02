@@ -20,7 +20,7 @@ public class GameDataTest {
 		TestChildClass childless = new TestChildClass();
 		gameData.addObj(childless);
 		assertEquals(gameData.toString(),
-				"{\"test.TestChildClass\":{\"aNumber\":5}}");
+				"{\"test.TestChildClass\":[{\"aNumber\":5}]}");
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class GameDataTest {
 		TestParentClass parent = new TestParentClass();
 		gameData.addObj(parent);
 		assertEquals(gameData.toString(),
-				"{\"test.TestParentClass\":{\"aNumber\":5,\"child\":{\"aNumber\":5}}}");
+				"{\"test.TestParentClass\":[{\"aNumber\":5,\"child\":{\"aNumber\":5}}]}");
 	}
 }
 

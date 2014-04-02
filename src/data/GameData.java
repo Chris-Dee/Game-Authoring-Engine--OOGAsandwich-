@@ -2,6 +2,9 @@ package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,8 @@ public class GameData {
 	 * is parsed. If the file does not exist, then it is created when save() is
 	 * called.
 	 * 
-	 * @param filename The name of the file
+	 * @param filename
+	 *            The name of the file
 	 */
 	public GameData(String filename) {
 		_filename = filename;
@@ -37,7 +41,8 @@ public class GameData {
 	 * Adds obj to be serialized. Its class is determined and it is placed into
 	 * a section corresponding to its class.
 	 * 
-	 * @param obj An object that is to be added to be serialized.
+	 * @param obj
+	 *            An object that is to be added to be serialized.
 	 * @return
 	 */
 	public void addObj(Object obj) {
@@ -56,6 +61,25 @@ public class GameData {
 	public String toString() {
 		Gson gson = new Gson();
 		return gson.toJson(objMap);
+	}
+
+	/**
+	 * Writes the contents of the objMap to a file.
+	 * 
+	 * @param filename
+	 *            The file to be written to.
+	 * @return
+	 */
+	public void write(String filename) throws IOException {
+		String jsonString = this.toString();
+		
+		File myFile = new File(filename);
+		myFile.createNewFile();
+		FileOutputStream fOut = new FileOutputStream(myFile);
+		OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+		myOutWriter.append(jsonString);
+		myOutWriter.close();
+		fOut.close();
 	}
 
 	private String readFile() {
