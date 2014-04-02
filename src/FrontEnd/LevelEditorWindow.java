@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 public class LevelEditorWindow extends JFrame {
 	LevelPanelComponent currentLevel;
+	LevelEditor levelEdit;
 LevelEditorWindow(LevelPanelComponent level){
 	currentLevel=level;
 	initialize();
@@ -30,6 +31,7 @@ public void setExitAction(){
          @Override
          public void windowClosing(WindowEvent e)
          {
+        	 levelEdit.destroy();
             currentLevel.setActive(true);
              e.getWindow().dispose();
          }
@@ -40,7 +42,9 @@ public void setExitAction(){
 
 private void makeMainPanel(){
 	JPanel mainPanel=(JPanel) getContentPane();
-	mainPanel.add(new LevelEditor(),BorderLayout.CENTER);
+	levelEdit=new LevelEditor();
+	mainPanel.add(levelEdit,BorderLayout.CENTER);
+	
 	mainPanel.add(new PresetsBar(),BorderLayout.EAST);
 	mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 	pack();

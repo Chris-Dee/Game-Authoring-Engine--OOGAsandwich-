@@ -14,6 +14,7 @@ public LevelEditor(){
 	double aspect = 0.5;
 	initEngineComponent((int) (height * aspect), height);
 	defineImage("srball","",0,defaultImage,"-");
+	myMover=new LevelMover(this);
 }
 	@Override
 	public void initCanvas() {
@@ -24,7 +25,6 @@ public LevelEditor(){
 	public void initGame() {
 		setFrameRate(250, 3);
 		setPFSize(60,60);
-		myMover=new LevelMover(this);
 		}
 public void doFrame(){
 	moveObjects(null,0);

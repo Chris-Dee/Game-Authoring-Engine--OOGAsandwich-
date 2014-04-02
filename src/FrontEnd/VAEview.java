@@ -41,7 +41,7 @@ public VAEview(){
 		levels=l;
 		scroller.add(l);
 		editPanel.add(scroller,BorderLayout.WEST);
-		editPanel.add(new ObjectPanel(l),BorderLayout.EAST);
+		editPanel.add(new LevelObjectPanel(l),BorderLayout.EAST);
 		//mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 		mainPanel.add(editPanel);
 		pack();

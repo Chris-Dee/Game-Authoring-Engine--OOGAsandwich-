@@ -8,11 +8,12 @@ public class LevelMover extends JGObject {
 	public LevelMover(LevelEditor level) {
 		super("srball",true, 20, 20,4,"srball",0,0,2.0,2.0,-1);
 		myEngine=level;
+		System.out.println(x);
 	}
 	private boolean checkKey(int key){
 		Boolean b=myEngine.getKey(key);
 		myEngine.clearLastKey();
-		System.out.println(b);
+
 		return b;
 	}
 	public void move(){

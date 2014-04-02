@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class ObjectPanel extends JPanel {
+public class LevelObjectPanel extends JPanel {
 	LevelPanel levels;
-public ObjectPanel(LevelPanel l){
+public LevelObjectPanel(LevelPanel l){
 	levels=l;
 	makeMainFrame();
 }
