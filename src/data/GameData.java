@@ -3,17 +3,22 @@ package data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 public class GameData {
 	private String _filename;
-	private HashMap<String, Object> objMap = new HashMap<String, Object>();
+	private Map<String, List<Object>> objMap;
 
 	/**
 	 * Creates a GameData object initialized from a file. If the file exists, it
@@ -25,6 +30,7 @@ public class GameData {
 	public GameData(String filename) {
 		_filename = filename;
 		readFile();
+		objMap = new HashMap<String, List<Object>>();
 	}
 
 	/**
@@ -36,7 +42,11 @@ public class GameData {
 	 */
 	public void addObj(Object obj) {
 		String klass = obj.getClass().getName();
-		objMap.put(klass, obj);
+		if (!objMap.containsKey(klass)) {
+			ArrayList<Object> objList = new ArrayList<Object>();
+			objMap.put(klass, objList);
+		}
+		objMap.get(klass).add(obj);
 	}
 
 	/**
@@ -59,17 +69,23 @@ public class GameData {
 		return fileText;
 	}
 
-	private String objToJSON(Object obj) {
-		Gson gson = new Gson();
-		return gson.toJson(obj);
-	}
-
-	private void parseJSON(String jsonString) {
+	private Map<String, List<Object>> parseJSON(String jsonString)
+			throws JsonSyntaxException, ClassNotFoundException {
 		// https://code.google.com/p/google-gson/source/browse/trunk/extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java
 		JsonParser parser = new JsonParser();
 		JsonObject gameObj = parser.parse(jsonString).getAsJsonObject();
+		Gson gson = new Gson();
+		Map<String, List<Object>> readMap = new HashMap<String, List<Object>>();
 		for (Entry<String, JsonElement> el : gameObj.entrySet()) {
-			System.out.printf("%s: %s\n", el.getKey(), el.getValue());
+			List<Object> objs = new ArrayList<Object>();
+			Class klass = Class.forName(el.getKey());
+			JsonArray array = (JsonArray) el.getValue();
+			for (JsonElement jsonObj : array) {
+				objs.add(gson.fromJson(jsonObj, klass));
+			}
+			readMap.put(klass.getName(), objs);
 		}
+		objMap = readMap;
+		return readMap;
 	}
 }
