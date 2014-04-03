@@ -2,6 +2,7 @@ package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelEditor.LevelEditorWindow;
 import gameAuthoringEnvironment.levelStatsEditor.BackgroundChooser;
+import gameEngine.Level;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -21,14 +22,13 @@ import javax.swing.border.TitledBorder;
 
 public class LevelPanelComponent extends JPanel {
 	LevelPanel levelPanel;
-	public static final String defaultBackground="Resources/blankbackground.jpg";
+	Level level=new Level();
 	public static final Color ACTIVE_COLOR=new Color(100,100,100);
 	public static final Color HOVER_COLOR=new Color(150,150,150);
 	public static final Color NORMAL_COLOR=new Color(200,200,200);
 	private boolean isActive=false;
 	private LevelEditorWindow editWindow;
 	//TODO These two traits will need to go into the level object...
-	private String background=defaultBackground;
 	private String backgroundName="White";
 	private int[] size;
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
@@ -46,8 +46,8 @@ public class LevelPanelComponent extends JPanel {
 	public String toString(){
 		return "wwoooo";
 	}
-	public String getDefaultBackground(){
-		return background;
+	public Level getLevel(){
+		return level;
 	}
 
 	private void createMouseActions(LevelPanelComponent level){
@@ -106,6 +106,6 @@ public class LevelPanelComponent extends JPanel {
 	public void changeDefaultBackground(String newBG, String newBGName) {
 		// TODO Auto-generated method stub
 		backgroundName=newBGName;
-		background=newBG;
+		level.changeStartingBackground(newBG);
 	}
 }

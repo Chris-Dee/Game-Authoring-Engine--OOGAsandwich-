@@ -10,9 +10,10 @@ public class LevelEditor extends JGEngine {
 	private final String defaultImage="Resources/red.gif";
 public LevelEditor(String background/*, int[] size*/){
 	super();
-	int height = 600;
+	int height=2000;
 	int width=2000;
-	initEngineComponent((int) height, width);
+	initEngineComponent((int) 500, 500);
+	setSize(width,height);
 	defineImage("srball","",0,defaultImage,"-");
 	myMover=new LevelMover(this);
 	defineImage("background1","",0,background,"-");

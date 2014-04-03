@@ -9,8 +9,11 @@ public LevelSizeSliders(/*Level level*/){
 	makeSizePanel(this);
 }
 public void makeSizePanel(JPanel homePanel){
-	makeSizeSlider("Height",new int[]{10,200}, homePanel);
-	makeSizeSlider("Width",new int[]{10,200},homePanel);
+	JPanel panel=new JPanel();
+	panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+	makeSizeSlider("Height",new int[]{10,200}, panel);
+	makeSizeSlider("Width",new int[]{10,200},panel);
+	homePanel.add(panel);
 }
 public void makeSizeSlider(/*ChangeListener c,*/ String title, int[] range, JPanel homePanel){
 	JPanel sliderPanel=new JPanel();

@@ -46,11 +46,11 @@ public void setExitAction(){
 
 private void makeMainPanel(){
 	JPanel mainPanel=(JPanel) getContentPane();
-	levelEdit=new LevelEditor(currentLevel.getDefaultBackground());
+	levelEdit=new LevelEditor(currentLevel.getLevel().getBackground());
 	mainPanel.add(levelEdit,BorderLayout.CENTER);
 	
 	mainPanel.add(new PresetsBar(),BorderLayout.EAST);
-	mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
+	mainPanel.add(new LevelOptionsBar(),BorderLayout.WEST);
 	pack();
 }
 }
