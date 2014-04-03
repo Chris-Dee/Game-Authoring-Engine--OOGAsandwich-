@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.KeyEventDispatcher;
@@ -14,8 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import LevelStatsEditor.BasicLevelStats;
+
 public class VAEview extends JFrame {
-	LevelPanel levels;
+	private LevelPanel levels;
+	public static final Color backColor=Color.BLACK;
 public VAEview(){
 	initialize();
 }
@@ -33,6 +37,7 @@ public VAEview(){
 	}
 	public void setMainPanel(){
 		JPanel mainPanel=(JPanel) this.getContentPane();
+		mainPanel.setBackground(backColor);
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
 		JPanel editPanel=new JPanel(new BorderLayout());
 		ScrollPane scroller=new ScrollPane();
@@ -41,7 +46,8 @@ public VAEview(){
 		levels=l;
 		scroller.add(l);
 		editPanel.add(scroller,BorderLayout.WEST);
-		editPanel.add(new LevelObjectPanel(l),BorderLayout.EAST);
+		editPanel.add(new ObjectPanel(l),BorderLayout.EAST);
+		editPanel.add(new BasicLevelStats(),BorderLayout.CENTER);
 		//mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 		mainPanel.add(editPanel);
 		pack();

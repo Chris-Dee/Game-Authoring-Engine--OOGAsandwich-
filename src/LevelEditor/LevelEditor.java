@@ -1,4 +1,4 @@
-package FrontEnd;
+package LevelEditor;
 
 import javax.swing.JPanel;
 

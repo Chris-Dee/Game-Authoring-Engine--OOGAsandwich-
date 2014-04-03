@@ -15,12 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import LevelEditor.LevelEditorWindow;
+
 public class LevelPanelComponent extends JPanel {
 	LevelPanel levelPanel;
-	public static final Color ACTIVE_COLOR=Color.RED;
-	public static final Color HOVER_COLOR=Color.GREEN;
-	public static final Color NORMAL_COLOR=Color.BLUE;
+	public static final Color ACTIVE_COLOR=new Color(100,100,100);
+	public static final Color HOVER_COLOR=new Color(150,150,150);
+	public static final Color NORMAL_COLOR=new Color(200,200,200);
 	private boolean isActive=false;
+	private LevelEditorWindow editWindow;
 public LevelPanelComponent(Color c, String name, LevelPanel l) {
 	super();
 	levelPanel=l;
@@ -77,8 +80,9 @@ private void createMouseActions(LevelPanelComponent level){
 			if(e.getClickCount()==2){
 				setBackground(ACTIVE_COLOR);
 				isActive=false;
-				LevelEditorWindow j=new LevelEditorWindow(levels);
-				j.setVisible(true);
+				//Pass this a level object as well, once we get those
+				editWindow=new LevelEditorWindow(levels);
+				editWindow.setVisible(true);
 			}
 		}
 		

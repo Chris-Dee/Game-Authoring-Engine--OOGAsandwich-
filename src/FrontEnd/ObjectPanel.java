@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,11 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class LevelObjectPanel extends JPanel {
+public class ObjectPanel extends JPanel {
 	LevelPanel levels;
-public LevelObjectPanel(LevelPanel l){
+public ObjectPanel(LevelPanel l){
 	levels=l;
 	makeMainFrame();
+	setBackground(VAEview.backColor);
 }
 private void makeMainFrame(){
 	makeLevelButton(this);
@@ -21,6 +23,7 @@ private void makeMainFrame(){
 private void makeLevelButton(JPanel panel){
 	// TODO add properties file
 	JPanel buttonModule=new JPanel();
+	buttonModule.setBackground(VAEview.backColor);
 	buttonModule.setLayout(new BoxLayout(buttonModule,BoxLayout.Y_AXIS));
 	final JTextField levelName=new JTextField(0);
 	buttonModule.add(levelName);

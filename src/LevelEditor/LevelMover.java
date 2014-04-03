@@ -1,4 +1,4 @@
-package FrontEnd;
+package LevelEditor;
 //TODO make this work...
 import jgame.JGObject;
 import jgame.platform.JGEngine;

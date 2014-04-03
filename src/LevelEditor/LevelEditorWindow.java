@@ -1,4 +1,4 @@
-package FrontEnd;
+package LevelEditor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,10 +9,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import FrontEnd.LevelPanelComponent;
+import FrontEnd.OptionsPanel;
+import FrontEnd.PresetsBar;
+
 public class LevelEditorWindow extends JFrame {
-	LevelPanelComponent currentLevel;
-	LevelEditor levelEdit;
-LevelEditorWindow(LevelPanelComponent level){
+	private LevelPanelComponent currentLevel;
+	private LevelEditor levelEdit;
+public LevelEditorWindow(LevelPanelComponent level){
 	currentLevel=level;
 	initialize();
 }

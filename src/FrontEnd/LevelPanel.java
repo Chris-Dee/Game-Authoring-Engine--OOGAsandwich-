@@ -70,13 +70,13 @@ public class LevelPanel extends JPanel {
 	}
 
 	public void addLevel(String name) {
-		levelList.add(new LevelPanelComponent(Color.BLUE, name, this));
+		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR, name, this));
 		fillPanels();
 	}
 
 	public void resetBackgrounds() {
 		for (LevelPanelComponent l : levelList) {
-			l.setBackground(Color.BLUE);
+			l.setBackground(LevelPanelComponent.NORMAL_COLOR);
 			l.setActive(false);
 			l.revalidate();
 			l.repaint();
