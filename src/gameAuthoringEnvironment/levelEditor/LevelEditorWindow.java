@@ -41,16 +41,13 @@ public void setExitAction(){
          }
      });
 }
-
-	
-
 private void makeMainPanel(){
 	JPanel mainPanel=(JPanel) getContentPane();
 	levelEdit=new LevelEditor(currentLevel.getLevel().getBackground());
 	mainPanel.add(levelEdit,BorderLayout.CENTER);
 	
 	mainPanel.add(new PresetsBar(),BorderLayout.EAST);
-	mainPanel.add(new LevelOptionsBar(),BorderLayout.WEST);
+	mainPanel.add(new LevelOptionsBar(currentLevel.getLevel()),BorderLayout.WEST);
 	pack();
 }
 }

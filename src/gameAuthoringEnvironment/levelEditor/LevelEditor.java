@@ -31,6 +31,7 @@ public LevelEditor(String background/*, int[] size*/){
 		}
 public void doFrame(){
 	moveObjects(null,0);
+	//TODO mover.x and mover.y are giving NPE's for some reason
 	setViewOffset((int)myMover.x, (int)myMover.y, true);
 }
 

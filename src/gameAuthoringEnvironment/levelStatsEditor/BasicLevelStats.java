@@ -34,7 +34,7 @@ public void makeLevelEditor(JPanel mainPanel) {
 		e.printStackTrace();
 	}
 	mainPanel.add(editPane);
-	mainPanel.add(new LevelSizeSliders());
+	//mainPanel.add(new LevelSizeSliders());
 	mainPanel.add(PanelFactory.makeVerticalSpacerPanel(800));
 }
 

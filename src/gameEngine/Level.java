@@ -6,6 +6,7 @@ public class Level {
 	
 	private List<GameObject> levelObjects;
 	private List<GameForce> levelForces;
+	private List<Integer> levelSize;
 	private String levelBG;
 	public static final String defaultBackground="Resources/blankbackground.jpg";
 	
@@ -13,6 +14,7 @@ public class Level {
 		levelObjects = objects;
 		levelForces = forces;
 		levelBG = background;
+		//levelSize=size;
 	}
 	public Level(){
 		levelObjects=new ArrayList<GameObject>();
@@ -24,6 +26,10 @@ public class Level {
 	}
 	public String getBackground(){
 		return levelBG;
+	}
+	public void changeLevelSize(List<Integer> size){
+	levelSize=size;
+	System.out.println(levelSize);
 	}
 	public void doFrame(){
 		
