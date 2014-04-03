@@ -2,6 +2,7 @@ package gameAuthoringEnvironment.levelStatsEditor;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanel;
 import gameAuthoringEnvironment.frontEnd.PanelFactory;
+import gameAuthoringEnvironment.levelEditor.LevelSizeSliders;
 
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
@@ -15,10 +16,6 @@ public class BasicLevelStats extends JPanel {
 		super();
 		allLevels=level;
 		makeLevelEditor(this);
-
-
-		//Level l;
-		
 	}
 public void makeLevelEditor(JPanel mainPanel) {
 	JPanel editPane=new JPanel();

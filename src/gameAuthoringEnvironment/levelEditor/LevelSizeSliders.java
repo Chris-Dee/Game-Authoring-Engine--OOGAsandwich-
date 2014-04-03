@@ -1,5 +1,6 @@
-package gameAuthoringEnvironment.levelStatsEditor;
+package gameAuthoringEnvironment.levelEditor;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanel;
@@ -11,20 +12,23 @@ import javax.swing.event.ChangeListener;
 
 public class LevelSizeSliders extends JPanel {
 	Level level;
-	JSlider height;
-	JSlider width;
-public LevelSizeSliders(Level l){
+	private  JSlider height;
+	private JSlider width;
+	LevelEditor levelEdit;
+public LevelSizeSliders(Level l,LevelEditor editor){
 	level=l;
+	levelEdit=editor;
 	makeSizePanel(this);
 }
 public void makeSizePanel(JPanel homePanel){
 	JPanel panel=new JPanel();
 	panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-	height=makeSizeSlider("Height",new int[]{10,200}, panel);
-	width=makeSizeSlider("Width",new int[]{10,200},panel);
+	height=makeSizeSlider("Width",new int[]{1,20}, panel);
+	width=makeSizeSlider("Height",new int[]{1,20},panel);
 	homePanel.add(panel);
+	setSliderPositions(level.getLevelSize());
 }
-public JSlider makeSizeSlider(/*ChangeListener c,*/ String title, int[] range, JPanel homePanel){
+public JSlider makeSizeSlider(String title, int[] range, JPanel homePanel){
 	JPanel sliderPanel=new JPanel();
 	sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
 	JLabel label=new JLabel(title);
@@ -35,9 +39,11 @@ public JSlider makeSizeSlider(/*ChangeListener c,*/ String title, int[] range, J
 	homePanel.add(sliderPanel);
 	return slider;
 }
+public void setSliderPositions(List<Integer> size){
+height.setValue(size.get(0));
+width.setValue(size.get(1));
+}
 public class SliderListener implements ChangeListener {
-	
-	//height slider is 1, width slider is 0;
 	public SliderListener(){
 	}
 	@Override
@@ -46,6 +52,7 @@ public class SliderListener implements ChangeListener {
 		size.add(height.getValue());
 		size.add(width.getValue());
 		level.changeLevelSize(size);
+		levelEdit.setPFSize(height.getValue(), width.getValue());
 	}
 }
 }
