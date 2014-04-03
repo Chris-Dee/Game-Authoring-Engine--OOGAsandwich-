@@ -1,6 +1,6 @@
 package gameEngine;
 
-public class GameForce {
+public class GameForce {  //Exactly what is GameForce? 
 	
 	public GameForce(){
 		

@@ -12,27 +12,24 @@ public class GamePlayerGUI extends JGEngine{
 	
 	private static List<Level> levels;
 	private List<GameObject> currentObjects;
-	private int currentLevel;
+	// TODO: Make a collection of levels so we can dynamically get the level's current objects
+	private int currentLevelIndex;
 	public GameObject myObject;
 	
-	public static void main(String[]args) {
-		new GamePlayerGUI(new JGPoint(640,480));
-	}
+	private JGPoint windowSize;
 	
 	public GamePlayerGUI(JGPoint size){
 		levels = new ArrayList<Level>();
 		currentObjects = new ArrayList<GameObject>();
-		currentLevel = 0;
+		currentLevelIndex = 0;
+		windowSize = size;
 		initEngine(size.x, size.y);
 	}
 
 	@Override
 	public void initCanvas() {
-		
-		//TODO: maybe dependent on the level?
-		
-		//setCanvasSettings(getX(), getY(), 1, 1, null, null, null);
-		setCanvasSettings(20,15,32,32,null,null,null);
+		//TODO: dependent on level, since we don't have tiles, this doesn't matter
+		setCanvasSettings(windowSize.x, windowSize.y, 1, 1, null, null, null);
 	}
 
 	@Override
@@ -58,7 +55,7 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void doFrameInGame(){
-		doLevel(currentLevel);
+		doLevel(currentLevelIndex);
 		moveObjects(
 				null,// object name prefix of objects to move (null means any)
 				1    // object collision ID of objects to move (0 means any)
