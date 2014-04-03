@@ -30,6 +30,15 @@ public class GameDataTest {
 		assertEquals(gameData.toString(),
 				"{\"test.TestParentClass\":[{\"aNumber\":5,\"child\":{\"aNumber\":5}}]}");
 	}
+
+	@Test
+	public void testIgnoredFields() {
+		TestWithTransientClass obj = new TestWithTransientClass();
+		gameData.addObj(obj);
+		System.out.println(gameData.toString());
+		assertEquals(gameData.toString(),
+				"{\"test.TestTransientClass\":[{\"serializeMe\":5}]}");
+	}
 }
 
 class TestParentClass {
@@ -48,4 +57,9 @@ class TestChildClass {
 	public TestChildClass() {
 		aNumber = 5;
 	}
+}
+
+class TestWithTransientClass {
+	private int serializeMe = 5;
+	private transient int hideMe = 5;
 }
