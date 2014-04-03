@@ -1,4 +1,6 @@
-package FrontEnd;
+package gameAuthoringEnvironment.frontEnd;
+
+import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +16,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import LevelStatsEditor.BasicLevelStats;
 
 public class VAEview extends JFrame {
 	private LevelPanel levels;

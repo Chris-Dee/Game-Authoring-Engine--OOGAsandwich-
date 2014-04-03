@@ -1,4 +1,4 @@
-package LevelEditor;
+package gameAuthoringEnvironment.levelEditor;
 //TODO make this work...
 import jgame.JGObject;
 import jgame.platform.JGEngine;
