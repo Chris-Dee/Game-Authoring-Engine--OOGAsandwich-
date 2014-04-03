@@ -1,7 +1,9 @@
-package gameAuthoringEnvironment.levelStatsEditor;
+package LevelStatsEditor;
 
 import javax.swing.BoxLayout;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 
 public class LevelSizeSliders extends JPanel {

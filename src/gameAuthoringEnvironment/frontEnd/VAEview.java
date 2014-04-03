@@ -47,7 +47,7 @@ public VAEview(){
 		scroller.add(l);
 		editPanel.add(scroller,BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(l),BorderLayout.EAST);
-		editPanel.add(new BasicLevelStats(),BorderLayout.CENTER);
+		editPanel.add(new BasicLevelStats(levels),BorderLayout.CENTER);
 		//mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 		mainPanel.add(editPanel);
 		pack();
@@ -55,6 +55,7 @@ public VAEview(){
 		 KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 	     MyDispatcher dispatch=new MyDispatcher();  
 		 manager.addKeyEventDispatcher(dispatch);
+		 //pack();
 	}
 	private class MyDispatcher implements KeyEventDispatcher {
 	    @Override
