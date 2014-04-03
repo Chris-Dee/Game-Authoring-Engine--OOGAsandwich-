@@ -1,4 +1,4 @@
-package FrontEnd;
+package gameAuthoringEnvironment.frontEnd;
 
 import javax.swing.JPanel;
 

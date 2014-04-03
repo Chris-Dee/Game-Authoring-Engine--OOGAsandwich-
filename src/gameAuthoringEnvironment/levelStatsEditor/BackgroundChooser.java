@@ -1,4 +1,7 @@
-package LevelStatsEditor;
+package gameAuthoringEnvironment.levelStatsEditor;
+
+import gameAuthoringEnvironment.frontEnd.LevelPanel;
+import gameAuthoringEnvironment.frontEnd.PanelFactory;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,9 +19,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import FrontEnd.LevelPanel;
-import FrontEnd.PanelFactory;
 
 public class BackgroundChooser extends JPanel {
 	LevelPanel levels;

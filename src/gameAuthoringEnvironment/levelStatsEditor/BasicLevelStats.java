@@ -1,4 +1,6 @@
-package LevelStatsEditor;
+package gameAuthoringEnvironment.levelStatsEditor;
+
+import gameAuthoringEnvironment.frontEnd.PanelFactory;
 
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
@@ -6,8 +8,6 @@ import java.io.FileNotFoundException;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import FrontEnd.PanelFactory;
 
 public class BasicLevelStats extends JPanel {
 	public BasicLevelStats(/*Level object*/){

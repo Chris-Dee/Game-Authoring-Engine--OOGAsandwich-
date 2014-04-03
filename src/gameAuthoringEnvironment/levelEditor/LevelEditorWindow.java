@@ -1,4 +1,8 @@
-package LevelEditor;
+package gameAuthoringEnvironment.levelEditor;
+
+import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
+import gameAuthoringEnvironment.frontEnd.OptionsPanel;
+import gameAuthoringEnvironment.frontEnd.PresetsBar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,10 +12,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import FrontEnd.LevelPanelComponent;
-import FrontEnd.OptionsPanel;
-import FrontEnd.PresetsBar;
 
 public class LevelEditorWindow extends JFrame {
 	private LevelPanelComponent currentLevel;
