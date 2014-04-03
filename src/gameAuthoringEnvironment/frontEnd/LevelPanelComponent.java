@@ -1,4 +1,7 @@
-package FrontEnd;
+package gameAuthoringEnvironment.frontEnd;
+
+import gameAuthoringEnvironment.levelEditor.LevelEditorWindow;
+import gameAuthoringEnvironment.levelStatsEditor.BackgroundChooser;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -15,8 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import LevelEditor.LevelEditorWindow;
-import LevelStatsEditor.BackgroundChooser;
 
 public class LevelPanelComponent extends JPanel {
 	LevelPanel levelPanel;

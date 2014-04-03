@@ -1,4 +1,4 @@
-package LevelEditor;
+package gameAuthoringEnvironment.levelEditor;
 
 import javax.swing.JPanel;
 

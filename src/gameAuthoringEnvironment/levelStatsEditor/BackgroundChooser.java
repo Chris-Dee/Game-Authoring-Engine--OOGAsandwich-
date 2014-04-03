@@ -1,4 +1,7 @@
-package LevelStatsEditor;
+package gameAuthoringEnvironment.levelStatsEditor;
+
+import gameAuthoringEnvironment.frontEnd.LevelPanel;
+import gameAuthoringEnvironment.frontEnd.PanelFactory;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -19,10 +22,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import FrontEnd.LevelPanel;
-import FrontEnd.LevelPanelComponent;
-import FrontEnd.PanelFactory;
 //ComboBox to choose backgrounds
 //Backgrounds and names are stored in  LevelPanelComponents
 //Can update this slightly when level objects are introduced
@@ -30,11 +29,12 @@ import FrontEnd.PanelFactory;
 //uses one static method to update the state of the ComboBox dynamically.
 
 //Adding new images is having problems because JGame is being a little bitch.
+
 public class BackgroundChooser extends JPanel {
 	LevelPanel levels;
 	private final String delimiter=" ";
 	private final String initialSelection="White";
-	private final String defaultFile="src/LevelStatsEditor/Resources/InitBG";
+	private final String defaultFile="src/gameAuthoringEnvironment/levelStatsEditor/Resources/InitBG";
 	Map<String,String> backgroundMap=new TreeMap<String,String>();
 	private String uploadedFile;
 	private JTextField bgName;
