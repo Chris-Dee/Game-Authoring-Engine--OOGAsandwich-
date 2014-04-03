@@ -46,7 +46,7 @@ public void setExitAction(){
 
 private void makeMainPanel(){
 	JPanel mainPanel=(JPanel) getContentPane();
-	levelEdit=new LevelEditor();
+	levelEdit=new LevelEditor(currentLevel.getDefaultBackground());
 	mainPanel.add(levelEdit,BorderLayout.CENTER);
 	
 	mainPanel.add(new PresetsBar(),BorderLayout.EAST);
