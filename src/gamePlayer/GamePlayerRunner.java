@@ -1,4 +1,4 @@
-package gamePlayer;
+package gameplayer;
 
 import jgame.JGPoint;
 
