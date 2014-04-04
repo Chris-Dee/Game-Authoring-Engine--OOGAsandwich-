@@ -9,9 +9,17 @@ public class LevelMover extends JGObject {
 	JGEngine myEngine;
 
 	public LevelMover(LevelEditor level) {
-		super("srball", true, 20, 20, 4, "srball", 0, 0, 2.0, 2.0, -1);
-		myEngine = level;
-		System.out.println(x);
+
+		super("srball",true, 20, 20,4,"srball",0,0,2.0,2.0,-1);
+		myEngine=level;
+		x=20;
+		y=20;
+	}
+	public Integer xPos(){
+		return (int) x;
+	}
+	public Integer yPos(){
+		return(int) y;
 	}
 
 	private boolean checkKey(int key) {

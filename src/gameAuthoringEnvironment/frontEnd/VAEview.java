@@ -47,11 +47,15 @@ public class VAEview extends JFrame {
 		JPanel mainPanel = (JPanel) this.getContentPane();
 		mainPanel.setBackground(backgroundColor);
 		mainPanel.setLayout(new BorderLayout());
-		ScrollPane levelList = createLevelListPane();
 
 		JPanel editPanel = new JPanel(new BorderLayout());
+
+		BasicLevelStats stats=new BasicLevelStats();
+		ScrollPane levelList = createLevelListPane(stats);
+		
+		// editPanel.add(scroller, BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
-		editPanel.add(new BasicLevelStats(levels), BorderLayout.CENTER);
+		editPanel.add(stats, BorderLayout.CENTER);
 		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 
 		mainPanel.add(levelList);
@@ -65,11 +69,11 @@ public class VAEview extends JFrame {
 		pack();
 	}
 
-	private ScrollPane createLevelListPane() {
+	private ScrollPane createLevelListPane(BasicLevelStats stats) {
 		ScrollPane scroller = new ScrollPane();
 
 		scroller.setSize(LEVEL_LIST_SIZE_X, LEVEL_LIST_SIZE_Y);
-		LevelPanel level = new LevelPanel();
+		LevelPanel level = new LevelPanel(stats);
 		levels = level;
 		scroller.add(level);
 

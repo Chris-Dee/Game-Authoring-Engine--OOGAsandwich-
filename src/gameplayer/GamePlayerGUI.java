@@ -47,7 +47,7 @@ public class GamePlayerGUI extends JGEngine{
 		constructGame(); //sets levels
 		
 		System.out.println("here");
-		setPFSize(80,16);
+		setPFSize(900,900);
 		setBGImage("metal");
 		
 		//initObjects();

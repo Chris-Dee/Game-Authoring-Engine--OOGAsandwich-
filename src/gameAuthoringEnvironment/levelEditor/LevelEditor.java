@@ -29,12 +29,14 @@ public class LevelEditor extends JGEngine {
 
 	public LevelEditor(Level l) {
 		super();
-		level = l;
-		initEngine((int) INITIAL_WIDTH, INITIAL_HEIGHT);
 
-		defineImage("srball", "", 0, defaultImage, "-");
-		myMover = new LevelMover(this);
-		defineImage("background1", "", 0, level.getBackground(), "-");
+		level=l;
+		initEngine((int) 600, 600);
+		//This just hides the null pointer exception error. If it ends up affecting anything, we can change it.
+		dbgShowMessagesInPf(false);
+		defineImage("srball","",0,defaultImage,"-");
+		myMover=new LevelMover(this);
+		defineImage("background1","",0,level.getBackground(),"-");
 		setBGImage("background1");
 	}
 
@@ -51,10 +53,12 @@ public class LevelEditor extends JGEngine {
 		setPFSize(level.getLevelSize().x, level.getLevelSize().y);
 	}
 
-	private void checkInBounds() {
-		if (myMover.x >= myMover.pfwidth) {
-			// myMover.x=el.xofs;
-			myMover.x = myMover.pfwidth - SCREEN_ADJUSTMENT_X;
+	private void checkInBounds(){
+		if((Double)myMover.x==null)
+		System.out.println((Double)myMover.x==null);
+		if(myMover.x>=myMover.pfwidth){
+			//myMover.x=el.xofs;
+			myMover.x=myMover.pfwidth-SCREEN_ADJUSTMENT_X;
 		}
 		if (myMover.y >= myMover.pfheight) {
 			myMover.y = myMover.pfheight - SCREEN_ADJUSTMENT_Y;

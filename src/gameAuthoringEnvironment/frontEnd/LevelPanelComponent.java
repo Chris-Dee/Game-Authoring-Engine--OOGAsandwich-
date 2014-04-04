@@ -27,14 +27,16 @@ import javax.swing.border.TitledBorder;
  * 
  */
 public class LevelPanelComponent extends JPanel {
+
 	LevelPanel levelPanel;
-	Level level = new Level();
 	public static final Color ACTIVE_COLOR = new Color(100, 100, 100);
 	public static final Color HOVER_COLOR = new Color(150, 150, 150);
 	public static final Color NORMAL_COLOR = new Color(200, 200, 200);
 	private static final int WIDTH = 200;
 	private static final int HEIGHT = 100;
 	private boolean isActive = false;
+	private Level level;
+
 	private LevelEditorWindow editWindow;
 	// TODO These two traits will need to go into the level object...
 	private String backgroundName = "White";
@@ -42,7 +44,9 @@ public class LevelPanelComponent extends JPanel {
 
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
-		levelPanel = l;
+
+		level=new Level(name);
+		levelPanel=l;
 		setBackground(c);
 		// Level level;
 		TitledBorder title = BorderFactory.createTitledBorder(

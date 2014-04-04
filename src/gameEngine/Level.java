@@ -21,7 +21,7 @@ public class Level {
 		levelBG = background;
 		//levelSize=size;
 	}
-	public Level(){
+	public Level(String name){
 		initialize();
 		levelObjects = new ArrayList<GameObject>();
 		levelForces = new ArrayList<GameForce>();
@@ -29,6 +29,9 @@ public class Level {
 	}
 	public void initialize(){
 		levelSize = defaultSize;
+	}
+	public String getName(){
+		return name;
 	}
 	public void changeStartingBackground(String bg){
 		levelBG=bg;
@@ -38,7 +41,6 @@ public class Level {
 	}
 	public void changeLevelSize(JGPoint size){
 		levelSize = size;
-		System.out.println(levelSize);
 	}
 	public JGPoint getLevelSize(){
 		return levelSize;
