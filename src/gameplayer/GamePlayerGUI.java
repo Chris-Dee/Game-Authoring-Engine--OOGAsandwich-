@@ -57,7 +57,7 @@ public class GamePlayerGUI extends JGEngine{
 		// TODO: make this all dependent on the current level
 		
 		constructGame(); //sets levels
-		setPFSize(currentLevel.getLevelSize());
+		setPFSize(1, 1);
 		setBGImage(currentLevel.getBackground());
 		
 		//initObjects();

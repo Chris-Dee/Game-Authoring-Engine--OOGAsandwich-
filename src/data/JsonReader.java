@@ -27,7 +27,7 @@ public class JsonReader extends PropertiesReader {
 		Map<String, List<Object>> objMap = new HashMap<String, List<Object>>();
 		for (Entry<String, JsonElement> el : gameObj.entrySet()) {
 			List<Object> objs = new ArrayList<Object>();
-			Class klass = Class.forName(el.getKey());
+			Class<?> klass = Class.forName(el.getKey());
 			JsonArray array = (JsonArray) el.getValue();
 			for (JsonElement jsonObj : array) {
 				objs.add(gson.fromJson(jsonObj, klass));
