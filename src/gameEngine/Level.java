@@ -37,7 +37,6 @@ public class Level {
 	}
 	public void changeLevelSize(List<Integer> size){
 	levelSize=size;
-	System.out.println(levelSize);
 	}
 	public List<Integer> getLevelSize(){
 		return levelSize;
