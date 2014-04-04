@@ -47,6 +47,7 @@ public class LevelSizeSliders extends JPanel {
 		slider.addChangeListener(new SliderListener());
 		sliderPanel.add(slider);
 		homePanel.add(sliderPanel);
+		slider.setFocusable(false);
 		return slider;
 	}
 

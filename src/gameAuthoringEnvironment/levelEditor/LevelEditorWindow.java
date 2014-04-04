@@ -47,7 +47,7 @@ public class LevelEditorWindow extends JFrame {
 
 		levelEdit = new LevelEditor(currentLevel.getLevel());
 		mainPanel.add(levelEdit, BorderLayout.CENTER);
-		mainPanel.add(new LevelOptionsBar(currentLevel.getLevel(), levelEdit),
+		mainPanel.add(new LevelObjectBar(currentLevel.getLevel(), levelEdit),
 				BorderLayout.WEST);
 		mainPanel.add(new PresetsBar(), BorderLayout.EAST);
 		pack();
