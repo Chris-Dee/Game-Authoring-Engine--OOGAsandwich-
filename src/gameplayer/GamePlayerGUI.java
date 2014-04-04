@@ -1,4 +1,4 @@
-package gameplayer;
+package gamePlayer;
 
 import gameEngine.*;
 import jgame.JGPoint;
@@ -47,7 +47,7 @@ public class GamePlayerGUI extends JGEngine{
 		constructGame(); //sets levels
 		
 		System.out.println("here");
-		setPFSize(80,16);
+		setPFSize(900,900);
 		setBGImage("metal");
 		
 		//initObjects();
@@ -91,7 +91,7 @@ public class GamePlayerGUI extends JGEngine{
 		List<GameForce> forces = new ArrayList<GameForce>();
 		GameForce force1 = new GameForce();
 		forces.add(force1);
-		Level firstlevel = new Level(objs, forces, "metal");
+		Level firstlevel = new Level("first level", objs, forces, "metal");
 		levels.add(firstlevel);
 		
 	}

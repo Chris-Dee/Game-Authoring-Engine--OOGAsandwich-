@@ -48,12 +48,13 @@ public class VAEview extends JFrame {
 		JPanel editPanel = new JPanel(new BorderLayout());
 		ScrollPane scroller = new ScrollPane();
 		scroller.setSize(600, 600);
-		LevelPanel l = new LevelPanel();
+		BasicLevelStats stats=new BasicLevelStats();
+		LevelPanel l = new LevelPanel(stats);
 		levels = l;
 		scroller.add(l);
 		// editPanel.add(scroller, BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(l), BorderLayout.EAST);
-		editPanel.add(new BasicLevelStats(levels), BorderLayout.CENTER);
+		editPanel.add(stats, BorderLayout.CENTER);
 		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
 		mainPanel.add(scroller);
 		mainPanel.add(editPanel, BorderLayout.EAST);

@@ -1,6 +1,7 @@
 package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
+import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,10 +16,12 @@ import javax.swing.JPanel;
 public class LevelPanel extends JPanel {
 	//Game game
 	private List<LevelPanelComponent> levelList = new ArrayList<LevelPanelComponent>();
-
-	public LevelPanel() {
+private BasicLevelStats statsPanel;
+	public LevelPanel(BasicLevelStats stats) {
 		super();
+		statsPanel=stats;
 		initialize();
+		statsPanel.setLevelPanel(this);
 	}
 
 	public void initialize() {
@@ -63,6 +66,7 @@ public class LevelPanel extends JPanel {
 	public LevelPanelComponent findActivePanel() {
 		for (LevelPanelComponent lev : levelList) {
 			if(lev.isActive()){
+				statsPanel.setLevelName(lev.getLevel().getName());
 				return lev;
 			}
 		}

@@ -22,8 +22,8 @@ import javax.swing.border.TitledBorder;
 
 
 public class LevelPanelComponent extends JPanel {
-	LevelPanel levelPanel;
-	Level level=new Level();
+	private LevelPanel levelPanel;
+	private Level level;
 	public static final Color ACTIVE_COLOR=new Color(100,100,100);
 	public static final Color HOVER_COLOR=new Color(150,150,150);
 	public static final Color NORMAL_COLOR=new Color(200,200,200);
@@ -34,6 +34,7 @@ public class LevelPanelComponent extends JPanel {
 	private int[] size;
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
+		level=new Level(name);
 		levelPanel=l;
 		setBackground(c);
 		//Level level;
@@ -110,8 +111,8 @@ public class LevelPanelComponent extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawString("Width: " + level.getLevelSize().get(0), 5, 30);
-		g.drawString("Height: " + level.getLevelSize().get(1), 5, 50);
+		g.drawString("Width: " + level.getLevelSize().x, 5, 30);
+		g.drawString("Height: " + level.getLevelSize().y, 5, 50);
 
 	}
 }
