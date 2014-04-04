@@ -32,14 +32,8 @@ public class GameDataTest {
 
 	@Test
 	public void testParsingForChildlessClass() {
-		Method method;
 		try {
-			method = gameData.getClass().getDeclaredMethod("parse",
-					String.class);
-			method.setAccessible(true);
-			Map<String, List<Object>> objectMap = (Map<String, List<Object>>) method
-					.invoke(gameData,
-							"{\"test.TestChildClass\":[{\"aNumber\":5}]}");
+			Map<String, List<Object>> objectMap = gameData.parse();
 			assertEquals(objectMap.get("test.TestChildClass").get(0).getClass()
 					.getName(), "test.TestChildClass");
 		} catch (Exception e) {
@@ -56,14 +50,8 @@ public class GameDataTest {
 
 	@Test
 	public void testParsingforClassWithChild() {
-		Method method;
 		try {
-			method = gameData.getClass().getDeclaredMethod("parse",
-					String.class);
-			method.setAccessible(true);
-			Map<String, List<Object>> objectMap = ((Map<String, List<Object>>) method
-					.invoke(gameData,
-							"{\"test.TestParentClass\":[{\"aNumber\":5,\"child\":{\"aNumber\":5}}]}"));
+			Map<String, List<Object>> objectMap = gameData.parse();
 			assertEquals(objectMap.get("test.TestParentClass").get(0)
 					.getClass().getName(), "test.TestParentClass");
 			assertEquals(

@@ -46,6 +46,10 @@ public class GameData {
 		}
 		_objMap.get(klass).add(obj);
 	}
+	
+	public void setFileName(String filename) {
+		_filename = filename;
+	}
 
 	/**
 	 * Returns the JSON representation of the GameData

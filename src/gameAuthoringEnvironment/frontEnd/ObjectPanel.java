@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,9 +20,12 @@ import javax.swing.JTextField;
 
 public class ObjectPanel extends JPanel {
 	LevelPanel levels;
+	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
+	private ResourceBundle myResources;
 
 	public ObjectPanel(LevelPanel l) {
 		levels = l;
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 		makeMainFrame();
 		setBackground(VAEview.backgroundColor);
 	}
@@ -37,7 +41,7 @@ public class ObjectPanel extends JPanel {
 		buttonModule.setLayout(new BoxLayout(buttonModule, BoxLayout.Y_AXIS));
 		final JTextField levelName = new JTextField(0);
 		buttonModule.add(levelName);
-		JButton level = new JButton("Add Level");
+		JButton level = new JButton(myResources.getString("NewLevelButton"));
 		level.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				levels.addLevel(levelName.getText());

@@ -1,8 +1,12 @@
 package gameEngine;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
+import data.GameData;
+import data.InvalidDataFileException;
 import jgame.JGPoint;
 
 public class Game {
@@ -10,8 +14,14 @@ public class Game {
 	private Level currentLevel;
 	private JGPoint screenSize;
 	public String mediaTablePath;
+	private GameData myGameData;
 	public Game(){
 		allLevels = new ArrayList<Level>();
+		try {
+			myGameData = new GameData("");
+		} catch (InvalidDataFileException e) {
+			e.printStackTrace();
+		}
 	}
 	/*
 	public Game(String dirPath){
@@ -30,18 +40,19 @@ public class Game {
 		return size;
 	}
 	*/
-	public static Game getExample(){
+	public Game getExample() throws IOException, InvalidDataFileException{
 		Game game = new Game();
 		game.mediaTablePath = "tempTable.tbl";
 		game.screenSize = new JGPoint(640, 480);
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile"));
+		myGameData.setFileName("uninstantiatedgameobjectsfile");
+		Map<String, List<Object>> myObjectMap = myGameData.parse();
+		for (String str : myObjectMap.keySet()) {
+			for (Object obj : myObjectMap.get(str)) {
+				objs.add((UninstantiatedGameObject) obj);
+			}
+		}
 		List<GameForce> forces = new ArrayList<GameForce>();
 		GameForce force1 = new GameForce();
 		forces.add(force1);

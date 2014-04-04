@@ -5,17 +5,20 @@ import jgame.JGPoint;
 import jgame.platform.JGEngine;
 import jgame.*;
 
+import java.io.IOException;
 import java.util.*;
+
+import data.InvalidDataFileException;
 
 public class GamePlayerGUI extends JGEngine{
 	
-	private Game currentGame;
+	private Game currentGame = new Game();
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
 	
-	public GamePlayerGUI(){ //TODO: Allow passing in a Level to automatically start playing.
-		currentGame = Game.getExample();
+	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
+		currentGame = currentGame.getExample();
 		initEngine(currentGame.getSize());
 	}
 
