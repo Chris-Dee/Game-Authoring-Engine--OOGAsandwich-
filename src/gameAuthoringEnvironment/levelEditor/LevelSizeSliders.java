@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import jgame.JGPoint;
+
 public class LevelSizeSliders extends JPanel {
 	Level level;
 	private  JSlider height;
@@ -39,20 +41,17 @@ public JSlider makeSizeSlider(String title, int[] range, JPanel homePanel){
 	homePanel.add(sliderPanel);
 	return slider;
 }
-public void setSliderPositions(List<Integer> size){
-height.setValue(size.get(0));
-width.setValue(size.get(1));
-}
-public class SliderListener implements ChangeListener {
-	public SliderListener(){
+	public void setSliderPositions(JGPoint size){
+		height.setValue(size.x);
+		width.setValue(size.y);
 	}
-	@Override
-	public void stateChanged(ChangeEvent arg0) {
-		ArrayList<Integer> size=new ArrayList<Integer>();
-		size.add(height.getValue());
-		size.add(width.getValue());
-		level.changeLevelSize(size);
-		levelEdit.setPFSize(height.getValue(), width.getValue());
+	public class SliderListener implements ChangeListener {
+		public SliderListener(){
+		}
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			level.changeLevelSize(new JGPoint(width.getValue(), height.getValue()));
+			levelEdit.setPFSize(height.getValue(), width.getValue());
+		}
 	}
-}
 }

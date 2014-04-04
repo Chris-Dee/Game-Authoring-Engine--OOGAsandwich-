@@ -2,13 +2,14 @@ package gameEngine;
 
 import java.util.*;
 
+import jgame.JGPoint;
+
 public class Level {
 	
 	private List<GameObject> levelObjects;
-	public static final int defaultHeight =2;
-	public static final int defaultWidth =6;
+	public static final JGPoint defaultSize = new JGPoint(2, 6);
 	private List<GameForce> levelForces;
-	private List<Integer> levelSize;
+	private JGPoint levelSize;
 	private String levelBG;
 	private String name;
 	public static final String defaultBackground="Resources/blankbackground.jpg";
@@ -22,12 +23,12 @@ public class Level {
 	}
 	public Level(){
 		initialize();
-		levelObjects=new ArrayList<GameObject>();
-		levelForces=new ArrayList<GameForce>();
-		levelBG=defaultBackground;
+		levelObjects = new ArrayList<GameObject>();
+		levelForces = new ArrayList<GameForce>();
+		levelBG = defaultBackground;
 	}
 	public void initialize(){
-		levelSize=new ArrayList<Integer>(){{add(defaultHeight); add(defaultWidth);}};
+		levelSize = defaultSize;
 	}
 	public void changeStartingBackground(String bg){
 		levelBG=bg;
@@ -35,11 +36,11 @@ public class Level {
 	public String getBackground(){
 		return levelBG;
 	}
-	public void changeLevelSize(List<Integer> size){
-	levelSize=size;
-	System.out.println(levelSize);
+	public void changeLevelSize(JGPoint size){
+		levelSize = size;
+		System.out.println(levelSize);
 	}
-	public List<Integer> getLevelSize(){
+	public JGPoint getLevelSize(){
 		return levelSize;
 	}
 	public void doFrame(){
