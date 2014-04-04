@@ -4,6 +4,7 @@ import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -55,7 +56,7 @@ public class VAEview extends JFrame {
 		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
 		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
-
+		levelList.setPreferredSize(new Dimension(300, HEIGHT));
 		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
 

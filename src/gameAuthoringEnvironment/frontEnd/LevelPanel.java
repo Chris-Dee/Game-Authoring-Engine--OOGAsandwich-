@@ -32,7 +32,6 @@ private BasicLevelStats statsPanel;
 	public void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Dimension s = getToolkit().getScreenSize();
-		setSize(s.width / 2, s.height * 4 / 5);
 		setBackground(new Color(0, 0, 0));
 		fillPanels();
 	}
