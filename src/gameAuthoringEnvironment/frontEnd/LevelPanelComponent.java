@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-
 /**
  * Component the LevelPanel. Each of these is an individual level that has its
  * own editable properties.
@@ -45,9 +44,9 @@ public class LevelPanelComponent extends JPanel {
 
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
-		System.out.println("l48LPC "+name);
+		System.out.println("l48LPC " + name);
 		currLevel = new Level(name);
-		System.out.println("l50LPC "+currLevel.getName());
+		System.out.println("l50LPC " + currLevel.getName());
 		levelPanel = l;
 		setBackground(c);
 		// Level level;
@@ -83,6 +82,7 @@ public class LevelPanelComponent extends JPanel {
 					setBackground(HOVER_COLOR);
 				revalidate();
 				repaint();
+
 			}
 
 			@Override
@@ -102,14 +102,15 @@ public class LevelPanelComponent extends JPanel {
 				levelPanel.setLevelName(currLevel.getName());
 				revalidate();
 				repaint();
-
-				if (e.getClickCount() == 2) { // run this on double click
-					setBackground(ACTIVE_COLOR);
-					isActive = false;
-					System.out.println("name "+level.getName());
-					// Pass this a level object as well, once we get those
-					editWindow = new LevelEditorWindow(levels);
-					// editWindow.setVisible(true);
+				if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
+					if (e.getClickCount() == 2) { // run this on double click
+						setBackground(ACTIVE_COLOR);
+						isActive = false;
+						System.out.println("name " + level.getName());
+						// Pass this a level object as well, once we get those
+						editWindow = new LevelEditorWindow(levels);
+						// editWindow.setVisible(true);
+					}
 				}
 			}
 		});
