@@ -5,8 +5,8 @@ import jgame.JGObject;
 
 public class GameObject extends JGObject {
 	
-	public GameObject(String name, int x, int y, int colid, String sprite) {
-		super(name,true,x,y,colid,sprite);
+	public GameObject(String name, JGPoint position, int colid, String sprite) {
+		super(name, true, position.x, position.y, colid, sprite);
 	}
 	
 	public void move() {

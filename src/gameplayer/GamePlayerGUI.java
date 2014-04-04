@@ -9,21 +9,23 @@ import java.util.*;
 
 public class GamePlayerGUI extends JGEngine{
 	
-	private static List<Level> levels;
+	private Game currentGame;
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
-	private int currentLevelIndex;
+	private Level currentLevel;
 	public GameObject myObject;
 	
-	private JGPoint windowSize;
-	
-	public GamePlayerGUI(JGPoint size){ //TODO: Allow passing in a Level to automatically start playing.  
-		levels = new ArrayList<Level>();
-		currentObjects = new ArrayList<GameObject>();
-		currentLevelIndex = 0;
-		windowSize = size;
-		initEngine(size.x, size.y);
+	public GamePlayerGUI(){ //TODO: Allow passing in a Level to automatically start playing.
+		currentGame = Game.getExample();
+		currentLevel = currentGame.currentLevel;
+		initEngine(currentGame.currentLevel.getLevelSize());
 	}
+	public GamePlayerGUI(Game loadedGame){
+		currentGame = loadedGame;
+		currentLevel = currentGame.currentLevel;
+		initEngine(currentGame.currentLevel.getLevelSize());
+	}
+
 	/**
 	 * This method runs before the engine initializes. This can be considered a
 	 * replacement of the regular constructor. Typically, we only need to call
@@ -44,7 +46,7 @@ public class GamePlayerGUI extends JGEngine{
 	@Override
 	public void initGame() {
 		setFrameRate(30, 2);
-		defineMedia("tempTable.tbl");
+		defineMedia(currentGame.mediaTablePath);
 		setGameState("InGame");
 		//class creation through data (getMapOfObjects)
 	}
@@ -55,16 +57,16 @@ public class GamePlayerGUI extends JGEngine{
 		
 		constructGame(); //sets levels
 		
-		System.out.println("here");
+		//System.out.println("here");
 		setPFSize(80, 16);
-		setBGImage("metal");
+		setBGImage(currentLevel.getBackground());
 		
 		//initObjects();
 		//myObject = new GameObject("test", 10, 10, 1, "hero-r");
 	}
 
 	public void doFrameInGame(){
-		doLevel(currentLevelIndex);
+		doLevel();
 		moveObjects(
 				null,// object name prefix of objects to move (null means any)
 				1    // object collision ID of objects to move (0 means any)
@@ -78,13 +80,17 @@ public class GamePlayerGUI extends JGEngine{
 		drawString("Hello, World!",viewWidth()/2,90,0);
 	}
 	
-	public void doLevel(int levelnum){
+	public void doLevel(){
 		//does the frame of whatever the current level is and then updates the games objects
 		
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		
-		levels.get(levelnum).doFrame();
-		currentObjects = levels.get(levelnum).getObjects();
+		currentLevel.doFrame();
+		currentObjects = new ArrayList<GameObject>();
+		for(UninstantiatedGameObject i : currentLevel.getObjects()){
+			//TODO: Instantiate based on if sprite is on screen
+			currentObjects.add(i.instantiate());
+		}
 	}
 	
 	public void constructGame(){
@@ -92,16 +98,6 @@ public class GamePlayerGUI extends JGEngine{
 		// This is temporary for testing.
 		
 		// TODO: Make this dependent on input from the data group.
-		
-		List<GameObject> objs = new ArrayList<GameObject>();
-		//GameObject obj1 = new GameObject("test", 10, 10, 1, "hero-r");
-		myObject = new GameObject("test", 10, 10, 1, "hero-r");
-		objs.add(myObject);
-		List<GameForce> forces = new ArrayList<GameForce>();
-		GameForce force1 = new GameForce();
-		forces.add(force1);
-		Level firstlevel = new Level("first level", objs, forces, "metal");
-		levels.add(firstlevel);
 		
 	}
 	
