@@ -36,7 +36,7 @@ public class LevelPanelComponent extends JPanel {
 	private static final int WIDTH = 200;
 	private static final int HEIGHT = 100;
 	private boolean isActive = false;
-	private Level level;
+	private final Level currLevel;
 
 	private LevelEditorWindow editWindow;
 	// TODO These two traits will need to go into the level object...
@@ -45,7 +45,9 @@ public class LevelPanelComponent extends JPanel {
 
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
-		level = new Level(name);
+		System.out.println("l48LPC "+name);
+		currLevel = new Level(name);
+		System.out.println("l50LPC "+currLevel.getName());
 		levelPanel = l;
 		setBackground(c);
 		// Level level;
@@ -60,10 +62,10 @@ public class LevelPanelComponent extends JPanel {
 	}
 
 	public Level getLevel() {
-		return level;
+		return currLevel;
 	}
 
-	private void createMouseActions(LevelPanelComponent level) {
+	private void createMouseActions(final LevelPanelComponent level) {
 		final LevelPanelComponent levels = level;
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -97,12 +99,14 @@ public class LevelPanelComponent extends JPanel {
 				setBackground(ACTIVE_COLOR);
 				isActive = true;
 				BackgroundChooser.setSelectedToBackground(backgroundName);
+				levelPanel.setLevelName(currLevel.getName());
 				revalidate();
 				repaint();
 
 				if (e.getClickCount() == 2) { // run this on double click
 					setBackground(ACTIVE_COLOR);
 					isActive = false;
+					System.out.println("name "+level.getName());
 					// Pass this a level object as well, once we get those
 					editWindow = new LevelEditorWindow(levels);
 					// editWindow.setVisible(true);
@@ -122,14 +126,14 @@ public class LevelPanelComponent extends JPanel {
 	public void changeDefaultBackground(String newBG, String newBGName) {
 		// TODO Auto-generated method stub
 		backgroundName = newBGName;
-		level.changeStartingBackground(newBG);
+		currLevel.changeStartingBackground(newBG);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawString("Width: " + level.getLevelSize().x, 5, 30);
-		g.drawString("Height: " + level.getLevelSize().y, 5, 50);
+		g.drawString("Width: " + currLevel.getLevelSize().x, 5, 30);
+		g.drawString("Height: " + currLevel.getLevelSize().y, 5, 50);
 
 	}
 }

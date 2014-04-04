@@ -21,8 +21,9 @@ public class Level {
 		levelBG = background;
 		//levelSize=size;
 	}
-	public Level(String name){
+	public Level(String levelName){
 		initialize();
+		name=levelName;
 		levelObjects = new ArrayList<GameObject>();
 		levelForces = new ArrayList<GameForce>();
 		levelBG = defaultBackground;

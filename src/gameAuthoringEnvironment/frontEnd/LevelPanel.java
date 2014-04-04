@@ -26,7 +26,8 @@ private BasicLevelStats statsPanel;
 		super();
 		statsPanel=stats;
 		initialize();
-		statsPanel.setLevelPanel(this);
+		System.out.println("l29LP");
+		stats.setLevelPanel(this);
 	}
 
 	public void initialize() {
@@ -81,9 +82,13 @@ private BasicLevelStats statsPanel;
 	}
 
 	public void addLevel(String name) {
+		System.out.println("back "+name);
 		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
 				name, this));
 		fillPanels();
+	}
+	public void setLevelName(String name){
+		statsPanel.setLevelName(name);
 	}
 
 	public void resetBackgrounds() {

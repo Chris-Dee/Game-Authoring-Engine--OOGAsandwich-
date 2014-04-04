@@ -64,7 +64,11 @@ public class BackgroundChooser extends JPanel {
 		homePanel.add(new JLabel("Select Background Image"));
 		homePanel.add(model);
 		homePanel.add(PanelFactory.makeVerticalSpacerPanel(15));
-
+		//TODO disable model with nothing selected to avoid errors.
+		//model.setEnabled(false);
+	}
+	public void enableModel(){
+		model.setEnabled(true);
 	}
 	public void setSelectionToDefault(){
 		model.setSelectedItem(initialSelection);
@@ -86,6 +90,7 @@ public class BackgroundChooser extends JPanel {
 	}
 	public void setBackgroundToSelected(){
 		String newBG=backgroundMap.get(model.getSelectedItem());
+		System.out.println("l89BC "+levels);
 		levels.findActivePanel().changeDefaultBackground(newBG, (String)model.getSelectedItem());
 	}
 	public static void setSelectedToBackground(String backgroundName){
