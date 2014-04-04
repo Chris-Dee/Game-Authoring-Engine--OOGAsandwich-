@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -111,6 +112,11 @@ public class LevelPanelComponent extends JPanel {
 						editWindow = new LevelEditorWindow(levels);
 						// editWindow.setVisible(true);
 					}
+				}
+				
+				if (e.getModifiers() == MouseEvent.BUTTON3_MASK){
+					JOptionPane.showMessageDialog(level,"Rahul is clearly an asshole", "Rahul sucks", JOptionPane.ERROR_MESSAGE);
+					System.out.println("Rahul is an asshole!");
 				}
 			}
 		});
