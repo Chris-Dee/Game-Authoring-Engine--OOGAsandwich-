@@ -1,4 +1,4 @@
-package gamePlayer;
+package gameplayer;
 
 import jgame.JGPoint;
 
@@ -10,6 +10,6 @@ public class GamePlayerRunner {
 	private static JGPoint gameScreenSize = new JGPoint(640,480);
 	
 	public static void main(String[]args) {
-		new GUIFrame(gameScreenSize);
+		new GamePlayerGUI(gameScreenSize);
 	}
 }

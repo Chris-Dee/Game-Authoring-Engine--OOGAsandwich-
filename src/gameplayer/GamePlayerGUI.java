@@ -1,4 +1,4 @@
-package gamePlayer;
+package gameplayer;
 
 import gameEngine.*;
 import jgame.JGPoint;
@@ -47,7 +47,7 @@ public class GamePlayerGUI extends JGEngine{
 		constructGame(); //sets levels
 		
 		System.out.println("here");
-		setPFSize(900,900);
+		setPFSize(80, 16);
 		setBGImage("metal");
 		
 		//initObjects();
