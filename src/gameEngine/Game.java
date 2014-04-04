@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import jgame.JGPoint;
 
 public class Game {
-	public List<Level> allLevels;
-	public Level currentLevel;
-	private JGPoint size;
+	private List<Level> allLevels;
+	private Level currentLevel;
+	private JGPoint screenSize;
 	public String mediaTablePath;
 	public Game(){
 		allLevels = new ArrayList<Level>();
@@ -33,6 +33,7 @@ public class Game {
 	public static Game getExample(){
 		Game game = new Game();
 		game.mediaTablePath = "tempTable.tbl";
+		game.screenSize = new JGPoint(640, 480);
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r"));
@@ -47,10 +48,19 @@ public class Game {
 		
 		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");
 		game.addLevel(firstLevel);
-		game.currentLevel = firstLevel;
+		game.setCurrentLevel(firstLevel);
 		return game;
 	}
 	private void addLevel(Level level) {
 		allLevels.add(level);
+	}
+	public Level getCurrentLevel() {
+		return currentLevel;
+	}
+	public void setCurrentLevel(Level currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+	public JGPoint getSize() {
+		return screenSize;
 	}
 }
