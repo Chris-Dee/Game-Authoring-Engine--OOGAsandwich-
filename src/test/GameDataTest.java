@@ -6,12 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.GameData;
+import data.InvalidDataFileException;
 
 public class GameDataTest {
 	GameData gameData;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws InvalidDataFileException {
 		gameData = new GameData("");
 	}
 

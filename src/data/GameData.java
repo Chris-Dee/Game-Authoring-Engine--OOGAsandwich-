@@ -22,10 +22,14 @@ public class GameData {
 	 * 
 	 * @param filename
 	 *            The name of the file
+	 * @throws InvalidDataFileException
 	 */
-	public GameData(String filename) {
+	public GameData(String filename) throws InvalidDataFileException {
 		_filename = filename;
-		readFile();
+		String fileText = readFile();
+		if (fileText != null) {
+			objMap = parse(fileText);
+		}
 		objMap = new HashMap<String, List<Object>>();
 	}
 
@@ -85,10 +89,14 @@ public class GameData {
 		return fileText;
 	}
 
-	private Map<String, List<Object>> parseJSON(String jsonString)
-			throws ClassNotFoundException {
+	private Map<String, List<Object>> parse(String jsonString)
+			throws InvalidDataFileException {
 		PropertiesReader jsonReader = new JsonReader(jsonString);
-		objMap = jsonReader.parse();
+		try {
+			objMap = jsonReader.parse();
+		} catch (ClassNotFoundException e) {
+			throw new InvalidDataFileException();
+		}
 		return objMap;
 	}
 }
