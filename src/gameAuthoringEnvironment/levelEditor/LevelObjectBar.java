@@ -1,5 +1,7 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import java.awt.Dimension;
+
 import gameEngine.Level;
 
 import javax.swing.JPanel;
@@ -10,12 +12,13 @@ import javax.swing.JPanel;
  * 
  * 
  */
-public class LevelOptionsBar extends JPanel {
-	public LevelOptionsBar(Level level, LevelEditor levelEdit) {
+public class LevelObjectBar extends JPanel {
+	public LevelObjectBar(Level level, LevelEditor levelEdit) {
 		initialize(level, levelEdit);
 	}
 
 	private void initialize(Level l, LevelEditor editor) {
 		this.add(new LevelSizeSliders(l, editor));
 	}
+	
 }
