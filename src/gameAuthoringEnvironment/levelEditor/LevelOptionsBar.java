@@ -1,6 +1,5 @@
 package gameAuthoringEnvironment.levelEditor;
 
-import gameAuthoringEnvironment.frontEnd.LevelPanel;
 import gameEngine.Level;
 
 import javax.swing.JPanel;

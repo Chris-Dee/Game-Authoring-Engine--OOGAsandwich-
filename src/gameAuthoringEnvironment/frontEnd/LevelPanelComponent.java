@@ -6,6 +6,7 @@ import gameEngine.Level;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -43,9 +44,7 @@ public class LevelPanelComponent extends JPanel {
 		setFocusable(true);
 		createMouseActions(this);
 	}
-	public String toString(){
-		return "wwoooo";
-	}
+	
 	public Level getLevel(){
 		return level;
 	}
@@ -106,5 +105,13 @@ public class LevelPanelComponent extends JPanel {
 		// TODO Auto-generated method stub
 		backgroundName=newBGName;
 		level.changeStartingBackground(newBG);
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawString("Width: " + level.getLevelSize().get(0), 5, 30);
+		g.drawString("Height: " + level.getLevelSize().get(1), 5, 50);
+
 	}
 }

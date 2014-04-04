@@ -31,6 +31,8 @@ public class LevelEditor extends JGEngine {
 	public void initGame() {
 		setFrameRate(250, 3);
 		//width in spot 0, height in spot 1
+		System.out.println("Width" + level.getLevelSize().get(0));
+		System.out.println("Height" + level.getLevelSize().get(1));
 		setPFSize(level.getLevelSize().get(0),level.getLevelSize().get(1));
 	}
 	private void checkInBounds(){
