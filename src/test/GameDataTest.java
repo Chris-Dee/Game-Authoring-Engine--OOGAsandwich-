@@ -35,9 +35,8 @@ public class GameDataTest {
 	public void testIgnoredFields() {
 		TestWithTransientClass obj = new TestWithTransientClass();
 		gameData.addObj(obj);
-		System.out.println(gameData.toString());
 		assertEquals(gameData.toString(),
-				"{\"test.TestTransientClass\":[{\"serializeMe\":5}]}");
+				"{\"test.TestWithTransientClass\":[{\"serializeMe\":5}]}");
 	}
 }
 

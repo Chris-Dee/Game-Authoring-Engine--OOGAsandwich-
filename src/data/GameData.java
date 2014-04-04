@@ -9,15 +9,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 public class GameData {
 	private String _filename;
@@ -59,8 +51,8 @@ public class GameData {
 	 */
 	@Override
 	public String toString() {
-		Gson gson = new Gson();
-		return gson.toJson(objMap);
+		PropertiesWriter writer = new JsonWriter(objMap);
+		return writer.toString();
 	}
 
 	/**
@@ -94,22 +86,9 @@ public class GameData {
 	}
 
 	private Map<String, List<Object>> parseJSON(String jsonString)
-			throws JsonSyntaxException, ClassNotFoundException {
-		// https://code.google.com/p/google-gson/source/browse/trunk/extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java
-		JsonParser parser = new JsonParser();
-		JsonObject gameObj = parser.parse(jsonString).getAsJsonObject();
-		Gson gson = new Gson();
-		Map<String, List<Object>> readMap = new HashMap<String, List<Object>>();
-		for (Entry<String, JsonElement> el : gameObj.entrySet()) {
-			List<Object> objs = new ArrayList<Object>();
-			Class klass = Class.forName(el.getKey());
-			JsonArray array = (JsonArray) el.getValue();
-			for (JsonElement jsonObj : array) {
-				objs.add(gson.fromJson(jsonObj, klass));
-			}
-			readMap.put(klass.getName(), objs);
-		}
-		objMap = readMap;
-		return readMap;
+			throws ClassNotFoundException {
+		PropertiesReader jsonReader = new JsonReader(jsonString);
+		objMap = jsonReader.parse();
+		return objMap;
 	}
 }
