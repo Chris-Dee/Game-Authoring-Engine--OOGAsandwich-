@@ -4,24 +4,27 @@ import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.ScrollPane;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
+/**
+ * Main unit of game authoring environment. Run this to run the level editor.
+ * 
+ * 
+ */
 public class VAEview extends JFrame {
 	private LevelPanel levels;
-	public static final Color backColor = Color.BLACK;
+	public static final Color backgroundColor = Color.BLACK;
+	private static final int LEVEL_LIST_SIZE_X = 600;
+	private static final int LEVEL_LIST_SIZE_Y = 600;
+	private static final int UP_ARROW_KEY = 38;
+	private static final int DOWN_ARROW_KEY = 40;
 
 	public VAEview() {
 		initialize();
@@ -42,22 +45,22 @@ public class VAEview extends JFrame {
 
 	public void setMainPanel() {
 		JPanel mainPanel = (JPanel) this.getContentPane();
-		mainPanel.setBackground(backColor);
-		// mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.setBackground(backgroundColor);
 		mainPanel.setLayout(new BorderLayout());
+
 		JPanel editPanel = new JPanel(new BorderLayout());
-		ScrollPane scroller = new ScrollPane();
-		scroller.setSize(600, 600);
+
 		BasicLevelStats stats=new BasicLevelStats();
-		LevelPanel l = new LevelPanel(stats);
-		levels = l;
-		scroller.add(l);
+		ScrollPane levelList = createLevelListPane(stats);
+		
 		// editPanel.add(scroller, BorderLayout.WEST);
-		editPanel.add(new ObjectPanel(l), BorderLayout.EAST);
+		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
 		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
-		mainPanel.add(scroller);
+
+		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
+
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		KeyboardFocusManager manager = KeyboardFocusManager
 				.getCurrentKeyboardFocusManager();
@@ -66,15 +69,27 @@ public class VAEview extends JFrame {
 		pack();
 	}
 
+	private ScrollPane createLevelListPane(BasicLevelStats stats) {
+		ScrollPane scroller = new ScrollPane();
+
+		scroller.setSize(LEVEL_LIST_SIZE_X, LEVEL_LIST_SIZE_Y);
+		LevelPanel level = new LevelPanel(stats);
+		levels = level;
+		scroller.add(level);
+
+		return scroller;
+
+	}
+
 	private class MyDispatcher implements KeyEventDispatcher {
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			if (e.getID() == KeyEvent.KEY_PRESSED) {
 
 			} else if (e.getID() == KeyEvent.KEY_RELEASED) {
-				if (e.getKeyCode() == 38)
+				if (e.getKeyCode() == UP_ARROW_KEY)
 					levels.switchLevels(levels.findActivePanel(), -1);
-				if (e.getKeyCode() == 40) {
+				if (e.getKeyCode() == DOWN_ARROW_KEY) {
 					levels.switchLevels(levels.findActivePanel(), 1);
 				}
 			} else if (e.getID() == KeyEvent.KEY_TYPED) {

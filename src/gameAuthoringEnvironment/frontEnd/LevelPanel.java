@@ -13,8 +13,13 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+/**
+ * Panel to display current levels available in game.
+ * 
+ * 
+ */
 public class LevelPanel extends JPanel {
-	//Game game
+	// Game game
 	private List<LevelPanelComponent> levelList = new ArrayList<LevelPanelComponent>();
 private BasicLevelStats statsPanel;
 	public LevelPanel(BasicLevelStats stats) {
@@ -27,7 +32,7 @@ private BasicLevelStats statsPanel;
 	public void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Dimension s = getToolkit().getScreenSize();
-		setSize(s.width/2,s.height*4/5);
+		setSize(s.width / 2, s.height * 4 / 5);
 		setBackground(new Color(0, 0, 0));
 		fillPanels();
 	}
@@ -50,10 +55,12 @@ private BasicLevelStats statsPanel;
 		this.repaint();
 	}
 
-	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev, int switchAmt) {
-		//need to switch it in game array as well
+	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev,
+			int switchAmt) {
+		// need to switch it in game array as well
 		int index = levelList.indexOf(lev);
-		if (index + switchAmt < 0 || index + switchAmt > levelList.size() - 1||index==-1)
+		if (index + switchAmt < 0 || index + switchAmt > levelList.size() - 1
+				|| index == -1)
 			return levelList;
 		LevelPanelComponent temp = levelList.get(index);
 		LevelPanelComponent l = levelList.get(index + switchAmt);
@@ -65,6 +72,7 @@ private BasicLevelStats statsPanel;
 
 	public LevelPanelComponent findActivePanel() {
 		for (LevelPanelComponent lev : levelList) {
+
 			if(lev.isActive()){
 				statsPanel.setLevelName(lev.getLevel().getName());
 				return lev;
@@ -74,7 +82,8 @@ private BasicLevelStats statsPanel;
 	}
 
 	public void addLevel(String name) {
-		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR, name, this));
+		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
+				name, this));
 		fillPanels();
 	}
 
