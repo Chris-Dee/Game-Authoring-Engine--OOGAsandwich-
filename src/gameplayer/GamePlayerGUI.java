@@ -4,7 +4,6 @@ import gameEngine.*;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
 import jgame.*;
-import resources.*;
 
 import java.util.*;
 
