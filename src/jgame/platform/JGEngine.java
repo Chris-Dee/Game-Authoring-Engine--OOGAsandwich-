@@ -1360,8 +1360,22 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	public void setViewZoomRotate(double zoom, double rotate) {
 	}
 
+	/**
+	 *  Sets playfield size, which can be bigger than actual screen. Refer to
+	 *  Tutorial 6 of http://www.13thmonkey.org/~boris/jgame/JGame/tutorial/
+	 *  for how PF works.
+	 */
 	public void setPFSize(int nrtilesx, int nrtilesy) {
 		el.setPFSize(nrtilesx, nrtilesy);
+	}
+
+	/**
+	 *  Sets playfield size, which can be bigger than actual screen. Refer to
+	 *  Tutorial 6 of http://www.13thmonkey.org/~boris/jgame/JGame/tutorial/
+	 *  for how PF works.
+	 */
+	public void setPFSize(JGPoint tileDimensions) {
+		el.setPFSize(tileDimensions.x, tileDimensions.y);
 	}
 
 	public void setPFWrap(boolean wrapx, boolean wrapy, int shiftx, int shifty) {
