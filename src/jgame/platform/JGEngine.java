@@ -981,6 +981,18 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	 * in a full-screen window without decoration. Passing another value results
 	 * in a regular window with decoration.
 	 * 
+	 * @param size
+	 *            real screen width and height, (0, 0) = use screen size
+	 */
+	public void initEngine(JGPoint size) {
+		initEngine(size.x, size.y);
+	}
+
+	/**
+	 * Init engine as application. Passing (0,0) for width, height will result
+	 * in a full-screen window without decoration. Passing another value results
+	 * in a regular window with decoration.
+	 *
 	 * @param width
 	 *            real screen width, 0 = use screen size
 	 * @param height
