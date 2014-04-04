@@ -20,13 +20,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+
+/**
+ * Component the LevelPanel. Each of these is an individual level that has its
+ * own editable properties.
+ * 
+ * 
+ */
 public class LevelPanelComponent extends JPanel {
-	private LevelPanel levelPanel;
-	private Level level;
+
+	LevelPanel levelPanel;
 	public static final Color ACTIVE_COLOR = new Color(100, 100, 100);
 	public static final Color HOVER_COLOR = new Color(150, 150, 150);
 	public static final Color NORMAL_COLOR = new Color(200, 200, 200);
+	private static final int WIDTH = 200;
+	private static final int HEIGHT = 100;
 	private boolean isActive = false;
+	private Level level;
+
 	private LevelEditorWindow editWindow;
 	// TODO These two traits will need to go into the level object...
 	private String backgroundName = "White";
@@ -41,7 +52,8 @@ public class LevelPanelComponent extends JPanel {
 		TitledBorder title = BorderFactory.createTitledBorder(
 				BorderFactory.createLineBorder(Color.black), name);
 		setBorder(title);
-		setSize(200, 500 / 5);
+		setSize(WIDTH, HEIGHT);
+
 		setPreferredSize(getSize());
 		setFocusable(true);
 		createMouseActions(this);
@@ -87,7 +99,8 @@ public class LevelPanelComponent extends JPanel {
 				BackgroundChooser.setSelectedToBackground(backgroundName);
 				revalidate();
 				repaint();
-				if (e.getClickCount() == 2) {
+
+				if (e.getClickCount() == 2) { // run this on double click
 					setBackground(ACTIVE_COLOR);
 					isActive = false;
 					// Pass this a level object as well, once we get those

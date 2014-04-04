@@ -1,4 +1,4 @@
-package gamePlayer;
+package gameplayer;
 
 import gameEngine.*;
 import jgame.JGPoint;
@@ -18,20 +18,30 @@ public class GamePlayerGUI extends JGEngine{
 	
 	private JGPoint windowSize;
 	
-	public GamePlayerGUI(JGPoint size){
+	public GamePlayerGUI(JGPoint size){ //TODO: Allow passing in a Level to automatically start playing.  
 		levels = new ArrayList<Level>();
 		currentObjects = new ArrayList<GameObject>();
 		currentLevelIndex = 0;
 		windowSize = size;
 		initEngine(size.x, size.y);
 	}
-
+	/**
+	 * This method runs before the engine initializes. This can be considered a
+	 * replacement of the regular constructor. Typically, we only need to call
+	 * setCanvasSettings here, and, optionally, setScalingPreferences() if we
+	 * want to allow users to have that functionality. To the real display
+	 * dimensions, use displayWidth/Height at this point.
+	 */
 	@Override
 	public void initCanvas() {
 		//TODO: dependent on level, since we don't have tiles, this doesn't matter
-		setCanvasSettings(windowSize.x, windowSize.y, 1, 1, null, null, null);
+		setCanvasSettings(displayWidth(), displayHeight(), 1, 1, null, null, null);
 	}
-
+	/**
+	 * Define initializations after the engine is initialized. This method is 
+	 * called by the game thread after initEngine() was called. Used to set
+	 * initial game state and load in media.
+	 */
 	@Override
 	public void initGame() {
 		setFrameRate(30, 2);
@@ -47,7 +57,7 @@ public class GamePlayerGUI extends JGEngine{
 		constructGame(); //sets levels
 		
 		System.out.println("here");
-		setPFSize(900,900);
+		setPFSize(80, 16);
 		setBGImage("metal");
 		
 		//initObjects();
