@@ -25,12 +25,11 @@ public class VAEview extends JFrame {
 
 	public VAEview() {
 		initialize();
-		setMainPanel();
 	}
 
 	public static void main(String[] args) {
 		VAEview v = new VAEview();
-		// v.setMainPanel();
+		v.setMainPanel();
 	}
 
 	public void initialize() {
