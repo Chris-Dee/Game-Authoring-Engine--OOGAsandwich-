@@ -16,7 +16,7 @@ public class ObjectPanel extends JPanel {
 	public ObjectPanel(LevelPanel l) {
 		levels = l;
 		makeMainFrame();
-		setBackground(VAEview.backColor);
+		setBackground(VAEview.backgroundColor);
 	}
 
 	private void makeMainFrame() {
@@ -26,7 +26,7 @@ public class ObjectPanel extends JPanel {
 	private void makeLevelButton(JPanel panel) {
 		// TODO add properties file
 		JPanel buttonModule = new JPanel();
-		buttonModule.setBackground(VAEview.backColor);
+		buttonModule.setBackground(VAEview.backgroundColor);
 		buttonModule.setLayout(new BoxLayout(buttonModule, BoxLayout.Y_AXIS));
 		final JTextField levelName = new JTextField(0);
 		buttonModule.add(levelName);
