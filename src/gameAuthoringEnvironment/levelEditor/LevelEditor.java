@@ -10,12 +10,11 @@ import jgame.platform.JGEngine;
 public class LevelEditor extends JGEngine {
 	LevelMover myMover;
 	Level level;
-	private final String defaultImage="Resources/red.gif";
+	
+	private final String defaultImage="/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 	public LevelEditor(Level l){
 		super();
 		level=l;
-
-
 		initEngine((int) 600, 600);
 
 		defineImage("srball","",0,defaultImage,"-");
@@ -48,7 +47,7 @@ public class LevelEditor extends JGEngine {
 		if(myMover.y<=0){
 			myMover.y=5;
 		}
-		System.out.println(el.xofs+" "+el.yofs+" "+myMover.x+" "+myMover.y+" "+myMover.pfwidth);
+		//System.out.println(el.xofs+" "+el.yofs+" "+myMover.x+" "+myMover.y+" "+myMover.pfwidth);
 	}
 	public void doFrame(){
 		checkInBounds();

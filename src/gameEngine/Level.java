@@ -10,9 +10,10 @@ public class Level {
 	private List<GameForce> levelForces;
 	private List<Integer> levelSize;
 	private String levelBG;
-	public static final String defaultBackground="Resources/blankbackground.jpg";
+	private String name;
+	public static final String defaultBackground="Resources/moneybackground.jpg";
 	
-	public Level(List<GameObject> objects, List<GameForce> forces, String background){
+	public Level(String levelName,List<GameObject> objects, List<GameForce> forces, String background){
 		initialize();
 		levelObjects = objects;
 		levelForces = forces;

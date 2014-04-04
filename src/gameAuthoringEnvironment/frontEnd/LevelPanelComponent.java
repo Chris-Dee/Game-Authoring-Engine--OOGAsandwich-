@@ -91,10 +91,9 @@ public class LevelPanelComponent extends JPanel {
 					isActive=false;
 					//Pass this a level object as well, once we get those
 					editWindow=new LevelEditorWindow(levels);
-					editWindow.setVisible(true);
+					//editWindow.setVisible(true);
 				}
 			}
-
 		});
 	}
 	public void setActive(boolean b){
