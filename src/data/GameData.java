@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class GameData {
 	private String _filename;
-	private Map<String, List<Object>> objMap;
+	private Map<String, List<Object>> _objMap;
 
 	/**
 	 * Creates a GameData object initialized from a file. If the file exists, it
@@ -28,9 +28,10 @@ public class GameData {
 		_filename = filename;
 		String fileText = readFile();
 		if (fileText != null) {
-			objMap = parse(fileText);
+			_objMap = parse(fileText);
+		} else {
+			_objMap = new HashMap<String, List<Object>>();
 		}
-		objMap = new HashMap<String, List<Object>>();
 	}
 
 	/**
@@ -43,11 +44,11 @@ public class GameData {
 	 */
 	public void addObj(Object obj) {
 		String klass = obj.getClass().getName();
-		if (!objMap.containsKey(klass)) {
+		if (!_objMap.containsKey(klass)) {
 			ArrayList<Object> objList = new ArrayList<Object>();
-			objMap.put(klass, objList);
+			_objMap.put(klass, objList);
 		}
-		objMap.get(klass).add(obj);
+		_objMap.get(klass).add(obj);
 	}
 
 	/**
@@ -55,7 +56,7 @@ public class GameData {
 	 */
 	@Override
 	public String toString() {
-		PropertiesWriter writer = new JsonWriter(objMap);
+		PropertiesWriter writer = new JsonWriter(_objMap);
 		return writer.toString();
 	}
 
@@ -66,10 +67,10 @@ public class GameData {
 	 *            The file to be written to.
 	 * @return
 	 */
-	public void write(String filename) throws IOException {
+	public void write() throws IOException {
 		String jsonString = this.toString();
 		
-		File myFile = new File(filename);
+		File myFile = new File(_filename);
 		myFile.createNewFile();
 		FileOutputStream fOut = new FileOutputStream(myFile);
 		OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
@@ -93,10 +94,10 @@ public class GameData {
 			throws InvalidDataFileException {
 		PropertiesReader jsonReader = new JsonReader(jsonString);
 		try {
-			objMap = jsonReader.parse();
+			_objMap = jsonReader.parse();
 		} catch (ClassNotFoundException e) {
 			throw new InvalidDataFileException();
 		}
-		return objMap;
+		return _objMap;
 	}
 }
