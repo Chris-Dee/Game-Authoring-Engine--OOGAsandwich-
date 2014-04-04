@@ -11,7 +11,7 @@ public class Level {
 	private List<Integer> levelSize;
 	private String levelBG;
 	private String name;
-	public static final String defaultBackground="Resources/moneybackground.jpg";
+	public static final String defaultBackground="Resources/blankbackground.jpg";
 	
 	public Level(String levelName,List<GameObject> objects, List<GameForce> forces, String background){
 		initialize();
