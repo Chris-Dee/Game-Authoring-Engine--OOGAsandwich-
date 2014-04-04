@@ -13,6 +13,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Main unit of game authoring environment. Run this to run the level editor.
+ * 
+ * 
+ */
 public class VAEview extends JFrame {
 	private LevelPanel levels;
 	public static final Color backgroundColor = Color.BLACK;
@@ -43,15 +48,15 @@ public class VAEview extends JFrame {
 		mainPanel.setBackground(backgroundColor);
 		mainPanel.setLayout(new BorderLayout());
 		ScrollPane levelList = createLevelListPane();
-		
+
 		JPanel editPanel = new JPanel(new BorderLayout());
 		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
 		editPanel.add(new BasicLevelStats(levels), BorderLayout.CENTER);
 		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
-		
+
 		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
-		
+
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		KeyboardFocusManager manager = KeyboardFocusManager
 				.getCurrentKeyboardFocusManager();
@@ -59,17 +64,17 @@ public class VAEview extends JFrame {
 		manager.addKeyEventDispatcher(dispatch);
 		pack();
 	}
-	
-	private ScrollPane createLevelListPane(){
+
+	private ScrollPane createLevelListPane() {
 		ScrollPane scroller = new ScrollPane();
-		
+
 		scroller.setSize(LEVEL_LIST_SIZE_X, LEVEL_LIST_SIZE_Y);
 		LevelPanel level = new LevelPanel();
 		levels = level;
 		scroller.add(level);
-		
+
 		return scroller;
-		
+
 	}
 
 	private class MyDispatcher implements KeyEventDispatcher {

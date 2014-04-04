@@ -10,6 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * Panel that holds all object creating functions, such as adding levels and
+ * objects to the game.
+ * 
+ */
+
 public class ObjectPanel extends JPanel {
 	LevelPanel levels;
 
