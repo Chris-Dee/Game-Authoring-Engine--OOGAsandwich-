@@ -9,6 +9,9 @@ public class Level {
 	private List<UninstantiatedGameObject> levelObjects;
 	public static final JGPoint defaultSize = new JGPoint(2, 6);
 	private List<GameForce> levelForces;
+	/**
+	 * Total playfield size, which can larger than screensize.
+	 */
 	private JGPoint levelSize;
 	private String levelBG;
 	private String name;

@@ -132,8 +132,8 @@ public class LevelPanelComponent extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawString("Width: " + currLevel.getLevelSize().x, 5, 30);
-		g.drawString("Height: " + currLevel.getLevelSize().y, 5, 50);
+		g.drawString("Height: " + currLevel.getLevelSize().x, 5, 50);
+		g.drawString("Width: " + currLevel.getLevelSize().y, 5, 30);
 
 	}
 }
