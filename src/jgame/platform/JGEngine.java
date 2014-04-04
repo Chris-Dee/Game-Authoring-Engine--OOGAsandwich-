@@ -1055,7 +1055,7 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 			exitEngine("Canvas settings not initialised, use setCanvasSettings().");
 		}
 		if (!i_am_applet) {
-			//jre.createWindow(this,jre.win_decoration);
+			jre.createWindow(this,jre.win_decoration);
 		}
 		//setAudioLatency(getAudioLatencyPlatformEstimate());
 
