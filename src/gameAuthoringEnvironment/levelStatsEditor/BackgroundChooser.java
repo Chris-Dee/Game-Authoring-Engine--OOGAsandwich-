@@ -102,7 +102,6 @@ public class BackgroundChooser extends JPanel {
 		public FileChoose(JPanel homePanel){
 			home=homePanel;
 		}
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser=new JFileChooser();
 			int returnVal = fileChooser.showOpenDialog(home);
@@ -122,7 +121,6 @@ public class BackgroundChooser extends JPanel {
 		public AddImage(JPanel homePanel){
 			home=homePanel;
 		}
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			backgroundMap.put(bgName.getText(),uploadedFile);
 			System.out.println(backgroundMap);
@@ -131,7 +129,6 @@ public class BackgroundChooser extends JPanel {
 
 	}
 	class ItemChangeListener implements ItemListener{
-	    @Override
 	    public void itemStateChanged(ItemEvent event) {
 	       if (event.getStateChange() == ItemEvent.SELECTED) {
 	          setBackgroundToSelected();

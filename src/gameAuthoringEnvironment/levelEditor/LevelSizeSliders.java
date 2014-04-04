@@ -59,7 +59,6 @@ public class LevelSizeSliders extends JPanel {
 		public SliderListener() {
 		}
 
-		@Override
 		public void stateChanged(ChangeEvent arg0) {
 			level.changeLevelSize(new JGPoint(width.getValue(), height
 					.getValue()));
