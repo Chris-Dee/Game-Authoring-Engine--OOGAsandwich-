@@ -35,8 +35,12 @@ public class Game {
 		game.mediaTablePath = "tempTable.tbl";
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
-		UninstantiatedGameObject myObject = new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r");
-		objs.add(myObject);
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r"));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r"));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r"));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile"));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile"));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile"));
 		List<GameForce> forces = new ArrayList<GameForce>();
 		GameForce force1 = new GameForce();
 		forces.add(force1);

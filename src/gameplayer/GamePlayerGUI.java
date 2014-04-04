@@ -13,7 +13,6 @@ public class GamePlayerGUI extends JGEngine{
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
-	public GameObject myObject;
 	
 	public GamePlayerGUI(){ //TODO: Allow passing in a Level to automatically start playing.
 		currentGame = Game.getExample();
