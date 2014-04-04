@@ -15,9 +15,10 @@ public class LevelEditor extends JGEngine {
 	public LevelEditor(Level l){
 		super();
 		level=l;
+		dbgShowMessagesInPf(false);
 		initEngine((int) 600, 600);
 		//This just hides the null pointer exception error. If it ends up affecting anything, we can change it.
-		dbgShowMessagesInPf(false);
+		
 		defineImage("srball","",0,defaultImage,"-");
 		myMover=new LevelMover(this);
 		defineImage("background1","",0,level.getBackground(),"-");

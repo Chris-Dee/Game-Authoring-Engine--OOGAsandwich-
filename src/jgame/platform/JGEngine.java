@@ -162,7 +162,7 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	JREEngine jre = new JREEngine(el,this);
 	//private JGListener listener = new JGListener();
 
-
+	private boolean errorsShown=true;
 	/** Path from where files can be loaded; null means not initialised yet */
 	private Thread thread=null;
 	JGCanvas canvas=null;
@@ -841,6 +841,7 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	}
 
 	public void dbgShowMessagesInPf(boolean enabled) {
+		errorsShown=enabled;
 		if (enabled) debugflags |=  MSGSINPF_DEBUG;
 		else         debugflags &= ~MSGSINPF_DEBUG;
 	}
@@ -1054,9 +1055,10 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 		if (!el.view_initialised) {
 			exitEngine("Canvas settings not initialised, use setCanvasSettings().");
 		}
-		if (!i_am_applet) {
+		if (!i_am_applet && errorsShown ) {
 			jre.createWindow(this,jre.win_decoration);
 		}
+		
 		//setAudioLatency(getAudioLatencyPlatformEstimate());
 
 		canvas = new JGCanvas(el.winwidth,el.winheight);
@@ -1182,7 +1184,6 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	public void pauseApp() { stop(); }
 
 	public void destroyApp(boolean unconditional) { destroy(); }
-
 
 	public boolean isRunning() { return running; }
 

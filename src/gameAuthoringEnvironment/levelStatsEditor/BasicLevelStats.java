@@ -30,7 +30,6 @@ public void makeLevelEditor(JPanel mainPanel) {
 	try {
 		editPane.add(new BackgroundChooser(allLevels));
 	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	mainPanel.add(editPane);
