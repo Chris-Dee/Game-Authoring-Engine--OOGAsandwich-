@@ -14,7 +14,7 @@ import jgame.platform.JGEngine;
  * 
  */
 public class LevelEditor extends JGEngine {
-	LevelMover myMover;
+	public LevelMover myMover;
 	Level level;
 
 	private static final int INITIAL_WIDTH = 600;
