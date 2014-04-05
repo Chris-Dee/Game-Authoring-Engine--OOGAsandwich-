@@ -1,6 +1,8 @@
 package gameAuthoringEnvironment.levelEditor;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -14,10 +16,11 @@ import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
 public class ObjectToolbar extends JPanel {
-
+	private LevelEditor myLevel;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/Resources/";
 
-	public ObjectToolbar() {
+	public ObjectToolbar(LevelEditor level) {
+		myLevel = level;
 		initializeToolbar();
 	}
 
@@ -42,6 +45,7 @@ public class ObjectToolbar extends JPanel {
 				try {
 					Image img = ImageIO.read(imageURL);
 					button.setIcon(new ImageIcon(img));
+					createListener(button, fileName);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -49,13 +53,17 @@ public class ObjectToolbar extends JPanel {
 				e.printStackTrace();
 			}
 		}
-		button.setBorderPainted(false);  
-        button.setFocusPainted(false);  
-        button.setContentAreaFilled(false);  
-        
-        
-        
         toolbar.add(button);
+	}
+	
+	private void createListener(JButton button, final String fileName) {
+		button.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				myLevel.myMover.changeImage(fileName);
+			}
+
+		});
 	}
 
 }

@@ -1,6 +1,7 @@
 package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
+import gameEngine.Level;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,10 +11,16 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.ScrollPane;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Field;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import data.GameData;
+import data.InvalidDataFileException;
 
 /**
  * Main unit of game authoring environment. Run this to run the level editor.
@@ -22,7 +29,7 @@ import javax.swing.JPanel;
  */
 public class VAEview extends JFrame {
 	OptionsPanel myOptionsPanel;
-	private LevelPanel levels;
+	private LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
 	private ResourceBundle resources;
 	public static final Color backgroundColor = Color.BLACK;
@@ -30,6 +37,7 @@ public class VAEview extends JFrame {
 	private static final int LEVEL_LIST_SIZE_Y = 600;
 	private static final int UP_ARROW_KEY = 38;
 	private static final int DOWN_ARROW_KEY = 40;
+	private GameData myGameData;
 
 	public VAEview() {
 		initialize();
@@ -47,6 +55,11 @@ public class VAEview extends JFrame {
 		setVisible(true);
 		setLayout(new BorderLayout());
 		resources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
+		try {
+			myGameData = new GameData("");
+		} catch (InvalidDataFileException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setMainPanel() {
@@ -57,13 +70,13 @@ public class VAEview extends JFrame {
 		JPanel editPanel = new JPanel(new BorderLayout());
 		BasicLevelStats stats = new BasicLevelStats();
 		ScrollPane levelList = createLevelListPane(stats);
-		
-		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
+
+		editPanel.add(new ObjectPanel(myLevelPanel), BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
-		
-		//mainPanel.add(new OptionsPanel(this),BorderLayout.NORTH);
+
+		// mainPanel.add(new OptionsPanel(this),BorderLayout.NORTH);
 		myOptionsPanel = new OptionsPanel(this);
-		
+
 		levelList.setPreferredSize(new Dimension(300, HEIGHT));
 		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
@@ -81,7 +94,7 @@ public class VAEview extends JFrame {
 
 		scroller.setSize(LEVEL_LIST_SIZE_X, LEVEL_LIST_SIZE_Y);
 		LevelPanel level = new LevelPanel(stats);
-		levels = level;
+		myLevelPanel = level;
 		scroller.add(level);
 
 		return scroller;
@@ -93,13 +106,40 @@ public class VAEview extends JFrame {
 
 			} else if (e.getID() == KeyEvent.KEY_RELEASED) {
 				if (e.getKeyCode() == UP_ARROW_KEY)
-					levels.switchLevels(levels.findActivePanel(), -1);
+					myLevelPanel.switchLevels(myLevelPanel.findActivePanel(),
+							-1);
 				if (e.getKeyCode() == DOWN_ARROW_KEY) {
-					levels.switchLevels(levels.findActivePanel(), 1);
+					myLevelPanel
+							.switchLevels(myLevelPanel.findActivePanel(), 1);
 				}
 			} else if (e.getID() == KeyEvent.KEY_TYPED) {
 			}
 			return false;
 		}
+	}
+
+	public void save() {
+		String fileName = JOptionPane.
+				showInputDialog("What would you like to call this game?");
+		try {
+			Field levelComponentListField = myLevelPanel.getClass()
+					.getDeclaredField("levelComponentList");
+			levelComponentListField.setAccessible(true);
+			List<LevelPanelComponent> myLevelComponentsList = (List<LevelPanelComponent>) levelComponentListField
+					.get(myLevelPanel);
+
+			for (LevelPanelComponent component : myLevelComponentsList) {
+				Field levelField = component.getClass().getDeclaredField(
+						"currLevel");
+				levelField.setAccessible(true);
+				Level thisLevel = (Level) levelField.get(component);
+				myGameData.addObj(thisLevel);
+			}
+			myGameData.setFileName(fileName + ".txt");
+			myGameData.write();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 }

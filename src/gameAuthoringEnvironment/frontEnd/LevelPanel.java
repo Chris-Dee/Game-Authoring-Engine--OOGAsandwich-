@@ -2,6 +2,7 @@ package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
 import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
+import gameEngine.Level;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,11 +22,12 @@ import javax.swing.JPanel;
 public class LevelPanel extends JPanel {
 	private static final int EMPTY_SPACE_CONSTANT = 10;
 	// Game game
-	private List<LevelPanelComponent> levelList = new ArrayList<LevelPanelComponent>();
+	private List<LevelPanelComponent> levelComponentList;
 	private BasicLevelStats statsPanel;
 
 	public LevelPanel(BasicLevelStats stats) {
 		super();
+		levelComponentList = new ArrayList<LevelPanelComponent>();
 		statsPanel = stats;
 		initialize();
 		// System.out.println("l29LP");
@@ -45,11 +47,11 @@ public class LevelPanel extends JPanel {
 	public void fillPanels() {
 		this.removeAll();
 		
-		for (int i = 0; i < levelList.size(); i++) {
-			this.add(levelList.get(i));
+		for (int i = 0; i < levelComponentList.size(); i++) {
+			this.add(levelComponentList.get(i));
 		}
 		
-		for (int i = 0; i < EMPTY_SPACE_CONSTANT - levelList.size(); i++) {
+		for (int i = 0; i < EMPTY_SPACE_CONSTANT - levelComponentList.size(); i++) {
 			// this.add(new LevelPanelComponent(new Color(255,255,255),""+i));
 			JPanel emptyPanel = new JPanel();
 			emptyPanel.setBackground(new Color(255, 255, 255));
@@ -62,20 +64,20 @@ public class LevelPanel extends JPanel {
 	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev,
 			int switchAmt) {
 		// need to switch it in game array as well
-		int index = levelList.indexOf(lev);
-		if (index + switchAmt < 0 || index + switchAmt > levelList.size() - 1
+		int index = levelComponentList.indexOf(lev);
+		if (index + switchAmt < 0 || index + switchAmt > levelComponentList.size() - 1
 				|| index == -1)
-			return levelList;
-		LevelPanelComponent temp = levelList.get(index);
-		LevelPanelComponent l = levelList.get(index + switchAmt);
-		levelList.set(index, l);
-		levelList.set(index + switchAmt, temp);
+			return levelComponentList;
+		LevelPanelComponent temp = levelComponentList.get(index);
+		LevelPanelComponent l = levelComponentList.get(index + switchAmt);
+		levelComponentList.set(index, l);
+		levelComponentList.set(index + switchAmt, temp);
 		fillPanels();
-		return levelList;
+		return levelComponentList;
 	}
 
 	public LevelPanelComponent findActivePanel() {
-		for (LevelPanelComponent lev : levelList) {
+		for (LevelPanelComponent lev : levelComponentList) {
 
 			if (lev.isActive()) {
 				statsPanel.setLevelName(lev.getLevel().getName());
@@ -88,7 +90,7 @@ public class LevelPanel extends JPanel {
 
 	public void addLevel(String name) {
 		System.out.println("back " + name);
-		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
+		levelComponentList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
 				name, this));
 		fillPanels();
 	}
@@ -98,7 +100,7 @@ public class LevelPanel extends JPanel {
 	}
 
 	public void resetBackgrounds() {
-		for (LevelPanelComponent levelComponent : levelList) {
+		for (LevelPanelComponent levelComponent : levelComponentList) {
 			levelComponent.setBackground(LevelPanelComponent.NORMAL_COLOR);
 			levelComponent.setActive(false);
 			levelComponent.revalidate();
@@ -108,7 +110,7 @@ public class LevelPanel extends JPanel {
 	}
 	
 	public void deleteLevel(LevelPanelComponent level){
-		levelList.remove(level);
+		levelComponentList.remove(level);
 		setLevelName(null);
 		fillPanels();
 	}

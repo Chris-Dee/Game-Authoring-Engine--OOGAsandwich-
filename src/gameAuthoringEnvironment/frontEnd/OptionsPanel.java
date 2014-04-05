@@ -1,8 +1,12 @@
 package gameAuthoringEnvironment.frontEnd;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -22,8 +26,17 @@ public class OptionsPanel extends JMenuBar {
 	public void initialize(){		
 		JMenu file = new JMenu("File");
 		
-		add(file);
+		JMenuItem saveItem = new JMenuItem("Save");
 		
+		saveItem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				myViewer.save();
+			}
+		});
+		
+		file.add(saveItem);
+		add(file);
+		setVisible(true);
 		myViewer.setJMenuBar(this);
 	}
 }
