@@ -44,8 +44,11 @@ public void makeLevelEditor(JPanel mainPanel) {
 	mainPanel.add(PanelFactory.makeVerticalSpacerPanel(800));
 }
 public void setLevelName(String name) {
-	System.out.println("l44BLS "+name);
 	levelName.setText(name);
+	
+	if (name == null){
+		levelName.setText("Please select a level");
+	}
 }
 
 
