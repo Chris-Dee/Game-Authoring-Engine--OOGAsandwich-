@@ -1,40 +1,61 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
 public class ObjectToolbar extends JPanel {
-	
+
+	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/Resources/";
+
 	public ObjectToolbar() {
 		initializeToolbar();
 	}
-	
+
 	private void initializeToolbar() {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
-		JButton exitButton = new JButton("Exit");
-		toolbar.add(exitButton);
-		JButton testOne = new JButton("Test1");
-		toolbar.add(testOne);
-		JButton testTwo = new JButton("Test2");
-		toolbar.add(testTwo);
-		JButton testThree = new JButton("Test3");
-		toolbar.add(testThree);
-		JButton testFour = new JButton("Test4");
-		toolbar.add(testFour);
-		JButton testFive = new JButton("Test5");
-		toolbar.add(testFive);
-		JButton testSix= new JButton("Test6");
-		toolbar.add(testSix);
-		JButton testSeven = new JButton("Test7");
-		toolbar.add(testSeven);
-		JButton testEight = new JButton("Test8");
-		toolbar.add(testEight);
-		JButton testNine = new JButton("Test9");
-		toolbar.add(testNine);
+		
+		String[] images = {"blockobject.jpg", "goombaobject.png", "lemonobject.jpg", "limeobject.gif", "marioobject.jpg", "orangeobject.jpg", "pacmanobject.jpg", "treeobject.jpg"};
+
+		for(int i = 0; i < images.length; i++) {
+			addButtonImage(new JButton(), images[i], toolbar);
+		}
 		add(toolbar);
+	}
+
+	@SuppressWarnings("deprecation")
+	private void addButtonImage(JButton button, String fileName, JToolBar toolbar) {
+		File imageCheck = new File(RESOURCE_PATH + fileName);
+		if (imageCheck.exists()) {
+			try {
+				URL imageURL = imageCheck.toURL();
+				try {
+					Image img = ImageIO.read(imageURL);
+					button.setIcon(new ImageIcon(img));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+		button.setBorderPainted(false);  
+        button.setFocusPainted(false);  
+        button.setContentAreaFilled(false);  
+        
+        
+        
+        toolbar.add(button);
 	}
 
 }
