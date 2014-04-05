@@ -49,7 +49,10 @@ public class LevelEditorWindow extends JFrame {
 		mainPanel.add(levelEdit, BorderLayout.CENTER);
 		mainPanel.add(new LevelObjectBar(currentLevel.getLevel(), levelEdit),
 				BorderLayout.WEST);
-		mainPanel.add(new PresetsBar(), BorderLayout.EAST);
+		// PresetsBar currently doesn't do anything, not sure of potential
+		// future purpose
+		//mainPanel.add(new PresetsBar(), BorderLayout.EAST);
+		mainPanel.add(new ObjectToolbar(), BorderLayout.EAST);
 		pack();
 	}
 }
