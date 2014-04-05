@@ -19,12 +19,13 @@ public class LevelMover extends JGObject {
 		super("srball", true, INITIAL_X_AND_Y, INITIAL_X_AND_Y, BALL_COL_ID,
 				"srball", 0, 0, INITIAL_X_Y_SPEED, INITIAL_X_Y_SPEED, -1);
 		myEngine = level;
+		myLevel = level;
 		x = INITIAL_X_AND_Y;
 		y = INITIAL_X_AND_Y;
 	}
 
 	public LevelMover(LevelEditor level, int xPos, int yPos, Integer iteration) {
-		super("newBallImage"+iteration.toString(),true, xPos, yPos,4,"newBallImage"+iteration.toString(),0,0,2.0,2.0,-1);
+		super("newBallImage"+iteration.toString(),true, xPos, yPos,BALL_COL_ID,"newBallImage"+iteration.toString(),0,0,INITIAL_X_Y_SPEED,INITIAL_X_Y_SPEED,-1);
 		myEngine = level;
 		myLevel = level;
 		x = xPos;
@@ -64,8 +65,8 @@ public class LevelMover extends JGObject {
 	public void changeImage(String imageName) {
 		changeCounter++;
 		myEngine.defineImage("newBallImage"+changeCounter.toString(),"",0,RESOURCE_PATH + imageName,"-");
-		myLevel.myMover.remove();
-		myLevel.myMover = new LevelMover(myLevel, (int) x, (int) y, changeCounter);
+		myLevel.myMover.setImage("newBallImage"+changeCounter.toString());
+		//myLevel.myMover = new LevelMover(myLevel, (int) x, (int) y, changeCounter);
 		
 		
 	}
