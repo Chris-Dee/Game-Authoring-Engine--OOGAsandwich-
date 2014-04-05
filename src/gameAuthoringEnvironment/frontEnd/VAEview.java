@@ -28,6 +28,10 @@ import data.InvalidDataFileException;
  * 
  */
 public class VAEview extends JFrame {
+	private static final String WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION = "What would you like to call this game?";
+	private static final String DOT_TXT_EXTENSION = ".txt";
+	private static final String LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME = "levelComponentList";
+	private static final String LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME = "myLevel";
 	OptionsPanel myOptionsPanel;
 	private LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
@@ -119,27 +123,27 @@ public class VAEview extends JFrame {
 	}
 
 	public void save() {
-		String fileName = JOptionPane.
-				showInputDialog("What would you like to call this game?");
+		String fileName = JOptionPane
+				.showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
 		try {
 			Field levelComponentListField = myLevelPanel.getClass()
-					.getDeclaredField("levelComponentList");
+					.getDeclaredField(
+							LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME);
 			levelComponentListField.setAccessible(true);
 			List<LevelPanelComponent> myLevelComponentsList = (List<LevelPanelComponent>) levelComponentListField
 					.get(myLevelPanel);
 
 			for (LevelPanelComponent component : myLevelComponentsList) {
 				Field levelField = component.getClass().getDeclaredField(
-						"currLevel");
+						LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME);
 				levelField.setAccessible(true);
 				Level thisLevel = (Level) levelField.get(component);
 				myGameData.addObj(thisLevel);
 			}
-			myGameData.setFileName(fileName + ".txt");
+			myGameData.setFileName(fileName + DOT_TXT_EXTENSION);
 			myGameData.write();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }
