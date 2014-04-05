@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,39 +15,39 @@ import java.util.Scanner;
 
 public class GameData {
 	private String _filename;
-	private Map<String, List<Object>> _objMap;
+	private Map<String, List<Object>> objMap;
 
 	/**
 	 * Creates a GameData object initialized from a file. If the file exists, it
 	 * is parsed. If the file does not exist, then it is created when save() is
 	 * called.
-	 * 
+	 *
 	 * @param filename
 	 *            The name of the file
 	 * @throws InvalidDataFileException
 	 */
 	public GameData(String filename) throws InvalidDataFileException {
 		_filename = filename;
-		_objMap = new HashMap<String, List<Object>>();
+		objMap = new HashMap<String, List<Object>>();
 	}
 
 	/**
 	 * Adds obj to be serialized. Its class is determined and it is placed into
 	 * a section corresponding to its class.
-	 * 
+	 *
 	 * @param obj
 	 *            An object that is to be added to be serialized.
 	 * @return
 	 */
 	public void addObj(Object obj) {
 		String klass = obj.getClass().getName();
-		if (!_objMap.containsKey(klass)) {
+		if (!objMap.containsKey(klass)) {
 			ArrayList<Object> objList = new ArrayList<Object>();
-			_objMap.put(klass, objList);
+			objMap.put(klass, objList);
 		}
-		_objMap.get(klass).add(obj);
+		objMap.get(klass).add(obj);
 	}
-	
+
 	public void setFileName(String filename) {
 		_filename = filename;
 	}
@@ -56,13 +57,13 @@ public class GameData {
 	 */
 	@Override
 	public String toString() {
-		PropertiesWriter writer = new JsonWriter(_objMap);
+		PropertiesWriter writer = new JsonWriter(objMap);
 		return writer.toString();
 	}
 
 	/**
 	 * Writes the contents of the objMap to a file.
-	 * 
+	 *
 	 * @param filename
 	 *            The file to be written to.
 	 * @return
@@ -97,10 +98,32 @@ public class GameData {
 		String jsonString = readFile();
 		PropertiesReader jsonReader = new JsonReader(jsonString);
 		try {
-			_objMap = jsonReader.parse();
+			objMap = jsonReader.parse();
 		} catch (ClassNotFoundException e) {
 			throw new InvalidDataFileException();
 		}
-		return _objMap;
+		return objMap;
+	}
+
+	/**
+	 * Returns a list of objects in the data file that match the class name(s)
+	 * given
+	 *
+	 * @param classNames
+	 *            Name(s) of class(es) to retrieve
+	 * @return List of objects with matching classes
+	 * @throws ClassNotFoundException
+	 *             When a class name is not found
+	 */
+	public List<Object> getObjects(String... classNames) throws ClassNotFoundException {
+		List<Object> objs = new ArrayList<Object>();
+		for (String className : classNames) {
+			if (objMap.containsKey(className)) {
+				objs.addAll(objMap.get(className));
+			} else {
+				throw new ClassNotFoundException(className);
+			}
+		}
+		return objs;
 	}
 }
