@@ -14,11 +14,13 @@ import jgame.platform.JGEngine;
  * 
  */
 public class LevelEditor extends JGEngine {
+
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
 	private static final int SCREEN_HEIGHT = 600;
 	private static final int SCREEN_WIDTH = 600;
-	LevelMover myMover;
+	public LevelMover myMover;
+
 	Level level;
 
 	private static final int INITIAL_WIDTH = 600;
