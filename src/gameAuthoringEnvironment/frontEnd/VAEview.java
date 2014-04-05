@@ -10,6 +10,7 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.ScrollPane;
 import java.awt.event.KeyEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
  */
 public class VAEview extends JFrame {
 	private LevelPanel levels;
+	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
+	private ResourceBundle resources;
 	public static final Color backgroundColor = Color.BLACK;
 	private static final int LEVEL_LIST_SIZE_X = 600;
 	private static final int LEVEL_LIST_SIZE_Y = 600;
@@ -42,6 +45,7 @@ public class VAEview extends JFrame {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setVisible(true);
 		setLayout(new BorderLayout());
+		resources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 	}
 
 	public void setMainPanel() {

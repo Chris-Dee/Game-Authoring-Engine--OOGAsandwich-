@@ -32,8 +32,8 @@ public class LevelSizeSliders extends JPanel {
 	public void makeSizePanel(JPanel homePanel) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		height = makeSizeSlider("Width", new int[] { 1, 20 }, panel);
-		width = makeSizeSlider("Height", new int[] { 1, 20 }, panel);
+		height = makeSizeSlider("Height", new int[] { 1, 20 }, panel);
+		width = makeSizeSlider("Width", new int[] { 1, 20 }, panel);
 		homePanel.add(panel);
 		setSliderPositions(level.getLevelSize());
 	}
@@ -47,12 +47,13 @@ public class LevelSizeSliders extends JPanel {
 		slider.addChangeListener(new SliderListener());
 		sliderPanel.add(slider);
 		homePanel.add(sliderPanel);
+		slider.setFocusable(false);
 		return slider;
 	}
 
 	public void setSliderPositions(JGPoint size) {
-		height.setValue(size.x);
-		width.setValue(size.y);
+		width.setValue(size.x);
+		height.setValue(size.y);
 	}
 
 	public class SliderListener implements ChangeListener {
@@ -62,7 +63,7 @@ public class LevelSizeSliders extends JPanel {
 		public void stateChanged(ChangeEvent arg0) {
 			level.changeLevelSize(new JGPoint(width.getValue(), height
 					.getValue()));
-			levelEdit.setPFSize(height.getValue(), width.getValue());
+			levelEdit.setPFSize(width.getValue(), height.getValue());
 		}
 	}
 }

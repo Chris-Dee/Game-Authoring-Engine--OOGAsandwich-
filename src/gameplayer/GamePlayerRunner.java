@@ -1,5 +1,8 @@
 package gameplayer;
 
+import java.io.IOException;
+
+import data.InvalidDataFileException;
 import jgame.JGPoint;
 
 public class GamePlayerRunner {
@@ -8,7 +11,7 @@ public class GamePlayerRunner {
 	 * Game Author.
 	 */
 	
-	public static void main(String[]args) {
+	public static void main(String[]args) throws IOException, InvalidDataFileException {
 		new GamePlayerGUI();
 	}
 }

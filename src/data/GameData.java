@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +27,7 @@ public class GameData {
 	 */
 	public GameData(String filename) throws InvalidDataFileException {
 		_filename = filename;
-		String fileText = readFile();
-		if (fileText != null) {
-			_objMap = parse(fileText);
-		} else {
-			_objMap = new HashMap<String, List<Object>>();
-		}
+		_objMap = new HashMap<String, List<Object>>();
 	}
 
 	/**
@@ -49,6 +45,10 @@ public class GameData {
 			_objMap.put(klass, objList);
 		}
 		_objMap.get(klass).add(obj);
+	}
+	
+	public void setFileName(String filename) {
+		_filename = filename;
 	}
 
 	/**
@@ -69,13 +69,15 @@ public class GameData {
 	 */
 	public void write() throws IOException {
 		String jsonString = this.toString();
-		
+
 		File myFile = new File(_filename);
-		myFile.createNewFile();
+		if (!myFile.exists()) {
+			myFile.createNewFile();
+		}
 		FileOutputStream fOut = new FileOutputStream(myFile);
-		OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-		myOutWriter.append(jsonString);
-		myOutWriter.close();
+		byte[] content = jsonString.getBytes();
+		fOut.write(content);
+		fOut.flush();
 		fOut.close();
 	}
 
@@ -90,8 +92,9 @@ public class GameData {
 		return fileText;
 	}
 
-	private Map<String, List<Object>> parse(String jsonString)
+	public Map<String, List<Object>> parse()
 			throws InvalidDataFileException {
+		String jsonString = readFile();
 		PropertiesReader jsonReader = new JsonReader(jsonString);
 		try {
 			_objMap = jsonReader.parse();
