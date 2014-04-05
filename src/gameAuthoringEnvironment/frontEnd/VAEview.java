@@ -48,7 +48,7 @@ public class VAEview extends JFrame {
 		v.setMainPanel();
 	}
 
-	public void initialize() {
+	private void initialize() {
 		setTitle("OOGASandwich Game Editor");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -62,7 +62,7 @@ public class VAEview extends JFrame {
 		}
 	}
 
-	public void setMainPanel() {
+	private void setMainPanel() {
 		JPanel mainPanel = (JPanel) this.getContentPane();
 		mainPanel.setBackground(backgroundColor);
 		mainPanel.setLayout(new BorderLayout());
@@ -118,7 +118,10 @@ public class VAEview extends JFrame {
 		}
 	}
 
-	public void save() {
+	/**
+	 * Saves the current game to a .txt file in the JSON format. The user defines the file name.
+	 */
+	public void saveToTextFile() {
 		String fileName = JOptionPane.
 				showInputDialog("What would you like to call this game?");
 		try {

@@ -42,9 +42,7 @@ public class LevelPanelComponent extends JPanel {
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
 
-		// System.out.println("l48LPC " + name);
 		currLevel = new Level(name);
-		// System.out.println("l50LPC " + currLevel.getName());
 		levelPanel = l;
 		setBackground(c);
 		// Level level;

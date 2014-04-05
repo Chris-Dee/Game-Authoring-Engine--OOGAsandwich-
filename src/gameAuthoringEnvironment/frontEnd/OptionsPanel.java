@@ -30,7 +30,7 @@ public class OptionsPanel extends JMenuBar {
 		
 		saveItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				myViewer.save();
+				myViewer.saveToTextFile();
 			}
 		});
 		

@@ -34,7 +34,7 @@ public class LevelPanel extends JPanel {
 		stats.setLevelPanel(this);
 	}
 
-	public void initialize() {
+	private void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Dimension s = getToolkit().getScreenSize();
 		setBackground(new Color(0, 0, 0));
@@ -76,17 +76,27 @@ public class LevelPanel extends JPanel {
 		return levelComponentList;
 	}
 
+	/**
+	 * Finds the currently active panel in the LevelPanel list
+	 * @return Currently Active LevelPanelComponent
+	 */
 	public LevelPanelComponent findActivePanel() {
-		for (LevelPanelComponent lev : levelComponentList) {
+		for (LevelPanelComponent currentLevelPanelComponent : levelComponentList) {
 
-			if (lev.isActive()) {
-				statsPanel.setLevelName(lev.getLevel().getName());
-				return lev;
+			if (currentLevelPanelComponent.isActive()) {
+				statsPanel.setLevelName(currentLevelPanelComponent.getLevel().getName());
+				return currentLevelPanelComponent;
 			}
 		}
 		
 		return null;
 	}
+	
+	/**
+	 * Adds a level with default conditions to the game. Automatically adds at the end of the level list.
+	 * @param name 
+	 * 			The name of the new level
+	 */
 
 	public void addLevel(String name) {
 		System.out.println("back " + name);
@@ -94,11 +104,20 @@ public class LevelPanel extends JPanel {
 				name, this));
 		fillPanels();
 	}
+	
+	/**
+	 * Sets the name of the level.
+	 * @param name
+	 * 			The name of the level
+	 */			
 
 	public void setLevelName(String name) {
 		statsPanel.setLevelName(name);
 	}
 
+	/**
+	 * Resets the backgrounds of all LevelPanelComponents. Called in LevelPanelComponent when a level is clicked.
+	 */
 	public void resetBackgrounds() {
 		for (LevelPanelComponent levelComponent : levelComponentList) {
 			levelComponent.setBackground(LevelPanelComponent.NORMAL_COLOR);
@@ -109,8 +128,14 @@ public class LevelPanel extends JPanel {
 		}
 	}
 	
-	public void deleteLevel(LevelPanelComponent level){
-		levelComponentList.remove(level);
+	/**
+	 * Removes level from the game
+	 * @param levelPanelComponent
+	 * 			Level to be removed, given in the form of a LevelPanelComponent
+	 */
+	
+	public void deleteLevel(LevelPanelComponent levelPanelComponent){
+		levelComponentList.remove(levelPanelComponent);
 		setLevelName(null);
 		fillPanels();
 	}
