@@ -50,7 +50,7 @@ public class Game {
 
 		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r", new Movement("pace",50, 8)));
 		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement("pace",25, 5)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement(4,2)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement(4,1)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new Movement()));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new Movement("pace",75, 2)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new Movement()));
