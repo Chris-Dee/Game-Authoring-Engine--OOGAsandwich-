@@ -28,8 +28,10 @@ public class LevelEditor extends JGEngine {
 	private static final int BLOCK_SIZE_X = 300;
 	private static final int BLOCK_SIZE_Y = 300;
 
-	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X = 5;
-	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y = 5;
+	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X_LEFTSIDE = 5;
+	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X_RIGHTSIDE = 10;
+	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
+	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 
@@ -67,16 +69,16 @@ public class LevelEditor extends JGEngine {
 			System.out.println((Double) myMover.x == null);
 		if (myMover.x >= myMover.pfwidth) {
 			// myMover.x=el.xofs;
-			myMover.x = myMover.pfwidth - BALL_OFF_SCREEN_ADJUSTMENT_X;
+			myMover.x = myMover.pfwidth - BALL_OFF_SCREEN_ADJUSTMENT_X_RIGHTSIDE;
 		}
 		if (myMover.y >= myMover.pfheight) {
-			myMover.y = myMover.pfheight - BALL_OFF_SCREEN_ADJUSTMENT_Y;
+			myMover.y = myMover.pfheight - BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM;
 		}
 		if (myMover.x <= 0) {
-			myMover.x = BALL_OFF_SCREEN_ADJUSTMENT_X;
+			myMover.x = BALL_OFF_SCREEN_ADJUSTMENT_X_LEFTSIDE;
 		}
 		if (myMover.y <= 0) {
-			myMover.y = BALL_OFF_SCREEN_ADJUSTMENT_Y;
+			myMover.y = BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP;
 		}
 		// System.out.println(el.xofs+" "+el.yofs+" "+myMover.x+" "+myMover.y+" "+myMover.pfwidth);
 	}
