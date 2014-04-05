@@ -22,7 +22,7 @@ public class LevelEditor extends JGEngine {
 	private static final int BLOCK_SIZE_X = 300;
 	private static final int BLOCK_SIZE_Y = 300;
 
-	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X = 20;
+	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y = 5;
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";

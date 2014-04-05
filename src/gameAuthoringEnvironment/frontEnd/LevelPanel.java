@@ -78,6 +78,7 @@ private BasicLevelStats statsPanel;
 				return lev;
 			}
 		}
+		
 		return null;
 	}
 
@@ -103,6 +104,7 @@ private BasicLevelStats statsPanel;
 	
 	public void deleteLevel(LevelPanelComponent level){
 		levelList.remove(level);
+		setLevelName(null);
 		fillPanels();
 	}
 }

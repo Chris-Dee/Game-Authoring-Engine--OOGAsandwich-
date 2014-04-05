@@ -68,6 +68,10 @@ public class LevelPanelComponent extends JPanel {
 		return currLevel;
 	}
 	
+	public String getName() {
+		return currLevel.getName();
+	}
+	
 	/**
 	 * Gets levelPanel of the viewer
 	 * @return LevelPanel
@@ -126,10 +130,8 @@ public class LevelPanelComponent extends JPanel {
 				}
 				
 				if (e.getModifiers() == MouseEvent.BUTTON3_MASK){
-					//TODO: Make this better
-					//This is a bit of a hacky solution, as it doesn't select the currently clicked component necessarily
-					
-					LevelPanelRightClickMenu menu = new LevelPanelRightClickMenu(levelPanel.findActivePanel());
+
+					LevelPanelRightClickMenu menu = new LevelPanelRightClickMenu(level,e.getLocationOnScreen());
 					
 				}
 			}
@@ -145,7 +147,6 @@ public class LevelPanelComponent extends JPanel {
 	}
 
 	public void changeDefaultBackground(String newBG, String newBGName) {
-		// TODO Auto-generated method stub
 		backgroundName = newBGName;
 		currLevel.changeStartingBackground(newBG);
 	}
