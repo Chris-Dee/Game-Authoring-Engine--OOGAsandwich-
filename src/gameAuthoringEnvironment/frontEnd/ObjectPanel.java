@@ -23,8 +23,8 @@ public class ObjectPanel extends JPanel {
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
 	private ResourceBundle myResources;
 
-	public ObjectPanel(LevelPanel l) {
-		levels = l;
+	public ObjectPanel(LevelPanel lPanel) {
+		levels = lPanel;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 		makeMainFrame();
 		setBackground(VAEview.backgroundColor);
@@ -50,5 +50,4 @@ public class ObjectPanel extends JPanel {
 		buttonModule.add(level);
 		panel.add(buttonModule);
 	}
-
 }

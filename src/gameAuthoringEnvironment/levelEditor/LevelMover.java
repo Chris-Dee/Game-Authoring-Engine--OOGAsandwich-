@@ -6,20 +6,26 @@ import jgame.platform.JGEngine;
 
 //The invisible little object that moves around in the levels
 public class LevelMover extends JGObject {
+	private static final double INITIAL_X_Y_SPEED = 2.0;
+	private static final int BALL_COL_ID = 4;
+	private static final int INITIAL_X_AND_Y = 20;
 	JGEngine myEngine;
 
 	public LevelMover(LevelEditor level) {
 
-		super("srball",true, 20, 20,4,"srball",0,0,2.0,2.0,-1);
-		myEngine=level;
-		x=20;
-		y=20;
+		super("srball", true, INITIAL_X_AND_Y, INITIAL_X_AND_Y, BALL_COL_ID,
+				"srball", 0, 0, INITIAL_X_Y_SPEED, INITIAL_X_Y_SPEED, -1);
+		myEngine = level;
+		x = INITIAL_X_AND_Y;
+		y = INITIAL_X_AND_Y;
 	}
-	public Integer xPos(){
+
+	public Integer xPos() {
 		return (int) x;
 	}
-	public Integer yPos(){
-		return(int) y;
+
+	public Integer yPos() {
+		return (int) y;
 	}
 
 	private boolean checkKey(int key) {
@@ -41,5 +47,4 @@ public class LevelMover extends JGObject {
 		if (checkKey(myEngine.KeyDown))
 			ydir = 1;
 	}
-
 }

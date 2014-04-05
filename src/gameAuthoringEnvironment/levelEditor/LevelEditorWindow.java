@@ -51,7 +51,7 @@ public class LevelEditorWindow extends JFrame {
 				BorderLayout.WEST);
 		// PresetsBar currently doesn't do anything, not sure of potential
 		// future purpose
-		//mainPanel.add(new PresetsBar(), BorderLayout.EAST);
+		// mainPanel.add(new PresetsBar(), BorderLayout.EAST);
 		mainPanel.add(new ObjectToolbar(), BorderLayout.EAST);
 		pack();
 	}

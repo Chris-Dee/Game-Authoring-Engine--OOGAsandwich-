@@ -54,7 +54,7 @@ public class VAEview extends JFrame {
 		mainPanel.setLayout(new BorderLayout());
 
 		JPanel editPanel = new JPanel(new BorderLayout());
-		BasicLevelStats stats=new BasicLevelStats();
+		BasicLevelStats stats = new BasicLevelStats();
 		ScrollPane levelList = createLevelListPane(stats);
 		// editPanel.add(scroller, BorderLayout.WEST);
 		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
@@ -81,7 +81,6 @@ public class VAEview extends JFrame {
 		scroller.add(level);
 
 		return scroller;
-
 	}
 
 	private class MyDispatcher implements KeyEventDispatcher {
@@ -99,5 +98,4 @@ public class VAEview extends JFrame {
 			return false;
 		}
 	}
-
 }
