@@ -48,13 +48,15 @@ public class Game {
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r", new Movement()));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement(3)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement()));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r", new Movement("pace",50, 8)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement("pace",25, 5)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement(4,2)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new Movement()));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new Movement()));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new Movement("pace",75, 2)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new Movement()));
 
+		// This code will eventually be used to parse the data.
+		
 //		myGameData.setFileName("uninstantiatedgameobjectsfile");
 //		Map<String, List<Object>> myObjectMap = myGameData.parse();
 //		for (String str : myObjectMap.keySet()) {

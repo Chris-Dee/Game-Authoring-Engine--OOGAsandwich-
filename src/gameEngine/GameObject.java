@@ -16,7 +16,7 @@ public class GameObject extends JGObject {
 			myMovement.start();
 		}
 		this.xspeed = myMovement.getXSpeed();
-//		this.pace(50);
+		this.yspeed = myMovement.getYSpeed();
 	}
 	
 	public void pace(int time){
