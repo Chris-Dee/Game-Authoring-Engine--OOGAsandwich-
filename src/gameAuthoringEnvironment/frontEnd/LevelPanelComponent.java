@@ -32,7 +32,7 @@ public class LevelPanelComponent extends JPanel {
 	private static final int WIDTH = 200;
 	private static final int HEIGHT = 100;
 	private boolean isActive = false;
-	private final Level currLevel;
+	private final Level myLevel;
 
 	private LevelEditorWindow editWindow;
 	// TODO These two traits will need to go into the level object...
@@ -43,7 +43,7 @@ public class LevelPanelComponent extends JPanel {
 		super();
 
 		// System.out.println("l48LPC " + name);
-		currLevel = new Level(name);
+		myLevel = new Level(name);
 		// System.out.println("l50LPC " + currLevel.getName());
 		levelPanel = l;
 		setBackground(c);
@@ -64,11 +64,11 @@ public class LevelPanelComponent extends JPanel {
 	 * @return Level
 	 */
 	public Level getLevel() {
-		return currLevel;
+		return myLevel;
 	}
 
 	public String getName() {
-		return currLevel.getName();
+		return myLevel.getName();
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class LevelPanelComponent extends JPanel {
 				setBackground(ACTIVE_COLOR);
 				isActive = true;
 				BackgroundChooser.setSelectedToBackground(backgroundName);
-				levelPanel.setLevelName(currLevel.getName());
+				levelPanel.setLevelName(myLevel.getName());
 				revalidate();
 				repaint();
 				if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
@@ -149,15 +149,15 @@ public class LevelPanelComponent extends JPanel {
 
 	public void changeDefaultBackground(String newBG, String newBGName) {
 		backgroundName = newBGName;
-		currLevel.changeStartingBackground(newBG);
+		myLevel.changeStartingBackground(newBG);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawString("Width: " + currLevel.getLevelSize().x, XPOS_FOR_PRINT,
+		g.drawString("Width: " + myLevel.getLevelSize().x, XPOS_FOR_PRINT,
 				YPOS_FOR_WIDTH_PRINT);
-		g.drawString("Height: " + currLevel.getLevelSize().y, XPOS_FOR_PRINT,
+		g.drawString("Height: " + myLevel.getLevelSize().y, XPOS_FOR_PRINT,
 				YPOS_FOR_HEIGHT_PRINT);
 	}
 }
