@@ -18,13 +18,15 @@ import jgame.JGPoint;
  * 
  */
 public class LevelSizeSliders extends JPanel {
+	private static final int[] RANGE_FOR_HEIGHT_SLIDER = new int[] { 1, 20 };
+	private static final int[] RANGE_FOR_WIDTH_SLIDER = new int[] { 1, 20 };
 	Level level;
 	private JSlider height;
 	private JSlider width;
 	LevelEditor levelEdit;
 
-	public LevelSizeSliders(Level l, LevelEditor editor) {
-		level = l;
+	public LevelSizeSliders(Level lev, LevelEditor editor) {
+		level = lev;
 		levelEdit = editor;
 		makeSizePanel(this);
 	}
@@ -32,8 +34,8 @@ public class LevelSizeSliders extends JPanel {
 	public void makeSizePanel(JPanel homePanel) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		height = makeSizeSlider("Height", new int[] { 1, 20 }, panel);
-		width = makeSizeSlider("Width", new int[] { 1, 20 }, panel);
+		height = makeSizeSlider("Height", RANGE_FOR_HEIGHT_SLIDER, panel);
+		width = makeSizeSlider("Width", RANGE_FOR_WIDTH_SLIDER, panel);
 		homePanel.add(panel);
 		setSliderPositions(level.getLevelSize());
 	}

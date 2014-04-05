@@ -19,14 +19,16 @@ import javax.swing.JPanel;
  * 
  */
 public class LevelPanel extends JPanel {
+	private static final int EMPTY_SPACE_CONSTANT = 10;
 	// Game game
 	private List<LevelPanelComponent> levelList = new ArrayList<LevelPanelComponent>();
-private BasicLevelStats statsPanel;
+	private BasicLevelStats statsPanel;
+
 	public LevelPanel(BasicLevelStats stats) {
 		super();
-		statsPanel=stats;
+		statsPanel = stats;
 		initialize();
-		System.out.println("l29LP");
+		// System.out.println("l29LP");
 		stats.setLevelPanel(this);
 	}
 
@@ -42,10 +44,12 @@ private BasicLevelStats statsPanel;
 
 	public void fillPanels() {
 		this.removeAll();
+		
 		for (int i = 0; i < levelList.size(); i++) {
 			this.add(levelList.get(i));
 		}
-		for (int i = 0; i < 10 - levelList.size(); i++) {
+		
+		for (int i = 0; i < EMPTY_SPACE_CONSTANT - levelList.size(); i++) {
 			// this.add(new LevelPanelComponent(new Color(255,255,255),""+i));
 			JPanel emptyPanel = new JPanel();
 			emptyPanel.setBackground(new Color(255, 255, 255));
@@ -73,7 +77,7 @@ private BasicLevelStats statsPanel;
 	public LevelPanelComponent findActivePanel() {
 		for (LevelPanelComponent lev : levelList) {
 
-			if(lev.isActive()){
+			if (lev.isActive()) {
 				statsPanel.setLevelName(lev.getLevel().getName());
 				return lev;
 			}
@@ -83,21 +87,22 @@ private BasicLevelStats statsPanel;
 	}
 
 	public void addLevel(String name) {
-		System.out.println("back "+name);
+		System.out.println("back " + name);
 		levelList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
 				name, this));
 		fillPanels();
 	}
-	public void setLevelName(String name){
+
+	public void setLevelName(String name) {
 		statsPanel.setLevelName(name);
 	}
 
 	public void resetBackgrounds() {
-		for (LevelPanelComponent l : levelList) {
-			l.setBackground(LevelPanelComponent.NORMAL_COLOR);
-			l.setActive(false);
-			l.revalidate();
-			l.repaint();
+		for (LevelPanelComponent levelComponent : levelList) {
+			levelComponent.setBackground(LevelPanelComponent.NORMAL_COLOR);
+			levelComponent.setActive(false);
+			levelComponent.revalidate();
+			levelComponent.repaint();
 
 		}
 	}

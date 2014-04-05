@@ -17,8 +17,7 @@ public class LevelObjectBar extends JPanel {
 		initialize(level, levelEdit);
 	}
 
-	private void initialize(Level l, LevelEditor editor) {
-		this.add(new LevelSizeSliders(l, editor));
+	private void initialize(Level lev, LevelEditor editor) {
+		this.add(new LevelSizeSliders(lev, editor));
 	}
-	
 }
