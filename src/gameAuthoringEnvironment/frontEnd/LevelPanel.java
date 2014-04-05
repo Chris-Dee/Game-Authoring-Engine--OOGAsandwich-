@@ -100,4 +100,9 @@ private BasicLevelStats statsPanel;
 
 		}
 	}
+	
+	public void deleteLevel(LevelPanelComponent level){
+		levelList.remove(level);
+		fillPanels();
+	}
 }

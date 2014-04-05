@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -29,7 +30,7 @@ import javax.swing.border.TitledBorder;
  */
 public class LevelPanelComponent extends JPanel {
 
-	LevelPanel levelPanel;
+	private LevelPanel levelPanel;
 	public static final Color ACTIVE_COLOR = new Color(100, 100, 100);
 	public static final Color HOVER_COLOR = new Color(150, 150, 150);
 	public static final Color NORMAL_COLOR = new Color(200, 200, 200);
@@ -45,9 +46,7 @@ public class LevelPanelComponent extends JPanel {
 
 	public LevelPanelComponent(Color c, String name, LevelPanel l) {
 		super();
-		System.out.println("l48LPC " + name);
 		currLevel = new Level(name);
-		System.out.println("l50LPC " + currLevel.getName());
 		levelPanel = l;
 		setBackground(c);
 		// Level level;
@@ -61,8 +60,20 @@ public class LevelPanelComponent extends JPanel {
 		createMouseActions(this);
 	}
 
+	/**
+	 * Gets level of this level panel component
+	 * @return Level
+	 */
 	public Level getLevel() {
 		return currLevel;
+	}
+	
+	/**
+	 * Gets levelPanel of the viewer
+	 * @return LevelPanel
+	 */
+	public LevelPanel getLevelPanel() {
+		return levelPanel;
 	}
 
 	private void createMouseActions(final LevelPanelComponent level) {
@@ -115,8 +126,11 @@ public class LevelPanelComponent extends JPanel {
 				}
 				
 				if (e.getModifiers() == MouseEvent.BUTTON3_MASK){
-					JOptionPane.showMessageDialog(level,"Rahul is clearly an asshole", "Rahul sucks", JOptionPane.ERROR_MESSAGE);
-					System.out.println("Rahul is an asshole!");
+					//TODO: Make this better
+					//This is a bit of a hacky solution, as it doesn't select the currently clicked component necessarily
+					
+					LevelPanelRightClickMenu menu = new LevelPanelRightClickMenu(levelPanel.findActivePanel());
+					
 				}
 			}
 		});
