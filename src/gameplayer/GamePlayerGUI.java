@@ -37,7 +37,8 @@ public class GamePlayerGUI extends JGEngine{
 	 */
 	@Override
 	public void initCanvas() {
-		setCanvasSettings(displayWidth(), displayHeight(), 1, 1, null, null, null);
+		//setCanvasSettings(displayWidth(), displayHeight(), 1, 1, null, null, null);
+		setCanvasSettings(100,100,displayWidth()/100,displayHeight()/100,null,null,null);
 	}
 
 	/**
@@ -60,7 +61,8 @@ public class GamePlayerGUI extends JGEngine{
 		// TODO: make this all dependent on the current level
 		
 		constructGame(); //sets levels
-		setPFSize(1, 1);
+		//setPFSize(1, 1);
+		setPFSize(100, 100);
 		setBGImage(currentLevel.getBackground());
 		
 		//initObjects();
