@@ -21,6 +21,7 @@ import javax.swing.JPanel;
  * 
  */
 public class VAEview extends JFrame {
+	OptionsPanel myOptionsPanel;
 	private LevelPanel levels;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
 	private ResourceBundle resources;
@@ -56,10 +57,13 @@ public class VAEview extends JFrame {
 		JPanel editPanel = new JPanel(new BorderLayout());
 		BasicLevelStats stats = new BasicLevelStats();
 		ScrollPane levelList = createLevelListPane(stats);
-		// editPanel.add(scroller, BorderLayout.WEST);
+		
 		editPanel.add(new ObjectPanel(levels), BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
-		// mainPanel.add(new OptionsPanel(),BorderLayout.NORTH);
+		
+		//mainPanel.add(new OptionsPanel(this),BorderLayout.NORTH);
+		myOptionsPanel = new OptionsPanel(this);
+		
 		levelList.setPreferredSize(new Dimension(300, HEIGHT));
 		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
