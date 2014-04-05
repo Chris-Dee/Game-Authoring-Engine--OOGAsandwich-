@@ -6,7 +6,7 @@ public class GameObject extends JGObject {
 	
 	public Movement myMovement;
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, Movement move) {
+	public GameObject(String name, JGPoint position, Integer colid, String sprite, Movement move) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = move;
 	}
