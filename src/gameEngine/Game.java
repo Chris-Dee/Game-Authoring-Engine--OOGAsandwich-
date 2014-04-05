@@ -33,15 +33,16 @@ public class Game {
 	public static Game getExample(){
 		Game game = new Game();
 		game.mediaTablePath = "tempTable.tbl";
-		game.screenSize = new JGPoint(640, 480);
+		//game.screenSize = new JGPoint(640, 480);
+		game.screenSize = new JGPoint(1440, 900);
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile"));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile"));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r", new Movement()));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement(3)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement()));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new Movement()));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new Movement()));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new Movement()));
 		List<GameForce> forces = new ArrayList<GameForce>();
 		GameForce force1 = new GameForce();
 		forces.add(force1);

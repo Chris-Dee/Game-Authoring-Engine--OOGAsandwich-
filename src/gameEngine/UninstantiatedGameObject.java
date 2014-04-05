@@ -7,13 +7,16 @@ public class UninstantiatedGameObject {
 	JGPoint objectPosition;
 	int objectColid;
 	String objectSprite;
-	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite) {
+	Movement objectMovement;
+	
+	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Movement move) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
 		objectSprite = sprite;
+		objectMovement = move;
 	}
 	public GameObject instantiate(){
-		return new GameObject(objectName, objectPosition, objectColid, objectSprite);
+		return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectMovement);
 	}
 }
