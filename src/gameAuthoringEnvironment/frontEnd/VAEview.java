@@ -28,7 +28,7 @@ public class VAEview extends JFrame {
 	private static final String DOT_JSON_EXTENSION = ".json";
 	private static final String LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME = "levelComponentList";
 	private static final String LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME = "myLevel";
-	OptionsPanel myOptionsPanel;
+	private OptionsPanel myOptionsPanel;
 	private LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
 	private ResourceBundle resources;
@@ -151,28 +151,25 @@ public class VAEview extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
-	public void loadFromTextFile(){
+
+	public void loadFromTextFile() {
 		JFileChooser fileChooser = new JFileChooser();
 		String selectedFile = "";
 		int result = fileChooser.showOpenDialog(null);
-		if (result == JFileChooser.APPROVE_OPTION){
+		if (result == JFileChooser.APPROVE_OPTION) {
 			selectedFile = fileChooser.getSelectedFile().getName();
 		}
 		myGameData.setFileName(selectedFile);
 		try {
 			myGameData.parse();
 			List<Object> myLevels = myGameData.getObjects("gameEngine.Level");
-			
+
 			myLevelPanel.deleteAllLevels();
-			for (Object level:myLevels){
-				myLevelPanel.addLevel((Level)level);
+			for (Object level : myLevels) {
+				myLevelPanel.addLevel((Level) level);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
 }
