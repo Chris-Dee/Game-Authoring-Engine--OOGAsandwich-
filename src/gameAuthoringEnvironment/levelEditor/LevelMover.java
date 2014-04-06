@@ -68,7 +68,7 @@ public class LevelMover extends JGObject {
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
 			UninstantiatedGameObject newObject = new UninstantiatedGameObject("player", new JGPoint((int)x, (int)y), 1, "srball", new GameObjectAction(levelInputMap));
-			myLevelEditor.myLevel.addObjects(newObject);
+			myLevelEditor.getMyLevel().addObjects(newObject);
 			newObject.instantiate();
 		}
 	}

@@ -79,7 +79,7 @@ public class Game {
 		
 	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .2);//,new LevelInput(levelInputMap));
 
 		
 		

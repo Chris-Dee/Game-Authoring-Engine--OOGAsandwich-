@@ -83,13 +83,12 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void paintFrameInGame() {
-
 		//TODO: Make this dependent on the current level (if necessary at all)
-		String levelText = "Hello, World!";
+		String levelText = "Test Level";
 		if(levelOver)
 			levelText = "Level Complete";
 		drawString(levelText,viewWidth()/2,90,0);
-		
+
 	}
 
 	public void doLevel(){
@@ -98,6 +97,7 @@ public class GamePlayerGUI extends JGEngine{
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		currentLevel.doFrame();
 		doInputs();
+		doGravity(currentLevel.getGravityVal());
 		checkLevelEnd();
 	}
 	
@@ -142,6 +142,12 @@ public class GamePlayerGUI extends JGEngine{
 			}
 		}
 		return currentGoal;
+	}
+	
+	public void doGravity(double mag){
+		for(GameObject obj : currentObjects){
+			obj.yspeed += mag;
+		}
 	}
 
 	public void doInputs(){
