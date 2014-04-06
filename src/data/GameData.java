@@ -18,10 +18,9 @@ public class GameData {
 	private Map<String, List<Object>> objMap;
 
 	/**
-	 * Creates a GameData object initialized from a file. If the file exists, it
-	 * is parsed. If the file does not exist, then it is created when save() is
-	 * called.
-	 *
+	 * Creates a GameData object initialized from a file. The file is saved if
+	 * write() is called
+	 * 
 	 * @param filename
 	 *            The name of the file
 	 * @throws InvalidDataFileException
@@ -34,7 +33,7 @@ public class GameData {
 	/**
 	 * Adds obj to be serialized. Its class is determined and it is placed into
 	 * a section corresponding to its class.
-	 *
+	 * 
 	 * @param obj
 	 *            An object that is to be added to be serialized.
 	 * @return
@@ -63,7 +62,7 @@ public class GameData {
 
 	/**
 	 * Writes the contents of the objMap to a file.
-	 *
+	 * 
 	 * @param filename
 	 *            The file to be written to.
 	 * @return
@@ -93,8 +92,7 @@ public class GameData {
 		return fileText;
 	}
 
-	public Map<String, List<Object>> parse()
-			throws InvalidDataFileException {
+	public Map<String, List<Object>> parse() throws InvalidDataFileException {
 		String jsonString = readFile();
 		PropertiesReader jsonReader = new JsonReader(jsonString);
 		try {
@@ -108,14 +106,15 @@ public class GameData {
 	/**
 	 * Returns a list of objects in the data file that match the class name(s)
 	 * given
-	 *
+	 * 
 	 * @param classNames
 	 *            Name(s) of class(es) to retrieve
 	 * @return List of objects with matching classes
 	 * @throws ClassNotFoundException
 	 *             When a class name is not found
 	 */
-	public List<Object> getObjects(String... classNames) throws ClassNotFoundException {
+	public List<Object> getObjects(String... classNames)
+			throws ClassNotFoundException {
 		List<Object> objs = new ArrayList<Object>();
 		for (String className : classNames) {
 			if (objMap.containsKey(className)) {
