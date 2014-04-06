@@ -93,6 +93,14 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel.doFrame();
 		doInputs();
 	}
+	
+	private void endLevel(){
+		//TODO: wrap up the current level and go to the next one
+	}
+	
+	private void checkLevelEnd(){
+		
+	}
 
 	public void constructGame(){
 		// This is where you take output from parser and construct the game and levels
