@@ -83,7 +83,7 @@ public class GamePlayerGUI extends JGEngine{
 
 		//TODO: Make this dependent on the current level (if necessary at all)
 
-		drawString("Hello, World!",viewWidth()/2,90,0);
+		drawString("Test Level",viewWidth()/2,90,0);
 	}
 
 	public void doLevel(){
@@ -92,6 +92,7 @@ public class GamePlayerGUI extends JGEngine{
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		currentLevel.doFrame();
 		doInputs();
+		doGravity(currentLevel.getGravityVal());
 	}
 
 	public void constructGame(){
@@ -104,6 +105,12 @@ public class GamePlayerGUI extends JGEngine{
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
 			currentObjects.add(i.instantiate());
+		}
+	}
+	
+	public void doGravity(double mag){
+		for(GameObject obj : currentObjects){
+			obj.yspeed += mag;
 		}
 	}
 
