@@ -19,6 +19,7 @@ public class GamePlayerGUI extends JGEngine{
 	private Level currentLevel;
 	private Goal currentGoal;
 	private GameObject currentPlayer;
+	private boolean levelOver = false;
 	//private LevelInput currentLevelInput;
 
 	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
@@ -84,8 +85,11 @@ public class GamePlayerGUI extends JGEngine{
 	public void paintFrameInGame() {
 
 		//TODO: Make this dependent on the current level (if necessary at all)
-
-		drawString("Hello, World!",viewWidth()/2,90,0);
+		String levelText = "Hello, World!";
+		if(levelOver)
+			levelText = "Level Complete";
+		drawString(levelText,viewWidth()/2,90,0);
+		
 	}
 
 	public void doLevel(){
@@ -99,7 +103,11 @@ public class GamePlayerGUI extends JGEngine{
 	
 	private void endLevel(){
 		//TODO: wrap up the current level and go to the next one
-		System.out.println("Goal reached");
+		for(GameObject i: currentObjects){
+			i.remove();
+		}
+		levelOver = true;
+		//TODO: Call something to construct the new level and switch to that new level
 	}
 	
 	private void checkLevelEnd(){
@@ -120,9 +128,11 @@ public class GamePlayerGUI extends JGEngine{
 			currentObjects.add(i.instantiate());
 		}
 		currentGoal = getGoal();
+		levelOver = false;
 	}
 	
 	private Goal getGoal(){
+		//Temporary code for getting a player because collision does not work yet
 		for(GameObject i: currentObjects){
 			if(i.getFuckingName().equals("player")){
 				currentPlayer = i;
