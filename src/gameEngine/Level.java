@@ -60,6 +60,10 @@ public class Level {
 		return levelObjects;
 	}
 	
+	public void addObjects(UninstantiatedGameObject object) {
+		levelObjects.add(object);
+	}
+	
 	//public LevelInput getLevelInput(){
 	//	return levelInput;
 	//}

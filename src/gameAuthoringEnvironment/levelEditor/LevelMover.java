@@ -1,7 +1,12 @@
 package gameAuthoringEnvironment.levelEditor;
 
 //TODO make this work...
+import java.util.HashMap;
+
+import gameEngine.GameObjectAction;
+import gameEngine.UninstantiatedGameObject;
 import jgame.JGObject;
+import jgame.JGPoint;
 import jgame.platform.JGEngine;
 
 //The invisible little object that moves around in the levels
@@ -38,14 +43,34 @@ public class LevelMover extends JGObject {
 	public void move() {
 		xdir = 0;
 		ydir = 0;
-		if (checkKey(myEngine.KeyLeft))
-			xdir = -1;
-		if (checkKey(myEngine.KeyRight))
-			xdir = 1;
-		if (checkKey(myEngine.KeyUp))
-			ydir = -1;
-		if (checkKey(myEngine.KeyDown))
-			ydir = 1;
+		if (checkKey(myEngine.KeyLeft)) {
+			xdir = -16;
+			myEngine.clearKey(myEngine.KeyLeft);
+		}
+		if (checkKey(myEngine.KeyRight)) {
+			xdir = 16;
+			myEngine.clearKey(myEngine.KeyRight);
+		}
+		if (checkKey(myEngine.KeyUp)) {
+			ydir = -16;
+			myEngine.clearKey(myEngine.KeyUp);
+		}
+		if (checkKey(myEngine.KeyDown)) {
+			ydir = 16;
+			myEngine.clearKey(myEngine.KeyDown);
+		}
+		if (checkKey(myEngine.KeyEnter)) {
+			System.out.println("Adding " + getImageName() + " to screen");
+			myEngine.clearKey(myEngine.KeyEnter);
+			HashMap<Integer, String> levelInputMap = new HashMap<Integer, String>();
+			levelInputMap.put(39,  "moveRight");
+			levelInputMap.put(37, "moveLeft");
+			levelInputMap.put(40, "moveDown");
+			levelInputMap.put(38, "moveUp");
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject("player", new JGPoint((int)x, (int)y), 1, "srball", new GameObjectAction(levelInputMap));
+			myLevelEditor.myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
 	}
 
 	public void changeImage(String imageName) {

@@ -3,6 +3,7 @@ package gameAuthoringEnvironment.frontEnd;
 import gameAuthoringEnvironment.levelEditor.LevelEditorWindow;
 import gameAuthoringEnvironment.levelStatsEditor.BackgroundChooser;
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -62,6 +63,11 @@ public class LevelPanelComponent extends JPanel {
 		initialize(color);
 	}
 	
+	public void setAllObjectsActive() {
+		for (UninstantiatedGameObject object : myLevel.getObjects()) {
+			object.instantiate();
+		}
+	}
 	private void initialize(Color color){
 		setBackground(color);
 		TitledBorder title = BorderFactory.createTitledBorder(
