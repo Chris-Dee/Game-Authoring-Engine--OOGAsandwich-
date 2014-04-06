@@ -9,15 +9,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-/**
- * User options panel for tasks such as saving, loading, etc.
- * 
- * 
- */
-// TODO implement this class
 
 public class OptionsPanel extends JMenuBar {
 	VAEview myViewer;
+	
+	/**
+	 * User options panel for tasks such as saving, loading, etc.
+	 * 
+	 * @param view
+	 * 			Main VAEview that this class exists in
+	 */
 	public OptionsPanel(VAEview view) {
 		myViewer = view;
 		initialize();

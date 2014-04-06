@@ -14,17 +14,17 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-/**
- * Panel to display current levels available in game.
- * 
- * 
- */
 public class LevelPanel extends JPanel {
 	private static final int EMPTY_SPACE_CONSTANT = 10;
 	// Game game
 	private List<LevelPanelComponent> levelComponentList;
 	private BasicLevelStats statsPanel;
 
+	/**
+	 * Panel to display current levels available in game.
+	 * @param stats
+	 * 			BasicLevelStats panel that this belongs to
+	 */			
 	public LevelPanel(BasicLevelStats stats) {
 		super();
 		levelComponentList = new ArrayList<LevelPanelComponent>();

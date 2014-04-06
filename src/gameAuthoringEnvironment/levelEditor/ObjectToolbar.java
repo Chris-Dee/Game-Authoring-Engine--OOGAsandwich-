@@ -23,6 +23,13 @@ public class ObjectToolbar extends JPanel {
 	private static final String IMAGE_RESOURCES = "imagefiles";
 	private static final String GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE = "gameAuthoringEnvironment.levelEditor.Resources.";
 
+	/**
+	 * Toolbar that displays all available object images. Click on each image in
+	 * order to make it the currently selected image.
+	 * 
+	 * @param level
+	 *            Level being edited
+	 */
 	public ObjectToolbar(LevelEditor level) {
 		myLevel = level;
 		myResources = ResourceBundle
@@ -34,7 +41,7 @@ public class ObjectToolbar extends JPanel {
 	private void initializeToolbar() {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
-
+		
 		for (String keyString : myResources.keySet()) {
 			addButtonImage(new JButton(), myResources.getString(keyString),
 					toolbar);

@@ -1,6 +1,7 @@
 package gameEngine;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class Game {
 		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(10, 10), 1, "hero-r", new Movement("pace",50, 8)));
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", new Movement("pace",25, 5)));
 		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement("pace",25, 5)));
 		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement(4,1)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new Movement()));
@@ -69,7 +70,16 @@ public class Game {
 		GameForce force1 = new GameForce();
 		forces.add(force1);
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");
+		Map<Character, String[]> levelInputMap= new HashMap<Character, String[]>();
+		levelInputMap.put('D', new String[]{"player","moveRight"});
+		levelInputMap.put('A', new String[]{"player","moveLeft"});
+		levelInputMap.put('W', new String[]{"player","moveUp"});
+		levelInputMap.put('S', new String[]{"player","moveDown"});
+		
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal",new LevelInput(levelInputMap));
+
+		
+		
 		game.addLevel(firstLevel);
 		game.setCurrentLevel(firstLevel);
 		return game;

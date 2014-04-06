@@ -6,17 +6,19 @@ import jgame.platform.JGEngine;
 import jgame.*;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 import data.InvalidDataFileException;
 
 public class GamePlayerGUI extends JGEngine{
-	
+
 	private Game currentGame = new Game();
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
-	
+	private LevelInput currentLevelInput;
+
 	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
 		currentGame = currentGame.getExample();
 		initEngine(currentGame.getSize());
@@ -52,19 +54,19 @@ public class GamePlayerGUI extends JGEngine{
 		defineMedia(currentGame.mediaTablePath);
 		setGameState("InGame");
 	}
-	
+
 	/**
 	 * One-time setup of the game.
 	 */
 	public void startInGame(){
-		
+
 		// TODO: make this all dependent on the current level
-		
+
 		constructGame(); //sets levels
 		//setPFSize(1, 1);
 		setPFSize(100, 100);
 		setBGImage(currentLevel.getBackground());
-		
+
 		//initObjects();
 		//myObject = new GameObject("test", 10, 10, 1, "hero-r");
 	}
@@ -76,25 +78,27 @@ public class GamePlayerGUI extends JGEngine{
 				1    // object collision ID of objects to move (0 means any)
 				);
 	}
-	
+
 	public void paintFrameInGame() {
-		
+
 		//TODO: Make this dependent on the current level (if necessary at all)
-		
+
 		drawString("Hello, World!",viewWidth()/2,90,0);
 	}
-	
+
 	public void doLevel(){
 		//does the frame of whatever the current level is and then updates the games objects
-		
+
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		currentLevel.doFrame();
+		doInputs();
 	}
 
 	public void constructGame(){
 		// This is where you take output from parser and construct the game and levels
 		// This is temporary for testing.
 		currentLevel = currentGame.getCurrentLevel();
+		currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
@@ -102,6 +106,58 @@ public class GamePlayerGUI extends JGEngine{
 			currentObjects.add(i.instantiate());
 		}
 	}
-	
+
+	public void doInputs(){
+
+		Map<Character, String[]> characterMap =currentLevelInput.getCharMap();
+		for(char c : characterMap.keySet()){
+			if(getKey(c)){
+				GameObject obj=getGameObjectWithName(characterMap.get(c)[0]);
+				java.lang.reflect.Method method = null;
+				try {
+					//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
+					method = obj.getClass().getMethod(characterMap.get(c)[1]);
+				} catch (SecurityException e) {
+				} catch (NoSuchMethodException e) {}	
+				try {
+					method.invoke(obj);
+				} catch (IllegalArgumentException e) {
+				} catch (IllegalAccessException e) {
+				} catch (InvocationTargetException e) {}
+			}
+		}
+	}
+	/*
+			else {
+				for(GameObject obj: currentObjects){
+					if(characterMap.get(c).keySet().contains(obj.getFuckingName())){
+
+						java.lang.reflect.Method method = null;
+						try {
+							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
+							method = obj.getClass().getMethod("stopMovement");
+						} catch (SecurityException e) {
+						} catch (NoSuchMethodException e) {}	
+						try {
+
+							method.invoke(obj);
+						} catch (IllegalArgumentException e) {
+						} catch (IllegalAccessException e) {
+						} catch (InvocationTargetException e) {}
+					}
+				}
+
+			}
+	 */
+
+public GameObject getGameObjectWithName(String objName){
+	for(GameObject obj: currentObjects){
+		if(objName.equals(obj.getFuckingName())){
+			return obj;
+		}
+	}
+	return null;
+
+}
 
 }

@@ -12,44 +12,66 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 public class BasicLevelStats extends JPanel {
-	LevelPanel allLevels;
+	LevelPanel myLevelPanel;
 	JLabel levelName;
 	JPanel editPane;
-	Font headingFont=new Font("Arial",Font.BOLD,18);
-	public BasicLevelStats(){
+	Font headingFont = new Font("Arial", Font.BOLD, 18);
+
+	/**
+	 * Central component of the GAE. Holds information about the current level,
+	 * ability to add more, etc.
+	 */
+	public BasicLevelStats() {
 		super();
 		makeLevelEditor(this);
 	}
-	public void setLevelPanel(LevelPanel l){
-		allLevels=l;
+
+	// TODO: Honestly I have no idea when this method is called or what it is
+	// doing. It's sometime in the beginning of the program
+	/**
+	 * 
+	 * @param levelPanel
+	 *            LevelPanel that is to be selected
+	 */
+
+	public void setLevelPanel(LevelPanel levelPanel) {
+		myLevelPanel = levelPanel;
 		try {
-			editPane.add(new BackgroundChooser(allLevels));
+			editPane.add(new BackgroundChooser(myLevelPanel));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-public void makeLevelEditor(JPanel mainPanel) {
-	 editPane=new JPanel();
-	mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
-	editPane.setLayout(new BoxLayout(editPane,BoxLayout.Y_AXIS));
-	levelName=new JLabel("Add and Select a Level!");
-	levelName.setFont(headingFont);
-	levelName.setHorizontalAlignment(SwingConstants.CENTER);
-	editPane.add(levelName);
-	editPane.add(PanelFactory.makeVerticalSpacerPanel(30));
-	
-	mainPanel.add(editPane);
-	//mainPanel.add(new LevelSizeSliders());
-	mainPanel.add(PanelFactory.makeVerticalSpacerPanel(800));
-}
-public void setLevelName(String name) {
-	levelName.setText(name);
-	
-	if (name == null){
-		levelName.setText("Please select a level");
-	}
-}
 
+	private void makeLevelEditor(JPanel mainPanel) {
+		editPane = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		editPane.setLayout(new BoxLayout(editPane, BoxLayout.Y_AXIS));
+		levelName = new JLabel("Add and Select a Level!");
+		levelName.setFont(headingFont);
+		levelName.setHorizontalAlignment(SwingConstants.CENTER);
+		editPane.add(levelName);
+		editPane.add(PanelFactory.makeVerticalSpacerPanel(30));
+
+		mainPanel.add(editPane);
+		// mainPanel.add(new LevelSizeSliders());
+		mainPanel.add(PanelFactory.makeVerticalSpacerPanel(800));
+	}
+
+	/**
+	 * Set the name of the level
+	 * 
+	 * @param name
+	 *            Name of level
+	 */
+	public void setLevelName(String name) {
+		levelName.setText(name);
+
+		if (name == null) {
+			levelName.setText("Please select a level");
+		}
+	}
 
 }
