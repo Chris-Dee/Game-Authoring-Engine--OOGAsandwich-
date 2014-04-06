@@ -14,11 +14,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class LevelEditorWindow extends JFrame {
-	private LevelPanelComponent currentLevel;
+	private LevelPanelComponent myLevelPanelComponent;
 	private LevelEditor levelEdit;
 
-	public LevelEditorWindow(LevelPanelComponent level) {
-		currentLevel = level;
+	/**
+	 * Window that holds the level editor
+	 * 
+	 * @param levelPanelComponent
+	 * 				Component in the GUI that holds the level information
+	 */
+	public LevelEditorWindow(LevelPanelComponent levelPanelComponent) {
+		myLevelPanelComponent = levelPanelComponent;
 		initialize();
 	}
 
@@ -36,7 +42,7 @@ public class LevelEditorWindow extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				levelEdit.destroy();
-				currentLevel.setActive(true);
+				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();
 			}
 		});
@@ -45,9 +51,9 @@ public class LevelEditorWindow extends JFrame {
 	private void makeMainPanel() {
 		JPanel mainPanel = (JPanel) getContentPane();
 
-		levelEdit = new LevelEditor(currentLevel.getLevel());
+		levelEdit = new LevelEditor(myLevelPanelComponent.getLevel());
 		mainPanel.add(levelEdit, BorderLayout.CENTER);
-		mainPanel.add(new LevelObjectBar(currentLevel.getLevel(), levelEdit),
+		mainPanel.add(new LevelObjectBar(myLevelPanelComponent.getLevel(), levelEdit),
 				BorderLayout.WEST);
 		// PresetsBar currently doesn't do anything, not sure of potential
 		// future purpose

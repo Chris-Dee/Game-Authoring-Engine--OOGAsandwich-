@@ -13,19 +13,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-/**
- * Component the LevelPanel. Each of these is an individual level that has its
- * own editable properties.
- * 
- * 
- */
+
 public class LevelPanelComponent extends JPanel {
 
 	private static final int YPOS_FOR_HEIGHT_PRINT = 30;
 	private static final int YPOS_FOR_WIDTH_PRINT = 50;
 	private static final int XPOS_FOR_PRINT = 5;
 	private static final int DOUBLE_CLICK_NUMBER = 2;
-	private LevelPanel levelPanel;
+	private LevelPanel myLevelPanel;
 	public static final Color ACTIVE_COLOR = new Color(100, 100, 100);
 	public static final Color HOVER_COLOR = new Color(150, 150, 150);
 	public static final Color NORMAL_COLOR = new Color(200, 200, 200);
@@ -39,12 +34,22 @@ public class LevelPanelComponent extends JPanel {
 	private String backgroundName = "White";
 	private int[] size;
 
-	public LevelPanelComponent(Color c, String name, LevelPanel l) {
+	/**
+	 * Component the LevelPanel. Each of these is an individual level that has its
+	 * own editable properties.
+	 * @param color
+	 * 			Color of the background
+	 * @param name
+	 * 			Name of the level
+	 * @param levelPanel
+	 * 				LevelPanel that this LevelPanelComponent belongs to
+	 */
+	public LevelPanelComponent(Color color, String name, LevelPanel levelPanel) {
 		super();
 
 		myLevel = new Level(name);
-		levelPanel = l;
-		setBackground(c);
+		myLevelPanel = levelPanel;
+		setBackground(color);
 		// Level level;
 		TitledBorder title = BorderFactory.createTitledBorder(
 				BorderFactory.createLineBorder(Color.black), name);
@@ -75,7 +80,7 @@ public class LevelPanelComponent extends JPanel {
 	 * @return LevelPanel
 	 */
 	public LevelPanel getLevelPanel() {
-		return levelPanel;
+		return myLevelPanel;
 	}
 
 	private void createMouseActions(final LevelPanelComponent level) {
@@ -109,11 +114,11 @@ public class LevelPanelComponent extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				levelPanel.resetBackgrounds();
+				myLevelPanel.resetBackgrounds();
 				setBackground(ACTIVE_COLOR);
 				isActive = true;
 				BackgroundChooser.setSelectedToBackground(backgroundName);
-				levelPanel.setLevelName(myLevel.getName());
+				myLevelPanel.setLevelName(myLevel.getName());
 				revalidate();
 				repaint();
 				if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
@@ -131,7 +136,7 @@ public class LevelPanelComponent extends JPanel {
 
 				if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {
 					LevelPanelRightClickMenu menu = new LevelPanelRightClickMenu(
-							level, e.getLocationOnScreen());
+							level, e.getPoint());
 				}
 			}
 		});
