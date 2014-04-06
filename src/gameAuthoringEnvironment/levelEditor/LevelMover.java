@@ -11,7 +11,6 @@ public class LevelMover extends JGObject {
 	private static final int INITIAL_X_AND_Y = 20;
 	JGEngine myEngine;
 	LevelEditor myLevelEditor;
-	private Integer changeCounter = 0;
 	private final static String RESOURCE_PATH = "/gameAuthoringEnvironment/levelEditor/Resources/";
 
 	/**
@@ -30,8 +29,8 @@ public class LevelMover extends JGObject {
 		y = INITIAL_X_AND_Y;
 	}
 
-	public LevelMover(LevelEditor level, int xPos, int yPos, Integer iteration) {
-		super("newBallImage"+iteration.toString(),true, xPos, yPos,BALL_COL_ID,"newBallImage"+iteration.toString(),0,0,INITIAL_X_Y_SPEED,INITIAL_X_Y_SPEED,-1);
+	public LevelMover(LevelEditor level, int xPos, int yPos) {
+		super("srball",true, xPos, yPos,BALL_COL_ID,"srball",0,0,INITIAL_X_Y_SPEED,INITIAL_X_Y_SPEED,-1);
 		myEngine = level;
 		myLevelEditor = level;
 		x = xPos;
@@ -69,13 +68,9 @@ public class LevelMover extends JGObject {
 
 	
 	public void changeImage(String imageName) {
-		changeCounter++;
-		myLevelEditor.defineImage("newBallImage"+changeCounter.toString(),"",0,RESOURCE_PATH + imageName,"-");
-		myLevelEditor.myMover.remove();
-		//myLevelEditor.myMover.setImage("newBallImage"+changeCounter.toString());
-		myLevelEditor.myMover = new LevelMover(myLevelEditor, (int) x, (int) y, changeCounter);
-		
-		
+		myLevelEditor.defineImage("srball","n",0,RESOURCE_PATH + imageName,"-");
+		//myLevelEditor.myMover.destroy();
+		//myLevelEditor.myMover = new LevelMover(myLevelEditor, (int) x, (int) y);
 	}
 }
 
