@@ -41,7 +41,7 @@ public class ObjectToolbar extends JPanel {
 	private void initializeToolbar() {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
-		
+
 		for (String keyString : myResources.keySet()) {
 			addButtonImage(new JButton(), myResources.getString(keyString),
 					toolbar);
@@ -56,14 +56,10 @@ public class ObjectToolbar extends JPanel {
 		if (imageCheck.exists()) {
 			try {
 				URL imageURL = imageCheck.toURI().toURL();
-				try {
-					Image img = ImageIO.read(imageURL);
-					button.setIcon(new ImageIcon(img));
-					createListener(button, fileName);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} catch (MalformedURLException e) {
+				Image img = ImageIO.read(imageURL);
+				button.setIcon(new ImageIcon(img));
+				createListener(button, fileName);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
