@@ -99,6 +99,7 @@ public class GamePlayerGUI extends JGEngine{
 	
 	private void endLevel(){
 		//TODO: wrap up the current level and go to the next one
+		System.out.println("Goal reached");
 	}
 	
 	private void checkLevelEnd(){
@@ -126,7 +127,7 @@ public class GamePlayerGUI extends JGEngine{
 			if(i.getFuckingName().equals("player")){
 				currentPlayer = i;
 			}
-			if(i.getMovement().isGoal()){
+			if(i.getFuckingName().equals("goal")){
 				return (Goal)i.getMovement();
 			}
 		}

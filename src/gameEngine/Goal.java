@@ -21,11 +21,4 @@ public class Goal extends GameObjectAction {
 	public boolean checkGoal(double x){
 		return (x>=levelEnd);
 	}
-	
-	public boolean isGoal(){
-		return true;
-	}
-	
-	
-	
 }

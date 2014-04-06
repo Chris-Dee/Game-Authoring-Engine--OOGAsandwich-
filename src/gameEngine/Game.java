@@ -61,7 +61,7 @@ public class Game {
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
 		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new Goal("end", 150)));
+		objs.add(new UninstantiatedGameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 150)));
 
 		// This code will eventually be used to parse the data.
 		
