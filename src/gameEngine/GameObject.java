@@ -11,14 +11,13 @@ public class GameObject extends JGObject {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = move;
 		myFuckingName=name;
+		myMovement.addObject(this);
 	}
 	
 	public void move() {
 		if(myMovement.getIsStart()){
 			myMovement.start();
 		}
-		this.xspeed = myMovement.getXSpeed();
-		this.yspeed = myMovement.getYSpeed();
 	}
 	
 	public void pace(int time){
