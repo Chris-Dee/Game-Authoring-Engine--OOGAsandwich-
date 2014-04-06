@@ -11,20 +11,21 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- * 
- * Panel that holds all object creating functions, such as adding levels and
- * objects to the game.
- * 
- */
 
 public class ObjectPanel extends JPanel {
-	LevelPanel levels;
+	LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
 	private ResourceBundle myResources;
 
-	public ObjectPanel(LevelPanel lPanel) {
-		levels = lPanel;
+	/**
+	 * Panel that holds all object creating functions, such as adding levels and
+	 * objects to the game.
+	 * 
+	 * @param levelPanel
+	 * 			LevelPanel of the GAE
+	 */
+	public ObjectPanel(LevelPanel levelPanel) {
+		myLevelPanel = levelPanel;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 		makeMainFrame();
 		setBackground(VAEview.backgroundColor);
@@ -44,7 +45,7 @@ public class ObjectPanel extends JPanel {
 		JButton level = new JButton(myResources.getString("NewLevelButton"));
 		level.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				levels.addLevel(levelName.getText());
+				myLevelPanel.addLevel(levelName.getText());
 			}
 		});
 		buttonModule.add(level);

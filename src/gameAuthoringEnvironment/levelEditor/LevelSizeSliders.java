@@ -12,22 +12,26 @@ import javax.swing.event.ChangeListener;
 
 import jgame.JGPoint;
 
-/**
- * Component that makes sliding adjustment bars. Can be used to adjust integers.
- * 
- * 
- */
+
 public class LevelSizeSliders extends JPanel {
 	private static final int[] RANGE_FOR_HEIGHT_SLIDER = new int[] { 1, 20 };
 	private static final int[] RANGE_FOR_WIDTH_SLIDER = new int[] { 1, 20 };
-	Level level;
+	Level myLevel;
 	private JSlider height;
 	private JSlider width;
-	LevelEditor levelEdit;
+	LevelEditor myLevelEditor;
 
-	public LevelSizeSliders(Level lev, LevelEditor editor) {
-		level = lev;
-		levelEdit = editor;
+	/**
+	 * Component that makes sliding adjustment bars. Can be used to adjust integers.
+	 * 
+	 * @param level
+	 * 			Level being edited
+	 * @param levelEditor
+	 * 			LevelEditor that the object exists in
+	 */
+	public LevelSizeSliders(Level level, LevelEditor levelEditor) {
+		myLevel = level;
+		myLevelEditor = levelEditor;
 		makeSizePanel(this);
 	}
 
@@ -37,7 +41,7 @@ public class LevelSizeSliders extends JPanel {
 		height = makeSizeSlider("Height", RANGE_FOR_HEIGHT_SLIDER, panel);
 		width = makeSizeSlider("Width", RANGE_FOR_WIDTH_SLIDER, panel);
 		homePanel.add(panel);
-		setSliderPositions(level.getLevelSize());
+		setSliderPositions(myLevel.getLevelSize());
 	}
 
 	public JSlider makeSizeSlider(String title, int[] range, JPanel homePanel) {
@@ -63,9 +67,9 @@ public class LevelSizeSliders extends JPanel {
 		}
 
 		public void stateChanged(ChangeEvent arg0) {
-			level.changeLevelSize(new JGPoint(width.getValue(), height
+			myLevel.changeLevelSize(new JGPoint(width.getValue(), height
 					.getValue()));
-			levelEdit.setPFSize(width.getValue(), height.getValue());
+			myLevelEditor.setPFSize(width.getValue(), height.getValue());
 		}
 	}
 }

@@ -19,6 +19,13 @@ public class ObjectToolbar extends JPanel {
 	private LevelEditor myLevel;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/Resources/";
 
+	/**
+	 * Toolbar that displays all available object images. Click on each image in
+	 * order to make it the currently selected image.
+	 * 
+	 * @param level
+	 * 			Level being edited
+	 */
 	public ObjectToolbar(LevelEditor level) {
 		myLevel = level;
 		initializeToolbar();
@@ -27,17 +34,20 @@ public class ObjectToolbar extends JPanel {
 	private void initializeToolbar() {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
-		
-		String[] images = {"blockobject.jpg", "goombaobject.png", "lemonobject.jpg", "limeobject.gif", "marioobject.jpg", "orangeobject.jpg", "pacmanobject.jpg", "treeobject.jpg"};
 
-		for(int i = 0; i < images.length; i++) {
+		String[] images = { "blockobject.jpg", "goombaobject.png",
+				"lemonobject.jpg", "limeobject.gif", "marioobject.jpg",
+				"orangeobject.jpg", "pacmanobject.jpg", "treeobject.jpg" };
+
+		for (int i = 0; i < images.length; i++) {
 			addButtonImage(new JButton(), images[i], toolbar);
 		}
 		add(toolbar);
 	}
 
 	@SuppressWarnings("deprecation")
-	private void addButtonImage(JButton button, String fileName, JToolBar toolbar) {
+	private void addButtonImage(JButton button, String fileName,
+			JToolBar toolbar) {
 		File imageCheck = new File(RESOURCE_PATH + fileName);
 		if (imageCheck.exists()) {
 			try {
@@ -53,9 +63,9 @@ public class ObjectToolbar extends JPanel {
 				e.printStackTrace();
 			}
 		}
-        toolbar.add(button);
+		toolbar.add(button);
 	}
-	
+
 	private void createListener(JButton button, final String fileName) {
 		button.addActionListener(new ActionListener() {
 

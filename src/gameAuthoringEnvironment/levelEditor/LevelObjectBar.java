@@ -7,14 +7,23 @@ import gameEngine.Level;
 import javax.swing.JPanel;
 
 /**
- * Panel that displays all parameters that can be modified about the current
- * level.
+ * 
  * 
  * 
  */
 public class LevelObjectBar extends JPanel {
-	public LevelObjectBar(Level level, LevelEditor levelEdit) {
-		initialize(level, levelEdit);
+	
+	/**
+	 * Panel that displays all parameters that can be modified about the current
+	 * level.
+	 * 
+	 * @param level
+	 * 			Level being edited
+	 * @param levelEditor
+	 * 			LevelEditor that this object exists in
+	 */
+	public LevelObjectBar(Level level, LevelEditor levelEditor) {
+		initialize(level, levelEditor);
 	}
 
 	private void initialize(Level lev, LevelEditor editor) {

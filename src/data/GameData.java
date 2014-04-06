@@ -1,5 +1,7 @@
 package data;
 
+import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +19,7 @@ public class GameData {
 	private String _filename;
 	private Map<String, List<Object>> objMap;
 
+	
 	/**
 	 * Creates a GameData object initialized from a file. The file is saved if
 	 * write() is called

@@ -7,12 +7,6 @@ import javax.swing.JPanel;
 import jgame.JGColor;
 import jgame.platform.JGEngine;
 
-/**
- * JGame class that holds the level editor. This displays what the created level
- * currently looks like.
- * 
- * 
- */
 public class LevelEditor extends JGEngine {
 
 	private static final int MAX_FRAME_SKIP = 3;
@@ -21,7 +15,7 @@ public class LevelEditor extends JGEngine {
 	private static final int SCREEN_WIDTH = 600;
 	public LevelMover myMover;
 
-	Level level;
+	Level myLevel;
 
 	private static final int INITIAL_WIDTH = 600;
 	private static final int INITIAL_HEIGHT = 600;
@@ -35,10 +29,17 @@ public class LevelEditor extends JGEngine {
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 
-	public LevelEditor(Level lev) {
+	/**
+	 * JGame class that holds the level editor. This displays what the created level
+	 * currently looks like.
+	 * 
+	 * @param level
+	 * 			Level being edited
+	 */
+	public LevelEditor(Level level) {
 		super();
 
-		level = lev;
+		myLevel = level;
 		dbgShowMessagesInPf(false);
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -47,7 +48,7 @@ public class LevelEditor extends JGEngine {
 
 		defineImage("srball", "", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
-		defineImage("background1", "", 0, level.getBackground(), "-");
+		defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
 	}
 
@@ -61,7 +62,7 @@ public class LevelEditor extends JGEngine {
 	public void initGame() {
 		setFrameRate(FRAMES_PER_SECOND, MAX_FRAME_SKIP);
 		// width in spot 0, height in spot 1
-		setPFSize(level.getLevelSize().x, level.getLevelSize().y);
+		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
 
 	private void checkInBounds() {

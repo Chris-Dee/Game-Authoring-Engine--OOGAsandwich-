@@ -22,11 +22,7 @@ import javax.swing.JPanel;
 import data.GameData;
 import data.InvalidDataFileException;
 
-/**
- * Main unit of game authoring environment. Run this to run the level editor.
- * 
- * 
- */
+
 public class VAEview extends JFrame {
 	private static final String WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION = "What would you like to call this game?";
 	private static final String DOT_TXT_EXTENSION = ".txt";
@@ -43,6 +39,10 @@ public class VAEview extends JFrame {
 	private static final int DOWN_ARROW_KEY = 40;
 	private GameData myGameData;
 
+	/**
+	 * Main unit of game authoring environment. Run this to run the level editor.
+	 * 
+	 */
 	public VAEview() {
 		initialize();
 	}
@@ -123,11 +123,12 @@ public class VAEview extends JFrame {
 	}
 
 	/**
-	 * Saves the current game to a .txt file in the JSON format. The user defines the file name.
+	 * Saves the current game to a .txt file in the JSON format. The user
+	 * defines the file name.
 	 */
 	public void saveToTextFile() {
-		String fileName = JOptionPane.
-				showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
+		String fileName = JOptionPane
+				.showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
 		try {
 			Field levelComponentListField = myLevelPanel.getClass()
 					.getDeclaredField(

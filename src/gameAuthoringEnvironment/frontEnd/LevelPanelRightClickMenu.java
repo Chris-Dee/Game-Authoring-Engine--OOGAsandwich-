@@ -19,8 +19,16 @@ public class LevelPanelRightClickMenu extends JPopupMenu {
 	private Point myMouseLocation;
 	LevelPanelComponent myLevelComponenet;
 
-	public LevelPanelRightClickMenu(LevelPanelComponent level, Point mouseLoc) {
-		myLevelComponenet = level;
+	/**
+	 * PopupMenu for right-clicking a LevelPanelComponent
+	 * 
+	 * @param levelPanelComponent
+	 * 			LevelPanelComponent that was right-clicked
+	 * @param mouseLoc
+	 * 			Location of mouse click
+	 */
+	public LevelPanelRightClickMenu(LevelPanelComponent levelPanelComponent, Point mouseLoc) {
+		myLevelComponenet = levelPanelComponent;
 		myMouseLocation = mouseLoc;
 		createPanel();
 	}
