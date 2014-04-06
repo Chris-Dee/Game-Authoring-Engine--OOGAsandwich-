@@ -17,6 +17,8 @@ public class GamePlayerGUI extends JGEngine{
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
+	private Goal currentGoal;
+	private GameObject currentPlayer;
 	//private LevelInput currentLevelInput;
 
 	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
@@ -92,6 +94,7 @@ public class GamePlayerGUI extends JGEngine{
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		currentLevel.doFrame();
 		doInputs();
+		checkLevelEnd();
 	}
 	
 	private void endLevel(){
@@ -99,7 +102,9 @@ public class GamePlayerGUI extends JGEngine{
 	}
 	
 	private void checkLevelEnd(){
-		
+		if(currentGoal.checkGoal(currentPlayer.x)){
+			endLevel();
+		}
 	}
 
 	public void constructGame(){
@@ -113,6 +118,19 @@ public class GamePlayerGUI extends JGEngine{
 			//TODO: Instantiate based on if sprite is on screen
 			currentObjects.add(i.instantiate());
 		}
+		currentGoal = getGoal();
+	}
+	
+	private Goal getGoal(){
+		for(GameObject i: currentObjects){
+			if(i.getFuckingName().equals("player")){
+				currentPlayer = i;
+			}
+			if(i.getMovement().isGoal()){
+				return (Goal)i.getMovement();
+			}
+		}
+		return currentGoal;
 	}
 
 	public void doInputs(){

@@ -125,4 +125,8 @@ public class GameObjectAction {
 		xspeed=0;
 		yspeed=0;
 	}
+	
+	public boolean isGoal(){
+		return false;
+	}
 }
