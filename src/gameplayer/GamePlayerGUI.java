@@ -17,7 +17,7 @@ public class GamePlayerGUI extends JGEngine{
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
-	private LevelInput currentLevelInput;
+	//private LevelInput currentLevelInput;
 
 	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
 		currentGame = currentGame.getExample();
@@ -98,7 +98,7 @@ public class GamePlayerGUI extends JGEngine{
 		// This is where you take output from parser and construct the game and levels
 		// This is temporary for testing.
 		currentLevel = currentGame.getCurrentLevel();
-		currentLevelInput = currentLevel.getLevelInput();
+		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
@@ -108,56 +108,44 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void doInputs(){
-
-		Map<Character, String[]> characterMap =currentLevelInput.getCharMap();
-		for(char c : characterMap.keySet()){
-			if(getKey(c)){
-				GameObject obj=getGameObjectWithName(characterMap.get(c)[0]);
-				java.lang.reflect.Method method = null;
-				try {
-					//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-					method = obj.getClass().getMethod(characterMap.get(c)[1]);
-				} catch (SecurityException e) {
-				} catch (NoSuchMethodException e) {}	
-				try {
-					method.invoke(obj);
-				} catch (IllegalArgumentException e) {
-				} catch (IllegalAccessException e) {
-				} catch (InvocationTargetException e) {}
-			}
-		}
-	}
-	/*
-			else {
-				for(GameObject obj: currentObjects){
-					if(characterMap.get(c).keySet().contains(obj.getFuckingName())){
-
+		for(GameObject obj: currentObjects){
+			GameObjectAction move=obj.getMovement();
+			Map<Integer, String> characterMap =move.getCharMap();
+			if(characterMap!=null){
+				boolean keyPressed=false;
+				for(Integer c : characterMap.keySet()){
+					if(getKey(c)){
+						keyPressed=true;
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = obj.getClass().getMethod("stopMovement");
+							method = move.getClass().getMethod(characterMap.get(c));
 						} catch (SecurityException e) {
 						} catch (NoSuchMethodException e) {}	
 						try {
-
-							method.invoke(obj);
+							method.invoke(move);
 						} catch (IllegalArgumentException e) {
 						} catch (IllegalAccessException e) {
 						} catch (InvocationTargetException e) {}
 					}
 				}
-
+				if (!keyPressed){
+						java.lang.reflect.Method method = null;
+						try {
+							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
+							method = move.getClass().getMethod("stopMovement");
+						} catch (SecurityException e) {
+						} catch (NoSuchMethodException e) {}	
+						try {
+							method.invoke(move);
+						} catch (IllegalArgumentException e) {
+						} catch (IllegalAccessException e) {
+						} catch (InvocationTargetException e) {}
+				}
 			}
-	 */
 
-public GameObject getGameObjectWithName(String objName){
-	for(GameObject obj: currentObjects){
-		if(objName.equals(obj.getFuckingName())){
-			return obj;
 		}
-	}
-	return null;
 
-}
+	}
 
 }

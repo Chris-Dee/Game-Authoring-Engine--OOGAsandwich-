@@ -3,8 +3,9 @@ package gameEngine;
 import jgame.JGTimer;
 
 import java.lang.reflect.*;
+import java.util.Map;
 
-public class Movement {
+public class GameObjectAction {
 	
 	private int xspeed;
 	private int yspeed;
@@ -14,29 +15,37 @@ public class Movement {
 	private int behaviorTime;
 	private boolean behaviorFlag = false;
 	
-	public Movement(){
+	private Map<Integer, String> characterMap;
+	
+	public GameObjectAction(){
 		xspeed = 0;
 		yspeed = 0;
 	}
 	
-	public Movement(String behavior, int time){
+	public GameObjectAction(String behavior, int time){
 		this.behavior = behavior;
 		behaviorTime = time;
 		behaviorFlag = true;
 		behaviorSpeed = 0;
 	}
 	
-	public Movement(String behavior, int time, int speed){
+	public GameObjectAction(String behavior, int time, int speed){
 		this.behavior = behavior;
 		behaviorSpeed = speed;
 		behaviorFlag = true;
 		behaviorTime = time;
 	}
 	
-	public Movement(int xspeed, int yspeed){
+	public GameObjectAction(int xspeed, int yspeed){
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
 	}
+	public GameObjectAction(Map<Integer, String> inputMap){
+		characterMap=inputMap;
+		xspeed = 0;
+		yspeed = 0;
+	}
+	
 	
 	public int getXSpeed(){
 		return xspeed;
@@ -91,5 +100,29 @@ public class Movement {
 		 }
 		
 	}
+	
+	public Map<Integer, String> getCharMap(){
+		return characterMap;
+	}
 
+	public void moveRight(){
+		xspeed=4;
+	}
+	
+	public void moveLeft(){
+		xspeed=-4;
+		
+	}
+	
+	public void moveUp(){
+		yspeed=-4;
+	}
+	
+	public void moveDown(){
+		yspeed=4;
+	}
+	public void stopMovement(){
+		xspeed=0;
+		yspeed=0;
+	}
 }

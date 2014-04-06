@@ -7,9 +7,9 @@ public class UninstantiatedGameObject {
 	JGPoint objectPosition;
 	int objectColid;
 	String objectSprite;
-	Movement objectMovement;
+	GameObjectAction objectMovement;
 	
-	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Movement move) {
+	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, GameObjectAction move) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;

@@ -47,14 +47,20 @@ public class Game {
 		//game.screenSize = new JGPoint(640, 480);
 		game.screenSize = new JGPoint(1440, 900);
 		
+		Map<Integer, String> levelInputMap= new HashMap<Integer, String>();
+		levelInputMap.put(39, "moveRight");
+		levelInputMap.put(37,"moveLeft");
+		levelInputMap.put(38, "moveUp");
+		levelInputMap.put(40, "moveDown");
+		
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", new Movement("pace",25, 5)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new Movement("pace",25, 5)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new Movement(4,1)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new Movement()));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new Movement("pace",75, 2)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new Movement()));
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
 
 		// This code will eventually be used to parse the data.
 		
@@ -70,13 +76,9 @@ public class Game {
 		GameForce force1 = new GameForce();
 		forces.add(force1);
 		
-		Map<Character, String[]> levelInputMap= new HashMap<Character, String[]>();
-		levelInputMap.put('D', new String[]{"player","moveRight"});
-		levelInputMap.put('A', new String[]{"player","moveLeft"});
-		levelInputMap.put('W', new String[]{"player","moveUp"});
-		levelInputMap.put('S', new String[]{"player","moveDown"});
+	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal",new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");//,new LevelInput(levelInputMap));
 
 		
 		
