@@ -136,7 +136,7 @@ public class LevelPanelComponent extends JPanel {
 
 				if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {
 					LevelPanelRightClickMenu menu = new LevelPanelRightClickMenu(
-							level, e.getLocationOnScreen());
+							level, e.getPoint());
 				}
 			}
 		});

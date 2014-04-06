@@ -17,7 +17,7 @@ public class LevelPanelRightClickMenu extends JPopupMenu {
 	private final static int WIDTH = 150;
 	private final static int HEIGHT = 100;
 	private Point myMouseLocation;
-	LevelPanelComponent myLevelComponenet;
+	LevelPanelComponent myLevelComponent;
 
 	/**
 	 * PopupMenu for right-clicking a LevelPanelComponent
@@ -25,10 +25,10 @@ public class LevelPanelRightClickMenu extends JPopupMenu {
 	 * @param levelPanelComponent
 	 * 			LevelPanelComponent that was right-clicked
 	 * @param mouseLoc
-	 * 			Location of mouse click
+	 * 			Location of mouse click relative to the LevelPanelComponent
 	 */
 	public LevelPanelRightClickMenu(LevelPanelComponent levelPanelComponent, Point mouseLoc) {
-		myLevelComponenet = levelPanelComponent;
+		myLevelComponent = levelPanelComponent;
 		myMouseLocation = mouseLoc;
 		createPanel();
 	}
@@ -42,10 +42,10 @@ public class LevelPanelRightClickMenu extends JPopupMenu {
 				delete = JOptionPane.showConfirmDialog(
 						null,
 						"Are you sure you want to delete the Level: "
-								+ myLevelComponenet.getName() + " ?",
+								+ myLevelComponent.getName() + " ?",
 						"This is not reversible", JOptionPane.YES_NO_OPTION);
 				if (delete == 0) { //yes option selected
-					myLevelComponenet.getLevelPanel().deleteLevel(myLevelComponenet);
+					myLevelComponent.getLevelPanel().deleteLevel(myLevelComponent);
 				}
 			}
 		});
@@ -53,7 +53,7 @@ public class LevelPanelRightClickMenu extends JPopupMenu {
 
 		setSize(WIDTH,HEIGHT);
 		
-		show(myLevelComponenet, myMouseLocation.x, myMouseLocation.y);
+		show(myLevelComponent, myMouseLocation.x, myMouseLocation.y);
 	}
 
 }
