@@ -78,16 +78,24 @@ public class BackgroundChooser extends JPanel {
 		// TODO disable model with nothing selected to avoid errors.
 		// model.setEnabled(false);
 	}
+	
+	/**
+	 * Enable the model
+	 */
 
 	public void enableModel() {
 		model.setEnabled(true);
 	}
+	
+	/**
+	 * Set the selected item to the default background
+	 */
 
 	public void setSelectionToDefault() {
 		model.setSelectedItem(initialSelection);
 	}
 
-	public void makeFileChooserButton(JPanel homePanel) {
+	private void makeFileChooserButton(JPanel homePanel) {
 		JPanel editorPanel = new JPanel();
 		homePanel.add(new JLabel("Add New Background Image"));
 		editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.X_AXIS));
@@ -103,18 +111,24 @@ public class BackgroundChooser extends JPanel {
 		homePanel.add(addImage);
 	}
 
-	public void setBackgroundToSelected() {
+	private void setBackgroundToSelected() {
 		String newBG = myBackgroundMap.get(model.getSelectedItem());
 		System.out.println("l89BC " + myLevelPanel);
 		myLevelPanel.findActivePanel().changeDefaultBackground(newBG,
 				(String) model.getSelectedItem());
 	}
+	
+	/**
+	 * Sets the selected background to the background in the currently active LevelPanelComponent
+	 * @param backgroundName
+	 * 					Name of the background
+	 */
 
 	public static void setSelectedToBackground(String backgroundName) {
 		model.setSelectedItem(backgroundName);
 	}
 
-	public class FileChoose implements ActionListener {
+	private class FileChoose implements ActionListener {
 		JPanel home;
 
 		public FileChoose(JPanel homePanel) {
@@ -136,7 +150,7 @@ public class BackgroundChooser extends JPanel {
 		}
 	}
 
-	public class AddImage implements ActionListener {
+	private class AddImage implements ActionListener {
 		JPanel home;
 
 		public AddImage(JPanel homePanel) {

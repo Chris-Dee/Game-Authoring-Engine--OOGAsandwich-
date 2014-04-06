@@ -37,6 +37,7 @@ public class VAEview extends JFrame {
 	private static final int LEVEL_LIST_SIZE_Y = 600;
 	private static final int UP_ARROW_KEY = 38;
 	private static final int DOWN_ARROW_KEY = 40;
+	private static final int LEVEL_PANEL_SIZE_X = 300;
 	private GameData myGameData;
 
 	/**
@@ -78,10 +79,9 @@ public class VAEview extends JFrame {
 		editPanel.add(new ObjectPanel(myLevelPanel), BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
 
-		// mainPanel.add(new OptionsPanel(this),BorderLayout.NORTH);
 		myOptionsPanel = new OptionsPanel(this);
 
-		levelList.setPreferredSize(new Dimension(300, HEIGHT));
+		levelList.setPreferredSize(new Dimension(LEVEL_PANEL_SIZE_X, HEIGHT));
 		mainPanel.add(levelList);
 		mainPanel.add(editPanel, BorderLayout.EAST);
 
