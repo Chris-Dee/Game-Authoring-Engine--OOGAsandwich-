@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,30 +19,36 @@ import javax.swing.JToolBar;
 public class ObjectToolbar extends JPanel {
 	private LevelEditor myLevel;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/Resources/";
+	private ResourceBundle myResources;
+	private static final String IMAGE_RESOURCES = "imagefiles";
+	private static final String GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE = "gameAuthoringEnvironment.levelEditor.Resources.";
 
 	public ObjectToolbar(LevelEditor level) {
 		myLevel = level;
+		myResources = ResourceBundle
+				.getBundle(GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE
+						+ IMAGE_RESOURCES);
 		initializeToolbar();
 	}
 
 	private void initializeToolbar() {
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
-		
-		String[] images = {"blockobject.jpg", "goombaobject.png", "lemonobject.jpg", "limeobject.gif", "marioobject.jpg", "orangeobject.jpg", "pacmanobject.jpg", "treeobject.jpg"};
 
-		for(int i = 0; i < images.length; i++) {
-			addButtonImage(new JButton(), images[i], toolbar);
+		for (String keyString : myResources.keySet()) {
+			addButtonImage(new JButton(), myResources.getString(keyString),
+					toolbar);
 		}
 		add(toolbar);
 	}
 
 	@SuppressWarnings("deprecation")
-	private void addButtonImage(JButton button, String fileName, JToolBar toolbar) {
+	private void addButtonImage(JButton button, String fileName,
+			JToolBar toolbar) {
 		File imageCheck = new File(RESOURCE_PATH + fileName);
 		if (imageCheck.exists()) {
 			try {
-				URL imageURL = imageCheck.toURL();
+				URL imageURL = imageCheck.toURI().toURL();
 				try {
 					Image img = ImageIO.read(imageURL);
 					button.setIcon(new ImageIcon(img));
@@ -53,9 +60,9 @@ public class ObjectToolbar extends JPanel {
 				e.printStackTrace();
 			}
 		}
-        toolbar.add(button);
+		toolbar.add(button);
 	}
-	
+
 	private void createListener(JButton button, final String fileName) {
 		button.addActionListener(new ActionListener() {
 
@@ -65,5 +72,4 @@ public class ObjectToolbar extends JPanel {
 
 		});
 	}
-
 }

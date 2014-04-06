@@ -26,7 +26,7 @@ public class OptionsPanel extends JMenuBar {
 	public void initialize(){		
 		JMenu file = new JMenu("File");
 		
-		JMenuItem saveItem = new JMenuItem("Save");
+		JMenuItem saveItem = new JMenuItem("Save to text file");
 		
 		saveItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
