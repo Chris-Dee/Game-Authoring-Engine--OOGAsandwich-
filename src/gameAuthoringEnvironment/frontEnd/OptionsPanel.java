@@ -35,7 +35,20 @@ public class OptionsPanel extends JMenuBar {
 			}
 		});
 		
+		
+		JMenuItem loadItem = new JMenuItem("Load in text file");
+		
+		loadItem.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				myViewer.loadFromTextFile();
+			}
+			
+		});
+		
 		file.add(saveItem);
+		file.add(loadItem);
+		
 		add(file);
 		setVisible(true);
 		myViewer.setJMenuBar(this);

@@ -22,9 +22,10 @@ public class LevelPanel extends JPanel {
 
 	/**
 	 * Panel to display current levels available in game.
+	 * 
 	 * @param stats
-	 * 			BasicLevelStats panel that this belongs to
-	 */			
+	 *            BasicLevelStats panel that this belongs to
+	 */
 	public LevelPanel(BasicLevelStats stats) {
 		super();
 		levelComponentList = new ArrayList<LevelPanelComponent>();
@@ -41,16 +42,13 @@ public class LevelPanel extends JPanel {
 		fillPanels();
 	}
 
-	public void makeLevelPanel() {
-	}
-
-	public void fillPanels() {
+	private void fillPanels() {
 		this.removeAll();
-		
+
 		for (int i = 0; i < levelComponentList.size(); i++) {
 			this.add(levelComponentList.get(i));
 		}
-		
+
 		for (int i = 0; i < EMPTY_SPACE_CONSTANT - levelComponentList.size(); i++) {
 			// this.add(new LevelPanelComponent(new Color(255,255,255),""+i));
 			JPanel emptyPanel = new JPanel();
@@ -61,62 +59,88 @@ public class LevelPanel extends JPanel {
 		this.repaint();
 	}
 
-	public List<LevelPanelComponent> switchLevels(LevelPanelComponent lev,
-			int switchAmt) {
+	/**
+	 * Switch level with component either one above or below it. A negative
+	 * number will switch it earlier in the list, while a positive number will
+	 * push it down to a further position in the list. If the
+	 * LevelPanelComponent at the end of the list, it will not extend past the
+	 * maximum position.
+	 * 
+	 * @param levelPanelComponent
+	 *            LevelPanelComponent of the level that is being swapped
+	 * @param switchAmount
+	 *            Amount to switch the level by. Negative is earlier in the
+	 *            list, positive is further back in the list.
+	 * @return
+	 */
+
+	public List<LevelPanelComponent> switchLevels(
+			LevelPanelComponent levelPanelComponent, int switchAmount) {
 		// need to switch it in game array as well
-		int index = levelComponentList.indexOf(lev);
-		if (index + switchAmt < 0 || index + switchAmt > levelComponentList.size() - 1
+		int index = levelComponentList.indexOf(levelPanelComponent);
+		if (index + switchAmount < 0
+				|| index + switchAmount > levelComponentList.size() - 1
 				|| index == -1)
 			return levelComponentList;
 		LevelPanelComponent temp = levelComponentList.get(index);
-		LevelPanelComponent l = levelComponentList.get(index + switchAmt);
+		LevelPanelComponent l = levelComponentList.get(index + switchAmount);
 		levelComponentList.set(index, l);
-		levelComponentList.set(index + switchAmt, temp);
+		levelComponentList.set(index + switchAmount, temp);
 		fillPanels();
 		return levelComponentList;
 	}
 
 	/**
 	 * Finds the currently active panel in the LevelPanel list
+	 * 
 	 * @return Currently Active LevelPanelComponent
 	 */
 	public LevelPanelComponent findActivePanel() {
 		for (LevelPanelComponent currentLevelPanelComponent : levelComponentList) {
 
 			if (currentLevelPanelComponent.isActive()) {
-				statsPanel.setLevelName(currentLevelPanelComponent.getLevel().getName());
+				statsPanel.setLevelName(currentLevelPanelComponent.getLevel()
+						.getName());
 				return currentLevelPanelComponent;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
-	 * Adds a level with default conditions to the game. Automatically adds at the end of the level list.
-	 * @param name 
-	 * 			The name of the new level
+	 * Adds a level with default conditions to the game. Automatically adds at
+	 * the end of the level list.
+	 * 
+	 * @param name
+	 *            The name of the new level
 	 */
 
 	public void addLevel(String name) {
-		System.out.println("back " + name);
-		levelComponentList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,
-				name, this));
+		levelComponentList.add(new LevelPanelComponent(
+				LevelPanelComponent.NORMAL_COLOR, name, this));
 		fillPanels();
 	}
 	
+	public void addLevel(Level level){
+		levelComponentList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,level,this));
+		fillPanels();
+	}
+
 	/**
 	 * Sets the name of the level.
+	 * 
 	 * @param name
-	 * 			The name of the level
-	 */			
+	 *            The name of the level
+	 */
 
 	public void setLevelName(String name) {
 		statsPanel.setLevelName(name);
 	}
 
 	/**
-	 * Resets the backgrounds of all LevelPanelComponents. Called in LevelPanelComponent when a level is clicked.
+	 * Resets the backgrounds of all LevelPanelComponents. Called in
+	 * LevelPanelComponent when a level is clicked.
 	 */
 	public void resetBackgrounds() {
 		for (LevelPanelComponent levelComponent : levelComponentList) {
@@ -127,16 +151,28 @@ public class LevelPanel extends JPanel {
 
 		}
 	}
-	
+
 	/**
 	 * Removes level from the game
+	 * 
 	 * @param levelPanelComponent
-	 * 			Level to be removed, given in the form of a LevelPanelComponent
+	 *            Level to be removed, given in the form of a
+	 *            LevelPanelComponent
 	 */
-	
-	public void deleteLevel(LevelPanelComponent levelPanelComponent){
+
+	public void deleteLevel(LevelPanelComponent levelPanelComponent) {
 		levelComponentList.remove(levelPanelComponent);
 		setLevelName(null);
 		fillPanels();
+	}
+	
+	/**
+	 * Removes all levels from the current game. Used when loading a new game into the GAE.
+	 */
+	
+	public void deleteAllLevels(){
+		for (int i = levelComponentList.size() - 1; i>=0; i--) {
+			deleteLevel(levelComponentList.get(i));
+		}
 	}
 }

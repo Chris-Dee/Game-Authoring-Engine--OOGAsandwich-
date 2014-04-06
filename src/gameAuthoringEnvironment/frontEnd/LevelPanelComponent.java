@@ -49,10 +49,23 @@ public class LevelPanelComponent extends JPanel {
 
 		myLevel = new Level(name);
 		myLevelPanel = levelPanel;
+		initialize(color);
+		
+	}
+	
+	public LevelPanelComponent(Color color, Level level, LevelPanel levelPanel){
+		super();
+		
+		myLevel = level;
+		myLevelPanel = levelPanel;
+		
+		initialize(color);
+	}
+	
+	private void initialize(Color color){
 		setBackground(color);
-		// Level level;
 		TitledBorder title = BorderFactory.createTitledBorder(
-				BorderFactory.createLineBorder(Color.black), name);
+				BorderFactory.createLineBorder(Color.black), myLevel.getName());
 		setBorder(title);
 		setSize(WIDTH, HEIGHT);
 

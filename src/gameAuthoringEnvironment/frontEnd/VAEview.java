@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -150,4 +151,28 @@ public class VAEview extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
+	public void loadFromTextFile(){
+		JFileChooser fileChooser = new JFileChooser();
+		String selectedFile = "";
+		int result = fileChooser.showOpenDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION){
+			selectedFile = fileChooser.getSelectedFile().getName();
+		}
+		myGameData.setFileName(selectedFile);
+		try {
+			myGameData.parse();
+			List<Object> myLevels = myGameData.getObjects("gameEngine.Level");
+			
+			myLevelPanel.deleteAllLevels();
+			for (Object level:myLevels){
+				myLevelPanel.addLevel((Level)level);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 }
