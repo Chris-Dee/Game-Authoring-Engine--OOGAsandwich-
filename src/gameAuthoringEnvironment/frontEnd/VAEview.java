@@ -102,7 +102,6 @@ public class VAEview extends JFrame {
 		LevelPanel level = new LevelPanel(stats);
 		myLevelPanel = level;
 		scroller.add(level);
-
 		return scroller;
 	}
 

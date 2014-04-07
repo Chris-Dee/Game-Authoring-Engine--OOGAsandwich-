@@ -1,5 +1,11 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import java.util.Map;
 import gameEngine.Level;
 
 import javax.swing.JPanel;
@@ -8,13 +14,15 @@ import jgame.JGColor;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
-
+	private static final String default_path="src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
 	private static final int SCREEN_HEIGHT = 600;
 	private static final int SCREEN_WIDTH = 600;
+	//TODO Why is this public?
 	public LevelMover myMover;
 
+	private Map<String,String> imageMap=new HashMap<String,String>();
 	private Level myLevel;
 
 	private static final int INITIAL_WIDTH = 600;
@@ -38,7 +46,6 @@ public class LevelEditor extends JGEngine {
 	 */
 	public LevelEditor(Level level) {
 		super();
-
 		myLevel = level;
 		dbgShowMessagesInPf(false);
 		dbgIsEmbedded(true);
@@ -46,10 +53,17 @@ public class LevelEditor extends JGEngine {
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
 
+
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 		defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
+		try {
+			fillImageMap(new File(default_path));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Level getLevel() {
@@ -86,12 +100,29 @@ public class LevelEditor extends JGEngine {
 			myMover.y = BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP;
 		}
 		// System.out.println(el.xofs+" "+el.yofs+" "+myMover.x+" "+myMover.y+" "+myMover.pfwidth);
+
 	}
 
+	public void fillImageMap(File file) throws FileNotFoundException {
+		Scanner s = new Scanner(file);
+		int i = 1;
+		while (s.hasNext()) {
+			System.out.println(i);
+			String[] str = s.nextLine().split(" ");
+			imageMap.put(str[0], str[1]);
+			defineImage(str[0], "a" + i, 0, str[1], "a" + i);
+			i++;
+		}
+		System.out.println("size "+el.images_loaded.size());
+	}
+	public Map<String,String> getMap(){
+		return imageMap;
+	}
 	public void doFrame() {
 		checkInBounds();
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
+		//System.out.println(this.el.images_loaded.size());
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen

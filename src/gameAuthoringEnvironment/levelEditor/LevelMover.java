@@ -70,7 +70,7 @@ public class LevelMover extends JGObject {
 			levelInputMap.put(37, "moveLeft");
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
-
+			moverImage=this.getImageName();
 			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
 			myLevelEditor.getLevel().addObjects(newObject);
 			newObject.activate();
@@ -78,8 +78,9 @@ public class LevelMover extends JGObject {
 	}
 
 	public void changeImage(String imageName) {
-		moverImage = imageName;
-		myLevelEditor.defineImage(imageName, "n", 0, RESOURCE_PATH + imageName,
-				"-");
+		//myEngine.defineImage("newBallImage"+changeCounter.toString(),"",0,RESOURCE_PATH + imageName,"-");
+		//myLevel.myMover.setImage("newBallImage"+changeCounter.toString());
+		setImage(imageName);
+		//myLevel.myMover = new LevelMover(myLevel, (int) x, (int) y, changeCounter);
 	}
 }
