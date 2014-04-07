@@ -167,7 +167,7 @@ public class JGObject {
 
 	/** You can use this to call methods in the object's engine.  Even handier
 	 * is to have the objects as inner class of the engine. */
-	public JGEngineInterface eng;
+	public transient JGEngineInterface eng;
 
 	/* dimensions of last time drawn  */
 	double lastx=0, lasty=0;
@@ -178,6 +178,8 @@ public class JGObject {
 	 * otherwise. */
 	JGRectangle lastbbox=null;
 	JGRectangle lasttilebbox=null; /* actual coordinates */
+	
+	private DelayedAction delayedConstructor;
 
 	private void initObject(JGEngineInterface engine,
 	String name,int collisionid) {
@@ -192,7 +194,17 @@ public class JGObject {
 			if (!isInView(eng.getOffscreenMarginX(),eng.getOffscreenMarginY()))
 				suspend();
 		}
+	}
+	
+	/**
+	 * Make this JGObject active in the next frame.
+	 * @return The same instance of the JGObject.
+	 */
+	public JGObject activate() {
+		this.eng = default_engine;
 		eng.markAddObject(this);
+		delayedConstructor.run();
+		return this;
 	}
 
 	/** Clear tile bbox definition so that we use the regular bbox again. */
@@ -388,8 +400,13 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname) {
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setPos(x,y);
-		setGraphic(gfxname);
+		setPos(x, y);
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given expiry.
@@ -399,8 +416,13 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname,int expiry) {
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setPos(x,y);
-		setGraphic(gfxname);
+		setPos(x, y);
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 		this.expiry=expiry;
 	}
 
@@ -413,8 +435,13 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setTileBBox(tilebbox_x,tilebbox_y,tilebbox_width,tilebbox_height);
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given tile bbox and expiry.
@@ -427,9 +454,14 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setTileBBox(tilebbox_x,tilebbox_y,tilebbox_width,tilebbox_height);
 		this.expiry=expiry;
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given absolute speed.
@@ -441,8 +473,13 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setSpeedAbs(xspeed,yspeed);
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given absolute speed and expiry.
@@ -454,9 +491,14 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setSpeedAbs(xspeed,yspeed);
 		this.expiry = expiry;
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given tile bbox and absolute speed.
@@ -469,9 +511,14 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setTileBBox(tilebbox_x,tilebbox_y,tilebbox_width,tilebbox_height);
 		setSpeedAbs(xspeed,yspeed);
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given tile bbox, absolute speed, expiry.
@@ -484,10 +531,15 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setTileBBox(tilebbox_x,tilebbox_y,tilebbox_width,tilebbox_height);
 		setSpeedAbs(xspeed,yspeed);
 		this.expiry = expiry;
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given direction/speed, expiry.
@@ -499,9 +551,14 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setDirSpeed(xdir,ydir,xspeed,yspeed);
 		this.expiry = expiry;
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 	/** Create object with given tile bbox, direction/speed, expiry.
@@ -514,10 +571,15 @@ public class JGObject {
 		setPos(x,y);
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
-		setGraphic(gfxname);
 		setTileBBox(tilebbox_x,tilebbox_y,tilebbox_width,tilebbox_height);
 		setDirSpeed(xdir,ydir,xspeed,yspeed);
 		this.expiry = expiry;
+		delayedConstructor = new DelayedAction(gfxname) {
+			@Override
+			public void run() {
+				setGraphic((String)args[0]);
+			}
+		};
 	}
 
 
@@ -1146,3 +1208,10 @@ public class JGObject {
 	public void paint() {}
 }
 
+class DelayedAction {
+	protected Object[] args;
+	public DelayedAction(Object... args) {
+		this.args = args;
+	};
+	public void run() {};
+}

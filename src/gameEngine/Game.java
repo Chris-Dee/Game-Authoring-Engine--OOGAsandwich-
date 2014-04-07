@@ -1,5 +1,8 @@
 package gameEngine;
 
+import gameplayer.BasicCollision;
+import gameplayer.TriggerCollision;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -13,16 +16,20 @@ import jgame.JGPoint;
 public class Game {
 	private List<Level> allLevels;
 	private Level currentLevel;
-	private JGPoint screenSize;
+	protected JGPoint screenSize;
 	public String mediaTablePath;
 	private GameData myGameData;
+	public ArrayList<BasicCollision> collisionRules;
+	public ArrayList<TriggerCollision> collisionTriggers;
 	public Game(){
 		allLevels = new ArrayList<Level>();
+		collisionRules = new ArrayList<BasicCollision>();
 		try {
 			myGameData = new GameData("");
 		} catch (InvalidDataFileException e) {
 			e.printStackTrace();
 		}
+		collisionTriggers = new ArrayList<TriggerCollision>();
 	}
 	/*
 	public Game(String dirPath){
@@ -53,14 +60,14 @@ public class Game {
 		levelInputMap.put(38, "moveUp");
 		levelInputMap.put(40, "moveDown");
 		
-		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
+		List<GameObject> objs = new ArrayList<GameObject>();
 
-		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
+		objs.add(new GameObject("player", new JGPoint(10, 10), 1, "hero-r", levelInputMap, false));
+		objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", "pace",25, 5, false));
+		objs.add(new GameObject("land", new JGPoint(20, 155), 2, "mytile", levelInputMap, true));
+		objs.add(new GameObject("land", new JGPoint(25, 135), 2, "mytile", "pace", 75, 2, true));
+		objs.add(new GameObject("land", new JGPoint(30, 125), 2, "mytile", true));
+		//objs.add(new GameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 700), false));
 
 		// This code will eventually be used to parse the data.
 		
@@ -78,7 +85,7 @@ public class Game {
 		
 	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .2);//,new LevelInput(levelInputMap));
 
 		
 		
@@ -86,7 +93,7 @@ public class Game {
 		game.setCurrentLevel(firstLevel);
 		return game;
 	}
-	private void addLevel(Level level) {
+	protected void addLevel(Level level) {
 		allLevels.add(level);
 	}
 	public Level getCurrentLevel() {

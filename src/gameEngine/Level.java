@@ -7,7 +7,7 @@ import jgame.JGPoint;
 public class Level {
 	
 	//private LevelInput levelInput;
-	private List<UninstantiatedGameObject> levelObjects;
+	private List<GameObject> levelObjects;
 	public static final JGPoint defaultSize = new JGPoint(2, 6);
 	private List<GameForce> levelForces;
 	/**
@@ -16,9 +16,10 @@ public class Level {
 	private JGPoint levelSize;
 	private String levelBG;
 	private String name;
+	private double gravityVal;
 	public static final String defaultBackground="Resources/blankbackground.jpg";
 	
-	public Level(String levelName, JGPoint size, List<UninstantiatedGameObject> objects, List<GameForce> forces, String background){
+	public Level(String levelName, JGPoint size, List<GameObject> objects, List<GameForce> forces, String background, double gravityMagnitude){
 		initialize();
 		levelSize = size;
 		levelObjects = objects;
@@ -26,11 +27,12 @@ public class Level {
 		levelBG = background;
 		//levelSize=size;
 		//levelInput=lvlInput;
+		gravityVal = gravityMagnitude;
 	}
 	public Level(String levelName){
 		initialize();
 		name=levelName;
-		levelObjects = new ArrayList<UninstantiatedGameObject>();
+		levelObjects = new ArrayList<GameObject>();
 		levelForces = new ArrayList<GameForce>();
 		levelBG = defaultBackground;
 	}
@@ -56,8 +58,16 @@ public class Level {
 		
 	}
 	
-	public List<UninstantiatedGameObject> getObjects(){
+	public List<GameObject> getObjects(){
 		return levelObjects;
+	}
+	
+	public void addObjects(GameObject object) {
+		levelObjects.add(object);
+	}
+	
+	public double getGravityVal(){
+		return gravityVal;
 	}
 	
 	//public LevelInput getLevelInput(){

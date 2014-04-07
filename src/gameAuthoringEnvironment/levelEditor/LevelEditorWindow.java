@@ -35,6 +35,7 @@ public class LevelEditorWindow extends JFrame {
 		setLayout(new BorderLayout());
 		setExitAction();
 		makeMainPanel();
+		myLevelPanelComponent.setAllObjectsActive();
 	}
 
 	public void setExitAction() {

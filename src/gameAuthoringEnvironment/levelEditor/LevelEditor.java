@@ -15,7 +15,7 @@ public class LevelEditor extends JGEngine {
 	private static final int SCREEN_WIDTH = 600;
 	public LevelMover myMover;
 
-	Level myLevel;
+	private Level myLevel;
 
 	private static final int INITIAL_WIDTH = 600;
 	private static final int INITIAL_HEIGHT = 600;
@@ -46,12 +46,16 @@ public class LevelEditor extends JGEngine {
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
 
-		defineImage("srball", "", 0, defaultImage, "-");
+		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 		defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
 	}
 
+	public Level getLevel() {
+		return myLevel;
+	}
+	
 	@Override
 	public void initCanvas() {
 		setCanvasSettings(1, 1, BLOCK_SIZE_X, BLOCK_SIZE_Y, null,
