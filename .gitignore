@@ -10,5 +10,5 @@
 /bin
 /.project_settings
 
-.txt
-.json
+*.txt
+*.json
