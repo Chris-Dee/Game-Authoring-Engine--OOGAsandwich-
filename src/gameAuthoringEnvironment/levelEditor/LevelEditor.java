@@ -52,7 +52,7 @@ public class LevelEditor extends JGEngine {
 		setBGImage("background1");
 	}
 
-	public Level getMyLevel() {
+	public Level getLevel() {
 		return myLevel;
 	}
 	
