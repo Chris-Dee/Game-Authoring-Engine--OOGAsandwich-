@@ -1,6 +1,7 @@
 package gameEngine;
 
 import gameplayer.BasicCollision;
+import gameplayer.GameObjectModification;
 import gameplayer.TriggerCollision;
 
 import java.io.IOException;
@@ -31,6 +32,37 @@ public class Game {
 		}
 		collisionTriggers = new ArrayList<TriggerCollision>();
 	}
+	
+	public Game(String dirPath) throws ClassNotFoundException{
+		allLevels = new ArrayList<Level>();
+		collisionRules = new ArrayList<BasicCollision>();
+		mediaTablePath = "mario.tbl";
+		screenSize = new JGPoint(900, 900);
+		try {
+			myGameData = new GameData("");
+			myGameData.setFileName(dirPath);
+			myGameData.parse();
+			List<Object> myLevelObjects = myGameData.getObjects("gameEngine.Level");
+			List<Level> myLevels = new ArrayList<Level>();
+			for (Object obj : myLevelObjects) {
+				myLevels.add((Level) obj);
+			}
+			addListOfLevels(myLevels);
+			setCurrentLevel(myLevels.get(0));
+		} catch (InvalidDataFileException e) {
+			e.printStackTrace();
+		}
+		collisionTriggers = new ArrayList<TriggerCollision>();
+		int[][] modMatrix = { { 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, -1, 0, 1, 0, 0 } };
+		collisionRules.add(new BasicCollision(1, 2, new GameObjectModification(
+				modMatrix, 1, 0)));
+		collisionRules.add(new BasicCollision(4, 2, new GameObjectModification(
+				modMatrix, 1, 0)));
+		collisionTriggers.add(new TriggerCollision("endlevel", 8, 1));
+		collisionTriggers.add(new TriggerCollision("reset", 1, 4));
+	}
+	
 	/*
 	public Game(String dirPath){
 		allLevels = new ArrayList<Level>();
