@@ -1,6 +1,7 @@
 package gameEngine;
 
-import gameplayer.Collision;
+import gameplayer.BasicCollision;
+import gameplayer.TriggerCollision;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,15 +19,17 @@ public class Game {
 	protected JGPoint screenSize;
 	public String mediaTablePath;
 	private GameData myGameData;
-	public ArrayList<Collision> collisionRules;
+	public ArrayList<BasicCollision> collisionRules;
+	public ArrayList<TriggerCollision> collisionTriggers;
 	public Game(){
 		allLevels = new ArrayList<Level>();
-		collisionRules = new ArrayList<Collision>();
+		collisionRules = new ArrayList<BasicCollision>();
 		try {
 			myGameData = new GameData("");
 		} catch (InvalidDataFileException e) {
 			e.printStackTrace();
 		}
+		collisionTriggers = new ArrayList<TriggerCollision>();
 	}
 	/*
 	public Game(String dirPath){

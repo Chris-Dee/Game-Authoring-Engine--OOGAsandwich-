@@ -1,7 +1,5 @@
 package gameplayer;
 
-import gameEngine.GravityTestGame;
-
 import java.io.IOException;
 
 import data.InvalidDataFileException;

@@ -1,7 +1,11 @@
-package gameEngine;
+package gameplayer;
 
-import gameplayer.Collision;
-import gameplayer.GameObjectModification;
+import gameEngine.Game;
+import gameEngine.GameForce;
+import gameEngine.GameObject;
+import gameEngine.GameObjectAction;
+import gameEngine.Goal;
+import gameEngine.Level;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,9 +29,8 @@ public class GravityTestGame extends Game{
 		levelInputMap.put(40, "moveDown");
 		int[][] modMatrix = {{1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, -1, 0, 1, 0, 0}};
 		collisionRules.add(
-				new Collision(1, 2,
-						new GameObjectModification(modMatrix, 1, 0),
-						new GameObjectModification()));
+				new BasicCollision(1, 2,
+						new GameObjectModification(modMatrix, 1, 0)));
 		
 		List<GameObject> objs = new ArrayList<GameObject>();
 
