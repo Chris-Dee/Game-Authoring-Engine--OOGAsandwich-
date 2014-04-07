@@ -96,6 +96,9 @@ public class Game {
 	protected void addLevel(Level level) {
 		allLevels.add(level);
 	}
+	protected void addListOfLevels(List<Level> levels) {
+		allLevels.addAll(levels);
+	}
 	public Level getCurrentLevel() {
 		return currentLevel;
 	}
