@@ -18,6 +18,7 @@ public class BasicLevelStats extends JPanel {
 	JLabel levelName;
 	JPanel editPane;
 	Font headingFont = new Font("Arial", Font.BOLD, 18);
+	BackgroundChooser chooser;
 
 	/**
 	 * Central component of the GAE. Holds information about the current level,
@@ -39,12 +40,15 @@ public class BasicLevelStats extends JPanel {
 	public void setLevelPanel(LevelPanel levelPanel) {
 		myLevelPanel = levelPanel;
 		try {
-			editPane.add(new BackgroundChooser(myLevelPanel));
+			chooser=new BackgroundChooser(myLevelPanel);
+			editPane.add(chooser);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-
+	public void toggleBGEnabled(boolean b){
+		chooser.changeEnabled(b);
+	} 
 	private void makeLevelEditor(JPanel mainPanel) {
 		editPane = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));

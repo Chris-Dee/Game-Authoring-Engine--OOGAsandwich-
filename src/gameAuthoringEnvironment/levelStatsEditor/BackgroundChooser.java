@@ -70,6 +70,7 @@ public class BackgroundChooser extends JPanel {
 	public void makeBackgroundChooser(JPanel homePanel) {
 		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.Y_AXIS));
 		model = new JComboBox(myBackgroundMap.keySet().toArray());
+		model.setEnabled(false);
 		setSelectionToDefault();
 		model.addItemListener(new ItemChangeListener());
 		homePanel.add(new JLabel("Select Background Image"));
@@ -127,7 +128,9 @@ public class BackgroundChooser extends JPanel {
 	public static void setSelectedToBackground(String backgroundName) {
 		model.setSelectedItem(backgroundName);
 	}
-
+	public static void toggleChooserEnable(boolean b){
+		model.setEnabled(b);
+	}
 	private class FileChoose implements ActionListener {
 		JPanel home;
 
@@ -149,7 +152,9 @@ public class BackgroundChooser extends JPanel {
 			}
 		}
 	}
-
+	public void changeEnabled(boolean b){
+		model.setEnabled(b);
+	}
 	private class AddImage implements ActionListener {
 		JPanel home;
 

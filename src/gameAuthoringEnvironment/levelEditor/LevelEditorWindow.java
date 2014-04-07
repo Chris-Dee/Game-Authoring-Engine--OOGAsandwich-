@@ -45,6 +45,7 @@ public class LevelEditorWindow extends JFrame {
 				levelEdit.destroy();
 				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();
+				myLevelPanelComponent.changeEnableBG(true);
 			}
 		});
 	}

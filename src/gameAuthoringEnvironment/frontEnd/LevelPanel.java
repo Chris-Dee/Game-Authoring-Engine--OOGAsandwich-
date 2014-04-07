@@ -19,7 +19,6 @@ public class LevelPanel extends JPanel {
 	// Game game
 	private List<LevelPanelComponent> levelComponentList;
 	private BasicLevelStats statsPanel;
-
 	/**
 	 * Panel to display current levels available in game.
 	 * 
@@ -40,6 +39,9 @@ public class LevelPanel extends JPanel {
 		Dimension s = getToolkit().getScreenSize();
 		setBackground(new Color(0, 0, 0));
 		fillPanels();
+	}
+	public void changeBGEnable(boolean b){
+		statsPanel.toggleBGEnabled(b);
 	}
 
 	private void fillPanels() {
