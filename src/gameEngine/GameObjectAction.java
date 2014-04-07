@@ -47,21 +47,6 @@ public class GameObjectAction {
 //		yspeed = 0;
 	}
 	
-//	public void addObject(GameObject theObj){
-//		myObj = theObj;
-//		myObj.xspeed = xspeed;
-//		myObj.yspeed = yspeed;
-//	}
-	
-	
-//	public int getXSpeed(){
-//		return xspeed;
-//	}
-//	
-//	public int getYSpeed(){
-//		return yspeed;
-//	}
-	
 	private void pace(int time, int speed, final GameObject myObj){
 //		xspeed=speed;
 		myObj.xspeed = speed;
@@ -115,7 +100,7 @@ public class GameObjectAction {
 		return characterMap;
 	}
 
-	public void moveRight(GameObject myObj){
+	public void moveRight(GameObject myObj){ //speed parameter will be added
 		myObj.xspeed=4;
 	}
 	

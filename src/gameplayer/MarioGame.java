@@ -40,16 +40,16 @@ public class MarioGame extends Game{
 				new TriggerCollision(8, 1));
 		List<GameObject> objs = new ArrayList<GameObject>();
 
-		objs.add(new GameObject("player", new JGPoint(50, 500), 1, "mario", new GameObjectAction(levelInputMap), false));
+		objs.add(new GameObject("player", new JGPoint(50, 500), 1, "mario", levelInputMap, false));
 		//objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
 		//objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
 		for(int i = 0; i < 900 / 32; i++){
-			objs.add(new GameObject("brick", new JGPoint(i * 32, 550), 2, "brick", new GameObjectAction(), true));
+			objs.add(new GameObject("brick", new JGPoint(i * 32, 550), 2, "brick", true));
 		}
-		objs.add(new GameObject("moving platform", new JGPoint(200, 400), 2, "mobile", new GameObjectAction("pace", 125, 2), true));
-		objs.add(new GameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", new GameObjectAction(), true));
-		objs.add(new GameObject("turtle", new JGPoint(300, 450), 4, "turtle", new GameObjectAction("pace", 55, 2), false));
-		objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", new Goal("end", 900), true));
+		objs.add(new GameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true));
+		objs.add(new GameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", true));
+		objs.add(new GameObject("turtle", new JGPoint(300, 450), 4, "turtle", "pace", 55, 2, false));
+		//objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", new Goal("end", 900), true));
 		// This code will eventually be used to parse the data.
 		
 //		myGameData.setFileName("uninstantiatedgameobjectsfile");
