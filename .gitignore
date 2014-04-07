@@ -9,3 +9,6 @@
 .classpath
 /bin
 /.project_settings
+
+.txt
+.json
