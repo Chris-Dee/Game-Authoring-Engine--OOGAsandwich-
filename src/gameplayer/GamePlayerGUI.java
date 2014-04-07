@@ -100,7 +100,7 @@ public class GamePlayerGUI extends JGEngine{
 		doGravity(currentLevel.getGravityVal());
 //		applyInternalForces();
 		checkCollisions();
-		checkLevelEnd();
+//		checkLevelEnd();
 	}
 //	private void applyInternalForces() {
 //		for(GameObject obj : currentObjects){
@@ -182,15 +182,17 @@ public class GamePlayerGUI extends JGEngine{
 	
 	public void doGravity(double mag){
 		for(GameObject obj : currentObjects){
-			if(!obj.getIsFloating())
+			if(!obj.getIsFloating()){
 				obj.yspeed += mag;
+			}
 		}
 	}
 
 	public void doInputs(){
+		//System.out.println("input");
 		for(GameObject obj: currentObjects){
-			GameObjectAction move=obj.getMovement();
-			Map<Integer, String> characterMap =move.getCharMap();
+			GameObjectAction move= obj.getMovement();
+			Map<Integer, String> characterMap =obj.getCharMap();
 			if(characterMap!=null){
 				boolean keyPressed=false;
 				for(Integer c : characterMap.keySet()){
@@ -199,11 +201,11 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod(characterMap.get(c));
+							method = move.getClass().getMethod(characterMap.get(c), GameObject.class);
 						} catch (SecurityException e) {
 						} catch (NoSuchMethodException e) {}	
 						try {
-							method.invoke(move);
+							method.invoke(move, obj);
 						} catch (IllegalArgumentException e) {
 						} catch (IllegalAccessException e) {
 						} catch (InvocationTargetException e) {}
@@ -213,14 +215,17 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod("stopMovement");
+							method = move.getClass().getMethod("stopMovement", GameObject.class);
 						} catch (SecurityException e) {
-						} catch (NoSuchMethodException e) {}	
+							System.out.println("ex1");
+						} catch (NoSuchMethodException e) {System.out.println("ex2");}	
 						try {
-							method.invoke(move);
+							method.invoke(move, obj);
 						} catch (IllegalArgumentException e) {
+							System.out.println("ex3");
 						} catch (IllegalAccessException e) {
-						} catch (InvocationTargetException e) {}
+							System.out.println("ex4");
+						} catch (InvocationTargetException e) {System.out.println("ex5");}
 				}
 			}
 
