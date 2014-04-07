@@ -48,6 +48,7 @@ public class ObjectPanel extends JPanel {
 		level.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myLevelPanel.addLevel(levelName.getText());
+				levelName.setText("");
 			}
 		});
 		buttonModule.add(level);

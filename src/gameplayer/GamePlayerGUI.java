@@ -17,6 +17,9 @@ public class GamePlayerGUI extends JGEngine{
 	private List<GameObject> currentObjects;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
+	private Goal currentGoal;
+	private GameObject currentPlayer;
+	private boolean levelOver = false;
 	//private LevelInput currentLevelInput;
 
 	public GamePlayerGUI() throws IOException, InvalidDataFileException{ //TODO: Allow passing in a Level to automatically start playing.
@@ -80,10 +83,12 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void paintFrameInGame() {
-
 		//TODO: Make this dependent on the current level (if necessary at all)
+		String levelText = "Test Level";
+		if(levelOver)
+			levelText = "Level Complete";
+		drawString(levelText,viewWidth()/2,90,0);
 
-		drawString("Hello, World!",viewWidth()/2,90,0);
 	}
 
 	public void doLevel(){
@@ -92,6 +97,23 @@ public class GamePlayerGUI extends JGEngine{
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		currentLevel.doFrame();
 		doInputs();
+		doGravity(currentLevel.getGravityVal());
+		checkLevelEnd();
+	}
+	
+	private void endLevel(){
+		//TODO: wrap up the current level and go to the next one
+		for(GameObject i: currentObjects){
+			i.remove();
+		}
+		levelOver = true;
+		//TODO: Call something to construct the new level and switch to that new level
+	}
+	
+	private void checkLevelEnd(){
+		if(currentGoal.checkGoal(currentPlayer.x)){
+			endLevel();
+		}
 	}
 
 	public void constructGame(){
@@ -104,6 +126,27 @@ public class GamePlayerGUI extends JGEngine{
 		for(GameObject i : currentLevel.getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
 			currentObjects.add((GameObject)i.activate());
+		}
+		currentGoal = getGoal();
+		levelOver = false;
+	}
+	
+	private Goal getGoal(){
+		//Temporary code for getting a player because collision does not work yet
+		for(GameObject i: currentObjects){
+			if(i.getFuckingName().equals("player")){
+				currentPlayer = i;
+			}
+			if(i.getFuckingName().equals("goal")){
+				return (Goal)i.getMovement();
+			}
+		}
+		return currentGoal;
+	}
+	
+	public void doGravity(double mag){
+		for(GameObject obj : currentObjects){
+			obj.yspeed += mag;
 		}
 	}
 

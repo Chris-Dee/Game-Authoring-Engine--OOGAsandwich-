@@ -14,6 +14,7 @@ public class GameObjectAction {
 	private int behaviorSpeed;
 	private int behaviorTime;
 	private boolean behaviorFlag = false;
+	GameObject myObj;
 	
 	private Map<Integer, String> characterMap;
 	
@@ -46,6 +47,12 @@ public class GameObjectAction {
 		yspeed = 0;
 	}
 	
+	public void addObject(GameObject theObj){
+		myObj = theObj;
+		myObj.xspeed = xspeed;
+		myObj.yspeed = yspeed;
+	}
+	
 	
 	public int getXSpeed(){
 		return xspeed;
@@ -56,10 +63,12 @@ public class GameObjectAction {
 	}
 	
 	private void pace(int time, int speed){
-		xspeed=speed;
+//		xspeed=speed;
+		myObj.xspeed = speed;
 		new JGTimer(time,false) {
 			public void alarm() {
-				xspeed=-xspeed;
+//				xspeed=-xspeed;
+				myObj.xspeed = -myObj.xspeed;
 			}
 		};
 	}
@@ -106,23 +115,21 @@ public class GameObjectAction {
 	}
 
 	public void moveRight(){
-		xspeed=4;
+		myObj.xspeed=4;
 	}
 	
 	public void moveLeft(){
-		xspeed=-4;
-		
+		myObj.xspeed=-4;
 	}
 	
 	public void moveUp(){
-		yspeed=-4;
+		myObj.yspeed=-6;
 	}
 	
 	public void moveDown(){
-		yspeed=4;
+		myObj.yspeed=6;
 	}
 	public void stopMovement(){
-		xspeed=0;
-		yspeed=0;
+		myObj.xspeed=0;
 	}
 }

@@ -61,6 +61,7 @@ public class Game {
 		objs.add(new GameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
 		objs.add(new GameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
 		objs.add(new GameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
+		objs.add(new GameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 700)));
 
 		// This code will eventually be used to parse the data.
 		
@@ -78,7 +79,7 @@ public class Game {
 		
 	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal");//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .2);//,new LevelInput(levelInputMap));
 
 		
 		

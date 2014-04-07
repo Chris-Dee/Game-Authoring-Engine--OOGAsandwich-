@@ -15,7 +15,7 @@ public class LevelEditor extends JGEngine {
 	private static final int SCREEN_WIDTH = 600;
 	public LevelMover myMover;
 
-	Level myLevel;
+	private Level myLevel;
 
 	private static final int INITIAL_WIDTH = 600;
 	private static final int INITIAL_HEIGHT = 600;
@@ -52,6 +52,10 @@ public class LevelEditor extends JGEngine {
 		setBGImage("background1");
 	}
 
+	public Level getMyLevel() {
+		return myLevel;
+	}
+	
 	@Override
 	public void initCanvas() {
 		setCanvasSettings(1, 1, BLOCK_SIZE_X, BLOCK_SIZE_Y, null,
