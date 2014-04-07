@@ -167,7 +167,7 @@ public class JGObject {
 
 	/** You can use this to call methods in the object's engine.  Even handier
 	 * is to have the objects as inner class of the engine. */
-	public JGEngineInterface eng;
+	public transient JGEngineInterface eng;
 
 	/* dimensions of last time drawn  */
 	double lastx=0, lasty=0;
