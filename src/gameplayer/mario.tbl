@@ -3,6 +3,7 @@ splash_image	-	0	Super_Mario_Brothers_Sprites_by_Spikestuff.png	-
 icons_map		icons8x8-d-tr.gif		0	0	8	8	0	0
 
 mario		?		0		mario.png		_
+luigi		?		0		luigi.png		_
 mushroom		?		0		mushroom.png		_
 hero-r		?		0		person.gif			-
 brick		-		0	brick.png	-
