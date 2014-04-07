@@ -109,11 +109,17 @@ public class GamePlayerGUI extends JGEngine{
 //	}
 
 	public void checkCollisions(){
-		for(Collision i: currentGame.collisionRules){
+		for(BasicCollision i: currentGame.collisionRules){
 			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
 			for(Tuple<GameObject> j: temp){
 				i.mod1.apply(j.x, j.y);
-				i.mod2.apply(j.y, j.x);
+				//i.mod2.apply(j.y, j.x);
+			}
+		}
+		for(TriggerCollision i: currentGame.collisionTriggers){
+			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject> j: temp){
+				endLevel();
 			}
 		}
 //		ArrayList<Tuple<GameObject>> temp = getCollisions(1, 2);
