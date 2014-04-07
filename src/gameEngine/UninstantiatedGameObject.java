@@ -5,18 +5,17 @@ import java.util.Map;
 import jgame.JGPoint;
 
 public class UninstantiatedGameObject {
-	Constructor constructor;
 	String objectName;
 	JGPoint objectPosition;
-	int objectColid;
+	Integer objectColid;
 	String objectSprite;
 	String objectBehavior;
-	int objectTime;
-	int objectSpeed;
-	boolean objectFloating;
+	Integer objectTime;
+	Integer objectSpeed;
+	Boolean objectFloating;
 	Map<Integer, String> objectInputMap;
 	
-	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, String behavior, Integer time, Integer speed, Boolean floating) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -25,53 +24,33 @@ public class UninstantiatedGameObject {
 		objectTime = time;
 		objectSpeed = speed;
 		objectFloating = floating;
-		constructor = new Constructor() {
-			@Override
-			public GameObject construct() {
-				return new GameObject(objectName, objectPosition, objectColid, objectSprite,
-					objectBehavior, objectTime, objectSpeed, objectFloating);
-			}
-		};
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, String> inputMap, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, String> inputMap, boolean floating) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
 		objectSprite = sprite;
 		objectInputMap = inputMap;
 		objectFloating = floating;
-		constructor = new Constructor() {
-			@Override
-			public GameObject construct() {
-				return new GameObject(objectName, objectPosition, objectColid, objectSprite,
-					objectInputMap, objectFloating);
-			}
-		};
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, boolean floating) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
 		objectSprite = sprite;
 		objectFloating = floating;
-		constructor = new Constructor() {
-			@Override
-			public GameObject construct() {
-				return new GameObject(objectName, objectPosition, objectColid, objectSprite,
-					objectFloating);
-			}
-		};
 	}
 
 	public GameObject instantiate(){
-		return constructor.construct();
-	}
-}
-
-class Constructor {
-	public GameObject construct() {
-		return null;
+		// TODO: Make this better.
+		if (objectInputMap != null) {
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating);
+		} else if (objectTime != null) {
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating);
+		} else {
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectFloating);
+		}
 	}
 }
