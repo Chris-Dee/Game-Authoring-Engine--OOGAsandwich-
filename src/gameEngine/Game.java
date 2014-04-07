@@ -53,14 +53,14 @@ public class Game {
 		levelInputMap.put(38, "moveUp");
 		levelInputMap.put(40, "moveDown");
 		
-		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
+		List<GameObject> objs = new ArrayList<GameObject>();
 
-		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
+		objs.add(new GameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap)));
+		objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
+		objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
+		objs.add(new GameObject("land", new JGPoint(20, 155), 1, "mytile", new GameObjectAction(levelInputMap)));
+		objs.add(new GameObject("land", new JGPoint(25, 135), 1, "mytile", new GameObjectAction("pace",75, 2)));
+		objs.add(new GameObject("land", new JGPoint(30, 125), 1, "mytile", new GameObjectAction()));
 
 		// This code will eventually be used to parse the data.
 		
