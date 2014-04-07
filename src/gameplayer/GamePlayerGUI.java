@@ -98,7 +98,36 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel.doFrame();
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
+		checkCollisions();
 		checkLevelEnd();
+	}
+	public void checkCollisions(){
+		for(Collision i: currentGame.collisionRules){
+			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject> j: temp){
+				i.mod1.apply(j.x, j.y);
+				i.mod2.apply(j.y, j.x);
+			}
+		}
+//		ArrayList<Tuple<GameObject>> temp = getCollisions(1, 2);
+//		for(Tuple<GameObject> i: temp){
+//			i.y.setGraphic("myinvertedtile");
+//			i.x.y = i.y.getBBox().y - i.x.getBBox().height;
+//			i.x.yspeed = 0;
+//		}
+	}
+	public ArrayList<Tuple<GameObject>> getCollisions(int colid1, int colid2){
+		ArrayList<Tuple<GameObject>> collisions = new ArrayList<Tuple<GameObject>>();
+		for(GameObject i: currentObjects){
+			for(GameObject j: currentObjects){
+				if(i.colid == colid1 && j.colid == colid2){
+					if(i.getBBox().intersects(j.getBBox())){
+						collisions.add(new Tuple<GameObject>(i, j));
+					}
+				}
+			}
+		}
+		return collisions;
 	}
 	
 	private void endLevel(){
