@@ -135,9 +135,9 @@ public class GamePlayerGUI extends JGEngine{
 		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();
-		for(GameObject i : currentLevel.getObjects()){
+		for(UninstantiatedGameObject i : currentLevel.getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
-			currentObjects.add((GameObject)i.activate());
+			currentObjects.add(i.instantiate());
 		}
 		levelOver = false;
 	}

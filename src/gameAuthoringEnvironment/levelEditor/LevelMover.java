@@ -3,8 +3,8 @@ package gameAuthoringEnvironment.levelEditor;
 //TODO make this work...
 import java.util.HashMap;
 
-import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
+import gameEngine.UninstantiatedGameObject;
 import jgame.JGObject;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
@@ -34,7 +34,6 @@ public class LevelMover extends JGObject {
 		myLevelEditor = levelEditor;
 		x = INITIAL_X_AND_Y;
 		y = INITIAL_X_AND_Y;
-		activate();
 	}
 
 	private boolean checkKey(int key) {
@@ -71,9 +70,10 @@ public class LevelMover extends JGObject {
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
 			moverImage=this.getImageName();
-			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
+
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
 			myLevelEditor.getLevel().addObjects(newObject);
-			newObject.activate();
+			newObject.instantiate();
 		}
 	}
 

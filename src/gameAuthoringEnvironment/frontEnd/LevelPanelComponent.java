@@ -2,8 +2,8 @@ package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelEditor.LevelEditorWindow;
 import gameAuthoringEnvironment.levelStatsEditor.BackgroundChooser;
-import gameEngine.GameObject;
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -64,8 +64,8 @@ public class LevelPanelComponent extends JPanel {
 	}
 	
 	public void setAllObjectsActive() {
-		for (GameObject object : myLevel.getObjects()) {
-			object.activate();
+		for (UninstantiatedGameObject object : myLevel.getObjects()) {
+			object.instantiate();
 		}
 	}
 	private void initialize(Color color){

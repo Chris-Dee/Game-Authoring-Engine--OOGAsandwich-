@@ -6,6 +6,7 @@ import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
 import gameEngine.Goal;
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,19 +33,19 @@ public class GravityTestGame extends Game{
 				new BasicCollision(1, 2,
 						new GameObjectModification(modMatrix, 1, 0)));
 		
-		List<GameObject> objs = new ArrayList<GameObject>();
+		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		objs.add(new GameObject("player", new JGPoint(10, 10), 1, "hero-r", levelInputMap, false));
-		objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", "pace",25, 5, true));
 		//objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
-		objs.add(new GameObject("land", new JGPoint(20, 155), 2, "mytile", levelInputMap, false));
-		objs.add(new GameObject("land", new JGPoint(25, 135), 2, "mytile", "pace",75, 2, true));
-		objs.add(new GameObject("land", new JGPoint(30, 125), 2, "mytile", true));
-		objs.add(new GameObject("land", new JGPoint(50, 125), 2, "mytile", true));
-		objs.add(new GameObject("land", new JGPoint(70, 125), 2, "mytile", true));
-		objs.add(new GameObject("land", new JGPoint(150, 125), 2, "mytile", true));
-		objs.add(new GameObject("land", new JGPoint(220, 125), 2, "mytile", true));
-		objs.add(new GameObject("land", new JGPoint(280, 225), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", levelInputMap, false));
+		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", "pace",25, 5, true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 2, "mytile", levelInputMap, false));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 2, "mytile", "pace",75, 2, true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(50, 125), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(70, 125), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(150, 125), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(220, 125), 2, "mytile", true));
+		objs.add(new UninstantiatedGameObject("land", new JGPoint(280, 225), 2, "mytile", true));
 //		objs.add(new GameObject("goal", new JGPoint(130, 425), 2, "mytile", new Goal("end", 700), true));
 		
 		// This code will eventually be used to parse the data.

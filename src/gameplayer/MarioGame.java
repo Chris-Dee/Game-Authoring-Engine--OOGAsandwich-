@@ -6,6 +6,7 @@ import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
 import gameEngine.Goal;
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,19 +45,19 @@ public class MarioGame extends Game{
 				new TriggerCollision("endlevel", 8, 1));
 		collisionTriggers.add(
 				new TriggerCollision("reset", 1, 4));
-		List<GameObject> objs = new ArrayList<GameObject>();
+		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		objs.add(new GameObject("player", new JGPoint(50, 500), 1, "mario", levelInputMap, false));
-		//objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
-		//objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500), 1, "mario", levelInputMap, false));
+		//objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", new UninstantiatedGameObjectAction("pace",25, 5)));
+		//objs.add(new UninstantiatedGameObject("test", new JGPoint(20, 105), 1, "hero-r", new UninstantiatedGameObjectAction(4,1)));
 		for(int i = 0; i < 900 / 32; i++){
-			objs.add(new GameObject("brick", new JGPoint(i * 32, 550), 2, "brick", true));
+			objs.add(new UninstantiatedGameObject("brick", new JGPoint(i * 32, 550), 2, "brick", true));
 		}
-		objs.add(new GameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true));
-		objs.add(new GameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", true));
-		objs.add(new GameObject("turtle", new JGPoint(300, 450), 4, "turtle", "pace", 55, 2, false));
-		objs.add(new GameObject("luigi", new JGPoint(600, 450), 4, "luigi", otherInputMap, false));
-		objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", true));
+		objs.add(new UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true));
+		objs.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", true));
+		objs.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4, "turtle", "pace", 55, 2, false));
+		objs.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi", otherInputMap, false));
+		objs.add(new UninstantiatedGameObject("goal", new JGPoint(800, 400), 8, "mushroom", true));
 		// This code will eventually be used to parse the data.
 		
 //		myGameData.setFileName("uninstantiatedgameobjectsfile");
