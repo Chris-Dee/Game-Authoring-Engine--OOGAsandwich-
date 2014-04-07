@@ -78,7 +78,7 @@ public class GamePlayerGUI extends JGEngine{
 		doLevel();
 		moveObjects(
 				null,// object name prefix of objects to move (null means any)
-				1    // object collision ID of objects to move (0 means any)
+				0    // object collision ID of objects to move (0 means any)
 				);
 	}
 
@@ -98,7 +98,49 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel.doFrame();
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
-		checkLevelEnd();
+//		applyInternalForces();
+		checkCollisions();
+//		checkLevelEnd();
+	}
+//	private void applyInternalForces() {
+//		for(GameObject obj : currentObjects){
+//			obj.applyInternalForces();
+//		}
+//	}
+
+	public void checkCollisions(){
+		for(BasicCollision i: currentGame.collisionRules){
+			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject> j: temp){
+				i.mod1.apply(j.x, j.y);
+				//i.mod2.apply(j.y, j.x);
+			}
+		}
+		for(TriggerCollision i: currentGame.collisionTriggers){
+			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject> j: temp){
+				endLevel();
+			}
+		}
+//		ArrayList<Tuple<GameObject>> temp = getCollisions(1, 2);
+//		for(Tuple<GameObject> i: temp){
+//			i.y.setGraphic("myinvertedtile");
+//			i.x.y = i.y.getBBox().y - i.x.getBBox().height;
+//			i.x.yspeed = 0;
+//		}
+	}
+	public ArrayList<Tuple<GameObject>> getCollisions(int colid1, int colid2){
+		ArrayList<Tuple<GameObject>> collisions = new ArrayList<Tuple<GameObject>>();
+		for(GameObject i: currentObjects){
+			for(GameObject j: currentObjects){
+				if(i.colid == colid1 && j.colid == colid2){
+					if(i.getBBox().intersects(j.getBBox())){
+						collisions.add(new Tuple<GameObject>(i, j));
+					}
+				}
+			}
+		}
+		return collisions;
 	}
 	
 	private void endLevel(){
@@ -146,14 +188,17 @@ public class GamePlayerGUI extends JGEngine{
 	
 	public void doGravity(double mag){
 		for(GameObject obj : currentObjects){
-			obj.yspeed += mag;
+			if(!obj.getIsFloating()){
+				obj.yspeed += mag;
+			}
 		}
 	}
 
 	public void doInputs(){
+		//System.out.println("input");
 		for(GameObject obj: currentObjects){
-			GameObjectAction move=obj.getMovement();
-			Map<Integer, String> characterMap =move.getCharMap();
+			GameObjectAction move= obj.getMovement();
+			Map<Integer, String> characterMap =obj.getCharMap();
 			if(characterMap!=null){
 				boolean keyPressed=false;
 				for(Integer c : characterMap.keySet()){
@@ -162,11 +207,11 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod(characterMap.get(c));
+							method = move.getClass().getMethod(characterMap.get(c), GameObject.class);
 						} catch (SecurityException e) {
 						} catch (NoSuchMethodException e) {}	
 						try {
-							method.invoke(move);
+							method.invoke(move, obj);
 						} catch (IllegalArgumentException e) {
 						} catch (IllegalAccessException e) {
 						} catch (InvocationTargetException e) {}
@@ -176,14 +221,17 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod("stopMovement");
+							method = move.getClass().getMethod("stopMovement", GameObject.class);
 						} catch (SecurityException e) {
-						} catch (NoSuchMethodException e) {}	
+							System.out.println("ex1");
+						} catch (NoSuchMethodException e) {System.out.println("ex2");}	
 						try {
-							method.invoke(move);
+							method.invoke(move, obj);
 						} catch (IllegalArgumentException e) {
+							System.out.println("ex3");
 						} catch (IllegalAccessException e) {
-						} catch (InvocationTargetException e) {}
+							System.out.println("ex4");
+						} catch (InvocationTargetException e) {System.out.println("ex5");}
 				}
 			}
 

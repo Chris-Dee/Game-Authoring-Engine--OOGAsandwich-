@@ -5,6 +5,7 @@ icons_map		icons8x8-d-tr.gif		0	0	8	8	0	0
 metal		_		0	metal.jpg	_
 
 mytile		#	2	stones.png	-
+myinvertedtile		#	2	invertStones.png	-
 
 emptytile	.	0	null		-
 
