@@ -196,6 +196,10 @@ public class JGObject {
 		}
 	}
 	
+	/**
+	 * Make this JGObject active in the next frame.
+	 * @return The same instance of the JGObject.
+	 */
 	public JGObject activate() {
 		this.eng = default_engine;
 		eng.markAddObject(this);
