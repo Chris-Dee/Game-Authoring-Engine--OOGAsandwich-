@@ -64,7 +64,6 @@ public class GamePlayerGUI extends JGEngine{
 	public void startInGame(){
 
 		// TODO: make this all dependent on the current level
-
 		constructGame(); //sets levels
 		//setPFSize(1, 1);
 		setPFSize(100, 100);
@@ -169,7 +168,7 @@ public class GamePlayerGUI extends JGEngine{
 			//TODO: Instantiate based on if sprite is on screen
 			currentObjects.add((GameObject)i.activate());
 		}
-		currentGoal = getGoal();
+//		currentGoal = getGoal();  // AHHH
 		levelOver = false;
 	}
 	
@@ -195,7 +194,6 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void doInputs(){
-		//System.out.println("input");
 		for(GameObject obj: currentObjects){
 			GameObjectAction move= obj.getMovement();
 			Map<Integer, String> characterMap =obj.getCharMap();

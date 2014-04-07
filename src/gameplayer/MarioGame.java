@@ -66,7 +66,7 @@ public class MarioGame extends Game{
 		
 	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .4);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "skyblue", .4);//,new LevelInput(levelInputMap));
 
 		
 		
