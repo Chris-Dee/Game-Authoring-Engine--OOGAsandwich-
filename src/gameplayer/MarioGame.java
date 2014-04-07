@@ -29,6 +29,9 @@ public class MarioGame extends Game{
 		levelInputMap.put(37, "moveLeft");
 		levelInputMap.put(38, "moveUp");
 		levelInputMap.put(40, "moveDown");
+		Map<Integer, String> otherInputMap = new HashMap<Integer, String>();
+		otherInputMap.put(65, "moveLeft");
+		otherInputMap.put(68, "moveRight");
 		int[][] modMatrix = {{1, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, -1, 0, 1, 0, 0}};
 		collisionRules.add(
 				new BasicCollision(1, 2,
@@ -51,6 +54,7 @@ public class MarioGame extends Game{
 		objs.add(new GameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true));
 		objs.add(new GameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", true));
 		objs.add(new GameObject("turtle", new JGPoint(300, 450), 4, "turtle", "pace", 55, 2, false));
+		objs.add(new GameObject("turtle", new JGPoint(600, 450), 4, "turtle", otherInputMap, false));
 		objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", true));
 		// This code will eventually be used to parse the data.
 		
