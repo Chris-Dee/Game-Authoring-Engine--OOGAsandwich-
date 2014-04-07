@@ -12,6 +12,6 @@ public class GamePlayerRunner {
 	 */
 	
 	public static void main(String[]args) throws IOException, InvalidDataFileException {
-		new GamePlayerGUI(new GravityTestGame());
+		new GamePlayerGUI(new MarioGame());
 	}
 }

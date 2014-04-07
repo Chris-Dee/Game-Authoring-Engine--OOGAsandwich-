@@ -49,7 +49,7 @@ public class MarioGame extends Game{
 		objs.add(new GameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true));
 		objs.add(new GameObject("stationary platform", new JGPoint(590, 350), 2, "stationary", true));
 		objs.add(new GameObject("turtle", new JGPoint(300, 450), 4, "turtle", "pace", 55, 2, false));
-		//objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", new Goal("end", 900), true));
+		objs.add(new GameObject("goal", new JGPoint(800, 400), 8, "mushroom", true));
 		// This code will eventually be used to parse the data.
 		
 //		myGameData.setFileName("uninstantiatedgameobjectsfile");
