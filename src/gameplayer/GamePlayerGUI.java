@@ -98,15 +98,15 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel.doFrame();
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
-		applyInternalForces();
+//		applyInternalForces();
 		checkCollisions();
 		checkLevelEnd();
 	}
-	private void applyInternalForces() {
-		for(GameObject obj : currentObjects){
-			obj.applyInternalForces();
-		}
-	}
+//	private void applyInternalForces() {
+//		for(GameObject obj : currentObjects){
+//			obj.applyInternalForces();
+//		}
+//	}
 
 	public void checkCollisions(){
 		for(Collision i: currentGame.collisionRules){
@@ -182,7 +182,8 @@ public class GamePlayerGUI extends JGEngine{
 	
 	public void doGravity(double mag){
 		for(GameObject obj : currentObjects){
-			obj.yspeed += mag;
+			if(!obj.getIsFloating())
+				obj.yspeed += mag;
 		}
 	}
 

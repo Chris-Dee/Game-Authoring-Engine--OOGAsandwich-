@@ -59,13 +59,13 @@ public class Game {
 		
 		List<GameObject> objs = new ArrayList<GameObject>();
 
-		objs.add(new GameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap)));
-		objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5)));
-		objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1)));
-		objs.add(new GameObject("land", new JGPoint(20, 155), 2, "mytile", new GameObjectAction(levelInputMap)));
-		objs.add(new GameObject("land", new JGPoint(25, 135), 2, "mytile", new GameObjectAction("pace", 75, 2)));
-		objs.add(new GameObject("land", new JGPoint(30, 125), 2, "mytile", new GameObjectAction()));
-		objs.add(new GameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 700)));
+		objs.add(new GameObject("player", new JGPoint(10, 10), 1, "hero-r", new GameObjectAction(levelInputMap), false));
+		objs.add(new GameObject("test", new JGPoint(100, 100), 1, "hero-r", new GameObjectAction("pace",25, 5), false));
+		objs.add(new GameObject("test", new JGPoint(20, 105), 1, "hero-r", new GameObjectAction(4,1), false));
+		objs.add(new GameObject("land", new JGPoint(20, 155), 2, "mytile", new GameObjectAction(levelInputMap), true));
+		objs.add(new GameObject("land", new JGPoint(25, 135), 2, "mytile", new GameObjectAction("pace", 75, 2), true));
+		objs.add(new GameObject("land", new JGPoint(30, 125), 2, "mytile", new GameObjectAction(), true));
+		objs.add(new GameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 700), false));
 
 		// This code will eventually be used to parse the data.
 		
