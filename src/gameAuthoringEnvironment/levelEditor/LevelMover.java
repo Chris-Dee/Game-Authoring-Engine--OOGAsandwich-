@@ -11,6 +11,8 @@ import jgame.platform.JGEngine;
 
 //The invisible little object that moves around in the levels
 public class LevelMover extends JGObject {
+	//private Integer changeCounter;
+	private static String moverImage = "srball";
 	private static final double INITIAL_X_Y_SPEED = 2.0;
 	private static final int BALL_COL_ID = 4;
 	private static final int INITIAL_X_AND_Y = 20;
@@ -27,7 +29,7 @@ public class LevelMover extends JGObject {
 	public LevelMover(LevelEditor levelEditor) {
 
 		super("srball", true, INITIAL_X_AND_Y, INITIAL_X_AND_Y, BALL_COL_ID,
-				"srball", 0, 0, INITIAL_X_Y_SPEED, INITIAL_X_Y_SPEED, -1);
+				moverImage, 0, 0, INITIAL_X_Y_SPEED, INITIAL_X_Y_SPEED, -1);
 		myEngine = levelEditor;
 		myLevelEditor = levelEditor;
 		x = INITIAL_X_AND_Y;
@@ -68,14 +70,15 @@ public class LevelMover extends JGObject {
 			levelInputMap.put(37, "moveLeft");
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
-			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, "srball", new GameObjectAction(levelInputMap));
+			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, new GameObjectAction(levelInputMap));
 			myLevelEditor.getMyLevel().addObjects(newObject);
 			newObject.activate();
 		}
 	}
 
 	public void changeImage(String imageName) {
-		myLevelEditor.defineImage("srball", "n", 0, RESOURCE_PATH + imageName,
+		moverImage = imageName;
+		myLevelEditor.defineImage(imageName, "n", 0, RESOURCE_PATH + imageName,
 				"-");
 	}
 }
