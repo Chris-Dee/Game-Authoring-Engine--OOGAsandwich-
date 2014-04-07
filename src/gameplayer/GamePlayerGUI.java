@@ -118,7 +118,11 @@ public class GamePlayerGUI extends JGEngine{
 		for(TriggerCollision i: currentGame.collisionTriggers){
 			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
 			for(Tuple<GameObject> j: temp){
-				endLevel();
+				if(i.behavior == "endlevel"){
+					endLevel();
+				}else if(i.behavior == "reset"){
+					j.x.reset();
+				}
 			}
 		}
 //		ArrayList<Tuple<GameObject>> temp = getCollisions(1, 2);

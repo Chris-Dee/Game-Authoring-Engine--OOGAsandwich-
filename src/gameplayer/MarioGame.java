@@ -37,7 +37,9 @@ public class MarioGame extends Game{
 				new BasicCollision(4, 2,
 						new GameObjectModification(modMatrix, 1, 0)));
 		collisionTriggers.add(
-				new TriggerCollision(8, 1));
+				new TriggerCollision("endlevel", 8, 1));
+		collisionTriggers.add(
+				new TriggerCollision("reset", 1, 4));
 		List<GameObject> objs = new ArrayList<GameObject>();
 
 		objs.add(new GameObject("player", new JGPoint(50, 500), 1, "mario", levelInputMap, false));

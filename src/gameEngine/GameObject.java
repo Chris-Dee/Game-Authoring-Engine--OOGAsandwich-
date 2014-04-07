@@ -10,6 +10,7 @@ public class GameObject extends JGObject {
 	private String myFuckingName;
 	private boolean isFloating;
 	private Map<Integer, String> charMap;
+	public JGPoint originalPosition;
 //	private double xspeedMultiple;
 //	private double yspeedMultiple;
 	
@@ -19,8 +20,13 @@ public class GameObject extends JGObject {
 		myFuckingName=name;
 //		myMovement.addObject(this);
 		isFloating = floating;
+		originalPosition = new JGPoint(position.x, position.y);
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
+	}
+	public void reset(){
+		x = originalPosition.x;
+		y = originalPosition.y;
 	}
 	
 //	public GameObject(String name, JGPoint position, int colid, String sprite, int xspeed, int yspeed, boolean floating) {
@@ -42,7 +48,7 @@ public class GameObject extends JGObject {
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
 		charMap=inputMap;
-		
+		originalPosition = new JGPoint(position.x, position.y);
 	}
 	
 	public GameObject(String name, JGPoint position, int colid, String sprite, boolean floating) {
@@ -53,6 +59,7 @@ public class GameObject extends JGObject {
 		isFloating = floating;
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
+		originalPosition = new JGPoint(position.x, position.y);
 	}
 	
 //	public GameObject(String name, JGPoint position, int colid, String sprite, GameObjectAction move) {
