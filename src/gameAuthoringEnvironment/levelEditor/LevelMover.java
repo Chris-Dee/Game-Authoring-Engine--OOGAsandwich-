@@ -64,16 +64,9 @@ public class LevelMover extends JGObject {
 		if (checkKey(myEngine.KeyEnter)) {
 			System.out.println("Adding " + getImageName() + " to screen");
 			myEngine.clearKey(myEngine.KeyEnter);
-			HashMap<Integer, String> levelInputMap = new HashMap<Integer, String>();
-			levelInputMap.put(39,  "moveRight");
-			levelInputMap.put(37, "moveLeft");
-			levelInputMap.put(40, "moveDown");
-			levelInputMap.put(38, "moveUp");
 			moverImage=this.getImageName();
-
-			UninstantiatedGameObject newObject = new UninstantiatedGameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
-			myLevelEditor.getLevel().addObjects(newObject);
-			newObject.instantiate();
+			myLevelEditor.addObject(moverImage, (int) x, (int) y);
+			
 		}
 	}
 

@@ -4,25 +4,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-
 import java.util.Map;
+
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import javax.swing.JPanel;
 
 import jgame.JGColor;
+import jgame.JGPoint;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
-	private static final String default_path="src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
+	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
 	private static final int SCREEN_HEIGHT = 600;
 	private static final int SCREEN_WIDTH = 600;
-	//TODO Why is this public?
+	// TODO Why is this public?
 	public LevelMover myMover;
 
-	private Map<String,String> imageMap=new HashMap<String,String>();
+	private Map<String, String> imageMap = new HashMap<String, String>();
 	private Level myLevel;
 
 	private static final int INITIAL_WIDTH = 600;
@@ -38,11 +40,11 @@ public class LevelEditor extends JGEngine {
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 
 	/**
-	 * JGame class that holds the level editor. This displays what the created level
-	 * currently looks like.
+	 * JGame class that holds the level editor. This displays what the created
+	 * level currently looks like.
 	 * 
 	 * @param level
-	 * 			Level being edited
+	 *            Level being edited
 	 */
 	public LevelEditor(Level level) {
 		super();
@@ -52,7 +54,6 @@ public class LevelEditor extends JGEngine {
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
-
 
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
@@ -69,7 +70,7 @@ public class LevelEditor extends JGEngine {
 	public Level getLevel() {
 		return myLevel;
 	}
-	
+
 	@Override
 	public void initCanvas() {
 		setCanvasSettings(1, 1, BLOCK_SIZE_X, BLOCK_SIZE_Y, null,
@@ -83,12 +84,35 @@ public class LevelEditor extends JGEngine {
 		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
 
+	/**
+	 * Adds an object to the level and instantiates it
+	 * 
+	 * @param imageName
+	 *          	name of image
+	 * @param x
+	 * 			x position of image
+	 * @param y
+	 * 			y position of image
+	 */
+	public void addObject(String imageName, int x, int y) {
+		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
+		levelInputMap.put(39, "moveRight");
+		levelInputMap.put(37, "moveLeft");
+		levelInputMap.put(40, "moveDown");
+		levelInputMap.put(38, "moveUp");
+		UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+				"player", new JGPoint(x, y), 1, imageName, levelInputMap, false);
+		myLevel.addObjects(newObject);
+		newObject.instantiate();
+	}
+
 	private void checkInBounds() {
 		if ((Double) myMover.x == null)
 			System.out.println((Double) myMover.x == null);
 		if (myMover.x >= myMover.pfwidth) {
 			// myMover.x=el.xofs;
-			myMover.x = myMover.pfwidth - BALL_OFF_SCREEN_ADJUSTMENT_X_RIGHTSIDE;
+			myMover.x = myMover.pfwidth
+					- BALL_OFF_SCREEN_ADJUSTMENT_X_RIGHTSIDE;
 		}
 		if (myMover.y >= myMover.pfheight) {
 			myMover.y = myMover.pfheight - BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM;
@@ -113,16 +137,18 @@ public class LevelEditor extends JGEngine {
 			defineImage(str[0], "a" + i, 0, str[1], "a" + i);
 			i++;
 		}
-		System.out.println("size "+el.images_loaded.size());
+		System.out.println("size " + el.images_loaded.size());
 	}
-	public Map<String,String> getMap(){
+
+	public Map<String, String> getMap() {
 		return imageMap;
 	}
+
 	public void doFrame() {
 		checkInBounds();
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
-		//System.out.println(this.el.images_loaded.size());
+		// System.out.println(this.el.images_loaded.size());
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
