@@ -7,20 +7,20 @@ import java.util.Map;
 
 public class GameObjectAction {
 	
-	private int xspeed;
-	private int yspeed;
+//	private int xspeed;
+//	private int yspeed;
 	private boolean isStart = true;
 	private String behavior;
 	private int behaviorSpeed;
 	private int behaviorTime;
 	private boolean behaviorFlag = false;
-	GameObject myObj;
+//	GameObject myObj;
 	
 	private Map<Integer, String> characterMap;
 	
 	public GameObjectAction(){
-		xspeed = 0;
-		yspeed = 0;
+//		xspeed = 0;
+//		yspeed = 0;
 	}
 	
 	public GameObjectAction(String behavior, int time){
@@ -37,32 +37,17 @@ public class GameObjectAction {
 		behaviorTime = time;
 	}
 	
-	public GameObjectAction(int xspeed, int yspeed){
-		this.xspeed = xspeed;
-		this.yspeed = yspeed;
-	}
+//	public GameObjectAction(int xspeed, int yspeed){
+//		this.xspeed = xspeed;
+//		this.yspeed = yspeed;
+//	}
 	public GameObjectAction(Map<Integer, String> inputMap){
 		characterMap=inputMap;
-		xspeed = 0;
-		yspeed = 0;
+//		xspeed = 0;
+//		yspeed = 0;
 	}
 	
-	public void addObject(GameObject theObj){
-		myObj = theObj;
-		myObj.xspeed = xspeed;
-		myObj.yspeed = yspeed;
-	}
-	
-	
-	public int getXSpeed(){
-		return xspeed;
-	}
-	
-	public int getYSpeed(){
-		return yspeed;
-	}
-	
-	private void pace(int time, int speed){
+	private void pace(int time, int speed, final GameObject myObj){
 //		xspeed=speed;
 		myObj.xspeed = speed;
 		new JGTimer(time,false) {
@@ -73,10 +58,10 @@ public class GameObjectAction {
 		};
 	}
 	
-	public void start(){
+	public void start(GameObject obj){
 		isStart = false;
 		if(behaviorFlag){
-			doReflect(behavior, behaviorTime, behaviorSpeed);
+			doReflect(behavior, behaviorTime, behaviorSpeed, obj);
 		}
 	}
 	
@@ -84,12 +69,13 @@ public class GameObjectAction {
 		return isStart;
 	}
 	
-	private void doReflect(String behavior, int time, int speed){
+	private void doReflect(String behavior, int time, int speed, GameObject obj){
 		Class<?> moveClass = this.getClass();
 		
-		Object[] args = new Object[2];
+		Object[] args = new Object[3];
 		args[0] = time;
 		args[1] = speed;
+		args[2] = obj;
 		
 		Method[] allMethods = moveClass.getDeclaredMethods();
 		
@@ -114,22 +100,22 @@ public class GameObjectAction {
 		return characterMap;
 	}
 
-	public void moveRight(){
+	public void moveRight(GameObject myObj){ //speed parameter will be added
 		myObj.xspeed=4;
 	}
 	
-	public void moveLeft(){
+	public void moveLeft(GameObject myObj){
 		myObj.xspeed=-4;
 	}
 	
-	public void moveUp(){
+	public void moveUp(GameObject myObj){
 		myObj.yspeed=-6;
 	}
 	
-	public void moveDown(){
+	public void moveDown(GameObject myObj){
 		myObj.yspeed=6;
 	}
-	public void stopMovement(){
+	public void stopMovement(GameObject myObj){
 		myObj.xspeed=0;
 	}
 }

@@ -70,7 +70,7 @@ public class LevelMover extends JGObject {
 			levelInputMap.put(37, "moveLeft");
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
-			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, new GameObjectAction(levelInputMap), false);
+			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
 			myLevelEditor.getMyLevel().addObjects(newObject);
 			newObject.activate();
 		}
