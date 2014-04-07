@@ -78,7 +78,7 @@ public class GamePlayerGUI extends JGEngine{
 		doLevel();
 		moveObjects(
 				null,// object name prefix of objects to move (null means any)
-				1    // object collision ID of objects to move (0 means any)
+				0    // object collision ID of objects to move (0 means any)
 				);
 	}
 
@@ -98,9 +98,16 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel.doFrame();
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
+		applyInternalForces();
 		checkCollisions();
 		checkLevelEnd();
 	}
+	private void applyInternalForces() {
+		for(GameObject obj : currentObjects){
+			obj.applyInternalForces();
+		}
+	}
+
 	public void checkCollisions(){
 		for(Collision i: currentGame.collisionRules){
 			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
