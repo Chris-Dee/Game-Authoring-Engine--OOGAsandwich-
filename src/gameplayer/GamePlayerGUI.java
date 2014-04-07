@@ -198,7 +198,7 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void doInputs(){
-		System.out.println(getLastKey());
+		//System.out.println(getLastKey());
 		for(GameObject obj: currentObjects){
 			GameObjectAction move= obj.getMovement();
 			Map<Integer, String> characterMap =obj.getCharMap();
