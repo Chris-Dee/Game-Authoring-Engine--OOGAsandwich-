@@ -117,7 +117,6 @@ public class GameObjectAction {
 
 	public void moveRight(GameObject myObj){
 		myObj.xspeed=4;
-		System.out.println("ya bish");
 	}
 	
 	public void moveLeft(GameObject myObj){

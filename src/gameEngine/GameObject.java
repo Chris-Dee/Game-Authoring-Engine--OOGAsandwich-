@@ -42,7 +42,7 @@ public class GameObject extends JGObject {
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
 		charMap=inputMap;
-		System.out.println("created");
+		
 	}
 	
 	public GameObject(String name, JGPoint position, int colid, String sprite, boolean floating) {
