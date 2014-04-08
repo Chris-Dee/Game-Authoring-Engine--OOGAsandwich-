@@ -95,6 +95,7 @@ public class LevelEditor extends JGEngine {
 	 * 			y position of image
 	 */
 	public void addObject(String imageName, int x, int y) {
+		if (imageName.equals("mario")) {
 		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
 		levelInputMap.put(39, "moveRight");
 		levelInputMap.put(37, "moveLeft");
@@ -104,6 +105,31 @@ public class LevelEditor extends JGEngine {
 				"player", new JGPoint(x, y), 1, imageName, levelInputMap, false);
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
+		}
+		else if (imageName.equals("block")) {
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"block", new JGPoint(x, y), 2, imageName, true);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
+		else if (imageName.equals("goomba")) {
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"goomba", new JGPoint(x, y), 4, imageName, "pace", 55, 2, false);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
+		else if (imageName.equals("pacMan")) {
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"stationary platform", new JGPoint(x, y), 2, imageName, true);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
+		else if (imageName.equals("tree")) {
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"goal", new JGPoint(x, y), 8, imageName, true);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
 	}
 
 	private void checkInBounds() {
