@@ -20,7 +20,7 @@ public class ObjectEditorContainer extends JPanel {
 
 	private void initialize() {
 		setLayout(new BorderLayout());
-		add(new ObjectStatsPanel(this), BorderLayout.EAST);
+		add(new ObjectStatsPanel(this, myEditor), BorderLayout.EAST);
 		add(new ObjectToolbar(myEditor), BorderLayout.WEST);
 	}
 }

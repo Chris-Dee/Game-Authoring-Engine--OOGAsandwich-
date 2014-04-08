@@ -25,21 +25,26 @@ public class ObjectStatsPanel extends JPanel {
 	private static final Dimension SPACER_SIZE = new Dimension(PANEL_WIDTH, 50);
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
 	
-	public String objectName = "";
-	public String movementName = "";
+	private String objectName = "Player";
+	private String movementName = "Pace";
 	
-	public Integer movementSpeed = 5;
-	public int movementDuration = 5;
+	private Integer movementSpeed = 5;
+	private int movementDuration = 5;
+	
+	private int gravityMag = 4;
+	private LevelEditor myEditor;
 	
 	
 	/**
 	 * Panel that will display the stats for the object that is being 
 	 * added to the level in the level editor environment
 	 */
-	public ObjectStatsPanel(ObjectEditorContainer container) {
+	public ObjectStatsPanel(ObjectEditorContainer container, LevelEditor editor) {
 		panelSize = new Dimension(PANEL_WIDTH, container.HEIGHT);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		initialize();
+		myEditor = editor;
+		myEditor.setObjectStatsPanel(this);
 	}
 	
 	private void initialize() {
@@ -47,6 +52,26 @@ public class ObjectStatsPanel extends JPanel {
 		createComboBoxes();
 		createSliders();
 		setVisible(true);
+	}
+	
+	public String getObjectName() {
+		return objectName;
+	}
+	
+	public String getMovementName() {
+		return movementName;
+	}
+	
+	public int getMovementSpeed() {
+		return movementSpeed;
+	}
+	
+	public int getMovementDuration() {
+		return movementDuration;
+	}
+	
+	public int getGravityMagnitude() {
+		return gravityMag;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -111,12 +136,26 @@ public class ObjectStatsPanel extends JPanel {
 			}
 		});
 		
+		final JSlider gravityMagnitude = new JSlider(0,10);
+		JLabel gravityLabel = new JLabel("Gravity Magnitude");
+		movementLength.setLabelTable(movementLength.createStandardLabels(1, 0));
+		movementLength.setPaintLabels(true);
+		movementLength.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent event) {
+				gravityMag = gravityMagnitude.getValue();
+			}
+		});
+		
 		add(speedLabel);
 		add(speed);
 
 		
 		add(movementLabel);
 		add(movementLength);
+		
+		add(gravityLabel);
+		add(gravityMagnitude);
 		
 	}
 

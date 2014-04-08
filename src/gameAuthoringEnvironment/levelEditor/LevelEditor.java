@@ -41,8 +41,13 @@ public class LevelEditor extends JGEngine {
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_X_RIGHTSIDE = 10;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
+	private ObjectStatsPanel myObjectStatsPanel;
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
+	private static int COLID_FOR_PLAYER = 1;
+	private static int COLID_FOR_ENEMY = 4;
+	private static int COLID_FOR_BLOCK = 2;
+	private static int COLID_FOR_GOAL = 8;
 
 	/**
 	 * JGame class that holds the level editor. This displays what the created
@@ -63,9 +68,9 @@ public class LevelEditor extends JGEngine {
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 
-	//	System.out.println(myLevel.getBackground());
-		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		//setBGImage("background1");
+		// System.out.println(myLevel.getBackground());
+		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		// setBGImage("background1");
 
 		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
@@ -80,6 +85,10 @@ public class LevelEditor extends JGEngine {
 
 	public Level getLevel() {
 		return myLevel;
+	}
+
+	public void setObjectStatsPanel(ObjectStatsPanel panel) {
+		myObjectStatsPanel = panel;
 	}
 
 	@Override
@@ -107,7 +116,7 @@ public class LevelEditor extends JGEngine {
 	 */
 	public void addObject(String imageName, int x, int y) {
 		UninstantiatedGameObject newObject;
-		if (imageName.equals("mario")) {
+		if (myObjectStatsPanel.getObjectName().equals("Player")) {
 			Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
 			levelInputMap.put(39, "moveRight");
 			levelInputMap.put(37, "moveLeft");
@@ -115,18 +124,27 @@ public class LevelEditor extends JGEngine {
 			levelInputMap.put(38, "moveUp");
 			newObject = new UninstantiatedGameObject("player",
 					new JGPoint(x, y), 1, imageName, levelInputMap, false);
-		} else if (imageName.equals("block")) {
+		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
 			newObject = new UninstantiatedGameObject("block",
 					new JGPoint(x, y), 2, imageName, true);
-		} else if (imageName.equals("goomba")) {
+		} else if (myObjectStatsPanel.getObjectName().equals("Enemy")) {
 			newObject = new UninstantiatedGameObject("goomba",
-					new JGPoint(x, y), 4, imageName, "pace", 55, 2, false);
-		} else if (imageName.equals("pacMan")) {
-			newObject = new UninstantiatedGameObject("stationary platform",
-					new JGPoint(x, y), 2, imageName, true);
-		} else if (imageName.equals("tree")) {
+					new JGPoint(x, y), 4, imageName, myObjectStatsPanel
+							.getMovementName().toLowerCase(),
+					myObjectStatsPanel.getMovementSpeed() * 10,
+					myObjectStatsPanel.getMovementDuration(), false);
+		} else if (myObjectStatsPanel.getObjectName().equals("Moving Platform")) {
+			newObject = new UninstantiatedGameObject("goomba",
+					new JGPoint(x, y), 2, imageName, myObjectStatsPanel
+							.getMovementName().toLowerCase(),
+					myObjectStatsPanel.getMovementSpeed() * 10,
+					myObjectStatsPanel.getMovementDuration(), false);
+		} else if (myObjectStatsPanel.getObjectName().equals("Goal")) {
 			newObject = new UninstantiatedGameObject("goal", new JGPoint(x, y),
 					8, imageName, true);
+		} else if (myObjectStatsPanel.getObjectName().equals("Scenery")) {
+			newObject = new UninstantiatedGameObject("stationary platform",
+					new JGPoint(x, y), 2, imageName, true);
 		} else {
 			newObject = new UninstantiatedGameObject("block",
 					new JGPoint(x, y), 2, imageName, true);
@@ -180,24 +198,30 @@ public class LevelEditor extends JGEngine {
 		// System.out.println(this.el.images_loaded.size());
 		selectOnClick();
 	}
-	public void paintFrame(){
+
+	public void paintFrame() {
 		highlightSelected();
 	}
-	public void selectOnClick(){
-		if(getMouseButton(1)){
-			Vector<GameObject> v=getObjects("",0,true,new JGRectangle(getMouseX(), getMouseY(), 10, 10));
-			System.out.println(getMouseX()+" "+getMouseY());
-			if(v.size()>0&&(JGObject)v.get(0)!=(JGObject)myMover)
-				
-			selectedObject=v.get(0);
+
+	public void selectOnClick() {
+		if (getMouseButton(1)) {
+			Vector<GameObject> v = getObjects("", 0, true, new JGRectangle(
+					getMouseX(), getMouseY(), 10, 10));
+			System.out.println(getMouseX() + " " + getMouseY());
+			if (v.size() > 0 && (JGObject) v.get(0) != (JGObject) myMover)
+
+				selectedObject = v.get(0);
+		}
+
 	}
 
-		}
-	public void highlightSelected(){
+	public void highlightSelected() {
 		setColor(JGColor.red);
-		if(selectedObject!=null)
-		drawRect(selectedObject.x, selectedObject.y, selectedObject.getBBox().width, selectedObject.getBBox().height, 
-				false, false,5,JGColor.red);
+		if (selectedObject != null)
+			drawRect(selectedObject.x, selectedObject.y,
+					selectedObject.getBBox().width,
+					selectedObject.getBBox().height, false, false, 5,
+					JGColor.red);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
