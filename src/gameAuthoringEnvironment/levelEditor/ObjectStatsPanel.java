@@ -1,7 +1,5 @@
 package gameAuthoringEnvironment.levelEditor;
 
-
-
 import gameAuthoringEnvironment.levelEditor.LevelSizeSliders.SliderListener;
 
 import java.awt.Color;
@@ -46,11 +44,11 @@ public class ObjectStatsPanel extends JPanel {
 	
 	private void initialize() {
 		this.setPreferredSize(panelSize);
-		createSpacer();
 		createComboBoxes();
+		createSliders();
 		setVisible(true);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void createComboBoxes() {
 		// Object Types will define things like how collisions are handled, and input
@@ -87,7 +85,9 @@ public class ObjectStatsPanel extends JPanel {
 		add(movement);
 		add(movementType);
 		
-
+	}
+	
+	private void createSliders() {
 		final JSlider speed = new JSlider(0,10);
 		JLabel speedLabel = new JLabel("Movement Speed");
 		speed.setLabelTable(speed.createStandardLabels(1, 0));
@@ -117,37 +117,22 @@ public class ObjectStatsPanel extends JPanel {
 		
 		add(movementLabel);
 		add(movementLength);
-
-		
 		
 	}
-	
-	/*public void makeSizePanel(JPanel homePanel) {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		height = makeSizeSlider("Height", RANGE_FOR_HEIGHT_SLIDER, panel);
-		width = makeSizeSlider("Width", RANGE_FOR_WIDTH_SLIDER, panel);
-		homePanel.add(panel);
-		setSliderPositions(myLevel.getLevelSize());
-	}
 
-	public JSlider makeSizeSlider(String title, int[] range, JPanel homePanel) {
-		JPanel sliderPanel = new JPanel();
-		sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
-		JLabel label = new JLabel(title);
-		sliderPanel.add(label);
-		JSlider slider = new JSlider(range[0], range[1]);
-		slider.addChangeListener(new SliderListener());
-		sliderPanel.add(slider);
-		homePanel.add(sliderPanel);
-		slider.setFocusable(false);
-		return slider;
-	}*/
-	
-	private void createSpacer() {
-		spacer = new JLabel("");
-		spacer.setPreferredSize(SPACER_SIZE);
-		spacer.setVisible(true);
-	}
+/*import gameEngine.Level;
 
+import javax.swing.JPanel;
+
+public class ObjectStatsPanel extends JPanel {
+	LevelEditor myLevelEdit;
+public ObjectStatsPanel(LevelEditor l){
+	myLevelEdit=l;
+	initialize();
+}
+public void initialize(){
+	makeMainPanel();
+}
+public void makeMainPanel(){}
+>>>>>>> 4266c77e617ebdf4cb2558463699dfdb9851edf7*/
 }

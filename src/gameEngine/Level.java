@@ -17,7 +17,7 @@ public class Level {
 	private String levelBG;
 	private String name;
 	private double gravityVal;
-	public static final String defaultBackground="blankbackground";
+	public static final String defaultBackground="Resources/blankbackground.jpg";
 	
 	public Level(String levelName, JGPoint size, List<UninstantiatedGameObject> objects, List<GameForce> forces, String background, double gravityMagnitude){
 		initialize();
@@ -64,6 +64,10 @@ public class Level {
 	
 	public void addObjects(UninstantiatedGameObject object) {
 		levelObjects.add(object);
+	}
+	
+	public void addForces(List<GameForce> forces) {
+		levelForces.addAll(forces);
 	}
 	
 	public double getGravityVal(){

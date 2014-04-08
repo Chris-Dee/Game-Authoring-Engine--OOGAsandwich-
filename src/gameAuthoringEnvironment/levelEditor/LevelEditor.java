@@ -5,17 +5,22 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map;
+import java.util.Vector;
 
+import gameEngine.GameObject;
 import gameEngine.Level;
 import gameEngine.UninstantiatedGameObject;
 
 import javax.swing.JPanel;
 
 import jgame.JGColor;
+import jgame.JGObject;
 import jgame.JGPoint;
+import jgame.JGRectangle;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
+	private GameObject selectedObject;
 	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
@@ -54,11 +59,17 @@ public class LevelEditor extends JGEngine {
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
-		defineMedia("tempTable.tbl");
+		//defineMedia("tempTable.tbl");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
-		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
+
+	//	System.out.println(myLevel.getBackground());
+		defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		//setBGImage("background1");
+
+		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
+
 		try {
 			fillImageMap(new File(default_path));
 		} catch (FileNotFoundException e) {
@@ -88,48 +99,40 @@ public class LevelEditor extends JGEngine {
 	 * Adds an object to the level and instantiates it
 	 * 
 	 * @param imageName
-	 *          	name of image
+	 *            name of image
 	 * @param x
-	 * 			x position of image
+	 *            x position of image
 	 * @param y
-	 * 			y position of image
+	 *            y position of image
 	 */
 	public void addObject(String imageName, int x, int y) {
+		UninstantiatedGameObject newObject;
 		if (imageName.equals("mario")) {
-		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
-		levelInputMap.put(39, "moveRight");
-		levelInputMap.put(37, "moveLeft");
-		levelInputMap.put(40, "moveDown");
-		levelInputMap.put(38, "moveUp");
-		UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-				"player", new JGPoint(x, y), 1, imageName, levelInputMap, false);
+			Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
+			levelInputMap.put(39, "moveRight");
+			levelInputMap.put(37, "moveLeft");
+			levelInputMap.put(40, "moveDown");
+			levelInputMap.put(38, "moveUp");
+			newObject = new UninstantiatedGameObject("player",
+					new JGPoint(x, y), 1, imageName, levelInputMap, false);
+		} else if (imageName.equals("block")) {
+			newObject = new UninstantiatedGameObject("block",
+					new JGPoint(x, y), 2, imageName, true);
+		} else if (imageName.equals("goomba")) {
+			newObject = new UninstantiatedGameObject("goomba",
+					new JGPoint(x, y), 4, imageName, "pace", 55, 2, false);
+		} else if (imageName.equals("pacMan")) {
+			newObject = new UninstantiatedGameObject("stationary platform",
+					new JGPoint(x, y), 2, imageName, true);
+		} else if (imageName.equals("tree")) {
+			newObject = new UninstantiatedGameObject("goal", new JGPoint(x, y),
+					8, imageName, true);
+		} else {
+			newObject = new UninstantiatedGameObject("block",
+					new JGPoint(x, y), 2, imageName, true);
+		}
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
-		}
-		else if (imageName.equals("block")) {
-			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"block", new JGPoint(x, y), 2, imageName, true);
-			myLevel.addObjects(newObject);
-			newObject.instantiate();
-		}
-		else if (imageName.equals("goomba")) {
-			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"goomba", new JGPoint(x, y), 4, imageName, "pace", 55, 2, false);
-			myLevel.addObjects(newObject);
-			newObject.instantiate();
-		}
-		else if (imageName.equals("pacMan")) {
-			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"stationary platform", new JGPoint(x, y), 2, imageName, true);
-			myLevel.addObjects(newObject);
-			newObject.instantiate();
-		}
-		else if (imageName.equals("tree")) {
-			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"goal", new JGPoint(x, y), 8, imageName, true);
-			myLevel.addObjects(newObject);
-			newObject.instantiate();
-		}
 	}
 
 	private void checkInBounds() {
@@ -175,6 +178,26 @@ public class LevelEditor extends JGEngine {
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
 		// System.out.println(this.el.images_loaded.size());
+		selectOnClick();
+	}
+	public void paintFrame(){
+		highlightSelected();
+	}
+	public void selectOnClick(){
+		if(getMouseButton(1)){
+			Vector<GameObject> v=getObjects("",0,true,new JGRectangle(getMouseX(), getMouseY(), 10, 10));
+			System.out.println(getMouseX()+" "+getMouseY());
+			if(v.size()>0&&(JGObject)v.get(0)!=(JGObject)myMover)
+				
+			selectedObject=v.get(0);
+	}
+
+		}
+	public void highlightSelected(){
+		setColor(JGColor.red);
+		if(selectedObject!=null)
+		drawRect(selectedObject.x, selectedObject.y, selectedObject.getBBox().width, selectedObject.getBBox().height, 
+				false, false,5,JGColor.red);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
