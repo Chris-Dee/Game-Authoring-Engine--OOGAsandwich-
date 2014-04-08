@@ -66,6 +66,10 @@ public class Level {
 		levelObjects.add(object);
 	}
 	
+	public void addForces(List<GameForce> forces) {
+		levelForces.addAll(forces);
+	}
+	
 	public double getGravityVal(){
 		return gravityVal;
 	}
