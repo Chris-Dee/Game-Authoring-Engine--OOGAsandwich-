@@ -62,9 +62,14 @@ public class LevelEditor extends JGEngine {
 		//defineMedia("tempTable.tbl");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
+
 	//	System.out.println(myLevel.getBackground());
 		defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		//setBGImage("background1");
+
+		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		setBGImage("background1");
+
 		try {
 			fillImageMap(new File(default_path));
 		} catch (FileNotFoundException e) {
@@ -94,45 +99,50 @@ public class LevelEditor extends JGEngine {
 	 * Adds an object to the level and instantiates it
 	 * 
 	 * @param imageName
-	 *          	name of image
+	 *            name of image
 	 * @param x
-	 * 			x position of image
+	 *            x position of image
 	 * @param y
-	 * 			y position of image
+	 *            y position of image
 	 */
 	public void addObject(String imageName, int x, int y) {
 		if (imageName.equals("mario")) {
-		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
-		levelInputMap.put(39, "moveRight");
-		levelInputMap.put(37, "moveLeft");
-		levelInputMap.put(40, "moveDown");
-		levelInputMap.put(38, "moveUp");
-		UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-				"player", new JGPoint(x, y), 1, imageName, levelInputMap, false);
-		myLevel.addObjects(newObject);
-		newObject.instantiate();
-		}
-		else if (imageName.equals("block")) {
+			Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
+			levelInputMap.put(39, "moveRight");
+			levelInputMap.put(37, "moveLeft");
+			levelInputMap.put(40, "moveDown");
+			levelInputMap.put(38, "moveUp");
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"player", new JGPoint(x, y), 1, imageName, levelInputMap,
+					false);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		} else if (imageName.equals("block")) {
 			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
 					"block", new JGPoint(x, y), 2, imageName, true);
 			myLevel.addObjects(newObject);
 			newObject.instantiate();
-		}
-		else if (imageName.equals("goomba")) {
+		} else if (imageName.equals("goomba")) {
 			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"goomba", new JGPoint(x, y), 4, imageName, "pace", 55, 2, false);
+					"goomba", new JGPoint(x, y), 4, imageName, "pace", 55, 2,
+					false);
 			myLevel.addObjects(newObject);
 			newObject.instantiate();
-		}
-		else if (imageName.equals("pacMan")) {
+		} else if (imageName.equals("pacMan")) {
 			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
-					"stationary platform", new JGPoint(x, y), 2, imageName, true);
+					"stationary platform", new JGPoint(x, y), 2, imageName,
+					true);
 			myLevel.addObjects(newObject);
 			newObject.instantiate();
-		}
-		else if (imageName.equals("tree")) {
+		} else if (imageName.equals("tree")) {
 			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
 					"goal", new JGPoint(x, y), 8, imageName, true);
+			myLevel.addObjects(newObject);
+			newObject.instantiate();
+		}
+		else {
+			UninstantiatedGameObject newObject = new UninstantiatedGameObject(
+					"block", new JGPoint(x, y), 2, imageName, true);
 			myLevel.addObjects(newObject);
 			newObject.instantiate();
 		}
