@@ -200,7 +200,7 @@ public class LevelEditor extends JGEngine {
 		setColor(JGColor.red);
 		if(selectedObject!=null)
 		drawRect(selectedObject.x, selectedObject.y, selectedObject.getBBox().width, selectedObject.getBBox().height, 
-				false, false,10,JGColor.red);
+				false, false,5,JGColor.red);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
