@@ -11,3 +11,4 @@ emptytile	.	0	null		-
 
 hero-r		?		0		person.gif			-
 hero-l		?		0		person.gif			x
+blankbackground		-		0	blankbackground.jpg		-

@@ -31,7 +31,7 @@ public class LevelEditorWindow extends JFrame {
 	private void initialize() {
 		setVisible(true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setTitle("Level Editor"/* +"level.title" */);
+		setTitle("Level Editor" /*levelEdit.getName()*/);
 		setLayout(new BorderLayout());
 		setExitAction();
 		makeMainPanel();
@@ -45,6 +45,7 @@ public class LevelEditorWindow extends JFrame {
 				levelEdit.destroy();
 				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();
+				myLevelPanelComponent.changeEnableBG(true);
 			}
 		});
 	}
@@ -52,7 +53,12 @@ public class LevelEditorWindow extends JFrame {
 	private void makeMainPanel() {
 		JPanel mainPanel = (JPanel) getContentPane();
 
-		levelEdit = new LevelEditor(myLevelPanelComponent.getLevel());
+		try {
+			levelEdit = new LevelEditor(myLevelPanelComponent.getLevel());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainPanel.add(levelEdit, BorderLayout.CENTER);
 		mainPanel.add(new LevelObjectBar(myLevelPanelComponent.getLevel(), levelEdit),
 				BorderLayout.WEST);

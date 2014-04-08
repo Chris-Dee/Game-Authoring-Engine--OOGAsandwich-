@@ -1,7 +1,9 @@
 package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
+import gameEngine.Game;
 import gameEngine.Level;
+import gameplayer.GamePlayerGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -102,7 +104,6 @@ public class VAEview extends JFrame {
 		LevelPanel level = new LevelPanel(stats);
 		myLevelPanel = level;
 		scroller.add(level);
-
 		return scroller;
 	}
 
@@ -148,9 +149,15 @@ public class VAEview extends JFrame {
 			}
 			myGameData.setFileName(fileName + DOT_JSON_EXTENSION);
 			myGameData.write();
+			
+			//run game right away
+			new GamePlayerGUI(new Game(fileName + DOT_JSON_EXTENSION));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	/**

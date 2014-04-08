@@ -2,8 +2,8 @@ package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelEditor.LevelEditorWindow;
 import gameAuthoringEnvironment.levelStatsEditor.BackgroundChooser;
-import gameEngine.GameObject;
 import gameEngine.Level;
+import gameEngine.UninstantiatedGameObject;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -64,8 +64,8 @@ public class LevelPanelComponent extends JPanel {
 	}
 	
 	public void setAllObjectsActive() {
-		for (GameObject object : myLevel.getObjects()) {
-			object.activate();
+		for (UninstantiatedGameObject object : myLevel.getObjects()) {
+			object.instantiate();
 		}
 	}
 	private void initialize(Color color){
@@ -131,6 +131,7 @@ public class LevelPanelComponent extends JPanel {
 				repaint();
 			}
 
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myLevelPanel.resetBackgrounds();
@@ -138,12 +139,13 @@ public class LevelPanelComponent extends JPanel {
 				isActive = true;
 				BackgroundChooser.setSelectedToBackground(backgroundName);
 				myLevelPanel.setLevelName(myLevel.getName());
+				changeEnableBG(true);
 				revalidate();
 				repaint();
 				if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
 					if (e.getClickCount() == DOUBLE_CLICK_NUMBER) { // run this
 																	// on double
-																	// click
+						changeEnableBG(false);										// click
 						setBackground(ACTIVE_COLOR);
 						isActive = false;
 						System.out.println("name " + level.getName());
@@ -168,7 +170,9 @@ public class LevelPanelComponent extends JPanel {
 	public boolean isActive() {
 		return isActive;
 	}
-
+	public void changeEnableBG(boolean b){
+		myLevelPanel.changeBGEnable(b);
+	}
 	public void changeDefaultBackground(String newBG, String newBGName) {
 		backgroundName = newBGName;
 		myLevel.changeStartingBackground(newBG);

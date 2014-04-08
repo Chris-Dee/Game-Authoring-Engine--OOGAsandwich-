@@ -3,8 +3,8 @@ package gameAuthoringEnvironment.levelEditor;
 //TODO make this work...
 import java.util.HashMap;
 
-import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
+import gameEngine.UninstantiatedGameObject;
 import jgame.JGObject;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
@@ -34,7 +34,6 @@ public class LevelMover extends JGObject {
 		myLevelEditor = levelEditor;
 		x = INITIAL_X_AND_Y;
 		y = INITIAL_X_AND_Y;
-		activate();
 	}
 
 	private boolean checkKey(int key) {
@@ -65,23 +64,18 @@ public class LevelMover extends JGObject {
 		if (checkKey(myEngine.KeyEnter)) {
 			System.out.println("Adding " + getImageName() + " to screen");
 			myEngine.clearKey(myEngine.KeyEnter);
-			HashMap<Integer, String> levelInputMap = new HashMap<Integer, String>();
-			levelInputMap.put(39,  "moveRight");
-			levelInputMap.put(37, "moveLeft");
-			levelInputMap.put(40, "moveDown");
-			levelInputMap.put(38, "moveUp");
-
-			GameObject newObject = new GameObject("player", new JGPoint((int)x, (int)y), 1, moverImage, levelInputMap, false);
-			myLevelEditor.getLevel().addObjects(newObject);
-			newObject.activate();
+			moverImage=this.getImageName();
+			myLevelEditor.addObject(moverImage, (int) x, (int) y);
+			
 		}
 	}
 
 	public void changeImage(String imageName) {
 
-		moverImage = imageName;
-		myLevelEditor.defineImage(imageName, "n", 0, RESOURCE_PATH + imageName,
-				"-");
+		//myEngine.defineImage("newBallImage"+changeCounter.toString(),"",0,RESOURCE_PATH + imageName,"-");
+		//myLevel.myMover.setImage("newBallImage"+changeCounter.toString());
+		setImage(imageName);
+		//myLevel.myMover = new LevelMover(myLevel, (int) x, (int) y, changeCounter);
 
 	}
 }
