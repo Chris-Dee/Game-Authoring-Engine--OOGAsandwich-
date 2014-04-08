@@ -5,17 +5,22 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map;
+import java.util.Vector;
 
+import gameEngine.GameObject;
 import gameEngine.Level;
 import gameEngine.UninstantiatedGameObject;
 
 import javax.swing.JPanel;
 
 import jgame.JGColor;
+import jgame.JGObject;
 import jgame.JGPoint;
+import jgame.JGRectangle;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
+	private GameObject selectedObject;
 	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
@@ -54,11 +59,12 @@ public class LevelEditor extends JGEngine {
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
-		defineMedia("tempTable.tbl");
+		//defineMedia("tempTable.tbl");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
-		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		setBGImage("background1");
+	//	System.out.println(myLevel.getBackground());
+		defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		//setBGImage("background1");
 		try {
 			fillImageMap(new File(default_path));
 		} catch (FileNotFoundException e) {
@@ -175,6 +181,26 @@ public class LevelEditor extends JGEngine {
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
 		// System.out.println(this.el.images_loaded.size());
+		selectOnClick();
+	}
+	public void paintFrame(){
+		highlightSelected();
+	}
+	public void selectOnClick(){
+		if(getMouseButton(1)){
+			Vector<GameObject> v=getObjects("",0,true,new JGRectangle(getMouseX(), getMouseY(), 10, 10));
+			System.out.println(getMouseX()+" "+getMouseY());
+			if(v.size()>0&&(JGObject)v.get(0)!=(JGObject)myMover)
+				
+			selectedObject=v.get(0);
+	}
+
+		}
+	public void highlightSelected(){
+		setColor(JGColor.red);
+		if(selectedObject!=null)
+		drawRect(selectedObject.x, selectedObject.y, selectedObject.getBBox().width, selectedObject.getBBox().height, 
+				false, false,10,JGColor.red);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen

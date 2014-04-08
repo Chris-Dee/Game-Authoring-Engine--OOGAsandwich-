@@ -75,18 +75,6 @@ public class ObjectToolbar extends JPanel {
 					e.printStackTrace();
 				}
 			} catch (MalformedURLException e) {
-//=======
-//	private void addButtonImage(JButton button, String fileName,
-//			JToolBar toolbar) {
-//		File imageCheck = new File(RESOURCE_PATH + fileName);
-//		if (imageCheck.exists()) {
-//			try {
-//				URL imageURL = imageCheck.toURI().toURL();
-//				Image img = ImageIO.read(imageURL);
-//				button.setIcon(new ImageIcon(img));
-//				createListener(button, fileName);
-//			} catch (Exception e) {
-//>>>>>>> bea11868cebb7f44c966ad04be5f11e026813ebc
 				e.printStackTrace();
 			}
 		}
