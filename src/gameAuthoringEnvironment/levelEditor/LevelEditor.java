@@ -54,10 +54,10 @@ public class LevelEditor extends JGEngine {
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
-
+		defineMedia("tempTable.tbl");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
-		defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		setBGImage("background1");
 		try {
 			fillImageMap(new File(default_path));

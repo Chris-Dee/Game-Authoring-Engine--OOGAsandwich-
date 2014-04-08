@@ -13,3 +13,12 @@ mobile		-		0	mobileplatform.png	-
 metal		_		0	metal.jpg	_
 emptytile	.	0	null		-
 skyblue		-		0	skyblue.jpg		-
+blankbackground		-		0	blankbackground.jpg		-
+mario		-		0	marioobject.jpg		-
+block		-		0	blockobject.jpg		-
+goomba		-		0	goombaobject.png		-
+lemon		-		0	lemonobject.jpg		-
+lime		-		0	limeobject.gif	-
+orange		-		0	orangeobject.jpg		-
+pacMan		-		0	pacmanobject.jpg		-
+tree		-		0	treeobject.jpg		-

@@ -151,7 +151,7 @@ public class VAEview extends JFrame {
 			myGameData.write();
 			
 			//run game right away
-			//new GamePlayerGUI(new Game(fileName));
+			new GamePlayerGUI(new Game(fileName + DOT_JSON_EXTENSION));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
