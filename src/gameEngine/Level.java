@@ -17,7 +17,7 @@ public class Level {
 	private String levelBG;
 	private String name;
 	private double gravityVal;
-	public static final String defaultBackground="Resources/blankbackground.jpg";
+	public static final String defaultBackground="blankbackground";
 	
 	public Level(String levelName, JGPoint size, List<UninstantiatedGameObject> objects, List<GameForce> forces, String background, double gravityMagnitude){
 		initialize();
