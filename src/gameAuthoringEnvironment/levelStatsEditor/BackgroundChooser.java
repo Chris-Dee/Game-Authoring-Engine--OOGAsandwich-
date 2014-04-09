@@ -116,8 +116,7 @@ public class BackgroundChooser extends JPanel {
 	private void setBackgroundToSelected() {
 		System.out.println(myBackgroundMap);
 		String newBG = myBackgroundMap.get(model.getSelectedItem());
-		myLevelPanel.findActivePanel().changeDefaultBackground(newBG,
-				(String) model.getSelectedItem());
+		myLevelPanel.findActivePanel().changeDefaultBackground((String) model.getSelectedItem());
 	}
 	
 	/**

@@ -69,25 +69,11 @@ public class LevelEditor extends JGEngine {
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 
-//<<<<<<< HEAD
-	//	System.out.println(myLevel.getBackground());
-		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		//setBGImage("background1");
-//=======
-		// System.out.println(myLevel.getBackground());
-		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		// setBGImage("background1");
-//>>>>>>> 93e30a619001db98c574c2191bb1c6c424a839cf
-
-		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
-
-		//setBGImage("blankbackground");
 		setBGImage(myLevel.getBackground());
 
 		try {
 			fillImageMap(new File(default_path));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -164,7 +150,6 @@ public class LevelEditor extends JGEngine {
 	
 	public void setGravity(double value) {
 		myLevel.setGravityVal(value/10);
-		//System.out.println(myLevel.getGravityVal() + "LETS FUCKING GO");
 	}
 
 	private void checkInBounds() {

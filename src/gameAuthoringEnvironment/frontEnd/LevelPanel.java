@@ -125,7 +125,9 @@ public class LevelPanel extends JPanel {
 	}
 	
 	public void addLevel(Level level){
-		levelComponentList.add(new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,level,this));
+		LevelPanelComponent toAdd = new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,level,this);
+		//toAdd.setAllObjectsActive();
+		levelComponentList.add(toAdd);
 		fillPanels();
 	}
 
