@@ -61,7 +61,8 @@ public class BackgroundChooser extends JPanel {
 		Map<String, String> bgMap = new TreeMap<String, String>();
 		Scanner s = new Scanner(file);
 		while (s.hasNext()) {
-			String[] str = s.nextLine().split(delimiter);
+			String[] str = s.nextLine().split(" ");
+			System.out.println(str[0]);
 			bgMap.put(str[0], str[1]);
 		}
 		return bgMap;
@@ -113,8 +114,8 @@ public class BackgroundChooser extends JPanel {
 	}
 
 	private void setBackgroundToSelected() {
+		System.out.println(myBackgroundMap);
 		String newBG = myBackgroundMap.get(model.getSelectedItem());
-		System.out.println("l89BC " + myLevelPanel);
 		myLevelPanel.findActivePanel().changeDefaultBackground(newBG,
 				(String) model.getSelectedItem());
 	}

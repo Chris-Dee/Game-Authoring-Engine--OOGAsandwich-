@@ -65,6 +65,7 @@ public class LevelEditor extends JGEngine {
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
 		defineMedia("tempTable.tbl");
+		defineImage("firebackground","m",0,"firebackground.jpg","-");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 
@@ -79,7 +80,7 @@ public class LevelEditor extends JGEngine {
 //>>>>>>> 93e30a619001db98c574c2191bb1c6c424a839cf
 
 		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		setBGImage("background1");
+		setBGImage(myLevel.getBackground());
 
 		try {
 			fillImageMap(new File(default_path));
