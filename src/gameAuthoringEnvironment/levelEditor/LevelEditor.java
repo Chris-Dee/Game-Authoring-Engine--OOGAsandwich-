@@ -59,7 +59,7 @@ public class LevelEditor extends JGEngine {
 	public LevelEditor(Level level) {
 		super();
 		myLevel = level;
-		dbgShowMessagesInPf(false);
+		//dbgShowMessagesInPf(false);
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
@@ -200,30 +200,31 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void paintFrame() {
-		highlightSelected();
+		highlight(selectedObject, JGColor.red);
+		highlight(myMover,JGColor.blue);
 	}
 
 	public void selectOnClick() {
 		//new JGRectangle()
 		if (getMouseButton(1)) {
-			JGRectangle rect=new JGRectangle(getMouseX()+el.xofs, getMouseY()+el.yofs, 20, 20);
+			JGRectangle rect=new JGRectangle(getMouseX()+el.xofs, getMouseY()+el.yofs, 10, 10);
 			Vector<GameObject> v = getObjects("", 0, true, rect);
 			System.out.println(rect);
 			if (v.size() > 0)
 			if( v.get(0) != (JGObject) myMover)
 				selectedObject = v.get(0);
-			System.out.println(selectedObject.x+"    "+selectedObject.y);
+			//System.out.println(selectedObject.x+"    "+selectedObject.y);
 		}
 
 	}
 
-	public void highlightSelected() {
+	public void highlight(JGObject object, JGColor color) {
 		setColor(JGColor.red);
-		if (selectedObject != null)
-			drawRect(selectedObject.x, selectedObject.y,
-					selectedObject.getBBox().width,
-					selectedObject.getBBox().height, true, false, 5,
-					JGColor.red);
+		if (object != null)
+			drawRect(object.x, object.y,
+					object.getBBox().width,
+					object.getBBox().height, false, false, 2,
+					color);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
