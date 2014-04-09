@@ -66,11 +66,9 @@ public class LevelEditorWindow extends JFrame {
 		// future purpose
 
 		// mainPanel.add(new PresetsBar(), BorderLayout.EAST);
-		JPanel eastPanel=new JPanel();
-		eastPanel.add(new ObjectToolbar(levelEdit));
-		eastPanel.add(new ObjectStatsPanel(levelEdit));
-		mainPanel.add(eastPanel, BorderLayout.EAST);
-		
+
+		mainPanel.add(new ObjectEditorContainer(levelEdit), BorderLayout.EAST);
+
 		pack();
 	}
 }

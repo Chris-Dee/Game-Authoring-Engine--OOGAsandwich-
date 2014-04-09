@@ -71,9 +71,11 @@ public class LevelMover extends JGObject {
 	}
 
 	public void changeImage(String imageName) {
+
 		//myEngine.defineImage("newBallImage"+changeCounter.toString(),"",0,RESOURCE_PATH + imageName,"-");
 		//myLevel.myMover.setImage("newBallImage"+changeCounter.toString());
 		setImage(imageName);
 		//myLevel.myMover = new LevelMover(myLevel, (int) x, (int) y, changeCounter);
+
 	}
 }

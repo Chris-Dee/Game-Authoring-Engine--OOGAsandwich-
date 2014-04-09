@@ -20,7 +20,6 @@ import javax.swing.JToolBar;
 public class ObjectToolbar extends JPanel {
 	private LevelEditor myLevel;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/";
-	//private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/Resources/";
 	private ResourceBundle myResources;
 	private static final String IMAGE_RESOURCES = "imagefiles";
 	private static final String GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE = "gameAuthoringEnvironment.levelEditor.Resources.";
@@ -45,16 +44,9 @@ public class ObjectToolbar extends JPanel {
 		toolbar.setOrientation(1);
 		this.setFocusable(false);
 		
-		//String[] images = {"blockobject.jpg", "goombaobject.png", "lemonobject.jpg", "limeobject.gif", "marioobject.jpg", "orangeobject.jpg", "pacmanobject.jpg", "treeobject.jpg"};
 		Map<String,String> images=myLevel.getMap();
 		for(String s:images.keySet()) {
 			addButtonImage(new JButton(), s, toolbar);
-//=======
-//
-//		for (String keyString : myResources.keySet()) {
-//			addButtonImage(new JButton(), myResources.getString(keyString),
-//					toolbar);
-//>>>>>>> bea11868cebb7f44c966ad04be5f11e026813ebc
 		}
 		add(toolbar);
 	}
