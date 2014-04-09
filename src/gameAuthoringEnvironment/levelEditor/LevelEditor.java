@@ -65,15 +65,24 @@ public class LevelEditor extends JGEngine {
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
 		defineMedia("tempTable.tbl");
+		defineImage("firebackground","m",0,"firebackground.jpg","-");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 
+//<<<<<<< HEAD
+	//	System.out.println(myLevel.getBackground());
+		//defineImage("background1", "", 0, myLevel.getBackground(), "-");
+		//setBGImage("background1");
+//=======
 		// System.out.println(myLevel.getBackground());
 		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
 		// setBGImage("background1");
+//>>>>>>> 93e30a619001db98c574c2191bb1c6c424a839cf
 
 		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		setBGImage("blankbackground");
+
+		//setBGImage("blankbackground");
+		setBGImage(myLevel.getBackground());
 
 		try {
 			fillImageMap(new File(default_path));
@@ -202,7 +211,7 @@ public class LevelEditor extends JGEngine {
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
 		// System.out.println(this.el.images_loaded.size());
 		selectOnClick();
-		setBGImage(myLevel.getBackground());
+		//setBGImage(myLevel.getBackground());
 	}
 
 	public void paintFrame() {
@@ -210,13 +219,15 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void selectOnClick() {
+		//new JGRectangle()
 		if (getMouseButton(1)) {
-			Vector<GameObject> v = getObjects("", 0, true, new JGRectangle(
-					getMouseX(), getMouseY(), 10, 10));
-			System.out.println(getMouseX() + " " + getMouseY());
-			if (v.size() > 0 && (JGObject) v.get(0) != (JGObject) myMover)
-
+			JGRectangle rect=new JGRectangle(getMouseX()+el.xofs, getMouseY()+el.yofs, 20, 20);
+			Vector<GameObject> v = getObjects("", 0, true, rect);
+			System.out.println(rect);
+			if (v.size() > 0)
+			if( v.get(0) != (JGObject) myMover)
 				selectedObject = v.get(0);
+			System.out.println(selectedObject.x+"    "+selectedObject.y);
 		}
 
 	}
@@ -226,7 +237,7 @@ public class LevelEditor extends JGEngine {
 		if (selectedObject != null)
 			drawRect(selectedObject.x, selectedObject.y,
 					selectedObject.getBBox().width,
-					selectedObject.getBBox().height, false, false, 5,
+					selectedObject.getBBox().height, true, false, 5,
 					JGColor.red);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
