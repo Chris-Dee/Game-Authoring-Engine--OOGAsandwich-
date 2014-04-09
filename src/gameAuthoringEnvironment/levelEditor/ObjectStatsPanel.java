@@ -31,7 +31,7 @@ public class ObjectStatsPanel extends JPanel {
 	private Integer movementSpeed = 5;
 	private int movementDuration = 5;
 	
-	private int gravityMag = 4;
+	private int gravityMag = 0;
 	private LevelEditor myEditor;
 	
 	
@@ -133,12 +133,13 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void stateChanged(ChangeEvent event) {
 				movementDuration = movementLength.getValue();
+				myEditor.setGravity(gravityMag);
 			}
 		});
 		
 		final JSlider gravityMagnitude = new JSlider(0,10);
 		JLabel gravityLabel = new JLabel("Gravity Magnitude");
-		movementLength.setLabelTable(movementLength.createStandardLabels(1, 0));
+		movementLength.setLabelTable(gravityMagnitude.createStandardLabels(1, 0));
 		movementLength.setPaintLabels(true);
 		movementLength.addChangeListener(new ChangeListener() {
 

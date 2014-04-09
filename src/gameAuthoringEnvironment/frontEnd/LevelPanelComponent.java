@@ -175,7 +175,8 @@ public class LevelPanelComponent extends JPanel {
 	}
 	public void changeDefaultBackground(String newBG, String newBGName) {
 		backgroundName = newBGName;
-		myLevel.changeStartingBackground(newBG);
+		myLevel.changeStartingBackground(newBGName);
+		
 	}
 
 	@Override

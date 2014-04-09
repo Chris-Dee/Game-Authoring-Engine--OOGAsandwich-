@@ -73,7 +73,7 @@ public class LevelEditor extends JGEngine {
 		// setBGImage("background1");
 
 		// defineImage("background1", "", 0, myLevel.getBackground(), "-");
-		setBGImage("background1");
+		setBGImage("blankbackground");
 
 		try {
 			fillImageMap(new File(default_path));
@@ -123,34 +123,39 @@ public class LevelEditor extends JGEngine {
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
 			newObject = new UninstantiatedGameObject("player",
-					new JGPoint(x, y), 1, imageName, levelInputMap, false);
+					new JGPoint(x, y), COLID_FOR_PLAYER, imageName, levelInputMap, false);
 		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
 			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), 2, imageName, true);
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Enemy")) {
 			newObject = new UninstantiatedGameObject("goomba",
-					new JGPoint(x, y), 4, imageName, myObjectStatsPanel
+					new JGPoint(x, y), COLID_FOR_ENEMY, imageName, myObjectStatsPanel
 							.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
 					myObjectStatsPanel.getMovementDuration(), false);
 		} else if (myObjectStatsPanel.getObjectName().equals("Moving Platform")) {
-			newObject = new UninstantiatedGameObject("goomba",
-					new JGPoint(x, y), 2, imageName, myObjectStatsPanel
+			newObject = new UninstantiatedGameObject("moving platform",
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, myObjectStatsPanel
 							.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(), false);
+					myObjectStatsPanel.getMovementDuration(), true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Goal")) {
 			newObject = new UninstantiatedGameObject("goal", new JGPoint(x, y),
-					8, imageName, true);
+					COLID_FOR_GOAL, imageName, true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Scenery")) {
 			newObject = new UninstantiatedGameObject("stationary platform",
-					new JGPoint(x, y), 2, imageName, true);
+					new JGPoint(x, y), COLID_FOR_PLAYER + 4, imageName, true);
 		} else {
 			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), 2, imageName, true);
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
 		}
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
+	}
+	
+	public void setGravity(double value) {
+		myLevel.setGravityVal(value/10);
+		//System.out.println(myLevel.getGravityVal() + "LETS FUCKING GO");
 	}
 
 	private void checkInBounds() {
@@ -197,6 +202,7 @@ public class LevelEditor extends JGEngine {
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
 		// System.out.println(this.el.images_loaded.size());
 		selectOnClick();
+		setBGImage(myLevel.getBackground());
 	}
 
 	public void paintFrame() {
