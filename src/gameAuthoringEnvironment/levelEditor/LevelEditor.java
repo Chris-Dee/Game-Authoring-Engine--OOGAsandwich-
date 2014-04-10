@@ -118,7 +118,7 @@ public class LevelEditor extends JGEngine {
 			levelInputMap.put(40, "moveDown");
 			levelInputMap.put(38, "moveUp");
 			newObject = new UninstantiatedGameObject("player",
-					new JGPoint(x, y), COLID_FOR_PLAYER, imageName, levelInputMap, false);
+					new JGPoint(x, y), COLID_FOR_PLAYER, imageName, levelInputMap, false, true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
 			newObject = new UninstantiatedGameObject("block",
 					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);

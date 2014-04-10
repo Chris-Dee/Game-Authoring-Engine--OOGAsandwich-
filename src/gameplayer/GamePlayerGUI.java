@@ -32,6 +32,8 @@ public class GamePlayerGUI extends JGEngine{
 	@Override
 	public void initCanvas() {
 		setCanvasSettings(100,100,displayWidth()/100,displayHeight()/100,null,null,null);
+		System.out.println(displayWidth());
+		System.out.println(displayHeight());
 	}
 
 	/**
@@ -50,8 +52,12 @@ public class GamePlayerGUI extends JGEngine{
 	 * One-time setup of the game.
 	 */
 	public void startInGame(){
+		System.out.println("startingame1");
 		constructGame(); //sets levels
-		setPFSize(100, 100); // What does PFSize actually do?
+		System.out.println("startingame2");
+		System.out.println(currentLevel.getLevelSize().x);
+		setPFSize(currentLevel.getLevelSize().x*100, currentLevel.getLevelSize().y*100);
+		//setPFSize(1000, 1000); // What does PFSize actually do? // Sam - I need the correct size for scrolling to work
 		setBGImage(currentLevel.getBackground());
 	}
 
@@ -65,6 +71,7 @@ public class GamePlayerGUI extends JGEngine{
 				0    // object collision ID of objects to move (0 means any)
 				);
 		checkCollisions();
+		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 	}
 
 	public void paintFrameInGame() {
@@ -83,6 +90,7 @@ public class GamePlayerGUI extends JGEngine{
 		// currentLevel.doFrame();
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
+//		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 		
 	}
 
@@ -131,14 +139,19 @@ public class GamePlayerGUI extends JGEngine{
 	public void constructGame(){
 		// This is where you take output from parser and construct the game and levels
 		// This is temporary for testing.
+		System.out.println("construct1");
 		currentLevel = currentGame.getCurrentLevel();
+		System.out.println("construct2");
 		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();
+		System.out.println("construct3");
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
+			System.out.println("construct4");
 			//TODO: Instantiate based on if sprite is on screen
 			currentObjects.add(i.instantiate());
 		}
+		System.out.println("construct5");
 		levelOver = false;
 	}
 	
@@ -148,6 +161,30 @@ public class GamePlayerGUI extends JGEngine{
 				obj.yspeed += mag;
 			}
 		}
+	}
+	
+	public double avgScreenX(List<GameObject> objs){
+		double xtot = 0;
+		int cnt = 0;
+		for(GameObject g : objs){
+			if(g.getIsScreenFollowing()){
+				xtot += g.x;
+				cnt++;
+			}
+		}
+		return xtot / cnt;
+	}
+	
+	public double avgScreenY(List<GameObject> objs){
+		double ytot = 0;
+		int cnt = 0;
+		for(GameObject g : objs){
+			if(g.getIsScreenFollowing()){
+				ytot += g.y;
+				cnt++;
+			}
+		}
+		return ytot / cnt;
 	}
 
 	public void doInputs(){
