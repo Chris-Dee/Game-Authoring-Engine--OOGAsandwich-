@@ -1,5 +1,6 @@
 package gameEngine;
 
+import gameplayer.Tuple;
 import jgame.JGTimer;
 
 import java.lang.reflect.*;
@@ -16,7 +17,7 @@ public class GameObjectAction {
 	private boolean behaviorFlag = false;
 //	GameObject myObj;
 	
-	private Map<Integer, String> characterMap;
+	private Map<Integer, Tuple<String,Integer>> characterMap;
 	
 	public GameObjectAction(){
 //		xspeed = 0;
@@ -41,7 +42,7 @@ public class GameObjectAction {
 //		this.xspeed = xspeed;
 //		this.yspeed = yspeed;
 //	}
-	public GameObjectAction(Map<Integer, String> inputMap){
+	public GameObjectAction(Map<Integer, Tuple<String,Integer>> inputMap){
 		characterMap=inputMap;
 //		xspeed = 0;
 //		yspeed = 0;
@@ -96,24 +97,24 @@ public class GameObjectAction {
 		
 	}
 	
-	public Map<Integer, String> getCharMap(){
+	public Map<Integer, Tuple<String,Integer>> getCharMap(){
 		return characterMap;
 	}
 
-	public void moveRight(GameObject myObj){ //speed parameter will be added
-		myObj.xspeed=4;
+	public void moveRight(GameObject myObj,int magnitude){ //speed parameter will be added
+		myObj.xspeed=magnitude;
 	}
 	
-	public void moveLeft(GameObject myObj){
-		myObj.xspeed=-4;
+	public void moveLeft(GameObject myObj,int magnitude){
+		myObj.xspeed=-magnitude;
 	}
 	
-	public void moveUp(GameObject myObj){
-		myObj.yspeed=-6;
+	public void moveUp(GameObject myObj,int magnitude){
+		myObj.yspeed=-magnitude;
 	}
 	
-	public void moveDown(GameObject myObj){
-		myObj.yspeed=6;
+	public void moveDown(GameObject myObj,int magnitude){
+		myObj.yspeed=magnitude;
 	}
 	public void stopMovement(GameObject myObj){
 		myObj.xspeed=0;

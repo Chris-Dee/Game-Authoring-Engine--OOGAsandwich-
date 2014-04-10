@@ -17,17 +17,11 @@ public class Level {
 	private String levelBG;
 	private String name;
 	private double gravityVal;
-//<<<<<<< HEAD
 	public static final String defaultBackground="blankbackground";
-	
-//	public Level(String levelName, JGPoint size, List<UninstantiatedGameObject> objects, List<GameForce> forces, String background, double gravityMagnitude){
-//=======
-//	public static final String defaultBackground = "blankbackground";
 
 	public Level(String levelName, JGPoint size,
 			List<UninstantiatedGameObject> objects, List<GameForce> forces,
 			String background, double gravityMagnitude) {
-//>>>>>>> 93e30a619001db98c574c2191bb1c6c424a839cf
 		initialize();
 		levelSize = size;
 		levelObjects = objects;
