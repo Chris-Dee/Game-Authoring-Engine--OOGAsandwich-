@@ -18,6 +18,7 @@ public class Level {
 	private String name;
 	private double gravityVal;
 	public static final String defaultBackground="blankbackground";
+	private int GAME_SCORE=100;
 
 	public Level(String levelName, JGPoint size,
 			List<UninstantiatedGameObject> objects, List<GameForce> forces,
@@ -87,7 +88,13 @@ public class Level {
 	public void setGravityVal(double value) {
 		gravityVal = value;
 	}
-
+	
+	public void changeScore(int magnitude){
+		GAME_SCORE+=magnitude;
+	}
+	public int getCurrentScore(){
+		return GAME_SCORE;
+	}
 	// public LevelInput getLevelInput(){
 	// return levelInput;
 	// }

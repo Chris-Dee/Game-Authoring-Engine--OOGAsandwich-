@@ -1,6 +1,7 @@
 package gameplayer;
 
 import gameEngine.*;
+import jgame.JGColor;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
 import jgame.*;
@@ -18,6 +19,7 @@ public class GamePlayerGUI extends JGEngine{
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
 	private boolean levelOver = false;
+
 
 	public GamePlayerGUI(Game loadedGame){
 		currentGame = loadedGame;
@@ -81,6 +83,13 @@ public class GamePlayerGUI extends JGEngine{
 		if(levelOver)
 			levelText = "Level Complete";
 		drawString(levelText,viewWidth()/2,90,0);
+		paintScore();
+	}
+	
+	public void paintScore() {
+		//setColor(JGColor.red);
+		String score="Score: "+ currentLevel.getCurrentScore();
+		drawString(score,3*viewWidth()/4,24,0);
 	}
 
 	public void doLevel(){
