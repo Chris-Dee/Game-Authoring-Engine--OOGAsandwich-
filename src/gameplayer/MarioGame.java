@@ -35,7 +35,7 @@ public class MarioGame extends Game {
 		Map<Integer, Tuple<String,Integer>> otherInputMap = new HashMap<Integer, Tuple<String,Integer>>();
 		otherInputMap.put(65, new Tuple<String, Integer>("moveLeft",4));
 		otherInputMap.put(68, new Tuple<String, Integer>("moveRight",4));
-		otherInputMap.put(87, new Tuple<String, Integer>("moveUp",6));
+		otherInputMap.put(87, new Tuple<String, Integer>("moveUp",8));
 		int[][] modMatrix = { { 1, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, -1, 0, 1, 0, 0 } };
 		collisionRules.add(new BasicCollision(1, 2, new GameObjectModification(
@@ -59,7 +59,7 @@ public class MarioGame extends Game {
 		  List<GameForce> forces = new ArrayList<GameForce>(); 
 		  GameForce force1 = new GameForce(); forces.add(force1);
 
-		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .4);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
 		List<Level> myLevels = new ArrayList<Level>();
 		myLevels.add(firstLevel);
