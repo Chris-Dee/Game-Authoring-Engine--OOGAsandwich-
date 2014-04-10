@@ -48,7 +48,7 @@ public class MarioGame extends Game {
 		 List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
 		
-		  objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false)); 
+		  objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true)); 
 		  for(int i = 0; i < 900 /32; i++){
 		   objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true)); } objs.add(new
 		  UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true)); objs.add(new
@@ -59,7 +59,7 @@ public class MarioGame extends Game {
 		  List<GameForce> forces = new ArrayList<GameForce>(); 
 		  GameForce force1 = new GameForce(); forces.add(force1);
 
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "skyblue", .4);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .4);//,new LevelInput(levelInputMap));
 		
 		List<Level> myLevels = new ArrayList<Level>();
 		myLevels.add(firstLevel);
