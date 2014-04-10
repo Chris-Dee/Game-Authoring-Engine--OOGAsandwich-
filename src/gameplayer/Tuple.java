@@ -1,8 +1,9 @@
 package gameplayer;
 
-public class Tuple<E> {
-	E x, y;
-	Tuple (E obj1, E obj2){
+public class Tuple<E,B> {
+	E x;
+	B y;
+	public Tuple (E obj1, B obj2){
 		x = obj1;
 		y = obj2;
 	}

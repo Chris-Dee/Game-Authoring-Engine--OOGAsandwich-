@@ -1,5 +1,7 @@
 package gameEngine;
 
+import gameplayer.Tuple;
+
 import java.util.Map;
 
 import jgame.JGPoint;
@@ -14,7 +16,7 @@ public class UninstantiatedGameObject {
 	Integer objectSpeed;
 	Boolean objectFloating;
 	Boolean objectScreenFollow;
-	Map<Integer, String> objectInputMap;
+	Map<Integer, Tuple<String,Integer>> objectInputMap;
 	
 	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, String behavior, Integer time, Integer speed, Boolean floating) {
 		objectName = name;
@@ -28,7 +30,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, String> inputMap, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -38,7 +40,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 	}
 	
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, String> inputMap, boolean floating, boolean screenFollow) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;

@@ -27,15 +27,15 @@ public class MarioGame extends Game {
 		// game.screenSize = new JGPoint(640, 480);
 		screenSize = new JGPoint(900, 900);
 
-		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
-		levelInputMap.put(39, "moveRight");
-		levelInputMap.put(37, "moveLeft");
-		levelInputMap.put(38, "moveUp");
-		levelInputMap.put(40, "moveDown");
-		Map<Integer, String> otherInputMap = new HashMap<Integer, String>();
-		otherInputMap.put(65, "moveLeft");
-		otherInputMap.put(68, "moveRight");
-		otherInputMap.put(87, "moveUp");
+		Map<Integer, Tuple<String,Integer>> levelInputMap = new HashMap<Integer, Tuple<String,Integer>>();
+		levelInputMap.put(39, new Tuple<String, Integer>("moveRight", 4));
+		levelInputMap.put(37, new Tuple<String, Integer>("moveLeft",4));
+		levelInputMap.put(38, new Tuple<String, Integer>("moveUp",12));
+		levelInputMap.put(40, new Tuple<String, Integer>("moveDown",6));
+		Map<Integer, Tuple<String,Integer>> otherInputMap = new HashMap<Integer, Tuple<String,Integer>>();
+		otherInputMap.put(65, new Tuple<String, Integer>("moveLeft",4));
+		otherInputMap.put(68, new Tuple<String, Integer>("moveRight",4));
+		otherInputMap.put(87, new Tuple<String, Integer>("moveUp",6));
 		int[][] modMatrix = { { 1, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, -1, 0, 1, 0, 0 } };
 		collisionRules.add(new BasicCollision(1, 2, new GameObjectModification(

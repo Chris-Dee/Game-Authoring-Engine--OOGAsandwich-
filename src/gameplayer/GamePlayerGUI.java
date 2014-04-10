@@ -1,6 +1,7 @@
 package gameplayer;
 
 import gameEngine.*;
+import jgame.JGColor;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
 import jgame.*;
@@ -18,6 +19,7 @@ public class GamePlayerGUI extends JGEngine{
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
 	private boolean levelOver = false;
+
 
 	public GamePlayerGUI(Game loadedGame){
 		currentGame = loadedGame;
@@ -81,6 +83,13 @@ public class GamePlayerGUI extends JGEngine{
 		if(levelOver)
 			levelText = "Level Complete";
 		drawString(levelText,viewWidth()/2,90,0);
+		paintScore();
+	}
+	
+	public void paintScore() {
+		//setColor(JGColor.red);
+		String score="Score: "+ currentLevel.getCurrentScore();
+		drawString(score,3*viewWidth()/4,24,0);
 	}
 
 	public void doLevel(){
@@ -96,15 +105,15 @@ public class GamePlayerGUI extends JGEngine{
 
 	public void checkCollisions(){
 		for(BasicCollision i: currentGame.collisionRules){
-			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
-			for(Tuple<GameObject> j: temp){
+			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject,GameObject> j: temp){
 				i.mod1.apply(j.x, j.y);
 				//i.mod2.apply(j.y, j.x);
 			}
 		}
 		for(TriggerCollision i: currentGame.collisionTriggers){
-			ArrayList<Tuple<GameObject>> temp = getCollisions(i.colid1, i.colid2);
-			for(Tuple<GameObject> j: temp){
+			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
+			for(Tuple<GameObject,GameObject> j: temp){
 				if(i.behavior == "endlevel"){
 					endLevel();
 				}else if(i.behavior == "reset"){
@@ -113,13 +122,13 @@ public class GamePlayerGUI extends JGEngine{
 			}
 		}
 	}
-	public ArrayList<Tuple<GameObject>> getCollisions(int colid1, int colid2){
-		ArrayList<Tuple<GameObject>> collisions = new ArrayList<Tuple<GameObject>>();
+	public ArrayList<Tuple<GameObject,GameObject>> getCollisions(int colid1, int colid2){
+		ArrayList<Tuple<GameObject,GameObject>> collisions = new ArrayList<Tuple<GameObject,GameObject>>();
 		for(GameObject i: currentObjects){
 			for(GameObject j: currentObjects){
 				if(i.colid == colid1 && j.colid == colid2){
 					if(i.getBBox().intersects(j.getBBox())){
-						collisions.add(new Tuple<GameObject>(i, j));
+						collisions.add(new Tuple<GameObject,GameObject>(i, j));
 					}
 				}
 			}
@@ -191,7 +200,7 @@ public class GamePlayerGUI extends JGEngine{
 		//System.out.println(getLastKey());
 		for(GameObject obj: currentObjects){
 			GameObjectAction move= obj.getMovement();
-			Map<Integer, String> characterMap =obj.getCharMap();
+			Map<Integer, Tuple<String,Integer>> characterMap =obj.getCharMap();
 			if(characterMap!=null){
 				boolean keyPressed=false;
 				for(Integer c : characterMap.keySet()){
@@ -200,31 +209,18 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod(characterMap.get(c), GameObject.class);
+							method = move.getClass().getMethod(characterMap.get(c).x, GameObject.class, int.class);
 						} catch (SecurityException e) {
 						} catch (NoSuchMethodException e) {}	
 						try {
-							method.invoke(move, obj);
+							method.invoke(move, obj, characterMap.get(c).y);
 						} catch (IllegalArgumentException e) {
 						} catch (IllegalAccessException e) {
 						} catch (InvocationTargetException e) {}
 					}
 				}
 				if (!keyPressed){
-						java.lang.reflect.Method method = null;
-						try {
-							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod("stopMovement", GameObject.class);
-						} catch (SecurityException e) {
-							System.out.println("ex1");
-						} catch (NoSuchMethodException e) {System.out.println("ex2");}	
-						try {
-							method.invoke(move, obj);
-						} catch (IllegalArgumentException e) {
-							System.out.println("ex3");
-						} catch (IllegalAccessException e) {
-							System.out.println("ex4");
-						} catch (InvocationTargetException e) {System.out.println("ex5");}
+					obj.xspeed=0;
 				}
 			}
 
