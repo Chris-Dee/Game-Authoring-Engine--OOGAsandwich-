@@ -57,7 +57,7 @@ public class MarioGame extends Game {
 		objs.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true, objectID+2));
 		objs.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false, objectID+3)); 
 		objs.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
-		objs.add(new UninstantiatedGameObject("goal", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
+		objs.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
 		List<GameForce> forces = new ArrayList<GameForce>(); 
 		GameForce force1 = new GameForce(); forces.add(force1);
 

@@ -100,6 +100,15 @@ public class GamePlayerGUI extends JGEngine{
 //		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 		
 	}
+	
+	public void checkGoals(){
+		for(Goal i: levelGoals){
+			if(i.checkGoal()){
+				
+			}
+				
+		}
+	}
 
 	public void checkCollisions(){
 		for(BasicCollision i: currentGame.collisionRules){
@@ -158,7 +167,7 @@ public class GamePlayerGUI extends JGEngine{
 				levelGoals.add((Goal) myObject);
 			}
 			else
-				currentObjects.add(i.instantiate());
+				currentObjects.add(myObject);
 		}
 		levelOver = false;
 	}
