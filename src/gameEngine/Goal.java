@@ -1,5 +1,7 @@
 package gameEngine;
 
+import java.util.List;
+
 import jgame.JGPoint;
 
 //Goal object: specifies game objectives
@@ -7,15 +9,16 @@ import jgame.JGPoint;
 
 public abstract class Goal extends GameObject{
 	private int nextLevel;
+	//Todo: implement passing in nextLevel;
 	public Goal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id){
 		super(name, position, colid, sprite, behavior, time, speed, floating, id);
 	}
 	
-	public abstract boolean checkGoal();
+	public abstract boolean checkGoal(List<GameObject> targetobjects);
 	
 	public int getNextlevel(){
 		return nextLevel;
 	}
 	
-	public abstract boolean checkGoal(int targetObject);
+	public abstract boolean checkGoal();
 }
