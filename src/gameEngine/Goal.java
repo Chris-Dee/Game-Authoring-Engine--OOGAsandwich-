@@ -2,22 +2,20 @@ package gameEngine;
 
 import jgame.JGPoint;
 
-public abstract class Goal {
-	private boolean isStart = true;
-	private int levelEnd;
-	private String behavior; 
-	private boolean behaviorFlag = false;
-	
-	public Goal(){
-		this.behavior = behavior;
-		behaviorFlag = true;
+//Goal object: specifies game objectives
+//Is a gameObject to allow for flexibility of goals: allows for touching a moving enemy to be the goal for example.
+
+public abstract class Goal extends GameObject{
+	private int nextLevel;
+	public Goal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id){
+		super(name, position, colid, sprite, behavior, time, speed, floating, id);
 	}
 	
-	public void start(){
-		isStart = false;
+	public abstract boolean checkGoal();
+	
+	public int getNextlevel(){
+		return nextLevel;
 	}
 	
-	public boolean checkGoal(double x){
-		return (x>=levelEnd);
-	}
+	public abstract boolean checkGoal(int targetObject);
 }

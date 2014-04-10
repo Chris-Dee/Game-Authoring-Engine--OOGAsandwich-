@@ -86,6 +86,7 @@ public class GameObject extends JGObject {
 		myID = id;
 	}
 	
+	
 //	public GameObject(String name, JGPoint position, int colid, String sprite, GameObjectAction move) {
 //		super(name, true, position.x, position.y, colid, sprite);
 //		myMovement = move;
