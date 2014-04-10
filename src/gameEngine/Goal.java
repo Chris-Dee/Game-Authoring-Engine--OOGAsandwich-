@@ -2,14 +2,13 @@ package gameEngine;
 
 import jgame.JGPoint;
 
-public class Goal extends GameObjectAction {
+public abstract class Goal {
 	private boolean isStart = true;
 	private int levelEnd;
 	private String behavior; 
 	private boolean behaviorFlag = false;
 	
-	public Goal(String behavior, int x){
-		levelEnd = x;
+	public Goal(){
 		this.behavior = behavior;
 		behaviorFlag = true;
 	}

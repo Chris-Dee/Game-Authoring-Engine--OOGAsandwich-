@@ -14,10 +14,11 @@ public class GameObject extends JGObject {
 	private boolean isScreenFollow;
 	private Map<Integer, Tuple<String,Integer>> charMap;
 	public JGPoint originalPosition;
+	private int myID;
 //	private double xspeedMultiple;
 //	private double yspeedMultiple;
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating) {
+	public GameObject(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(behavior, time, speed);
 		myFuckingName=name;
@@ -27,6 +28,7 @@ public class GameObject extends JGObject {
 		originalPosition = new JGPoint(position.x, position.y);
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
+		myID = id;
 	}
 	public void reset(){
 		x = originalPosition.x;
@@ -43,7 +45,7 @@ public class GameObject extends JGObject {
 ////		this.yspeedMultiple = yspeedMultiple;
 //	}
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow) {
+	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow, int id) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
 		myFuckingName=name;
@@ -54,9 +56,10 @@ public class GameObject extends JGObject {
 //		this.yspeedMultiple = yspeedMultiple;
 		charMap=inputMap;
 		originalPosition = new JGPoint(position.x, position.y);
+		myID = id;
 	}
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating) {
+	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, int id) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
 		myFuckingName=name;
@@ -67,9 +70,10 @@ public class GameObject extends JGObject {
 //		this.yspeedMultiple = yspeedMultiple;
 		charMap=inputMap;
 		originalPosition = new JGPoint(position.x, position.y);
+		myID = id;
 	}
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, boolean floating) {
+	public GameObject(String name, JGPoint position, int colid, String sprite, boolean floating, int id) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction();
 		myFuckingName=name;
@@ -79,6 +83,7 @@ public class GameObject extends JGObject {
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
 		originalPosition = new JGPoint(position.x, position.y);
+		myID = id;
 	}
 	
 //	public GameObject(String name, JGPoint position, int colid, String sprite, GameObjectAction move) {
@@ -122,5 +127,9 @@ public class GameObject extends JGObject {
 //		xspeed = xspeed * xspeedMultiple;
 //		yspeed = yspeed * yspeedMultiple;
 //	}
+	
+	public int getID(){
+		return myID;
+	}
 
 }

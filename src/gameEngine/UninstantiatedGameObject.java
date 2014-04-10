@@ -17,8 +17,9 @@ public class UninstantiatedGameObject {
 	Boolean objectFloating;
 	Boolean objectScreenFollow;
 	Map<Integer, Tuple<String,Integer>> objectInputMap;
+	Integer objectID;
 	
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, String behavior, Integer time, Integer speed, Boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, String behavior, Integer time, Integer speed, Boolean floating, Integer objectID) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -30,7 +31,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, Integer objectID) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -40,7 +41,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 	}
 	
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow, Integer objectID) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -50,7 +51,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = screenFollow;
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, boolean floating, Integer objectID) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -62,11 +63,11 @@ public class UninstantiatedGameObject {
 	public GameObject instantiate(){
 		// TODO: Make this better.
 		if (objectInputMap != null) {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating, objectScreenFollow);
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating, objectScreenFollow, objectID);
 		} else if (objectTime != null) {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating);
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating, objectID);
 		} else {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectFloating);
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectFloating, objectID);
 		}
 	}
 }

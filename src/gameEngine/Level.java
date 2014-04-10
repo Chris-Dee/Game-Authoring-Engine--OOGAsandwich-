@@ -98,5 +98,4 @@ public class Level {
 	// public LevelInput getLevelInput(){
 	// return levelInput;
 	// }
-
 }
