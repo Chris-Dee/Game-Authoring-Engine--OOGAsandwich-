@@ -45,19 +45,21 @@ public class MarioGame extends Game {
 		collisionTriggers.add(new TriggerCollision("endlevel", 8, 1));
 		collisionTriggers.add(new TriggerCollision("reset", 1, 4));
 
-		 List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
+		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
-		
-		  objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true)); 
-		  for(int i = 0; i < 900 /32; i++){
-		   objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true)); } objs.add(new
-		  UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true)); objs.add(new
-		  UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true)); objs.add(new
-		  UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false)); objs.add(new
-		  UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false)); objs.add(new UninstantiatedGameObject("goal",
-		  new JGPoint(800, 400), 8, "mushroom", true)); // This code will eventually be used to parse the data.
-		  List<GameForce> forces = new ArrayList<GameForce>(); 
-		  GameForce force1 = new GameForce(); forces.add(force1);
+		int objectID = 0;
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true, objectID)); 
+		for(int i = 0; i < 900 /32; i++){
+			objectID++;
+			objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true, objectID));
+		} 
+		objs.add(new UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true, objectID+1)); 
+		objs.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true, objectID+2));
+		objs.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false, objectID+3)); 
+		objs.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
+		objs.add(new UninstantiatedGameObject("goal", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
+		List<GameForce> forces = new ArrayList<GameForce>(); 
+		GameForce force1 = new GameForce(); forces.add(force1);
 
 		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
