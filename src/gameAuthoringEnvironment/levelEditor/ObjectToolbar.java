@@ -58,7 +58,7 @@ public class ObjectToolbar extends JPanel {
 		button.setFocusable(false);
 		if (imageCheck.exists()) {
 			try {
-				URL imageURL = imageCheck.toURL();
+				URL imageURL = imageCheck.toURI().toURL();
 				try {
 					Image img = ImageIO.read(imageURL);
 					button.setIcon(new ImageIcon(img));
