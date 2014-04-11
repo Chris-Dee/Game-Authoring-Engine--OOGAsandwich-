@@ -14,7 +14,7 @@ import data.InvalidDataFileException;
 
 public class GamePlayerGUI extends JGEngine{
 
-	private Game currentGame = new Game();
+	private Game currentGame;
 	private List<GameObject> currentObjects;
 	private List<Goal> levelGoals;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
@@ -35,8 +35,6 @@ public class GamePlayerGUI extends JGEngine{
 	@Override
 	public void initCanvas() {
 		setCanvasSettings(100,100,displayWidth()/100,displayHeight()/100,null,null,null);
-		System.out.println(displayWidth());
-		System.out.println(displayHeight());
 	}
 
 	/**
@@ -57,7 +55,6 @@ public class GamePlayerGUI extends JGEngine{
 	public void startInGame(){
 		constructGame(); //sets levels
 		setPFSize(currentLevel.getLevelSize().x*100, currentLevel.getLevelSize().y*100);
-		//setPFSize(1000, 1000); // What does PFSize actually do? // Sam - I need the correct size for scrolling to work
 		setBGImage(currentLevel.getBackground());
 	}
 
