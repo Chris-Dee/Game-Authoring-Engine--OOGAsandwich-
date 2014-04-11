@@ -63,10 +63,8 @@ public class UninstantiatedGameObject {
 		// TODO: Make this better.
 		if (objectInputMap != null) {
 			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating, objectScreenFollow);
-		} else if (objectTime != null) {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating);
 		} else {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectFloating);
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating);
 		}
 	}
 }
