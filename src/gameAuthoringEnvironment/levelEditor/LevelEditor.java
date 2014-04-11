@@ -1,7 +1,9 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map;
@@ -32,7 +34,6 @@ public class LevelEditor extends JGEngine {
 
 	private Map<String, String> imageMap = new HashMap<String, String>();
 	private Level myLevel;
-
 	private static final int INITIAL_WIDTH = 600;
 	private static final int INITIAL_HEIGHT = 600;
 	private static final int BLOCK_SIZE_X = 300;
@@ -60,7 +61,8 @@ public class LevelEditor extends JGEngine {
 	public LevelEditor(Level level) {
 		super();
 		myLevel = level;
-		// dbgShowMessagesInPf(false);
+		dbgShowMessagesInPf(false);
+
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up

@@ -2,7 +2,6 @@ package gameAuthoringEnvironment.frontEnd;
 
 import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 import gameEngine.Game;
-import gameEngine.GameForce;
 import gameEngine.Level;
 import gameplayer.GamePlayerGUI;
 
@@ -147,10 +146,6 @@ public class VAEview extends JFrame {
 						LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME);
 				levelField.setAccessible(true);
 				Level thisLevel = (Level) levelField.get(component);
-				List<GameForce> forces = new ArrayList<GameForce>();
-				GameForce force1 = new GameForce();
-				forces.add(force1);
-				thisLevel.addForces(forces);
 				myGameData.addObj(thisLevel);
 			}
 			myGameData.setFileName(fileName + DOT_JSON_EXTENSION);

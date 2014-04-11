@@ -4,7 +4,10 @@ import gameAuthoringEnvironment.levelEditor.LevelSizeSliders.SliderListener;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,6 +56,7 @@ public class ObjectStatsPanel extends JPanel {
 		this.setPreferredSize(panelSize);
 		createComboBoxes();
 		createSliders();
+		createCheckBoxes();
 		setVisible(true);
 	}
 
@@ -77,6 +82,19 @@ public class ObjectStatsPanel extends JPanel {
 
 	public int getGravityMagnitude() {
 		return gravityMag;
+	}
+	private void createCheckBoxes(){
+		JPanel panel=new JPanel();
+		JCheckBox floater=new JCheckBox("Check if 0");
+		panel.add(floater);
+		final JCheckBox cameraBox=new JCheckBox("Camera Toggle");
+		cameraBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO code to make the camera follow that object
+			}
+		});
+		panel.add(cameraBox);
+		add(panel);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
