@@ -93,6 +93,7 @@ public class ObjectStatsPanel extends JPanel {
 		final JCheckBox floater=new JCheckBox("Check if 0");
 		//JCheckBox floater=new JCheckBox("Make gravity ");
 		panel.add(floater);
+		floater.setFocusable(false);
 		floater.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				isFloating = floater.isSelected();
@@ -105,6 +106,7 @@ public class ObjectStatsPanel extends JPanel {
 			}
 		});
 		panel.add(cameraBox);
+		cameraBox.setFocusable(false);
 		add(panel);
 	}
 
@@ -116,6 +118,7 @@ public class ObjectStatsPanel extends JPanel {
 		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
 		JComboBox objectType = new JComboBox(objectTypes);
+		objectType.setFocusable(false);
 		objectType.setPreferredSize(COMBO_SIZE);
 		objectType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
@@ -130,6 +133,7 @@ public class ObjectStatsPanel extends JPanel {
 		String[] movementTypes = {"User-Controlled", "Pace", "Vertical", "Random", "Jumping", "Aggressive", "Stationary"};
 		JLabel movement = new JLabel("Movement Pattern");
 		JComboBox movementType = new JComboBox(movementTypes);
+		movementType.setFocusable(false);
 		movementType.setPreferredSize(COMBO_SIZE);
 		movementType.addItemListener(new ItemListener() {
 
@@ -153,6 +157,7 @@ public class ObjectStatsPanel extends JPanel {
 		speed.setLabelTable(speed.createStandardLabels(1, 0));
 		speed.setPaintLabels(true);
 		speed.setValue(0);
+		speed.setFocusable(false);
 		speed.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent event) {
@@ -165,6 +170,7 @@ public class ObjectStatsPanel extends JPanel {
 		movementLength.setLabelTable(movementLength.createStandardLabels(1, 0));
 		movementLength.setPaintLabels(true);
 		movementLength.setValue(0);
+		movementLength.setFocusable(false);
 		movementLength.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent event) {
@@ -177,6 +183,7 @@ public class ObjectStatsPanel extends JPanel {
 		gravityMagnitude.setLabelTable(gravityMagnitude.createStandardLabels(1,
 				0));
 		gravityMagnitude.setPaintLabels(true);
+		gravityMagnitude.setFocusable(false);
 		gravityMagnitude.setValue(0);
 		gravityMagnitude.addChangeListener(new ChangeListener() {
 
