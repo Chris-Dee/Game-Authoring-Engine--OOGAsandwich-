@@ -174,12 +174,13 @@ public class GamePlayerGUI extends JGEngine{
 		levelGoals = new ArrayList<Goal>();
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
-			GameObject myObject = i.instantiate();
-			if(myObject.getFuckingName().equals("goal")){
-				levelGoals.add((Goal) myObject);
-			}
-			else
-				currentObjects.add(myObject);
+			
+			currentObjects.add(i.instantiate());
+//			if(myObject.getFuckingName().equals("goal")){
+//				levelGoals.add((Goal) myObject);
+//			}
+//			else
+//				currentObjects.add(myObject);
 		}
 		levelOver = false;
 	}
