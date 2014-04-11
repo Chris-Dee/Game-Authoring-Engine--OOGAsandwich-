@@ -2,7 +2,8 @@ package gameAuthoringEnvironment.levelEditor;
 
 public class ObjectStats {
 	//TODO could be int depending on how we do it?
-	public String collID;
+	public String colType;
+	public Integer collID;
 	public String movementPattern;
 	public Integer speed;
 	public Integer duration;
@@ -11,8 +12,9 @@ public class ObjectStats {
 	public String imageName;
 	//TODO could definitely get rid of this
 	public boolean isFloating;
-	public ObjectStats(String c, String m, Integer s, Integer d, Integer g, boolean cam, String i, boolean f){
-	collID=c;
+	public ObjectStats(String c, Integer co, String m, Integer s, Integer d, Integer g, boolean cam, String i, boolean f){
+	colType=c;
+	collID = co;
 	movementPattern=m;
 	speed=s;
 	duration=d;
@@ -21,4 +23,7 @@ public class ObjectStats {
 	imageName=i;
 	isFloating=f;
 }
+	public ObjectStats(String[] statsArray) {
+		colType=statsArray[0];
+	}
 }
