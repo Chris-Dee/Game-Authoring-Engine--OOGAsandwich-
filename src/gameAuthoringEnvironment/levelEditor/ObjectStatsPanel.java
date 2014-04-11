@@ -13,7 +13,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -27,6 +29,7 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class ObjectStatsPanel extends JPanel {
 	private Dimension panelSize;
+	private Map<String,ObjectStats> statKeeper=new HashMap<String, ObjectStats>();
 	private JLabel spacer;
 	private static final int PANEL_WIDTH = 250;
 	private static final Dimension SPACER_SIZE = new Dimension(PANEL_WIDTH, 50);
@@ -207,7 +210,9 @@ public class ObjectStatsPanel extends JPanel {
 
 		homePanel.add(gravityLabel);
 		homePanel.add(gravityMagnitude);
-
+	}
+	public void fillMap(){
+		
 	}
 
 	/*
