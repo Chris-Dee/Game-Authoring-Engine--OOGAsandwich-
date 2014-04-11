@@ -177,7 +177,7 @@ Some sample code:
 		public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean screenFollow, double gravity, int uniqueID) {
 	}
 	
-	Example of how we instantiate and uninstantiated GameObject
+	Example of how we instantiate an uninstantiated GameObject:
 	public GameObject instantiate(){
 		return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating, objectScreenFollow, objectID);
 	}
