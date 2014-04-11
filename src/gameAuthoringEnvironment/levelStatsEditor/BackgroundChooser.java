@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 public class BackgroundChooser extends JPanel {
 	LevelPanel myLevelPanel;
 	private final String delimiter = " ";
-	private final String initialSelection = "White";
+	private final String initialSelection = "Rock";
 	private final String defaultFile = "src/gameAuthoringEnvironment/levelStatsEditor/Resources/InitBG";
 	Map<String, String> myBackgroundMap = new TreeMap<String, String>();
 	private String uploadedFile;
