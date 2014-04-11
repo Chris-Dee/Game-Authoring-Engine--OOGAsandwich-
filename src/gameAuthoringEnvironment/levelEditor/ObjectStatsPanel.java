@@ -91,6 +91,7 @@ public class ObjectStatsPanel extends JPanel {
 	private void createCheckBoxes(){
 		JPanel panel=new JPanel();
 		final JCheckBox floater=new JCheckBox("Check if 0");
+		//JCheckBox floater=new JCheckBox("Make gravity ");
 		panel.add(floater);
 		floater.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

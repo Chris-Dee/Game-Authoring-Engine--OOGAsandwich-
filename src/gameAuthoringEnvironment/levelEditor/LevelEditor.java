@@ -50,6 +50,8 @@ public class LevelEditor extends JGEngine {
 	private static int COLID_FOR_ENEMY = 4;
 	private static int COLID_FOR_BLOCK = 2;
 	private static int COLID_FOR_GOAL = 8;
+	
+	private int objectID;
 
 	/**
 	 * JGame class that holds the level editor. This displays what the created
@@ -62,6 +64,7 @@ public class LevelEditor extends JGEngine {
 		super();
 		myLevel = level;
 		dbgShowMessagesInPf(false);
+		objectID = 0;
 
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -127,7 +130,7 @@ public class LevelEditor extends JGEngine {
 
 			newObject = new UninstantiatedGameObject("player",
 					new JGPoint(x, y), myObjectStatsPanel.getCollisionID(),
-					imageName, levelInputMap, false, true);
+					imageName, levelInputMap, false, true, objectID);
 		} else {
 			newObject = new UninstantiatedGameObject(
 					myObjectStatsPanel.getObjectName(), new JGPoint(x, y),
@@ -135,8 +138,10 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
 					myObjectStatsPanel.getMovementDuration(),
-					myObjectStatsPanel.getFloating());
+					myObjectStatsPanel.getFloating(), objectID);
+					
 		}
+		objectID++;
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
 	}
