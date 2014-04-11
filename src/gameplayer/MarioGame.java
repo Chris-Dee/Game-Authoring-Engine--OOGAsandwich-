@@ -1,7 +1,6 @@
 package gameplayer;
 
 import gameEngine.Game;
-import gameEngine.GameForce;
 import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
 import gameEngine.Goal;
@@ -53,13 +52,11 @@ public class MarioGame extends Game {
 		   objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true)); } objs.add(new
 		  UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true)); objs.add(new
 		  UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true)); objs.add(new
-		  UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false)); objs.add(new
+		  UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "stationary", 55, 2, false)); objs.add(new
 		  UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false)); objs.add(new UninstantiatedGameObject("goal",
 		  new JGPoint(800, 400), 8, "mushroom", true)); // This code will eventually be used to parse the data.
-		  List<GameForce> forces = new ArrayList<GameForce>(); 
-		  GameForce force1 = new GameForce(); forces.add(force1);
 
-		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .6);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
 		List<Level> myLevels = new ArrayList<Level>();
 		myLevels.add(firstLevel);

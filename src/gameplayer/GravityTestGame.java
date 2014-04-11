@@ -1,7 +1,6 @@
 package gameplayer;
 
 import gameEngine.Game;
-import gameEngine.GameForce;
 import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
 import gameEngine.Goal;
@@ -58,13 +57,9 @@ public class GravityTestGame extends Game{
 //			}
 //		}
 		
-		List<GameForce> forces = new ArrayList<GameForce>();
-		GameForce force1 = new GameForce();
-		forces.add(force1);
-		
 	
 		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .4);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, "metal", .4);//,new LevelInput(levelInputMap));
 
 		
 		

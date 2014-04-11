@@ -40,25 +40,26 @@ Example
 }
 ```
 
-Each class that is able to be serialized in this way will implement the
-`JsonSerializable` interface, which will require these methods to be
-implemented.
-- `public Map<String, String> serialize()`
-  - Return a Map of attributes and their values that are needed to recreate it
-    again.
-- `public JsonSerializable deserialize(Map<String, String>)`
-  - Return an object that is recreated from the map of attributes
-
 There will be a `GameData` class, which will handle the reading and writing of
 game data. It will have methods
 - `public GameData(String filename)`
   - Load and read a file containing the serialized objects
-- `public void add(String type, Map<String, String> attributes)`
-  - Add a new object of type `type` with attributes `attributes`
-- `public List<Map<String, String>> getObjects(String type)`
-  - Returns a list of attribute maps of objects of type `type`
-- `public void save()`
-  - Save the file
+- `public void addObj(Object obj)`
+   - Adds `obj` to be serialized. Its class is determined and it is placed into
+     a section corresponding to its class.
+- `public List<Object> getObjects(String... classNames)`
+  - Returns a list of attribute maps of objects with type in `classNames`
+  - `classNames` name(s) of class(es) to retrieve
+  - Exception `ClassNotFoundException` is thrown when the class cannot be found.
+- `public Map<String, List<Object>> parse()`
+  - Reads the file and returns a Map mapping class names to a list of the
+    objects of that type.
+- `public void write()`
+  - Writes the contents of the objMap to a file called `filename`.
+- `public void setFileName(String filename)`
+  - Sets the name of the associated JSON file to `filename`
+- `public String toString()`
+  - Returns the JSON representation of the GameData
 
 Graphical Authoring Environment
 ----
