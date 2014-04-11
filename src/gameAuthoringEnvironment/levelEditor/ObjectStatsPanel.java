@@ -78,7 +78,7 @@ public class ObjectStatsPanel extends JPanel {
 	private void createComboBoxes() {
 		// Object Types will define things like how collisions are handled, and input
 		// Will also determine what other options are available for user to define
-		String[] objectTypes = {"Player","Enemy", "Block", "Moving Platform", "Goal", "Scenery"};
+		String[] objectTypes = {"Player","Enemy", "Platform", "Goal", "Scenery"};
 		JLabel type = new JLabel("Object Type");
 		JComboBox objectType = new JComboBox(objectTypes);
 		objectType.setPreferredSize(COMBO_SIZE);
@@ -91,7 +91,7 @@ public class ObjectStatsPanel extends JPanel {
 		// Movement type will only be available for Enemy and (in a limited sense)
 		// moving platform.  Aggressive is a maybe, it would be cool to have
 		// some 'smarter' AI that tracks down player (if there is time, of course)
-		String[] movementTypes = {"Pace", "Vertical", "Random", "Jumping", "Aggressive"};
+		String[] movementTypes = {"User-Controlled", "Pace", "Vertical", "Random", "Jumping", "Aggressive", "Stationary"};
 		JLabel movement = new JLabel("Movement Pattern");
 		JComboBox movementType = new JComboBox(movementTypes);
 		movementType.setPreferredSize(COMBO_SIZE);
