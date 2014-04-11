@@ -171,7 +171,7 @@ public class LevelEditor extends JGEngine {
 
 	}
 
-	public void fillImageMap(File file) throws FileNotFoundException {
+	private void fillImageMap(File file) throws FileNotFoundException {
 		Scanner s = new Scanner(file);
 		int i = 1;
 		while (s.hasNext()) {
@@ -202,7 +202,7 @@ public class LevelEditor extends JGEngine {
 		highlight(myMover, JGColor.blue);
 	}
 
-	public void selectOnClick() {
+	private void selectOnClick() {
 		// new JGRectangle()
 		if (getMouseButton(1)) {
 			JGRectangle rect = new JGRectangle(getMouseX() + el.xofs,
@@ -217,7 +217,7 @@ public class LevelEditor extends JGEngine {
 
 	}
 
-	public void highlight(JGObject object, JGColor color) {
+	private void highlight(JGObject object, JGColor color) {
 		setColor(JGColor.red);
 		if (object != null)
 			drawRect(object.x, object.y, object.getBBox().width,

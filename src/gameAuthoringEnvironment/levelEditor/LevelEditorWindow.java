@@ -38,7 +38,7 @@ public class LevelEditorWindow extends JFrame {
 		myLevelPanelComponent.setAllObjectsActive();
 	}
 
-	public void setExitAction() {
+	private void setExitAction() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
