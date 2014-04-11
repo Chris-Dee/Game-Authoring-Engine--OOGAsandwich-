@@ -134,7 +134,8 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getCollisionID(), imageName,
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(), false);
+					myObjectStatsPanel.getMovementDuration(),
+					myObjectStatsPanel.getFloating());
 		}
 		myLevel.addObjects(newObject);
 		newObject.instantiate();

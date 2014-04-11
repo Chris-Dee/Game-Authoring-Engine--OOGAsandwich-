@@ -39,6 +39,7 @@ public class ObjectStatsPanel extends JPanel {
 	private int myCollisionID = 0;
 	private int gravityMag = 0;
 	private LevelEditor myEditor;
+	private boolean isFloating = false;
 
 	/**
 	 * Panel that will display the stats for the object that is being added to
@@ -68,6 +69,10 @@ public class ObjectStatsPanel extends JPanel {
 		return movementName;
 	}
 	
+	public boolean getFloating() {
+		return isFloating;
+	}
+	
 	public int getCollisionID() {
 		return myCollisionID;
 	}
@@ -85,8 +90,13 @@ public class ObjectStatsPanel extends JPanel {
 	}
 	private void createCheckBoxes(){
 		JPanel panel=new JPanel();
-		JCheckBox floater=new JCheckBox("Check if 0");
+		final JCheckBox floater=new JCheckBox("Check if 0");
 		panel.add(floater);
+		floater.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				isFloating = floater.isSelected();
+			}
+		});
 		final JCheckBox cameraBox=new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
