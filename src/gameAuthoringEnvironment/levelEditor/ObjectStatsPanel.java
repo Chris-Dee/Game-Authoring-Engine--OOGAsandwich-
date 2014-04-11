@@ -1,7 +1,5 @@
 package gameAuthoringEnvironment.levelEditor;
 
-
-
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
@@ -37,8 +35,14 @@ public class ObjectStatsPanel extends JPanel {
 	private int gravityMag = 0;
 	private LevelEditor myEditor;
 	private boolean isFloating = false;
-	private JPanel homePanel=new JPanel();
-
+	private JPanel homePanel = new JPanel();
+	private JSlider mySpeedSlider;
+	private JSlider myDurationSlider;
+	private JSlider myGravityMagnitudeSlider;
+	private JComboBox objectType;
+	private JComboBox movementType;
+	JCheckBox floaterBox;
+	JCheckBox cameraBox;
 
 	/**
 	 * Panel that will display the stats for the object that is being added to
@@ -47,21 +51,31 @@ public class ObjectStatsPanel extends JPanel {
 	public ObjectStatsPanel(ObjectEditorContainer container, LevelEditor editor) {
 		panelSize = new Dimension(PANEL_WIDTH, container.HEIGHT);
 		setLayout(new BorderLayout());
-		homePanel.setLayout(new BoxLayout(homePanel,BoxLayout.Y_AXIS));
+		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.Y_AXIS));
 		initialize();
 		myEditor = editor;
 		myEditor.setObjectStatsPanel(this);
-		add(new ObjectToolbar(myEditor),BorderLayout.WEST);
-		add(homePanel,BorderLayout.EAST);
-		
+		add(new ObjectToolbar(myEditor), BorderLayout.WEST);
+		add(homePanel, BorderLayout.EAST);
+
 	}
 
 	private void initialize() {
-		//this.setPreferredSize(panelSize);
+		// this.setPreferredSize(panelSize);
 		createComboBoxes();
 		createSliders();
 		createCheckBoxes();
 		setVisible(true);
+	}
+
+	public void setStats(ObjectStats objectStats) {
+		mySpeedSlider.setValue(objectStats.mySpeed);
+		myDurationSlider.setValue(objectStats.myDuration);
+		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
+		objectType.setSelectedItem(objectStats.myColType);
+		movementType.setSelectedItem(objectStats.myMovementPattern);
+		floaterBox.setSelected(objectStats.isFloating);
+		cameraBox.setSelected(objectStats.isCameraFollow);
 	}
 
 	public String getObjectName() {
@@ -71,11 +85,11 @@ public class ObjectStatsPanel extends JPanel {
 	public String getMovementName() {
 		return movementName;
 	}
-	
+
 	public boolean getFloating() {
 		return isFloating;
 	}
-	
+
 	public int getCollisionID() {
 		return myCollisionID;
 	}
@@ -91,21 +105,22 @@ public class ObjectStatsPanel extends JPanel {
 	public int getGravityMagnitude() {
 		return gravityMag;
 	}
-	private void createCheckBoxes(){
-		JPanel panel=new JPanel();
-		final JCheckBox floater=new JCheckBox("Check if floating");
-		//JCheckBox floater=new JCheckBox("Make gravity ");
-		panel.add(floater);
-		floater.setFocusable(false);
-		floater.addActionListener(new ActionListener() {
+
+	private void createCheckBoxes() {
+		JPanel panel = new JPanel();
+		floaterBox = new JCheckBox("Check if floating");
+		// JCheckBox floater=new JCheckBox("Make gravity ");
+		panel.add(floaterBox);
+		floaterBox.setFocusable(false);
+		floaterBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				isFloating = floater.isSelected();
+				isFloating = floaterBox.isSelected();
 			}
 		});
-		final JCheckBox cameraBox=new JCheckBox("Camera Toggle");
+		cameraBox = new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO code to make the camera follow that object
+				// TODO code to make the camera follow that object
 			}
 		});
 		panel.add(cameraBox);
@@ -115,27 +130,34 @@ public class ObjectStatsPanel extends JPanel {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void createComboBoxes() {
-		// Object Types will define things like how collisions are handled, and input
-		// Will also determine what other options are available for user to define
-		String[] objectTypes = {"Player", "Platform", "Enemy", "Goal", "Scenery"};
+		// Object Types will define things like how collisions are handled, and
+		// input
+		// Will also determine what other options are available for user to
+		// define
+		String[] objectTypes = { "Player", "Platform", "Enemy", "Goal",
+				"Scenery" };
 		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
-		JComboBox objectType = new JComboBox(objectTypes);
+		objectType = new JComboBox(objectTypes);
 		objectType.setFocusable(false);
 		objectType.setPreferredSize(COMBO_SIZE);
 		objectType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
 				objectName = event.getItem().toString();
-				myCollisionID = (int) Math.pow(2, objectTypesList.indexOf(objectName));
+				myCollisionID = (int) Math.pow(2,
+						objectTypesList.indexOf(objectName));
 			}
 		});
-		
-		// Movement type will only be available for Enemy and (in a limited sense)
-		// moving platform.  Aggressive is a maybe, it would be cool to have
-		// some 'smarter' AI that tracks down player (if there is time, of course)
-		String[] movementTypes = {"User-Controlled", "Pace", "Vertical", "Random", "Jumping", "Aggressive", "Stationary"};
+
+		// Movement type will only be available for Enemy and (in a limited
+		// sense)
+		// moving platform. Aggressive is a maybe, it would be cool to have
+		// some 'smarter' AI that tracks down player (if there is time, of
+		// course)
+		String[] movementTypes = { "User-Controlled", "Pace", "Vertical",
+				"Random", "Jumping", "Aggressive", "Stationary" };
 		JLabel movement = new JLabel("Movement Pattern");
-		JComboBox movementType = new JComboBox(movementTypes);
+		movementType = new JComboBox(movementTypes);
 		movementType.setFocusable(false);
 		movementType.setPreferredSize(COMBO_SIZE);
 		movementType.addItemListener(new ItemListener() {
@@ -155,32 +177,36 @@ public class ObjectStatsPanel extends JPanel {
 	}
 
 	private void createSliders() {
-		initializeSlider("Movement Speed", movementSpeed, false);
-		initializeSlider("Movement Duration", movementDuration, false);
-		initializeSlider("Gravity Magnitude", gravityMag, true);
+		mySpeedSlider = initializeSlider("Movement Speed", movementSpeed, false);
+		myDurationSlider = initializeSlider("Movement Duration",
+				movementDuration, false);
+		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude",
+				gravityMag, true);
 	}
-	
-	private void initializeSlider(String name, final int value, final boolean isGravity) {
-		final JSlider slider = new JSlider(0,10);
+
+	private JSlider initializeSlider(String name, final int value,
+			final boolean isGravity) {
+		final JSlider slider = new JSlider(0, 10);
 		JLabel label = new JLabel(name);
-		slider.setLabelTable(slider.createStandardLabels(1,0));
+		slider.setLabelTable(slider.createStandardLabels(1, 0));
 		slider.setPaintLabels(true);
 		slider.setValue(0);
 		slider.setFocusable(false);
-		if(name.equals("Movement Speed")) {
+		if (name.equals("Movement Speed")) {
 			slider.addChangeListener(createSpeedListener(slider));
 		}
-		if(name.equals("Movement Duration")) {
+		if (name.equals("Movement Duration")) {
 			slider.addChangeListener(createDurationListener(slider));
 		}
-		if(name.equals("Gravity Magnitude")) {
+		if (name.equals("Gravity Magnitude")) {
 			slider.addChangeListener(createGravityListener(slider));
 		}
-		
+
 		homePanel.add(label);
 		homePanel.add(slider);
+		return slider;
 	}
-	
+
 	private ChangeListener createGravityListener(final JSlider slider) {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
@@ -189,7 +215,7 @@ public class ObjectStatsPanel extends JPanel {
 			}
 		};
 	}
-	
+
 	private ChangeListener createSpeedListener(final JSlider slider) {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
@@ -197,7 +223,7 @@ public class ObjectStatsPanel extends JPanel {
 			}
 		};
 	}
-	
+
 	private ChangeListener createDurationListener(final JSlider slider) {
 		return new ChangeListener() {
 

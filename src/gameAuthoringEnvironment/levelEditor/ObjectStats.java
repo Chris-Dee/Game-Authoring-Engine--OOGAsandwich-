@@ -8,7 +8,7 @@ public class ObjectStats {
 	public Integer mySpeed;
 	public Integer myDuration;
 	public Integer myGravMag;
-	public boolean myCameraFollow;
+	public boolean isCameraFollow;
 	public String myImageName;
 	// TODO could definitely get rid of this
 	public boolean isFloating;
@@ -21,7 +21,7 @@ public class ObjectStats {
 		mySpeed = speed;
 		myDuration = duration;
 		myGravMag = gravMag;
-		myCameraFollow = cameraFollow;
+		isCameraFollow = cameraFollow;
 		myImageName = imageName;
 		isFloating = floating;
 	}
@@ -33,7 +33,7 @@ public class ObjectStats {
 		mySpeed = Integer.parseInt(statsArray[3]);
 		myDuration = Integer.parseInt(statsArray[4]);
 		myGravMag = Integer.parseInt(statsArray[5]);
-		myCameraFollow = Boolean.parseBoolean(statsArray[6]);
+		isCameraFollow = Boolean.parseBoolean(statsArray[6]);
 		myImageName = statsArray[7];
 		isFloating = Boolean.parseBoolean(statsArray[8]);
 	}
