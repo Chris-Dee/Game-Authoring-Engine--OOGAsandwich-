@@ -162,7 +162,8 @@ public class VAEview extends JFrame {
 	}
 
 	/**
-	 * Loads a game from a JSON file. The previous contents of the viewer are
+	 * Loads a game from a JSON file. The previous contents 
+	 * of the viewer are
 	 * deleted and replaced with the new contents of the loaded file
 	 */
 	public void loadFromTextFile() {

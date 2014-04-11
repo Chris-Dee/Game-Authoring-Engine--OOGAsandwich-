@@ -36,7 +36,7 @@ public class LevelMover extends JGObject {
 		y = INITIAL_X_AND_Y;
 	}
 
-	private boolean checkKey(int key) {
+	boolean checkKey(int key) {
 		Boolean b = myEngine.getKey(key);
 		myEngine.clearLastKey();
 		return b;
@@ -70,7 +70,7 @@ public class LevelMover extends JGObject {
 		if (checkKey(myEngine.KeyBackspace)) {
 			//System.out.println("HERE");
 			myEngine.clearKey(myEngine.KeyEnter);
-			myLevelEditor.deleteSelectedObject();
+			//myLevelEditor.deleteSelectedObject();
 		}
 	}
 

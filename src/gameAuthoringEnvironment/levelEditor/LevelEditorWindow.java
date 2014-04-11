@@ -42,6 +42,7 @@ public class LevelEditorWindow extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				levelEdit.clearGame();
 				levelEdit.destroy();
 				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();

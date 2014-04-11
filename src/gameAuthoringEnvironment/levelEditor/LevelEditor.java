@@ -1,6 +1,7 @@
 package gameAuthoringEnvironment.levelEditor;
 
 import java.util.List;
+import java.awt.Cursor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import jgame.JGRectangle;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
-	private GameObject selectedObject;
+	private List<GameObject> selectedObject=new ArrayList<GameObject>();
 	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
@@ -31,7 +32,7 @@ public class LevelEditor extends JGEngine {
 	private static final int SCREEN_WIDTH = 600;
 	// TODO Why is this public?
 	public LevelMover myMover;
-
+	private int clickCount=0;
 	private Map<String, String> imageMap = new HashMap<String, String>();
 	private Level myLevel;
 	private static final int INITIAL_WIDTH = 600;
@@ -63,7 +64,7 @@ public class LevelEditor extends JGEngine {
 	public LevelEditor(Level level) {
 		super();
 		myLevel = level;
-		dbgShowMessagesInPf(false);
+		dbgShowMessagesInPf(true);
 		objectID = 0;
 
 		dbgIsEmbedded(true);
@@ -106,11 +107,12 @@ public class LevelEditor extends JGEngine {
 	}
 	
 	public void deleteSelectedObject() {
-		if (selectedObject != null) {
-			myLevel.getObjects().remove(selectedObject.toUninstantiated());
-			selectedObject.remove();
-			selectedObject = null;
-		}
+		if(myMover.checkKey(KeyBackspace)){
+		for(GameObject s:selectedObject){
+			myLevel.getObjects().remove(s.toUninstantiated());
+			s.remove();
+			selectedObject.remove(s);
+		}}
 	}
 
 	/**
@@ -197,6 +199,7 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void doFrame() {
+		deleteSelectedObject();
 		checkInBounds();
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
@@ -206,23 +209,35 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void paintFrame() {
-		highlight(selectedObject, JGColor.red);
+		for(GameObject s:selectedObject)
+		highlight(s, JGColor.red);
 		highlight(myMover, JGColor.blue);
 	}
 
 	private void selectOnClick() {
 		// new JGRectangle()
 		if (getMouseButton(1)) {
+			if(clickCount!=0) clickCount--;
+			else{
+				clickCount=20;
 			JGRectangle rect = new JGRectangle(getMouseX() + el.xofs,
 					getMouseY() + el.yofs, 10, 10);
 			Vector<GameObject> v = getObjects("", 0, true, rect);
-			System.out.println(rect);
-			if (v.size() > 0)
+			if (v.size() > 0){
+				System.out.println(selectedObject.size());
 				if (v.get(0) != (JGObject) myMover)
-					selectedObject = v.get(0);
+					if(!selectedObject.contains(v.get(0)))
+						for(GameObject g:v)
+							selectedObject.add(v.get(0));
+					else 
+						for(GameObject g:v)
+							selectedObject.remove(g);
 			// System.out.println(selectedObject.x+"    "+selectedObject.y);
 		}
-
+		}}
+	}
+	public void clearGame(){
+		selectedObject.clear();
 	}
 
 	private void highlight(JGObject object, JGColor color) {
