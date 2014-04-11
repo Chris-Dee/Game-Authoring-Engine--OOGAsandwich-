@@ -1,16 +1,15 @@
 package gameAuthoringEnvironment.levelEditor;
 
-import gameAuthoringEnvironment.levelEditor.LevelSizeSliders.SliderListener;
 
-import java.awt.Color;
+
+import java.awt.BorderLayout;
+
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.ScrollPane;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +25,7 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class ObjectStatsPanel extends JPanel {
 	private Dimension panelSize;
-	private JLabel spacer;
 	private static final int PANEL_WIDTH = 250;
-	private static final Dimension SPACER_SIZE = new Dimension(PANEL_WIDTH, 50);
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
 
 	private String objectName = "Player";
@@ -40,7 +37,8 @@ public class ObjectStatsPanel extends JPanel {
 	private int gravityMag = 0;
 	private LevelEditor myEditor;
 	private boolean isFloating = false;
-	private boolean isCamera = false;
+	private JPanel homePanel=new JPanel();
+
 
 	/**
 	 * Panel that will display the stats for the object that is being added to
@@ -48,14 +46,18 @@ public class ObjectStatsPanel extends JPanel {
 	 */
 	public ObjectStatsPanel(ObjectEditorContainer container, LevelEditor editor) {
 		panelSize = new Dimension(PANEL_WIDTH, container.HEIGHT);
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
+		homePanel.setLayout(new BoxLayout(homePanel,BoxLayout.Y_AXIS));
 		initialize();
 		myEditor = editor;
 		myEditor.setObjectStatsPanel(this);
+		add(new ObjectToolbar(myEditor),BorderLayout.WEST);
+		add(homePanel,BorderLayout.EAST);
+		
 	}
 
 	private void initialize() {
-		this.setPreferredSize(panelSize);
+		//this.setPreferredSize(panelSize);
 		createComboBoxes();
 		createSliders();
 		createCheckBoxes();
@@ -108,7 +110,7 @@ public class ObjectStatsPanel extends JPanel {
 		});
 		panel.add(cameraBox);
 		cameraBox.setFocusable(false);
-		add(panel);
+		homePanel.add(panel);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -144,11 +146,11 @@ public class ObjectStatsPanel extends JPanel {
 
 		});
 
-		add(type);
-		add(objectType);
+		homePanel.add(type);
+		homePanel.add(objectType);
 
-		add(movement);
-		add(movementType);
+		homePanel.add(movement);
+		homePanel.add(movementType);
 
 	}
 
@@ -156,57 +158,6 @@ public class ObjectStatsPanel extends JPanel {
 		initializeSlider("Movement Speed", movementSpeed, false);
 		initializeSlider("Movement Duration", movementDuration, false);
 		initializeSlider("Gravity Magnitude", gravityMag, true);
-		
-		/*final JSlider speed = new JSlider(0, 10);
-		JLabel speedLabel = new JLabel("Movement Speed");
-		speed.setLabelTable(speed.createStandardLabels(1, 0));
-		speed.setPaintLabels(true);
-		speed.setValue(0);
-		speed.setFocusable(false);
-		speed.addChangeListener(new ChangeListener() {
-
-			public void stateChanged(ChangeEvent event) {
-				movementSpeed = speed.getValue();
-			}
-		});*/
-
-		/*final JSlider movementLength = new JSlider(0, 10);
-		JLabel movementLabel = new JLabel("Movement Duration");
-		movementLength.setLabelTable(movementLength.createStandardLabels(1, 0));
-		movementLength.setPaintLabels(true);
-		movementLength.setValue(0);
-		movementLength.setFocusable(false);
-		movementLength.addChangeListener(new ChangeListener() {
-
-			public void stateChanged(ChangeEvent event) {
-				movementDuration = movementLength.getValue();
-			}
-		});*/
-
-		/*final JSlider gravityMagnitude = new JSlider(0, 10);
-		JLabel gravityLabel = new JLabel("Gravity Magnitude");
-		gravityMagnitude.setLabelTable(gravityMagnitude.createStandardLabels(1,
-				0));
-		gravityMagnitude.setPaintLabels(true);
-		gravityMagnitude.setFocusable(false);
-		gravityMagnitude.setValue(0);
-		gravityMagnitude.addChangeListener(new ChangeListener() {
-
-			public void stateChanged(ChangeEvent event) {
-				gravityMag = gravityMagnitude.getValue();
-				myEditor.setGravity(gravityMag);
-			}
-		});*/
-
-		/*add(speedLabel);
-		add(speed);
-
-		add(movementLabel);
-		add(movementLength);
-
-		add(gravityLabel);
-		add(gravityMagnitude);*/
-
 	}
 	
 	private void initializeSlider(String name, final int value, final boolean isGravity) {
@@ -226,8 +177,8 @@ public class ObjectStatsPanel extends JPanel {
 			slider.addChangeListener(createGravityListener(slider));
 		}
 		
-		add(label);
-		add(slider);
+		homePanel.add(label);
+		homePanel.add(slider);
 	}
 	
 	private ChangeListener createGravityListener(final JSlider slider) {
@@ -241,7 +192,6 @@ public class ObjectStatsPanel extends JPanel {
 	
 	private ChangeListener createSpeedListener(final JSlider slider) {
 		return new ChangeListener() {
-
 			public void stateChanged(ChangeEvent event) {
 				movementSpeed = slider.getValue();
 			}
