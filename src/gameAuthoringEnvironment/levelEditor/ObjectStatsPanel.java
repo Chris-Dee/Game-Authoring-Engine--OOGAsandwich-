@@ -78,7 +78,7 @@ public class ObjectStatsPanel extends JPanel {
 	}
 	private void createCheckBoxes(){
 		JPanel panel=new JPanel();
-		JCheckBox floater=new JCheckBox("Check if 0");
+		JCheckBox floater=new JCheckBox("Make gravity ");
 		panel.add(floater);
 		final JCheckBox cameraBox=new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
