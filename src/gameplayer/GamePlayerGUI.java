@@ -16,6 +16,7 @@ public class GamePlayerGUI extends JGEngine{
 
 	private Game currentGame = new Game();
 	private List<GameObject> currentObjects;
+	private List<Goal> levelGoals;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
 	private boolean levelOver = false;
@@ -99,6 +100,27 @@ public class GamePlayerGUI extends JGEngine{
 //		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 		
 	}
+	
+	private List<GameObject> findTargets(List<Integer> targetIDs){
+		List<GameObject> targetObjs = new ArrayList<GameObject>();
+		for(Integer i : targetIDs){
+			for(GameObject obj : currentObjects){
+				if(obj.getID() == i){
+					targetObjs.add(obj);
+				}
+			}
+		}
+		return targetObjs;
+	}
+	
+	public void checkGoals(){
+		for(Goal i: levelGoals){
+			List<GameObject> goalObjs = findTargets(i.getTargets());
+			if(i.checkGoal(goalObjs)){
+				endLevel(i.getNextLevel());
+			}
+		}
+	}
 
 	public void checkCollisions(){
 		for(BasicCollision i: currentGame.collisionRules){
@@ -112,7 +134,7 @@ public class GamePlayerGUI extends JGEngine{
 			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
 			for(Tuple<GameObject,GameObject> j: temp){
 				if(i.behavior == "endlevel"){
-					endLevel();
+					endLevel(0);
 				}else if(i.behavior == "reset"){
 					j.x.reset();
 				}
@@ -133,7 +155,7 @@ public class GamePlayerGUI extends JGEngine{
 		return collisions;
 	}
 	
-	private void endLevel(){
+	private void endLevel(int nextLevel){
 		//TODO: wrap up the current level and go to the next one
 		for(GameObject i: currentObjects){
 			i.remove();
@@ -148,10 +170,16 @@ public class GamePlayerGUI extends JGEngine{
 		currentLevel = currentGame.getCurrentLevel();
 		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
-		currentObjects = new ArrayList<GameObject>();
+		currentObjects = new ArrayList<GameObject>();;
+		levelGoals = new ArrayList<Goal>();
 		for(UninstantiatedGameObject i : currentLevel.getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
-			currentObjects.add(i.instantiate());
+			GameObject myObject = i.instantiate();
+			if(myObject.getFuckingName().equals("goal")){
+				levelGoals.add((Goal) myObject);
+			}
+			else
+				currentObjects.add(myObject);
 		}
 		levelOver = false;
 	}
