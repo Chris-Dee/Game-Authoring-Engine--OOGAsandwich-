@@ -239,7 +239,6 @@ We have also worked closely with the Game Player team.
 Game Player:
 ----
 --
-
 Design goals:
 
 Player - Serve as the I/O interface connecting engine with player. Will initialize game from data and allow user to play. Highscores+savestate+outer menu.
@@ -248,19 +247,27 @@ Assumptions: All games use same data structure, are locally played. Users have s
 
 Flexible: Multiple players, Goals (any state can be victory condition), Player - world interactions through multiple input methods, Text/graphics/menu options/stats
 
-Classes and methods:
 
-	Player.java load(Data)
-	new() 
-	run()
-	Parser.java parseData()
+The Game Player is an extension or the front end of the game engine. It does the job of actually constructing the games, using the engine’s objects. Both the engine and the data are incorporated and used in the Game Player to actually run and create games.
 
-Example Code:
+The GamePlayerGUI class is essentially the game player. It extends JGEngine and contains the methods for instantiating a game. It is a generic game loop built on top of JGame using our data structures and addons. The GamePlayerRunner class instantiates the GamePlayerGUI with a game object.
 
-	main(){ 
-		Data gameData = load(Data newGame); 
-		run(); 
-	}
+The GamePlayerGui takes care of keeping track of which level the game is on, instantiating the objects in each level, calling the frame by frame methods to keep the game running, and keeps track of the game state.
 
-Alternatives: Handle data storage/user interactions from Player.
+Sample Code:
+
+GamePlayerRunner:
+new GamePlayerGUI(new ExampleGame());
+
+GamePlayerGUI
+public GamePlayerGUI(Game loadedGame){  //Loads the game object passed in by the GAE through JSON data
+
+public void doInputs(){ //Keeps track of user input
+
+public void doLevel() //Per frame checks in the game
+
+public void constructGame(){
+
+private void endLevel()
+
 
