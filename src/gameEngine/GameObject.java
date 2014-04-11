@@ -1,5 +1,7 @@
 package gameEngine;
 
+import gameplayer.Tuple;
+
 import java.util.Map;
 
 import jgame.*;
@@ -9,7 +11,8 @@ public class GameObject extends JGObject {
 	private GameObjectAction myMovement;
 	private String myFuckingName;
 	private boolean isFloating;
-	private Map<Integer, String> charMap;
+	private boolean isScreenFollow;
+	private Map<Integer, Tuple<String,Integer>> charMap;
 	public JGPoint originalPosition;
 //	private double xspeedMultiple;
 //	private double yspeedMultiple;
@@ -20,6 +23,7 @@ public class GameObject extends JGObject {
 		myFuckingName=name;
 //		myMovement.addObject(this);
 		isFloating = floating;
+		isScreenFollow = false;
 		originalPosition = new JGPoint(position.x, position.y);
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
@@ -39,12 +43,26 @@ public class GameObject extends JGObject {
 ////		this.yspeedMultiple = yspeedMultiple;
 //	}
 	
-	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, String> inputMap, boolean floating) {
+	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
 		myFuckingName=name;
 //		myMovement.addObject(this);
 		isFloating = floating;
+		isScreenFollow = screenFollow;
+//		this.xspeedMultiple = xspeedMultiple;
+//		this.yspeedMultiple = yspeedMultiple;
+		charMap=inputMap;
+		originalPosition = new JGPoint(position.x, position.y);
+	}
+	
+	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating) {
+		super(name, true, position.x, position.y, colid, sprite);
+		myMovement = new GameObjectAction(inputMap);
+		myFuckingName=name;
+//		myMovement.addObject(this);
+		isFloating = floating;
+		isScreenFollow = false;
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
 		charMap=inputMap;
@@ -57,6 +75,7 @@ public class GameObject extends JGObject {
 		myFuckingName=name;
 //		myMovement.addObject(this);
 		isFloating = floating;
+		isScreenFollow = false;
 //		this.xspeedMultiple = xspeedMultiple;
 //		this.yspeedMultiple = yspeedMultiple;
 		originalPosition = new JGPoint(position.x, position.y);
@@ -78,15 +97,6 @@ public class GameObject extends JGObject {
 		//System.out.println("move");
 	}
 	
-//	public void pace(int time){
-//		xspeed=2;
-//		new JGTimer(time,false) {
-//			public void alarm() {
-//				xspeed=-xspeed;
-//			}
-//		};
-//	}
-	
 	public String getFuckingName() {
 		return myFuckingName;
 	}
@@ -95,12 +105,16 @@ public class GameObject extends JGObject {
 		return isFloating;
 	}
 	
-	public Map<Integer, String> getCharMap(){
+	public Map<Integer, Tuple<String,Integer>> getCharMap(){
 		return charMap;
 	}
 	
 	public GameObjectAction getMovement(){
 		return myMovement;
+	}
+	
+	public boolean getIsScreenFollowing(){
+		return isScreenFollow;
 	}
 
 //	public void applyInternalForces() {

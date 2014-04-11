@@ -81,7 +81,9 @@ public class Game {
 	}
 	*/
 	public Game getExample() throws IOException, InvalidDataFileException{
+		
 		Game game = new Game();
+		/*
 		game.mediaTablePath = "tempTable.tbl";
 		//game.screenSize = new JGPoint(640, 480);
 		game.screenSize = new JGPoint(1440, 900);
@@ -123,6 +125,7 @@ public class Game {
 		
 		game.addLevel(firstLevel);
 		game.setCurrentLevel(firstLevel);
+		*/
 		return game;
 	}
 	protected void addLevel(Level level) {

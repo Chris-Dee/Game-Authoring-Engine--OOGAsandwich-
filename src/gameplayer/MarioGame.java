@@ -27,15 +27,15 @@ public class MarioGame extends Game {
 		// game.screenSize = new JGPoint(640, 480);
 		screenSize = new JGPoint(900, 900);
 
-		Map<Integer, String> levelInputMap = new HashMap<Integer, String>();
-		levelInputMap.put(39, "moveRight");
-		levelInputMap.put(37, "moveLeft");
-		levelInputMap.put(38, "moveUp");
-		levelInputMap.put(40, "moveDown");
-		Map<Integer, String> otherInputMap = new HashMap<Integer, String>();
-		otherInputMap.put(65, "moveLeft");
-		otherInputMap.put(68, "moveRight");
-		otherInputMap.put(87, "moveUp");
+		Map<Integer, Tuple<String,Integer>> levelInputMap = new HashMap<Integer, Tuple<String,Integer>>();
+		levelInputMap.put(39, new Tuple<String, Integer>("moveRight", 4));
+		levelInputMap.put(37, new Tuple<String, Integer>("moveLeft",4));
+		levelInputMap.put(38, new Tuple<String, Integer>("moveUp",12));
+		levelInputMap.put(40, new Tuple<String, Integer>("moveDown",6));
+		Map<Integer, Tuple<String,Integer>> otherInputMap = new HashMap<Integer, Tuple<String,Integer>>();
+		otherInputMap.put(65, new Tuple<String, Integer>("moveLeft",4));
+		otherInputMap.put(68, new Tuple<String, Integer>("moveRight",4));
+		otherInputMap.put(87, new Tuple<String, Integer>("moveUp",8));
 		int[][] modMatrix = { { 1, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, -1, 0, 1, 0, 0 } };
 		collisionRules.add(new BasicCollision(1, 2, new GameObjectModification(
@@ -48,7 +48,7 @@ public class MarioGame extends Game {
 		 List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
 		
-		  objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false)); 
+		  objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true)); 
 		  for(int i = 0; i < 900 /32; i++){
 		   objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true)); } objs.add(new
 		  UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true)); objs.add(new
@@ -59,7 +59,7 @@ public class MarioGame extends Game {
 		  List<GameForce> forces = new ArrayList<GameForce>(); 
 		  GameForce force1 = new GameForce(); forces.add(force1);
 
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "skyblue", .4);//,new LevelInput(levelInputMap));
+		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, forces, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
 		List<Level> myLevels = new ArrayList<Level>();
 		myLevels.add(firstLevel);

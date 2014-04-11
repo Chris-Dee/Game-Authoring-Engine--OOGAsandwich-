@@ -1,5 +1,7 @@
 package gameEngine;
 
+import gameplayer.Tuple;
+
 import java.util.Map;
 
 import jgame.JGPoint;
@@ -13,7 +15,8 @@ public class UninstantiatedGameObject {
 	Integer objectTime;
 	Integer objectSpeed;
 	Boolean objectFloating;
-	Map<Integer, String> objectInputMap;
+	Boolean objectScreenFollow;
+	Map<Integer, Tuple<String,Integer>> objectInputMap;
 	
 	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, String behavior, Integer time, Integer speed, Boolean floating) {
 		objectName = name;
@@ -24,15 +27,27 @@ public class UninstantiatedGameObject {
 		objectTime = time;
 		objectSpeed = speed;
 		objectFloating = floating;
+		objectScreenFollow = false;
 	}
 
-	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, String> inputMap, boolean floating) {
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
 		objectSprite = sprite;
 		objectInputMap = inputMap;
 		objectFloating = floating;
+		objectScreenFollow = false;
+	}
+	
+	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow) {
+		objectName = name;
+		objectPosition = position;
+		objectColid = colid;
+		objectSprite = sprite;
+		objectInputMap = inputMap;
+		objectFloating = floating;
+		objectScreenFollow = screenFollow;
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position, Integer colid, String sprite, boolean floating) {
@@ -41,12 +56,13 @@ public class UninstantiatedGameObject {
 		objectColid = colid;
 		objectSprite = sprite;
 		objectFloating = floating;
+		objectScreenFollow = false;
 	}
 
 	public GameObject instantiate(){
 		// TODO: Make this better.
 		if (objectInputMap != null) {
-			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating);
+			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectInputMap, objectFloating, objectScreenFollow);
 		} else if (objectTime != null) {
 			return new GameObject(objectName, objectPosition, objectColid, objectSprite, objectBehavior, objectTime, objectSpeed, objectFloating);
 		} else {
