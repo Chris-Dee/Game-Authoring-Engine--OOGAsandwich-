@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -29,7 +32,7 @@ public class ObjectStatsPanel extends JPanel {
 
 	private Integer movementSpeed = 0;
 	private int movementDuration = 0;
-
+	private int myCollisionID = 0;
 	private int gravityMag = 0;
 	private LevelEditor myEditor;
 
@@ -59,6 +62,10 @@ public class ObjectStatsPanel extends JPanel {
 	public String getMovementName() {
 		return movementName;
 	}
+	
+	public int getCollisionID() {
+		return myCollisionID;
+	}
 
 	public int getMovementSpeed() {
 		return movementSpeed;
@@ -76,14 +83,15 @@ public class ObjectStatsPanel extends JPanel {
 	private void createComboBoxes() {
 		// Object Types will define things like how collisions are handled, and input
 		// Will also determine what other options are available for user to define
-		String[] objectTypes = {"Player","Enemy", "Platform", "Goal", "Scenery"};
-
+		String[] objectTypes = {"Player", "Platform", "Enemy", "Goal", "Scenery"};
+		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
 		JComboBox objectType = new JComboBox(objectTypes);
 		objectType.setPreferredSize(COMBO_SIZE);
 		objectType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
 				objectName = event.getItem().toString();
+				myCollisionID = (int) Math.pow(2, objectTypesList.indexOf(objectName));
 			}
 		});
 		

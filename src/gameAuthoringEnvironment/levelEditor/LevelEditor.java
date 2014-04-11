@@ -112,7 +112,7 @@ public class LevelEditor extends JGEngine {
 	 */
 	public void addObject(String imageName, int x, int y) {
 		UninstantiatedGameObject newObject;
-		if (myObjectStatsPanel.getObjectName().equals("Player")) {
+		if (myObjectStatsPanel.getMovementName().equals("User-Controlled")) {
 			Map<Integer, Tuple<String, Integer>> levelInputMap = new HashMap<Integer, Tuple<String, Integer>>();
 			levelInputMap.put(39, new Tuple<String, Integer>("moveRight",
 					myObjectStatsPanel.getMovementSpeed()));
@@ -124,32 +124,15 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getMovementSpeed() + 2));
 
 			newObject = new UninstantiatedGameObject("player",
-					new JGPoint(x, y), COLID_FOR_PLAYER, imageName,
-					levelInputMap, false, true);
-		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
-			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
-		} else if (myObjectStatsPanel.getObjectName().equals("Enemy")) {
-			newObject = new UninstantiatedGameObject("goomba",
-					new JGPoint(x, y), COLID_FOR_ENEMY, imageName,
+					new JGPoint(x, y), myObjectStatsPanel.getCollisionID(),
+					imageName, levelInputMap, false, true);
+		} else {
+			newObject = new UninstantiatedGameObject(
+					myObjectStatsPanel.getObjectName(), new JGPoint(x, y),
+					myObjectStatsPanel.getCollisionID(), imageName,
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
 					myObjectStatsPanel.getMovementDuration(), false);
-		} else if (myObjectStatsPanel.getObjectName().equals("Moving Platform")) {
-			newObject = new UninstantiatedGameObject("moving platform",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName,
-					myObjectStatsPanel.getMovementName().toLowerCase(),
-					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(), true);
-		} else if (myObjectStatsPanel.getObjectName().equals("Goal")) {
-			newObject = new UninstantiatedGameObject("goal", new JGPoint(x, y),
-					COLID_FOR_GOAL, imageName, true);
-		} else if (myObjectStatsPanel.getObjectName().equals("Scenery")) {
-			newObject = new UninstantiatedGameObject("stationary platform",
-					new JGPoint(x, y), COLID_FOR_PLAYER + 4, imageName, true);
-		} else {
-			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
 		}
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
