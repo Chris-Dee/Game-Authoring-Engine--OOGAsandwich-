@@ -2,6 +2,7 @@ package gameAuthoringEnvironment.levelEditor;
 
 import gameAuthoringEnvironment.levelEditor.LevelSizeSliders.SliderListener;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,6 +41,7 @@ public class ObjectStatsPanel extends JPanel {
 	private int gravityMag = 0;
 	private LevelEditor myEditor;
 	private boolean isFloating = false;
+	private JPanel homePanel=new JPanel();
 
 	/**
 	 * Panel that will display the stats for the object that is being added to
@@ -47,14 +49,18 @@ public class ObjectStatsPanel extends JPanel {
 	 */
 	public ObjectStatsPanel(ObjectEditorContainer container, LevelEditor editor) {
 		panelSize = new Dimension(PANEL_WIDTH, container.HEIGHT);
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
+		homePanel.setLayout(new BoxLayout(homePanel,BoxLayout.Y_AXIS));
 		initialize();
 		myEditor = editor;
 		myEditor.setObjectStatsPanel(this);
+		add(new ObjectToolbar(myEditor),BorderLayout.WEST);
+		add(homePanel,BorderLayout.EAST);
+		
 	}
 
 	private void initialize() {
-		this.setPreferredSize(panelSize);
+		//this.setPreferredSize(panelSize);
 		createComboBoxes();
 		createSliders();
 		createCheckBoxes();
@@ -107,7 +113,7 @@ public class ObjectStatsPanel extends JPanel {
 		});
 		panel.add(cameraBox);
 		cameraBox.setFocusable(false);
-		add(panel);
+		homePanel.add(panel);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -143,11 +149,11 @@ public class ObjectStatsPanel extends JPanel {
 
 		});
 
-		add(type);
-		add(objectType);
+		homePanel.add(type);
+		homePanel.add(objectType);
 
-		add(movement);
-		add(movementType);
+		homePanel.add(movement);
+		homePanel.add(movementType);
 
 	}
 
@@ -193,14 +199,14 @@ public class ObjectStatsPanel extends JPanel {
 			}
 		});
 
-		add(speedLabel);
-		add(speed);
+		homePanel.add(speedLabel);
+		homePanel.add(speed);
 
-		add(movementLabel);
-		add(movementLength);
+		homePanel.add(movementLabel);
+		homePanel.add(movementLength);
 
-		add(gravityLabel);
-		add(gravityMagnitude);
+		homePanel.add(gravityLabel);
+		homePanel.add(gravityMagnitude);
 
 	}
 
