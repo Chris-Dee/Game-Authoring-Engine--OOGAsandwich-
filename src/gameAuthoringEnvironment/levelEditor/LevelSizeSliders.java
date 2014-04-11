@@ -35,7 +35,7 @@ public class LevelSizeSliders extends JPanel {
 		makeSizePanel(this);
 	}
 
-	public void makeSizePanel(JPanel homePanel) {
+	private void makeSizePanel(JPanel homePanel) {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		height = makeSizeSlider("Height", RANGE_FOR_HEIGHT_SLIDER, panel);
@@ -44,7 +44,7 @@ public class LevelSizeSliders extends JPanel {
 		setSliderPositions(myLevel.getLevelSize());
 	}
 
-	public JSlider makeSizeSlider(String title, int[] range, JPanel homePanel) {
+	private JSlider makeSizeSlider(String title, int[] range, JPanel homePanel) {
 		JPanel sliderPanel = new JPanel();
 		sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
 		JLabel label = new JLabel(title);
