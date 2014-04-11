@@ -149,12 +149,17 @@ Game Engine
 --
 
 The game engine API has been revised to make the objects more general. Now, every displayed object in the game is a GameObject. This is an example of one of the largest abstractions we found and are using, and the idea here is that basically, there isn't that much of a difference between a goomba that paces and a floating platform that moves back and forth, or even a player controlled object or a powerup object. This may seem counterintuitive at first, but upon further inspection it becomes clear that every object, whether it be a player, enemy, or platform, has many features in common. For example, a platform can move just like an enemy and can also hurt the player with a single parameter changed. By using this form of a GameObject and passing in many parameters to distinguish each type of object, we don't restrict certain types of objects to specific predefined "types".
+
 We also have an UninstantiatedGameObject class which takes in the same parameters as GameObject and stores them, but does not create the actual JGameObject on the screen. The purpose of this is to only instantiate GameObjects when we need them on the screen to avoid wasting memory on GameObjects outside of the current view. This class also helps the data group because they do not need to create the JGameObjects right away and therefore can avoid dealing with JGame. 
-Because we are using general GameObjects instead of a hierarchy for each speccific type of object, dealing with collisions is a bit harder. The collision class that we have therefore creates different "events" for collisions between objects with different collision ID's. We also attached unique ID's to each object so that we can track it and perform actions on that specific object.
+Because we are using general GameObjects instead of a hierarchy for each specific type of object, dealing with collisions is not necessarily harder, but does require the usage of unique IDs as well as collision IDs. The collision class that we have therefore creates different "events" for collisions between objects with different collision ID's, but also interacts with unique IDs which tell it which specific objects are colliding from all the objects with some same collision ID. The unique IDs allow us to get around some referencing issues caused by the data group's method of storing data and actually interact with different objects.
+
 The GameObjectAction is what takes care of all movement of GameObjects as well as other actions like shooting bullets from the player. This class contains many general types of movements as well as several predefined "patterns" that objects can follow. This class is passed in necessary parameters from the object using it when that object is constructed, and uses reflection based on the "behavior" String to perform certain movement methods depending on whether the object is a player or AI, for example.
+
 We still use the Game class which represents an entire game created by the user. Game has all of the basic functionality for things such as getting the game from the data file and advancing levels. One of the constructors just takes in a data file and creates the Game from that GSON data file. This Game, holds a list of Level objects, which is the other primary class of the engine.
+
 A level is the highest layer of a game where all of the details are defined. A level is a collection of information and GameObjects which define how that level will look and act. This extra information includes things like a background image and takes care of features like scrolling. For example, a level object representing level 2 might hold 15 GameObjects that act as enemies which have been passed specific parameters such as starting position and behavior. 
 Levels also check a list of Goal objects, which will represent what the player must do to advance from that level to the next or to any other possible level which can be advanced to depending on what the player does (for example mario could find a secret pipe, allowing him to skip a level). These goals will be checked each frame for completion so that the Game knows when to switch which Level object it is currently using. Basically, the idea here is to represent every part of a typical sidescrolling platformer as an object which is flexible enough to be able to be significantly changed as needed based on its parameters.
+
 The GamePlayerGui extends JGEngine and deals with all of the front-end parts of the game. It is passed in a Game. The class also deals with user input. Within and between many of our classes, we were able to use reflection in order to increase the flexibility of our code.
 
 We have partly combined the Game Engine group with the Game Player group, shown in the GamePlayerGui class, because we are both have the same general goals of making the backend of games work.
@@ -174,7 +179,7 @@ Some sample code:
 		super(name, true, position.x, position.y, colid, sprite);
 	}
 	
-		public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean screenFollow, double gravity, int uniqueID) {
+	public UninstantiatedGameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean screenFollow, double gravity, int uniqueID) {
 	}
 	
 	Example of how we instantiate an uninstantiated GameObject:
