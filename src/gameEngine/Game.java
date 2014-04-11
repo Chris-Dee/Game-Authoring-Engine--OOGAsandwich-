@@ -84,49 +84,6 @@ public class Game {
 	public Game getExample() throws IOException, InvalidDataFileException{
 		
 		Game game = new Game();
-		/*
-		game.mediaTablePath = "tempTable.tbl";
-		//game.screenSize = new JGPoint(640, 480);
-		game.screenSize = new JGPoint(1440, 900);
-		
-		Map<Integer, String> levelInputMap= new HashMap<Integer, String>();
-		levelInputMap.put(39, "moveRight");
-		levelInputMap.put(37,"moveLeft");
-		levelInputMap.put(38, "moveUp");
-		levelInputMap.put(40, "moveDown");
-		
-		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
-
-		objs.add(new UninstantiatedGameObject("player", new JGPoint(10, 10), 1, "hero-r", levelInputMap, false));
-		objs.add(new UninstantiatedGameObject("test", new JGPoint(100, 100), 1, "hero-r", "pace",25, 5, false));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(20, 155), 2, "mytile", levelInputMap, true));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(25, 135), 2, "mytile", "pace", 75, 2, true));
-		objs.add(new UninstantiatedGameObject("land", new JGPoint(30, 125), 2, "mytile", true));
-		//objs.add(new GameObject("goal", new JGPoint(30, 125), 1, "mytile", new Goal("end", 700), false));
-
-		// This code will eventually be used to parse the data.
-		
-//		myGameData.setFileName("uninstantiatedgameobjectsfile");
-//		Map<String, List<Object>> myObjectMap = myGameData.parse();
-//		for (String str : myObjectMap.keySet()) {
-//			for (Object obj : myObjectMap.get(str)) {
-//				objs.add((UninstantiatedGameObject) obj);
-//			}
-//		}
-		
-		List<GameForce> forces = new ArrayList<GameForce>();
-		GameForce force1 = new GameForce();
-		forces.add(force1);
-		
-	
-		
-		Level firstLevel = new Level("first level", new JGPoint(640, 480), objs, forces, "metal", .2);//,new LevelInput(levelInputMap));
-
-		
-		
-		game.addLevel(firstLevel);
-		game.setCurrentLevel(firstLevel);
-		*/
 		return game;
 	}
 	protected void addLevel(Level level) {
