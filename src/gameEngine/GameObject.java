@@ -116,6 +116,9 @@ public class GameObject extends JGObject {
 	public boolean getIsScreenFollowing(){
 		return isScreenFollow;
 	}
+	public void setIsScreenFollowing(boolean b){
+		isScreenFollow=b;
+	}
 
 //	public void applyInternalForces() {
 //		// TODO: eventually make this a linear transformation of stats

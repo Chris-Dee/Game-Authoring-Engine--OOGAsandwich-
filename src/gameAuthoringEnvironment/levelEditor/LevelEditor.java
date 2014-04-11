@@ -62,12 +62,13 @@ public class LevelEditor extends JGEngine {
 		super();
 		myLevel = level;
 		dbgShowMessagesInPf(false);
+
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
 		// affecting anything, we can change it.
 		defineMedia("tempTable.tbl");
-		defineImage("firebackground","m",0,"firebackground.jpg","-");
+		defineImage("firebackground", "m", 0, "firebackground.jpg", "-");
 		defineImage("srball", "n", 0, defaultImage, "-");
 		myMover = new LevelMover(this);
 
@@ -114,27 +115,32 @@ public class LevelEditor extends JGEngine {
 	public void addObject(String imageName, int x, int y) {
 		UninstantiatedGameObject newObject;
 		if (myObjectStatsPanel.getObjectName().equals("Player")) {
-			Map<Integer, Tuple<String,Integer>> levelInputMap = new HashMap<Integer, Tuple<String,Integer>>();
-			levelInputMap.put(39, new Tuple<String, Integer>("moveRight", 4));
-			levelInputMap.put(37, new Tuple<String, Integer>("moveLeft",4));
-			levelInputMap.put(38, new Tuple<String, Integer>("moveUp",6));
-			levelInputMap.put(40, new Tuple<String, Integer>("moveDown",6));
+			Map<Integer, Tuple<String, Integer>> levelInputMap = new HashMap<Integer, Tuple<String, Integer>>();
+			levelInputMap.put(39, new Tuple<String, Integer>("moveRight",
+					myObjectStatsPanel.getMovementSpeed()));
+			levelInputMap.put(37, new Tuple<String, Integer>("moveLeft",
+					myObjectStatsPanel.getMovementSpeed()));
+			levelInputMap.put(38, new Tuple<String, Integer>("moveUp",
+					myObjectStatsPanel.getMovementSpeed() + 2));
+			levelInputMap.put(40, new Tuple<String, Integer>("moveDown",
+					myObjectStatsPanel.getMovementSpeed() + 2));
 
 			newObject = new UninstantiatedGameObject("player",
-					new JGPoint(x, y), COLID_FOR_PLAYER, imageName, levelInputMap, false, true);
+					new JGPoint(x, y), COLID_FOR_PLAYER, imageName,
+					levelInputMap, false, true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
 			newObject = new UninstantiatedGameObject("block",
 					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Enemy")) {
 			newObject = new UninstantiatedGameObject("goomba",
-					new JGPoint(x, y), COLID_FOR_ENEMY, imageName, myObjectStatsPanel
-							.getMovementName().toLowerCase(),
+					new JGPoint(x, y), COLID_FOR_ENEMY, imageName,
+					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
 					myObjectStatsPanel.getMovementDuration(), false);
 		} else if (myObjectStatsPanel.getObjectName().equals("Moving Platform")) {
 			newObject = new UninstantiatedGameObject("moving platform",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, myObjectStatsPanel
-							.getMovementName().toLowerCase(),
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName,
+					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
 					myObjectStatsPanel.getMovementDuration(), true);
 		} else if (myObjectStatsPanel.getObjectName().equals("Goal")) {
@@ -150,9 +156,9 @@ public class LevelEditor extends JGEngine {
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
 	}
-	
+
 	public void setGravity(double value) {
-		myLevel.setGravityVal(value/10);
+		myLevel.setGravityVal(value / 10);
 	}
 
 	private void checkInBounds() {
@@ -199,24 +205,25 @@ public class LevelEditor extends JGEngine {
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
 		// System.out.println(this.el.images_loaded.size());
 		selectOnClick();
-		//setBGImage(myLevel.getBackground());
+		// setBGImage(myLevel.getBackground());
 	}
 
 	public void paintFrame() {
 		highlight(selectedObject, JGColor.red);
-		highlight(myMover,JGColor.blue);
+		highlight(myMover, JGColor.blue);
 	}
 
 	public void selectOnClick() {
-		//new JGRectangle()
+		// new JGRectangle()
 		if (getMouseButton(1)) {
-			JGRectangle rect=new JGRectangle(getMouseX()+el.xofs, getMouseY()+el.yofs, 10, 10);
+			JGRectangle rect = new JGRectangle(getMouseX() + el.xofs,
+					getMouseY() + el.yofs, 10, 10);
 			Vector<GameObject> v = getObjects("", 0, true, rect);
 			System.out.println(rect);
 			if (v.size() > 0)
-			if( v.get(0) != (JGObject) myMover)
-				selectedObject = v.get(0);
-			//System.out.println(selectedObject.x+"    "+selectedObject.y);
+				if (v.get(0) != (JGObject) myMover)
+					selectedObject = v.get(0);
+			// System.out.println(selectedObject.x+"    "+selectedObject.y);
 		}
 
 	}
@@ -224,10 +231,8 @@ public class LevelEditor extends JGEngine {
 	public void highlight(JGObject object, JGColor color) {
 		setColor(JGColor.red);
 		if (object != null)
-			drawRect(object.x, object.y,
-					object.getBBox().width,
-					object.getBBox().height, false, false, 2,
-					color);
+			drawRect(object.x, object.y, object.getBBox().width,
+					object.getBBox().height, false, false, 2, color);
 	}
 	// TODO add method to check for collisions with screen boundary, and decide
 	// what to do when screen
