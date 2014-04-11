@@ -1,6 +1,5 @@
 package gameplayer;
 
-import gameEngine.GameForce;
 import gameEngine.GameObject;
 
 public class BasicCollision extends Collision{

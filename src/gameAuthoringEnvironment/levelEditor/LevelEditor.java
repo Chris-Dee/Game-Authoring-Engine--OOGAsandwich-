@@ -1,7 +1,9 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Map;
@@ -32,7 +34,6 @@ public class LevelEditor extends JGEngine {
 
 	private Map<String, String> imageMap = new HashMap<String, String>();
 	private Level myLevel;
-
 	private static final int INITIAL_WIDTH = 600;
 	private static final int INITIAL_HEIGHT = 600;
 	private static final int BLOCK_SIZE_X = 300;
@@ -49,6 +50,8 @@ public class LevelEditor extends JGEngine {
 	private static int COLID_FOR_ENEMY = 4;
 	private static int COLID_FOR_BLOCK = 2;
 	private static int COLID_FOR_GOAL = 8;
+	
+	private int objectID;
 
 	/**
 	 * JGame class that holds the level editor. This displays what the created
@@ -60,7 +63,9 @@ public class LevelEditor extends JGEngine {
 	public LevelEditor(Level level) {
 		super();
 		myLevel = level;
-		// dbgShowMessagesInPf(false);
+		dbgShowMessagesInPf(false);
+		objectID = 0;
+
 		dbgIsEmbedded(true);
 		initEngine((int) SCREEN_WIDTH, SCREEN_HEIGHT);
 		// This just hides the null pointer exception error. If it ends up
@@ -125,32 +130,33 @@ public class LevelEditor extends JGEngine {
 
 			newObject = new UninstantiatedGameObject("player",
 					new JGPoint(x, y), COLID_FOR_PLAYER, imageName,
-					levelInputMap, false, true);
+					levelInputMap, false, true, objectID);
 		} else if (myObjectStatsPanel.getObjectName().equals("Block")) {
 			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true, objectID);
 		} else if (myObjectStatsPanel.getObjectName().equals("Enemy")) {
 			newObject = new UninstantiatedGameObject("goomba",
 					new JGPoint(x, y), COLID_FOR_ENEMY, imageName,
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(), false);
+					myObjectStatsPanel.getMovementDuration(), false, objectID);
 		} else if (myObjectStatsPanel.getObjectName().equals("Moving Platform")) {
 			newObject = new UninstantiatedGameObject("moving platform",
 					new JGPoint(x, y), COLID_FOR_BLOCK, imageName,
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(), true);
+					myObjectStatsPanel.getMovementDuration(), true, objectID);
 		} else if (myObjectStatsPanel.getObjectName().equals("Goal")) {
 			newObject = new UninstantiatedGameObject("goal", new JGPoint(x, y),
-					COLID_FOR_GOAL, imageName, true);
+					COLID_FOR_GOAL, imageName, true, objectID);
 		} else if (myObjectStatsPanel.getObjectName().equals("Scenery")) {
 			newObject = new UninstantiatedGameObject("stationary platform",
-					new JGPoint(x, y), COLID_FOR_PLAYER + 4, imageName, true);
+					new JGPoint(x, y), COLID_FOR_PLAYER + 4, imageName, true, objectID);
 		} else {
 			newObject = new UninstantiatedGameObject("block",
-					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true);
+					new JGPoint(x, y), COLID_FOR_BLOCK, imageName, true, objectID);
 		}
+		objectID++;
 		myLevel.addObjects(newObject);
 		newObject.instantiate();
 	}

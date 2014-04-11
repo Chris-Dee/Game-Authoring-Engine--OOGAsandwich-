@@ -6,10 +6,8 @@ import jgame.JGPoint;
 
 public class Level {
 
-	// private LevelInput levelInput;
 	private List<UninstantiatedGameObject> levelObjects;
 	public static final JGPoint defaultSize = new JGPoint(2, 6);
-	private List<GameForce> levelForces;
 	/**
 	 * Total playfield size, which can larger than screensize.
 	 */
@@ -21,15 +19,12 @@ public class Level {
 	private int GAME_SCORE=100;
 
 	public Level(String levelName, JGPoint size,
-			List<UninstantiatedGameObject> objects, List<GameForce> forces,
+			List<UninstantiatedGameObject> objects,
 			String background, double gravityMagnitude) {
-		initialize();
+		//initialize();
 		levelSize = size;
 		levelObjects = objects;
-		levelForces = forces;
 		levelBG = background;
-		// levelSize=size;
-		// levelInput=lvlInput;
 		gravityVal = gravityMagnitude;
 	}
 
@@ -37,7 +32,6 @@ public class Level {
 		initialize();
 		name = levelName;
 		levelObjects = new ArrayList<UninstantiatedGameObject>();
-		levelForces = new ArrayList<GameForce>();
 		levelBG = defaultBackground;
 	}
 
@@ -77,10 +71,6 @@ public class Level {
 		levelObjects.add(object);
 	}
 
-	public void addForces(List<GameForce> forces) {
-		levelForces.addAll(forces);
-	}
-
 	public double getGravityVal() {
 		return gravityVal;
 	}
@@ -95,8 +85,4 @@ public class Level {
 	public int getCurrentScore(){
 		return GAME_SCORE;
 	}
-	// public LevelInput getLevelInput(){
-	// return levelInput;
-	// }
-
 }

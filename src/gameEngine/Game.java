@@ -22,6 +22,7 @@ public class Game {
 	private GameData myGameData;
 	public ArrayList<BasicCollision> collisionRules;
 	public ArrayList<TriggerCollision> collisionTriggers;
+	
 	public Game(){
 		allLevels = new ArrayList<Level>();
 		collisionRules = new ArrayList<BasicCollision>();
