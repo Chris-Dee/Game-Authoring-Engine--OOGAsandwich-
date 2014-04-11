@@ -11,7 +11,7 @@ public class ObjectStats {
 	public String imageName;
 	//TODO could definitely get rid of this
 	public boolean isFloating;
-public ObjectStats(String c, String m, Integer s, Integer d, Integer g, boolean cam, String i, boolean f){
+	public ObjectStats(String c, String m, Integer s, Integer d, Integer g, boolean cam, String i, boolean f){
 	collID=c;
 	movementPattern=m;
 	speed=s;
