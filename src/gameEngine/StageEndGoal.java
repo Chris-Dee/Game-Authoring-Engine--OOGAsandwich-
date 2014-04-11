@@ -7,8 +7,8 @@ import jgame.JGPoint;
 public class StageEndGoal extends Goal {
 	private int levelEndpoint;
 	private boolean isHorizontal;
-	public StageEndGoal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id, int endpoint, boolean horizontal){
-		super(name, position, colid, sprite, behavior, time, speed, floating, id);
+	public StageEndGoal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id, int endpoint, boolean horizontal, UninstantiatedGameObject obj){
+		super(name, position, colid, sprite, behavior, time, speed, floating, id, obj);
 		levelEndpoint = endpoint;
 		isHorizontal = horizontal;
 	}

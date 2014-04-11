@@ -12,90 +12,108 @@ public class GameObject extends JGObject {
 	private String myFuckingName;
 	private boolean isFloating;
 	private boolean isScreenFollow;
-	private Map<Integer, Tuple<String,Integer>> charMap;
+	private Map<Integer, Tuple<String, Integer>> charMap;
 	public JGPoint originalPosition;
 	private int myID;
-	//private int myHitPoints;
+	private UninstantiatedGameObject myUninstantiatedGameObject;
 
+	// private int myHitPoints;
 
-	public GameObject(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id) {
+	public GameObject(String name, JGPoint position, int colid, String sprite,
+			String behavior, int time, int speed, boolean floating, int id,
+			UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(behavior, time, speed);
-		myFuckingName=name;
+		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = false;
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
-		//myHitPoints=hitPoints;
+		myUninstantiatedGameObject = obj;
+		// myHitPoints=hitPoints;
 	}
-	public void reset(){
+
+	public void reset() {
 		x = originalPosition.x;
 		y = originalPosition.y;
 	}
 
-	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, boolean screenFollow, int id) {
+	public GameObject(String name, JGPoint position, int colid, String sprite,
+			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			boolean screenFollow, int id, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
-		myFuckingName=name;
+		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = screenFollow;
-		charMap=inputMap;
+		charMap = inputMap;
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
+		myUninstantiatedGameObject = obj;
 	}
 
-	public GameObject(String name, JGPoint position, int colid, String sprite, Map<Integer, Tuple<String,Integer>> inputMap, boolean floating, int id) {
+	public GameObject(String name, JGPoint position, int colid, String sprite,
+			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			int id, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
-		myFuckingName=name;
+		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = false;
-		charMap=inputMap;
+		charMap = inputMap;
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
+		myUninstantiatedGameObject = obj;
 	}
 
-	public GameObject(String name, JGPoint position, int colid, String sprite, boolean floating, int id) {
+	public GameObject(String name, JGPoint position, int colid, String sprite,
+			boolean floating, int id, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction();
-		myFuckingName=name;
+		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = false;
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
+		myUninstantiatedGameObject = obj;
+	}
+	
+	public UninstantiatedGameObject toUninstantiated() {
+		return myUninstantiatedGameObject;
 	}
 
 	public void move() {
-		if(myMovement.getIsStart()){
+		if (myMovement.getIsStart()) {
 			myMovement.start(this);
 		}
-		//System.out.println("move");
+		// System.out.println("move");
 	}
 
 	public String getFuckingName() {
 		return myFuckingName;
 	}
 
-	public boolean getIsFloating(){
+	public boolean getIsFloating() {
 		return isFloating;
 	}
 
-	public Map<Integer, Tuple<String,Integer>> getCharMap(){
+	public Map<Integer, Tuple<String, Integer>> getCharMap() {
 		return charMap;
 	}
 
-	public GameObjectAction getMovement(){
+	public GameObjectAction getMovement() {
 		return myMovement;
 	}
 
-	public boolean getIsScreenFollowing(){
+	public boolean getIsScreenFollowing() {
 		return isScreenFollow;
 	}
-	public void setIsScreenFollowing(boolean b){
-		isScreenFollow=b;
+
+	public void setIsScreenFollowing(boolean b) {
+		isScreenFollow = b;
 	}
 
-	public int getID(){
+	public int getID() {
 		return myID;
 	}
 

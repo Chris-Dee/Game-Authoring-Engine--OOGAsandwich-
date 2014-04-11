@@ -32,7 +32,7 @@ public class ObjectStatsPanel extends JPanel {
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
 
 	private String objectName = "Player";
-	private String movementName = "Pace";
+	private String movementName = "User-Controlled";
 
 	private Integer movementSpeed = 0;
 	private int movementDuration = 0;

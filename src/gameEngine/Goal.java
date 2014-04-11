@@ -11,8 +11,8 @@ public abstract class Goal extends GameObject{
 	private int nextLevel;
 	private List<Integer> myTargets;
 	//Todo: implement passing in nextLevel;
-	public Goal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id){
-		super(name, position, colid, sprite, behavior, time, speed, floating, id);
+	public Goal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id, UninstantiatedGameObject obj){
+		super(name, position, colid, sprite, behavior, time, speed, floating, id, obj);
 	}
 	
 	public abstract boolean checkGoal(List<GameObject> targetobjects);

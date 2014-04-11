@@ -66,7 +66,11 @@ public class LevelMover extends JGObject {
 			myEngine.clearKey(myEngine.KeyEnter);
 			moverImage=this.getImageName();
 			myLevelEditor.addObject(moverImage, (int) x, (int) y);
-			
+		}
+		if (checkKey(myEngine.KeyBackspace)) {
+			//System.out.println("HERE");
+			myEngine.clearKey(myEngine.KeyEnter);
+			myLevelEditor.deleteSelectedObject();
 		}
 	}
 

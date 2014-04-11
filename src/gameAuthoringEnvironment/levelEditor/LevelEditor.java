@@ -104,6 +104,14 @@ public class LevelEditor extends JGEngine {
 		// width in spot 0, height in spot 1
 		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
+	
+	public void deleteSelectedObject() {
+		if (selectedObject != null) {
+			myLevel.getObjects().remove(selectedObject.toUninstantiated());
+			selectedObject.remove();
+			selectedObject = null;
+		}
+	}
 
 	/**
 	 * Adds an object to the level and instantiates it
