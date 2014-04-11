@@ -101,12 +101,24 @@ public class GamePlayerGUI extends JGEngine{
 		
 	}
 	
+	private List<GameObject> findTargets(List<Integer> targetIDs){
+		List<GameObject> targetObjs = new ArrayList<GameObject>();
+		for(Integer i : targetIDs){
+			for(GameObject obj : currentObjects){
+				if(obj.getID() == i){
+					targetObjs.add(obj);
+				}
+			}
+		}
+		return targetObjs;
+	}
+	
 	public void checkGoals(){
 		for(Goal i: levelGoals){
-			if(i.checkGoal()){
-				
+			List<GameObject> goalObjs = findTargets(i.getTargets());
+			if(i.checkGoal(goalObjs)){
+				endLevel(i.getNextLevel());
 			}
-				
 		}
 	}
 
@@ -122,7 +134,7 @@ public class GamePlayerGUI extends JGEngine{
 			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
 			for(Tuple<GameObject,GameObject> j: temp){
 				if(i.behavior == "endlevel"){
-					endLevel();
+					endLevel(0);
 				}else if(i.behavior == "reset"){
 					j.x.reset();
 				}
@@ -143,7 +155,7 @@ public class GamePlayerGUI extends JGEngine{
 		return collisions;
 	}
 	
-	private void endLevel(){
+	private void endLevel(int nextLevel){
 		//TODO: wrap up the current level and go to the next one
 		for(GameObject i: currentObjects){
 			i.remove();

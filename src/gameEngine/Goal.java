@@ -9,6 +9,7 @@ import jgame.JGPoint;
 
 public abstract class Goal extends GameObject{
 	private int nextLevel;
+	private List<Integer> myTargets;
 	//Todo: implement passing in nextLevel;
 	public Goal(String name, JGPoint position, int colid, String sprite, String behavior, int time, int speed, boolean floating, int id){
 		super(name, position, colid, sprite, behavior, time, speed, floating, id);
@@ -16,8 +17,12 @@ public abstract class Goal extends GameObject{
 	
 	public abstract boolean checkGoal(List<GameObject> targetobjects);
 	
-	public int getNextlevel(){
+	public int getNextLevel(){
 		return nextLevel;
+	}
+	
+	public List<Integer> getTargets(){
+		return myTargets;
 	}
 	
 	public abstract boolean checkGoal();
