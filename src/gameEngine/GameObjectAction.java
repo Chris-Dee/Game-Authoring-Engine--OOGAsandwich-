@@ -59,6 +59,11 @@ public class GameObjectAction {
 		};
 	}
 	
+	private void stationary(int time, int speed, final GameObject myObj){
+		myObj.xspeed = 0;
+		myObj.yspeed = 0;
+	}
+	
 	public void start(GameObject obj){
 		isStart = false;
 		if(behaviorFlag){
