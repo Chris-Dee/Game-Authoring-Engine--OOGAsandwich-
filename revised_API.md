@@ -271,3 +271,24 @@ public void constructGame(){
 private void endLevel()
 
 
+
+Events
+------
+### `GameEvent` abstract class
+Will be extended for specific use cases (e.g.  collisions, powerups). Examples
+could be collisions, powerups, or game end events.
+- `String eventName` - The name of the event
+- `Integer sourceId`
+- `Integer[] recipientIds` - The `GameObject`s that the `GameEvent` will act
+  on.
+- `public(/private?) void trigger()` - This method is overriden by subclasses
+  to implement specific actions (e.g. do a powerup).
+- `public void check()` - Check every frame in order to check if an event
+  should be `trigger`ed (e.g. check for collisions). Can be blank. Calls
+  `trigger` if something happens.
+  - This allows `GameObject`s to not have to worry about this sort of logic,
+    and delegates that to `GameEvent`s.
+
+### `GameAction` abstract class
+- `Integer[] recipientIds`
+- `public void act()`
