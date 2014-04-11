@@ -67,11 +67,11 @@ Design Goals:
 --
 The goals of the Authoring Environment are as follows: the environment should be modular to allow for isolation of elements and a minimization of dependencies, the environment should be extendable to allow for future elements to be added to a game through the authoring environment, and the environment should be intuitive to use, making it easier for developers to use the environment than to manually code an entire game.
 
-The goal of modularity can be accomplished by separating elements into separate classes, with one centralized class (a level or gameobject class) holding all of the individual components together.  In this way, the only dependency between all of the objects is the commmon level they share - the behavior of one object or force should not rely on the behavior of another object or class.
+The goal of modularity can be accomplished by separating elements into separate classes, with one centralized class (a level or gameobject class) holding all of the individual components together.  In this way, the only dependency between all of the objects is the commmon level they share (and the common characteristics of this level) - the behavior of one object or force should not rely on the behavior of another object or class.
 
-The goal of extendability can be accomplished through the use of object and force templates to allow for new types of objects and forces to be created from the same source.  The methods used to add the objects or forces to the level of a game will rely on the templates as opposed to the individual classes, meaning there will be minimal code modification required to add in new objects or forces.
+The goal of extendability can be accomplished through the use of object and force templates to allow for new types of objects and forces to be created from the same source.  The methods used to add the objects or forces to the level of a game will rely on the templates as opposed to the individual classes, meaning there will be minimal code modification required to add in new types of objects or forces, or to combine or add events.
 
-The goal of intuitiveness will be more difficult to plan from the start, as how "intuitive" a certain program is depends on feedback from individual users.  However, to set a solid foundation to make the program more intuitive, the program can use an interactive GUI that minimizes user input through text and makes adjustments simple (i.e. using sliders to toggle variables, checkboxes to add/remove forces, the ability to immediately save information in the enviornment for quick-play capabilities).  We believe that such features of our code will make it easier for the designer to use the authoring environment, and thereby make the front-end authoring GUI seem more intuitive.
+The goal of intuitiveness will be more difficult to plan from the start, as how "intuitive" a certain program is depends on feedback from individual users.  However, to set a solid foundation to make the program more intuitive, the program can use an interactive GUI that minimizes user input through text and makes adjustments simple (i.e. using sliders to toggle variables, checkboxes to add/remove forces, the ability to immediately save information in the enviornment for quick-play capabilities).  We believe that such features of our code will make it easier for the designer to use the authoring environment, and thereby make the front-end authoring GUI seem more intuitive. The different data needed to completely define a game object will also be presented in a user-friendly and easy to understand way, not appearing in the wasy it was coded (i.e. collision ID can be names in the interface, as will movement patterns and collision patterns.
 
 
 
@@ -80,9 +80,9 @@ Primary Classes and Methods for authoring environment module:
 -
 writeToData: Takes in data from the authoring environment (namely the variables of interest from each object class that represents each object in the environment) and puts them into a format that works with the data module's writing method.  Currently, this format will be a linked list implementation built in the form of a tree: the highest level on the tree will be the game object we create as a starting node, the next level on the tree will be all of the levels that the game has (main levels, minigame levels, boss levels, etc...), and the third level will hold all of the objects and objectives for the particular level that is the parent node.
 
-addLevel: This method will create the framework for a particular level in a game.  Since we are developing a side-scrolling platformer, the level will be one long stretch of game real estate that will hold all of the platforms, obstacles, objects, and other elements added to the game.  This method will create the basic rules needed for the level, and establish the particular node that will later be used in our writeToData tree.
+addLevel: This method will create the framework for a particular level in a game.  Since we are developing a side-scrolling platformer, the level will be one long stretch of game real estate that will hold all of the platforms, obstacles, objects, and other elements added to the game.  This method will create the basic rules needed for the level, and establish the particular node that will later be used in our writeToData tree. This method also adds a new LevelPanelComponent associated with the created level as a visualization for the Level object, and a way for the user to access a specific LevelEditor.
 
-addObject: The method will add the class associated with a particular object to the level in question.  Instead of having a bunch of individual classes, an object template will be established, from which each object (enemy, block, powerup, etc...) will extend from.  This will allow for one method to add items to the game, even though those items may have their own behaviors or movements that differ from other types of object.
+addObject: The method will add the class associated with a particular object to the level in question.  Instead of having a bunch of individual classes, an object template will be established, and 'modules' will be added to these GmaeObjects in the constructors (i.e. movement patterns, collision patterns).  This will allow all objects in the game to be more extensible and flexible with regards to properties, movement types etc. Ths will also make the game more user-friendly, as the player can decide all traits regarding the objects, without having to rely on certain preset object types that have been defined.
 
 addEnvironmentalForce: This method will implement forces on the objects, both computer and player controlled, by adding them in the same object level to the writeToData tree as other objects.  However, because environmental forces will interact with the engine differently than standard objects will, a new method needs to be implemented to add these forces to the game itself. Forces could include gravity, repulsion, wind, etc.... depending on the requirements of the game.
 
@@ -92,11 +92,17 @@ deleteObject: This method is fairly self-explanatory - it removes a particular o
 
 deleteEnviornmentalForce: This method is fairly self-explanatory - it removes a particular environmental force from the given level, either because it has been manually deleted or because it has been replaced by another force.
 
-changeVariable: This method is what will be used to change a variable to a particular object.  This method will be called when the user changes the characteristics of a certain object or force.  Since each object or force will ideally have a set of variables tied to it, this single method can change the variable based on what is put in as a parameter and the new value tied to it.
+changeVariable: This set of methods is what will be used to change variables to a particular object.  This method will be called when the user changes the characteristics of a certain object or force.  Since each object or force will ideally have a set of variables tied to it, this single method can change the variable in a GameObject, or a nested class within GameObject based on what is put in as a parameter and the new value tied to it.
+
+changeDefaultBackground: This method is called from the ComboBox in the main front window, and sets the background image of a given level to the selected background. This image is then added to the .tbl if not already in. 
+
+defineImage (one for BG, one for Object Image): Allows user to define image to be used. Either copies image into resources file, or uses full URL. Yet to be decided based on JGame terribleness.
 
 Object template: This template will be available for implementation by all of the objects in the authoring environment.  By using a single template that other objects implement, the authoring environment can simplify addition, subtraction, or changing of objects.
 
 Force template: This template will be available for implementation by all of the forces in the authoring environment.  By using a single template that other objects implement, the authoring environment can simplify addition, subtraction, or changing of objects.
+
+FrontEnd package--Defines the front screen wihich allows for manipulation of the game on a Level scale (background, order etc.), and enables the opening of the LevelEdtiorWindow, which allows manipulation on a per-object basis. This module also contains the packageFactory, a factory to easily make any often used panel types or frequented layouts.
 
 Example Code:
 -
@@ -132,11 +138,12 @@ Example Code:
 				
 			
 			
-ALternative methods considered: 
+Alternative methods considered: 
 We considered storing all objects in a separate tree, but decided storing them all as parameters of others would build on the engine's
 plan more effectively, and would be easier for us to implement.
+We also considered, in the obejct panel having every parameter stored as strings, and then updating the object when the object was deselected. However, this created some problems with keeping each image tied to certian attributes, and was unnecessarily complicated to work with.
 
-We considered several ideas for the GUI, and decided on drag-and-drop with both pop-up and internal menus, as it uses space more efficeintly than text boxes/only tabs.
+We considered several ideas for the GUI, and decided on a click based fornt screen, as this was faster and more intuitive than drag and drop, with both pop-up and internal menus, as it uses space more efficeintly than text boxes/only tabs. We also debated making the LevelEditor a grid like most other groups have implemented, but decided on  a real time editor, with a key-based mover, and a 
 
 We considered initializing all objects externally and then copying them into the game. This was deemed unnecessary, and we're creating every object individually.
 
