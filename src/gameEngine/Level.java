@@ -6,7 +6,6 @@ import jgame.JGPoint;
 
 public class Level {
 
-	// private LevelInput levelInput;
 	private List<UninstantiatedGameObject> levelObjects;
 	public static final JGPoint defaultSize = new JGPoint(2, 6);
 	/**
@@ -22,12 +21,10 @@ public class Level {
 	public Level(String levelName, JGPoint size,
 			List<UninstantiatedGameObject> objects,
 			String background, double gravityMagnitude) {
-		initialize();
+		//initialize();
 		levelSize = size;
 		levelObjects = objects;
 		levelBG = background;
-		// levelSize=size;
-		// levelInput=lvlInput;
 		gravityVal = gravityMagnitude;
 	}
 
@@ -88,7 +85,4 @@ public class Level {
 	public int getCurrentScore(){
 		return GAME_SCORE;
 	}
-	// public LevelInput getLevelInput(){
-	// return levelInput;
-	// }
 }

@@ -8,20 +8,16 @@ import java.util.Map;
 
 public class GameObjectAction {
 	
-//	private int xspeed;
-//	private int yspeed;
 	private boolean isStart = true;
 	private String behavior;
 	private int behaviorSpeed;
 	private int behaviorTime;
 	private boolean behaviorFlag = false;
-//	GameObject myObj;
 	
 	private Map<Integer, Tuple<String,Integer>> characterMap;
 	
 	public GameObjectAction(){
-//		xspeed = 0;
-//		yspeed = 0;
+
 	}
 	
 	public GameObjectAction(String behavior, int time){
@@ -38,22 +34,14 @@ public class GameObjectAction {
 		behaviorTime = time;
 	}
 	
-//	public GameObjectAction(int xspeed, int yspeed){
-//		this.xspeed = xspeed;
-//		this.yspeed = yspeed;
-//	}
 	public GameObjectAction(Map<Integer, Tuple<String,Integer>> inputMap){
 		characterMap=inputMap;
-//		xspeed = 0;
-//		yspeed = 0;
 	}
 	
 	private void pace(int time, int speed, final GameObject myObj){
-//		xspeed=speed;
 		myObj.xspeed = speed;
 		new JGTimer(time,false) {
 			public void alarm() {
-//				xspeed=-xspeed;
 				myObj.xspeed = -myObj.xspeed;
 			}
 		};
@@ -106,7 +94,7 @@ public class GameObjectAction {
 		return characterMap;
 	}
 
-	public void moveRight(GameObject myObj,int magnitude){ //speed parameter will be added
+	public void moveRight(GameObject myObj,int magnitude){
 		myObj.xspeed=magnitude;
 	}
 	
