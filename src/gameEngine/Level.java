@@ -27,6 +27,7 @@ public class Level {
 		levelObjects = objects;
 		levelBG = background;
 		gravityVal = gravityMagnitude;
+		events = new ArrayList<GameEvent>();
 	}
 
 	public Level(String levelName) {

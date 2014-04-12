@@ -17,11 +17,14 @@ public class GameEventManager {
 	}
 
 	public void check() {
+		System.out.printf("checking %d events\n", gameEvents.size());
 		Iterator<GameEvent> eventIterator = gameEvents.iterator();
 		while (eventIterator.hasNext()) {
 			GameEvent event = eventIterator.next();
 			if (event.check(this)) {
+				System.out.println("~~~~~~~~~~~~~~IT HAPPENED~!!!!");
 				eventIterator.remove();
+			} else {
 			}
 		}
 	}

@@ -73,7 +73,6 @@ public class GamePlayerGUI extends JGEngine{
 				);
 		checkCollisions();
 		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
-		eventManager.check();
 	}
 
 	public void paintFrameInGame() {
@@ -100,7 +99,7 @@ public class GamePlayerGUI extends JGEngine{
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
 //		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
-		
+		eventManager.check();
 	}
 	
 	private List<GameObject> findTargets(List<Integer> targetIDs){
@@ -185,8 +184,7 @@ public class GamePlayerGUI extends JGEngine{
 //				currentObjects.add(myObject);
 		}
 		levelOver = false;
-		List<GameEvent> gameEvents = new ArrayList<GameEvent>();
-		eventManager = new GameEventManager(currentObjects, gameEvents);
+		eventManager = new GameEventManager(currentObjects, currentLevel.getEvents());
 	}
 	
 	public void doGravity(double mag){

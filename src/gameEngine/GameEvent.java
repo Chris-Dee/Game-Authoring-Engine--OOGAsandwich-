@@ -2,6 +2,7 @@ package gameEngine;
 
 import gameplayer.GameEventManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,16 +16,21 @@ public abstract class GameEvent {
 	public GameEvent(int sourceObjectId, List<Integer> recipientObjectIds,
 			List<String> parameters) throws InvalidEventException {
 		this.sourceObjectId = sourceObjectId;
+		this.recipientObjectIds = new ArrayList<Integer>();
 		this.recipientObjectIds.addAll(recipientObjectIds);
 		this.activated = false;
 	}
 
 	public boolean check(GameEventManager manager) {
+		System.out.println("not activated and happened: " + (!activated && eventHappened()));
 		if (!activated && eventHappened()) {
+			System.out.printf("GameEvent triggering (%d)!\n", actions.size());
 			trigger(manager);
 			activated = true;
+			System.out.println("GameEvent#check() returning true");
 			return true;
 		}
+		System.out.println("GameEvent#check() returning false");
 		return false;
 	}
 
