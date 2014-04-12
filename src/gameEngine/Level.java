@@ -17,6 +17,7 @@ public class Level {
 	private double gravityVal;
 	public static final String defaultBackground="blankbackground";
 	private int GAME_SCORE=100;
+	private List<GameEvent> events;
 
 	public Level(String levelName, JGPoint size,
 			List<UninstantiatedGameObject> objects,
@@ -84,5 +85,9 @@ public class Level {
 	}
 	public int getCurrentScore(){
 		return GAME_SCORE;
+	}
+	
+	public List<GameEvent> getEvents(){
+		return events;
 	}
 }

@@ -1,9 +1,11 @@
 package gameEngine;
 
+import java.util.List;
+
 public abstract class GameEventAction {
-	int[] recipientIDs;
+	List<Integer> recipientIDs;
 	
-	public GameEventAction(int ... recipientIDs){
+	public GameEventAction(List<Integer> recipientIDs){
 		this.recipientIDs = recipientIDs;
 	}
 	
