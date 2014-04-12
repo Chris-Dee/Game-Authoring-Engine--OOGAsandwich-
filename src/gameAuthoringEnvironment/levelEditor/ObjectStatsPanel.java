@@ -42,7 +42,11 @@ public class ObjectStatsPanel extends JPanel {
 	private LevelEditor myEditor;
 	private boolean isFloating = false;
 	private JPanel homePanel=new JPanel();
-
+	private JComboBox collisions;
+	private JComboBox movementType;
+	private JCheckBox camBox;
+	private JCheckBox floatBox;
+	private JSlider[] sliders=new JSlider[3];
 
 	/**
 	 * Panel that will display the stats for the object that is being added to
@@ -173,12 +177,15 @@ public class ObjectStatsPanel extends JPanel {
 		slider.setFocusable(false);
 		if(name.equals("Movement Speed")) {
 			slider.addChangeListener(createSpeedListener(slider));
+			sliders[0]=slider;
 		}
 		if(name.equals("Movement Duration")) {
 			slider.addChangeListener(createDurationListener(slider));
+			sliders[1]=slider;
 		}
 		if(name.equals("Gravity Magnitude")) {
 			slider.addChangeListener(createGravityListener(slider));
+			sliders[2]=slider;
 		}
 		
 		homePanel.add(label);
