@@ -1,21 +1,24 @@
 package gameEngine;
 
+import gameplayer.GameEventManager;
+
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class GameEvent {
-	int sourceObjectId;
-	List<Integer> recipientObjectIds;
-	List<GameEventAction> actions;
+	protected int sourceObjectId;
+	protected List<Integer> recipientObjectIds;
+	protected List<GameEventAction> actions;
+	protected List<String> paramaters;
 
-	public GameEvent(int sourceObjectId, Integer... recipientObjectIds) {
+	public GameEvent(int sourceObjectId, List<Integer> recipientObjectIds, List<String> parameters) {
 		this.sourceObjectId = sourceObjectId;
-		this.recipientObjectIds.addAll(Arrays.asList(recipientObjectIds));
+		this.recipientObjectIds.addAll(recipientObjectIds);
 	}
 
-	public void check() {
+	public void check(GameEventManager manager) {
 		if (eventHappened()) {
-			trigger();
+			trigger(manager);
 		}
 	}
 
@@ -23,7 +26,7 @@ public abstract class GameEvent {
 		this.actions.addAll(Arrays.asList(actions));
 	}
 
-	protected void trigger() {
+	protected void trigger(GameEventManager manager) {
 		for (GameEventAction action : actions) {
 			action.act();
 		}
