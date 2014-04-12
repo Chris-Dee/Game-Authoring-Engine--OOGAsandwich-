@@ -18,19 +18,16 @@ public abstract class GameEvent {
 		this.sourceObjectId = sourceObjectId;
 		this.recipientObjectIds = new ArrayList<Integer>();
 		this.recipientObjectIds.addAll(recipientObjectIds);
+		this.actions = new ArrayList<GameEventAction>();
 		this.activated = false;
 	}
 
 	public boolean check(GameEventManager manager) {
-		System.out.println("not activated and happened: " + (!activated && eventHappened()));
 		if (!activated && eventHappened()) {
-			System.out.printf("GameEvent triggering (%d)!\n", actions.size());
 			trigger(manager);
 			activated = true;
-			System.out.println("GameEvent#check() returning true");
 			return true;
 		}
-		System.out.println("GameEvent#check() returning false");
 		return false;
 	}
 

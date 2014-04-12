@@ -22,8 +22,6 @@ public class TimerEvent extends GameEvent {
 	@Override
 	protected boolean eventHappened() {
 		startTime += 1;
-		System.out.printf("startTime: %d delay: %d\n", startTime, delay);
-		System.out.println(startTime >= delay);
 		return startTime >= delay;
 	}
 }

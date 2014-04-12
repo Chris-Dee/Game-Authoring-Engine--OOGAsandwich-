@@ -70,6 +70,7 @@ public class MarioGame extends Game {
 			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("5")));
 			try {
 				RemoveAction action = new RemoveAction(new ArrayList<Integer>(Arrays.asList(0)), new ArrayList<String>());
+				event.addAction(action);
 			} catch (InvalidEventActionException e) {
 				e.printStackTrace();
 			}
