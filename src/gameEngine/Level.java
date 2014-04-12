@@ -90,4 +90,8 @@ public class Level {
 	public List<GameEvent> getEvents(){
 		return events;
 	}
+	
+	public void addEvent(GameEvent event){
+		events.add(event);
+	}
 }
