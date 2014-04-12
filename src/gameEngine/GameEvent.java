@@ -10,15 +10,19 @@ public abstract class GameEvent {
 	protected List<Integer> recipientObjectIds;
 	protected List<GameEventAction> actions;
 	protected List<String> paramaters;
+	protected boolean activated;
 
-	public GameEvent(int sourceObjectId, List<Integer> recipientObjectIds, List<String> parameters) {
+	public GameEvent(int sourceObjectId, List<Integer> recipientObjectIds,
+			List<String> parameters) throws InvalidEventException {
 		this.sourceObjectId = sourceObjectId;
 		this.recipientObjectIds.addAll(recipientObjectIds);
+		this.activated = false;
 	}
 
 	public void check(GameEventManager manager) {
-		if (eventHappened()) {
+		if (!activated && eventHappened()) {
 			trigger(manager);
+			activated = true;
 		}
 	}
 
