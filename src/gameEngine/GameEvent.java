@@ -34,7 +34,7 @@ public abstract class GameEvent {
 
 	protected void trigger(GameEventManager manager) {
 		for (GameEventAction action : actions) {
-			action.act();
+			action.act(manager);
 		}
 	}
 
