@@ -19,11 +19,13 @@ public abstract class GameEvent {
 		this.activated = false;
 	}
 
-	public void check(GameEventManager manager) {
+	public boolean check(GameEventManager manager) {
 		if (!activated && eventHappened()) {
 			trigger(manager);
 			activated = true;
+			return true;
 		}
+		return false;
 	}
 
 	public void addAction(GameEventAction... actions) {

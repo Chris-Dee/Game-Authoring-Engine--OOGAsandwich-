@@ -3,6 +3,7 @@ package gameplayer;
 import gameEngine.GameEvent;
 import gameEngine.GameObject;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class GameEventManager {
@@ -16,8 +17,12 @@ public class GameEventManager {
 	}
 
 	public void check() {
-		for (GameEvent event : gameEvents) {
-			event.check(this);
+		Iterator<GameEvent> eventIterator = gameEvents.iterator();
+		while (eventIterator.hasNext()) {
+			GameEvent event = eventIterator.next();
+			if (event.check(this)) {
+				eventIterator.remove();
+			}
 		}
 	}
 
