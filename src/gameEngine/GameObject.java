@@ -1,5 +1,6 @@
 package gameEngine;
 
+import gameAuthoringEnvironment.levelEditor.ObjectStats;
 import gameplayer.Tuple;
 
 import java.util.Map;
@@ -95,6 +96,9 @@ public class GameObject extends JGObject {
 
 	public boolean getIsFloating() {
 		return isFloating;
+	}
+	public ObjectStats getAllStats(){
+		return myUninstantiatedGameObject.getStats();
 	}
 
 	public Map<Integer, Tuple<String, Integer>> getCharMap() {

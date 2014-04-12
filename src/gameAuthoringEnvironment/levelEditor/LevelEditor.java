@@ -45,6 +45,7 @@ public class LevelEditor extends JGEngine {
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
 	private ObjectStatsPanel myObjectStatsPanel;
+	private Map<String,ObjectStats> statKeeper=new HashMap<String, ObjectStats>();
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 	private static int COLID_FOR_PLAYER = 1;
@@ -84,9 +85,20 @@ public class LevelEditor extends JGEngine {
 			e.printStackTrace();
 		}
 	}
+	public String getSelectedImageName(){
+		if(selectedObject.size()>0)
+			return selectedObject.get(0).getImageName();
+		return null;
+	}
 
 	public Level getLevel() {
 		return myLevel;
+	}
+	public Map<String,ObjectStats> findStatMap(){
+		return statKeeper;
+	}
+	private ObjectStats getMoverStats(){
+		return myMover.getStats();
 	}
 
 	public void setObjectStatsPanel(ObjectStatsPanel panel) {
@@ -213,6 +225,9 @@ public class LevelEditor extends JGEngine {
 		highlight(s, JGColor.red);
 		highlight(myMover, JGColor.blue);
 	}
+	private void changeStats(){
+		
+	}
 
 	private void selectOnClick() {
 		// new JGRectangle()
@@ -224,7 +239,7 @@ public class LevelEditor extends JGEngine {
 					getMouseY() + el.yofs, 10, 10);
 			Vector<GameObject> v = getObjects("", 0, true, rect);
 			if (v.size() > 0){
-				System.out.println(selectedObject.size());
+		
 				if (v.get(0) != (JGObject) myMover)
 					if(!selectedObject.contains(v.get(0)))
 						for(GameObject g:v)
@@ -232,10 +247,20 @@ public class LevelEditor extends JGEngine {
 					else 
 						for(GameObject g:v)
 							selectedObject.remove(g);
-			// System.out.println(selectedObject.x+"    "+selectedObject.y);
 		}
-		}}
-	}
+		}
+			System.out.println(selectedObject.size());
+			if(selectedObject.size()==1){
+				myObjectStatsPanel.setStats(selectedObject.get(0).getAllStats());
+			//TODO set statsPanel to values for recently added object
+			}
+		if(selectedObject.size()==0){
+			myObjectStatsPanel.setStats(getMoverStats());
+			//TODO set sliders and shit to myMover stats
+			}
+		}
+			
+		}
 	public void clearGame(){
 		selectedObject.clear();
 	}

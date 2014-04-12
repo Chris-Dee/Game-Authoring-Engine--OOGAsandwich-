@@ -160,6 +160,8 @@ public class LevelPanelComponent extends JPanel {
 							level, e.getPoint());
 				}
 			}
+			
+				//
 		});
 	}
 

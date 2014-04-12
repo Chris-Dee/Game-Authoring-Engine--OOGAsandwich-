@@ -18,11 +18,9 @@ import javax.swing.JToolBar;
 
 @SuppressWarnings("serial")
 public class ObjectToolbar extends JPanel {
-	private LevelEditor myLevel;
+	private LevelEditor myLevelEditor;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/";
-	private ResourceBundle myResources;
-	private static final String IMAGE_RESOURCES = "imagefiles";
-	private static final String GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE = "gameAuthoringEnvironment.levelEditor.Resources.";
+	private String currentImageName;
 
 	/**
 	 * Toolbar that displays all available object images. Click on each image in
@@ -32,33 +30,32 @@ public class ObjectToolbar extends JPanel {
 	 *            Level being edited
 	 */
 	public ObjectToolbar(LevelEditor level) {
-		myLevel = level;
-		myResources = ResourceBundle
-				.getBundle(GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE
-						+ IMAGE_RESOURCES);
+		myLevelEditor = level;
 		initializeToolbar();
 	}
 
 	private void initializeToolbar() {
+		currentImageName=myLevelEditor.myMover.getImageName();
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
 		this.setFocusable(false);
-		
-		Map<String,String> images=myLevel.getMap();
-		for(String s:images.keySet()) {
+
+		Map<String, String> images = myLevelEditor.getMap();
+		for (String s : images.keySet()) {
 			addButtonImage(new JButton(), s, toolbar);
 		}
 		add(toolbar);
 	}
 
 	@SuppressWarnings("deprecation")
-
-	private void addButtonImage(JButton button, String imageName, JToolBar toolbar) {
-		File imageCheck = new File(RESOURCE_PATH+ myLevel.getMap().get(imageName));
+	private void addButtonImage(JButton button, String imageName,
+			JToolBar toolbar) {
+		File imageCheck = new File(RESOURCE_PATH
+				+ myLevelEditor.getMap().get(imageName));
 		button.setFocusable(false);
 		if (imageCheck.exists()) {
 			try {
-				URL imageURL = imageCheck.toURL();
+				URL imageURL = imageCheck.toURI().toURL();
 				try {
 					Image img = ImageIO.read(imageURL);
 					button.setIcon(new ImageIcon(img));
@@ -73,12 +70,12 @@ public class ObjectToolbar extends JPanel {
 		toolbar.add(button);
 	}
 
-
 	private void createListener(JButton button, final String imageName) {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				myLevel.myMover.changeImage(imageName);
+				myLevelEditor.myMover.changeImage(imageName);
+				myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
 			}
 
 		});

@@ -13,6 +13,7 @@ import jgame.platform.JGEngine;
 public class LevelMover extends JGObject {
 	//private Integer changeCounter;
 	private static String moverImage = "srball";
+	private ObjectStats moverStats;
 	private static final double INITIAL_X_Y_SPEED = 2.0;
 	private static final int BALL_COL_ID = 4;
 	private static final int INITIAL_X_AND_Y = 20;
@@ -40,6 +41,12 @@ public class LevelMover extends JGObject {
 		Boolean b = myEngine.getKey(key);
 		myEngine.clearLastKey();
 		return b;
+	}
+	public void setStats(ObjectStats stats){
+		moverStats=stats;
+	}
+	public ObjectStats getStats (){
+		return moverStats;
 	}
 
 	public void move() {
