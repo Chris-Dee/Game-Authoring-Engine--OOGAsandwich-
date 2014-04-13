@@ -27,9 +27,9 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class ObjectStatsPanel extends JPanel {
 	private Dimension panelSize;
-	//Map of object name to its parameters
+	// Map of object name to its parameters
 	private String[] objectTypes = { "Player", "Platform", "Enemy", "Goal",
-	"Scenery" };
+			"Scenery" };
 	private JLabel spacer;
 	private static final int PANEL_WIDTH = 250;
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
@@ -75,39 +75,41 @@ public class ObjectStatsPanel extends JPanel {
 		createCheckBoxes();
 		setVisible(true);
 	}
-	public ObjectStats exportStats(){
-		return new ObjectStats(objectName,myCollisionID,movementName, movementSpeed, movementDuration, gravityMag, cameraBox.isSelected(),
-				myEditor.getSelectedImageName(), isFloating);
+
+	public ObjectStats exportStats() {
+		return new ObjectStats(objectName, myCollisionID, movementName,
+				movementSpeed, movementDuration, gravityMag,
+				cameraBox.isSelected(), myEditor.getSelectedImageName(),
+				isFloating);
 	}
+
 	public void setStats(ObjectStats objectStats) {
-		
-		if(objectStats!=null){
-		if(objectStats.mySpeed!=null)
-		mySpeedSlider.setValue(objectStats.mySpeed);
-		if(objectStats.myDuration!=null)
-		myDurationSlider.setValue(objectStats.myDuration/10);
-		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
-		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
-		
-		objectType.setSelectedItem(objectTypes[objectStats.myCollID]);
-		System.out.println(objectType.getSelectedItem());
-		movementType.setSelectedItem(objectStats.myMovementPattern);
-		floaterBox.setSelected(objectStats.isFloating);
-		cameraBox.setSelected(objectStats.isCameraFollow);
-		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
-		setSliderEnable();
+
+		if (objectStats != null) {
+			if (objectStats.mySpeed != null)
+				mySpeedSlider.setValue(objectStats.mySpeed);
+			if (objectStats.myDuration != null)
+				myDurationSlider.setValue(objectStats.myDuration / 10);
+			myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
+			objectType.setSelectedItem(objectStats.myColType);
+			movementType.setSelectedItem(objectStats.myMovementPattern);
+			floaterBox.setSelected(objectStats.isFloating);
+			cameraBox.setSelected(objectStats.isCameraFollow);
+			setSliderEnable();
 		}
 	}
-	private void setSliderEnable(){
-		if(movementType.getSelectedItem()!="Pace"){
+
+	private void setSliderEnable() {
+		if (movementType.getSelectedItem() == "User-Controlled"
+				|| movementType.getSelectedItem() == "Stationary") {
 			mySpeedSlider.setEnabled(false);
 			myDurationSlider.setEnabled(false);
-		}
-		else{
+		} else {
 			mySpeedSlider.setEnabled(true);
 			myDurationSlider.setEnabled(true);
 		}
 	}
+
 	public String getObjectName() {
 		return objectName;
 	}
@@ -145,7 +147,7 @@ public class ObjectStatsPanel extends JPanel {
 		floaterBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				isFloating = floaterBox.isSelected();
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setIsFloating(floaterBox.isSelected());
 				}
 			}
@@ -154,7 +156,7 @@ public class ObjectStatsPanel extends JPanel {
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO code to make the camera follow that object
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setIsScreenFollowing(cameraBox.isSelected());
 				}
 			}
@@ -170,7 +172,7 @@ public class ObjectStatsPanel extends JPanel {
 		// input
 		// Will also determine what other options are available for user to
 		// define
-		
+
 		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
 		objectType = new JComboBox(objectTypes);
@@ -178,13 +180,13 @@ public class ObjectStatsPanel extends JPanel {
 		objectType.setPreferredSize(COMBO_SIZE);
 		objectType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				objectName = (String) objectType.getSelectedItem();
-				//System.out.println(objectName);
+				// System.out.println(objectName);
 				myCollisionID = objectTypesList.indexOf(objectName);
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setCollID(myCollisionID);
-					}
+				}
 			}
 		});
 
@@ -224,7 +226,7 @@ public class ObjectStatsPanel extends JPanel {
 		myDurationSlider.setEnabled(false);
 		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude",
 				gravityMag, true);
-		
+
 	}
 
 	private JSlider initializeSlider(String name, final int value,
@@ -263,9 +265,9 @@ public class ObjectStatsPanel extends JPanel {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
 				movementSpeed = slider.getValue();
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setSpeed(movementSpeed);
-					//myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
+					// myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
 				}
 			}
 		};
@@ -276,8 +278,8 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void stateChanged(ChangeEvent event) {
 				movementDuration = slider.getValue();
-				for(GameObject g:myEditor.getSelected()){
-					//System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
+				for (GameObject g : myEditor.getSelected()) {
+					// System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
 					try {
 						g.setDuration(movementDuration);
 					} catch (InterruptedException e) {
