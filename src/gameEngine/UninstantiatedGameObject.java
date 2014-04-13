@@ -1,5 +1,6 @@
 package gameEngine;
 
+import gameAuthoringEnvironment.levelEditor.ObjectStats;
 import gameplayer.Tuple;
 
 import java.util.Map;
@@ -73,9 +74,32 @@ public class UninstantiatedGameObject {
 		objectID = id;
 	}
 
-	public GameObject instantiate() {
-		// TODO: Make this better.
+	public String[] getStats() {
+		// TODO need to change the gravity thing to per object, and collID
+		// String
+		String[] toReturn = { objectName, objectColid.toString(),
+				objectBehavior, objectSpeed.toString(),
+				Integer.toString(((int) objectTime / 10)), "5",
+				objectScreenFollow.toString(), objectSprite,
+				objectFloating.toString() };
+		return toReturn;
+	}
 
+	public void setMovementName(String move) {
+		objectBehavior = move;
+	}
+
+	public void setSpeed(int speed) {
+		objectSpeed = speed;
+	}
+
+	public void setDuration(int time) {
+		objectTime = time;
+	}
+
+	public GameObject instantiate() {
+		// System.out.println(objectTime);
+		// TODO: Make this better.
 		if (objectInputMap != null) {
 			return new GameObject(objectName, objectPosition, objectColid,
 					objectSprite, objectInputMap, objectFloating,

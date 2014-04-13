@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,6 +44,7 @@ public class LevelEditorWindow extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				levelEdit.clearGame();
 				levelEdit.destroy();
 				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();
