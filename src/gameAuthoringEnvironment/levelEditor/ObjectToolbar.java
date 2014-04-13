@@ -75,10 +75,9 @@ public class ObjectToolbar extends JPanel {
 
 			public void actionPerformed(ActionEvent arg0) {
 				myLevelEditor.myMover.changeImage(imageName);
-				myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
+				//myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
 				myLevelEditor.setStats(imageName);
 			}
-
 		});
 	}
 }

@@ -25,7 +25,7 @@ import jgame.JGRectangle;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
-	private List<GameObject> selectedObject = new ArrayList<GameObject>();
+	private List<GameObject> selectedObjects = new ArrayList<GameObject>();
 	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
@@ -46,7 +46,7 @@ public class LevelEditor extends JGEngine {
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
 	private ObjectStatsPanel myObjectStatsPanel;
-	private Map<String, ObjectStats> statKeeper = new HashMap<String, ObjectStats>();
+	//private Map<String, ObjectStats> statKeeper = new HashMap<String, ObjectStats>();
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 	private ResourceBundle myResources;
@@ -91,27 +91,22 @@ public class LevelEditor extends JGEngine {
 		}
 	}
 
-	public String getSelectedImageName() {
-		if (selectedObject.size() > 0)
-			return selectedObject.get(0).getImageName();
-		return null;
-	}
+	/*
+	 * public String getSelectedImageName() { if (selectedObject.size() > 0)
+	 * return selectedObject.get(0).getImageName(); return null; }
+	 */
 
 	public List<GameObject> getSelected() {
-		return selectedObject;
+		return selectedObjects;
 	}
-
+/*
 	public Level getLevel() {
 		return myLevel;
-	}
-
+	}*/
+/*
 	public Map<String, ObjectStats> findStatMap() {
 		return statKeeper;
-	}
-
-	private ObjectStats getMoverStats() {
-		return myMover.getStats();
-	}
+	}*/
 
 	public void setObjectStatsPanel(ObjectStatsPanel panel) {
 		myObjectStatsPanel = panel;
@@ -134,7 +129,7 @@ public class LevelEditor extends JGEngine {
 		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
 
-	boolean checkKey(int key) {
+	public boolean checkKey(int key) {
 		Boolean b = getKey(key);
 		clearLastKey();
 		return b;
@@ -142,10 +137,10 @@ public class LevelEditor extends JGEngine {
 
 	public void deleteSelectedObject() {
 		if (checkKey(KeyBackspace)) {
-			for (GameObject s : selectedObject) {
+			for (GameObject s : selectedObjects) {
 				myLevel.getObjects().remove(s.toUninstantiated());
 				s.remove();
-				selectedObject.remove(s);
+				selectedObjects.remove(s);
 			}
 		}
 	}
@@ -173,6 +168,7 @@ public class LevelEditor extends JGEngine {
 					new JGPoint(x, y), myObjectStatsPanel.getCollisionID(),
 					imageName, levelInputMap, false, true, objectID);
 		} else {
+			// System.out.println(myObjectStatsPanel.getFloating());
 			newObject = new UninstantiatedGameObject(
 					myObjectStatsPanel.getObjectName(), new JGPoint(x, y),
 					myObjectStatsPanel.getCollisionID(), imageName,
@@ -248,7 +244,7 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void paintFrame() {
-		for (GameObject s : selectedObject)
+		for (GameObject s : selectedObjects)
 			highlight(s, JGColor.red);
 		highlight(myMover, JGColor.blue);
 	}
@@ -266,30 +262,30 @@ public class LevelEditor extends JGEngine {
 				if (v.size() > 0) {
 
 					if (!v.get(0).equals(myMover))
-						if (!selectedObject.contains(v.get(0)))
+						if (!selectedObjects.contains(v.get(0)))
 							for (GameObject g : v)
-								selectedObject.add(v.get(0));
+								selectedObjects.add(v.get(0));
 						else
 							for (GameObject g : v)
-								selectedObject.remove(g);
+								selectedObjects.remove(g);
 				}
 			}
 			// System.out.println(selectedObject.size());
-			if (selectedObject.size() == 1) {
-				myObjectStatsPanel
-						.setStats(selectedObject.get(0).getAllStats());
+			if (selectedObjects.size() == 1) {
+				myObjectStatsPanel.setStats(new ObjectStats(selectedObjects
+						.get(0).getAllStats()));
 				// TODO set statsPanel to values for recently added object
-			}
-			if (selectedObject.size() == 0) {
-				myObjectStatsPanel.setStats(getMoverStats());
+			}/*
+			if (selectedObjects.size() == 0) {
+				myObjectStatsPanel.setStats(myImageToObjectStatsMap.get(myMover.getMoverImage()));
 				// TODO set sliders and shit to myMover stats
-			}
+			}*/
 		}
 
 	}
 
 	public void clearGame() {
-		selectedObject.clear();
+		selectedObjects.clear();
 	}
 
 	private void highlight(JGObject object, JGColor color) {

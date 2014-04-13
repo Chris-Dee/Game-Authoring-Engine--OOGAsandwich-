@@ -106,7 +106,7 @@ public class GameObject extends JGObject {
 		isFloating=b;
 		myUninstantiatedGameObject.objectFloating=b;
 	}
-	public ObjectStats getAllStats(){
+	public String[] getAllStats(){
 		return myUninstantiatedGameObject.getStats();
 	}
 
