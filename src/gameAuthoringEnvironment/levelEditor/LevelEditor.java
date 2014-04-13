@@ -241,7 +241,7 @@ public class LevelEditor extends JGEngine {
 			Vector<GameObject> v = getObjects("", 0, true, rect);
 			if (v.size() > 0){
 		
-				if (v.get(0) != (JGObject) myMover)
+				if (!v.get(0).equals(myMover))
 					if(!selectedObject.contains(v.get(0)))
 						for(GameObject g:v)
 							selectedObject.add(v.get(0));
@@ -250,7 +250,7 @@ public class LevelEditor extends JGEngine {
 							selectedObject.remove(g);
 		}
 		}
-			System.out.println(selectedObject.size());
+			//System.out.println(selectedObject.size());
 			if(selectedObject.size()==1){
 				myObjectStatsPanel.setStats(selectedObject.get(0).getAllStats());
 			//TODO set statsPanel to values for recently added object

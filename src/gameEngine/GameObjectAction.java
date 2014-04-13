@@ -53,9 +53,10 @@ public class GameObjectAction {
 	}
 	
 	public void start(GameObject obj){
+		System.out.println(behavior);
 		isStart = false;
 		if(behaviorFlag){
-			doReflect(behavior, behaviorTime, behaviorSpeed, obj);
+			doReflect(behavior.toLowerCase(), behaviorTime, behaviorSpeed, obj);
 		}
 	}
 	

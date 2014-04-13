@@ -78,6 +78,7 @@ public class ObjectStatsPanel extends JPanel {
 				myEditor.getSelectedImageName(), isFloating);
 	}
 	public void setStats(ObjectStats objectStats) {
+		if(objectStats!=null){
 		if(objectStats.mySpeed!=null)
 		mySpeedSlider.setValue(objectStats.mySpeed);
 		if(objectStats.myDuration!=null)
@@ -90,6 +91,7 @@ public class ObjectStatsPanel extends JPanel {
 		cameraBox.setSelected(objectStats.isCameraFollow);
 		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
 		setSliderEnable();
+		}
 	}
 	private void setSliderEnable(){
 		if(movementType.getSelectedItem()!="Pace"){
