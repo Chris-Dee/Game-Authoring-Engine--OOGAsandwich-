@@ -163,6 +163,7 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getFloating(), objectID);
 					
 		}
+		newObject.setMovementName(myObjectStatsPanel.getMovementName());
 		objectID++;
 		myLevel.addObjects(newObject);
 		newObject.instantiate();

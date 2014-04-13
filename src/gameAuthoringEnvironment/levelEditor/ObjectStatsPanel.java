@@ -26,6 +26,8 @@ import javax.swing.event.ChangeListener;
 public class ObjectStatsPanel extends JPanel {
 	private Dimension panelSize;
 	//Map of object name to its parameters
+	private String[] objectTypes = { "Player", "Platform", "Enemy", "Goal",
+	"Scenery" };
 	private JLabel spacer;
 	private static final int PANEL_WIDTH = 250;
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
@@ -76,16 +78,29 @@ public class ObjectStatsPanel extends JPanel {
 				myEditor.getSelectedImageName(), isFloating);
 	}
 	public void setStats(ObjectStats objectStats) {
-		System.out.println(objectStats.myDuration);
+		if(objectStats.mySpeed!=null)
 		mySpeedSlider.setValue(objectStats.mySpeed);
+		if(objectStats.myDuration!=null)
 		myDurationSlider.setValue(objectStats.myDuration/10);
 		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
-		objectType.setSelectedItem(objectStats.myColType);
+		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
+		objectType.setSelectedItem(objectTypes[objectStats.myCollID]);
 		movementType.setSelectedItem(objectStats.myMovementPattern);
 		floaterBox.setSelected(objectStats.isFloating);
 		cameraBox.setSelected(objectStats.isCameraFollow);
+		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
+		setSliderEnable();
 	}
-
+	private void setSliderEnable(){
+		if(movementType.getSelectedItem()!="Pace"){
+			mySpeedSlider.setEnabled(false);
+			myDurationSlider.setEnabled(false);
+		}
+		else{
+			mySpeedSlider.setEnabled(true);
+			myDurationSlider.setEnabled(true);
+		}
+	}
 	public String getObjectName() {
 		return objectName;
 	}
@@ -142,8 +157,7 @@ public class ObjectStatsPanel extends JPanel {
 		// input
 		// Will also determine what other options are available for user to
 		// define
-		String[] objectTypes = { "Player", "Platform", "Enemy", "Goal",
-				"Scenery" };
+		
 		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
 		objectType = new JComboBox(objectTypes);
@@ -152,8 +166,8 @@ public class ObjectStatsPanel extends JPanel {
 		objectType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent event) {
 				objectName = event.getItem().toString();
-				myCollisionID = (int) Math.pow(2,
-						objectTypesList.indexOf(objectName));
+				myCollisionID = objectTypesList.indexOf(objectName);
+				
 			}
 		});
 
@@ -172,6 +186,7 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void itemStateChanged(ItemEvent event) {
 				movementName = event.getItem().toString();
+				setSliderEnable();
 			}
 
 		});
@@ -186,10 +201,13 @@ public class ObjectStatsPanel extends JPanel {
 
 	private void createSliders() {
 		mySpeedSlider = initializeSlider("Movement Speed", movementSpeed, false);
+		mySpeedSlider.setEnabled(false);
 		myDurationSlider = initializeSlider("Movement Duration",
 				movementDuration, false);
+		myDurationSlider.setEnabled(false);
 		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude",
 				gravityMag, true);
+		
 	}
 
 	private JSlider initializeSlider(String name, final int value,

@@ -69,7 +69,7 @@ public class LevelMover extends JGObject {
 			myEngine.clearKey(myEngine.KeyDown);
 		}
 		if (checkKey(myEngine.KeyEnter)) {
-			System.out.println("Adding " + getImageName() + " to screen");
+			//System.out.println("Adding " + getImageName() + " to screen");
 			myEngine.clearKey(myEngine.KeyEnter);
 			moverImage=this.getImageName();
 			myLevelEditor.addObject(moverImage, (int) x, (int) y);
