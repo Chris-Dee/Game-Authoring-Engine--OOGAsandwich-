@@ -4,11 +4,16 @@ import gameEngine.Game;
 import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
 import gameEngine.Goal;
+import gameEngine.InvalidEventActionException;
+import gameEngine.InvalidEventException;
 import gameEngine.Level;
 import gameEngine.UninstantiatedGameObject;
+import gameEngine.eventactions.RemoveAction;
+import gameEngine.gameevents.TimerEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +65,19 @@ public class MarioGame extends Game {
 
 
 		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, "skyblue", .6);//,new LevelInput(levelInputMap));
+		
+		try {
+			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("10")));
+			try {
+				RemoveAction action = new RemoveAction(new ArrayList<Integer>(Arrays.asList(0)), new ArrayList<String>());
+				event.addAction(action);
+			} catch (InvalidEventActionException e) {
+				e.printStackTrace();
+			}
+			firstLevel.addEvent(event);
+		} catch (InvalidEventException e) {
+			e.printStackTrace();
+		}
 		
 		List<Level> myLevels = new ArrayList<Level>();
 		myLevels.add(firstLevel);

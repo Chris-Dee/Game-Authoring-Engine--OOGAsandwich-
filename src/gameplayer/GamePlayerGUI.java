@@ -20,6 +20,7 @@ public class GamePlayerGUI extends JGEngine{
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	private Level currentLevel;
 	private boolean levelOver = false;
+	private GameEventManager eventManager;
 
 
 	public GamePlayerGUI(Game loadedGame){
@@ -95,7 +96,7 @@ public class GamePlayerGUI extends JGEngine{
 		doInputs();
 		doGravity(currentLevel.getGravityVal());
 //		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
-		
+		eventManager.check();
 	}
 	
 	private List<GameObject> findTargets(List<Integer> targetIDs){
@@ -180,6 +181,7 @@ public class GamePlayerGUI extends JGEngine{
 //				currentObjects.add(myObject);
 		}
 		levelOver = false;
+		eventManager = new GameEventManager(currentObjects, currentLevel.getEvents());
 	}
 	
 	public void doGravity(double mag){
