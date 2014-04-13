@@ -237,7 +237,7 @@ public class LevelEditor extends JGEngine {
 		if (getMouseButton(1)) {
 			if(clickCount!=0) clickCount--;
 			else{
-				clickCount=20;
+				clickCount=30;
 			JGRectangle rect = new JGRectangle(getMouseX() + el.xofs,
 					getMouseY() + el.yofs, 10, 10);
 			Vector<GameObject> v = getObjects("", 0, true, rect);

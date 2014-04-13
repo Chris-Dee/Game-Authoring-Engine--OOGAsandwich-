@@ -80,6 +80,7 @@ public class ObjectStatsPanel extends JPanel {
 				myEditor.getSelectedImageName(), isFloating);
 	}
 	public void setStats(ObjectStats objectStats) {
+		
 		if(objectStats!=null){
 		if(objectStats.mySpeed!=null)
 		mySpeedSlider.setValue(objectStats.mySpeed);
@@ -87,7 +88,9 @@ public class ObjectStatsPanel extends JPanel {
 		myDurationSlider.setValue(objectStats.myDuration/10);
 		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
 		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
+		
 		objectType.setSelectedItem(objectTypes[objectStats.myCollID]);
+		System.out.println(objectType.getSelectedItem());
 		movementType.setSelectedItem(objectStats.myMovementPattern);
 		floaterBox.setSelected(objectStats.isFloating);
 		cameraBox.setSelected(objectStats.isCameraFollow);
@@ -142,12 +145,18 @@ public class ObjectStatsPanel extends JPanel {
 		floaterBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				isFloating = floaterBox.isSelected();
+				for(GameObject g:myEditor.getSelected()){
+					g.setIsFloating(floaterBox.isSelected());
+				}
 			}
 		});
 		cameraBox = new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO code to make the camera follow that object
+				for(GameObject g:myEditor.getSelected()){
+					g.setIsScreenFollowing(cameraBox.isSelected());
+				}
 			}
 		});
 		panel.add(cameraBox);
@@ -167,11 +176,15 @@ public class ObjectStatsPanel extends JPanel {
 		objectType = new JComboBox(objectTypes);
 		objectType.setFocusable(false);
 		objectType.setPreferredSize(COMBO_SIZE);
-		objectType.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent event) {
-				objectName = event.getItem().toString();
-				myCollisionID = objectTypesList.indexOf(objectName);
+		objectType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
+				objectName = (String) objectType.getSelectedItem();
+				//System.out.println(objectName);
+				myCollisionID = objectTypesList.indexOf(objectName);
+				for(GameObject g:myEditor.getSelected()){
+					g.setCollID(myCollisionID);
+					}
 			}
 		});
 

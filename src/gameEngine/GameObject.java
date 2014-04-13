@@ -98,6 +98,14 @@ public class GameObject extends JGObject {
 	public boolean getIsFloating() {
 		return isFloating;
 	}
+	public void setCollID(int collID){
+		myID=collID;
+		myUninstantiatedGameObject.objectColid=collID;
+	}
+	public void setIsFloating(boolean b){
+		isFloating=b;
+		myUninstantiatedGameObject.objectFloating=b;
+	}
 	public ObjectStats getAllStats(){
 		return myUninstantiatedGameObject.getStats();
 	}
@@ -116,6 +124,7 @@ public class GameObject extends JGObject {
 
 	public void setIsScreenFollowing(boolean b) {
 		isScreenFollow = b;
+		myUninstantiatedGameObject.objectScreenFollow=b;
 	}
 	public void setSpeed(int speed){
 		myMovement.setSpeed(speed,this);

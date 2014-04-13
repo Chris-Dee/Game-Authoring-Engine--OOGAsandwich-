@@ -105,7 +105,6 @@ public class GameObjectAction {
 		myObj.y=initialPosition.y;
 	}
 	public void setDuration(int duration, GameObject myObj) throws InterruptedException{
-		final GameObject myObject=myObj;
 		behaviorTime=duration*10;
 		System.out.println("Setting duration to: "+duration);
 		//isStart=true;
