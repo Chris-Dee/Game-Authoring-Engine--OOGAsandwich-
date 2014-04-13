@@ -1,6 +1,7 @@
 package gameEngine;
 
 import gameplayer.Tuple;
+import jgame.JGPoint;
 import jgame.JGTimer;
 
 import java.lang.reflect.*;
@@ -13,6 +14,8 @@ public class GameObjectAction {
 	private int behaviorSpeed;
 	private int behaviorTime;
 	private boolean behaviorFlag = false;
+	private JGPoint initialPosition;
+	private JGTimer currentTimer;
 	
 	private Map<Integer, Tuple<String,Integer>> characterMap;
 	
@@ -26,6 +29,9 @@ public class GameObjectAction {
 		behaviorFlag = true;
 		behaviorSpeed = 0;
 	}
+	public void setInitialPosition(JGPoint pos){
+		initialPosition=pos;
+	}
 	
 	public GameObjectAction(String behavior, int time, int speed){
 		this.behavior = behavior;
@@ -38,9 +44,10 @@ public class GameObjectAction {
 		characterMap=inputMap;
 	}
 	
-	private void pace(int time, int speed, final GameObject myObj){
+	private void pace(int time, int speed, final GameObject myObj) throws InterruptedException{
 		myObj.xspeed = speed;
-		new JGTimer(time,false) {
+		final int timer=time;
+		currentTimer=new JGTimer(behaviorTime,false) {
 			public void alarm() {
 				myObj.xspeed = -myObj.xspeed;
 			}
@@ -53,7 +60,6 @@ public class GameObjectAction {
 	}
 	
 	public void start(GameObject obj){
-		System.out.println(behavior);
 		isStart = false;
 		if(behaviorFlag){
 			doReflect(behavior.toLowerCase(), behaviorTime, behaviorSpeed, obj);
@@ -90,7 +96,23 @@ public class GameObjectAction {
 		 }
 		
 	}
-	
+	public void setSpeed(int speed, GameObject myObj){
+		System.out.println("Setting speed to: "+speed);
+		behaviorSpeed=speed;
+		myObj.xspeed=speed;
+		//isStart=true;
+		myObj.x=initialPosition.x;
+		myObj.y=initialPosition.y;
+	}
+	public void setDuration(int duration, GameObject myObj) throws InterruptedException{
+		final GameObject myObject=myObj;
+		behaviorTime=duration*10;
+		System.out.println("Setting duration to: "+duration);
+		//isStart=true;
+		myObj.x=initialPosition.x;
+		myObj.y=initialPosition.y;
+		currentTimer.set(duration*10,false);
+	}
 	public Map<Integer, Tuple<String,Integer>> getCharMap(){
 		return characterMap;
 	}

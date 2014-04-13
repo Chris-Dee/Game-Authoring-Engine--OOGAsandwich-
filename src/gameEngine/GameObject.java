@@ -25,6 +25,7 @@ public class GameObject extends JGObject {
 			UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(behavior, time, speed);
+		myMovement.setInitialPosition(new JGPoint((int)this.x,(int)this.y));
 		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = false;
@@ -116,7 +117,14 @@ public class GameObject extends JGObject {
 	public void setIsScreenFollowing(boolean b) {
 		isScreenFollow = b;
 	}
-
+	public void setSpeed(int speed){
+		myMovement.setSpeed(speed,this);
+		myUninstantiatedGameObject.setSpeed(speed);
+	}
+	public void setDuration(int duration) throws InterruptedException{
+	myMovement.setDuration(duration,this);
+	myUninstantiatedGameObject.setDuration(duration*10);
+	}
 	public int getID() {
 		return myID;
 	}

@@ -1,5 +1,7 @@
 package gameAuthoringEnvironment.levelEditor;
 
+import gameEngine.GameObject;
+
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
@@ -248,6 +250,10 @@ public class ObjectStatsPanel extends JPanel {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
 				movementSpeed = slider.getValue();
+				for(GameObject g:myEditor.getSelected()){
+					g.setSpeed(movementSpeed);
+					//myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
+				}
 			}
 		};
 	}
@@ -257,6 +263,14 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void stateChanged(ChangeEvent event) {
 				movementDuration = slider.getValue();
+				for(GameObject g:myEditor.getSelected()){
+					//System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
+					try {
+						g.setDuration(movementDuration);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		};
 	}

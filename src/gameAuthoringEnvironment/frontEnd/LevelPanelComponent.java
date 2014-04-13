@@ -65,6 +65,7 @@ public class LevelPanelComponent extends JPanel {
 	
 	public void setAllObjectsActive() {
 		for (UninstantiatedGameObject object : myLevel.getObjects()) {
+			System.out.println(myLevel.getObjects());
 			object.instantiate();
 		}
 	}

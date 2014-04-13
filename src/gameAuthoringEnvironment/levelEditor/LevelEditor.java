@@ -90,7 +90,9 @@ public class LevelEditor extends JGEngine {
 			return selectedObject.get(0).getImageName();
 		return null;
 	}
-
+	public List<GameObject> getSelected(){
+		return selectedObject;
+	}
 	public Level getLevel() {
 		return myLevel;
 	}
@@ -117,9 +119,13 @@ public class LevelEditor extends JGEngine {
 		// width in spot 0, height in spot 1
 		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
-	
+	 boolean checkKey(int key) {
+		Boolean b = getKey(key);
+		clearLastKey();
+		return b;
+	}
 	public void deleteSelectedObject() {
-		if(myMover.checkKey(KeyBackspace)){
+		if(checkKey(KeyBackspace)){
 		for(GameObject s:selectedObject){
 			myLevel.getObjects().remove(s.toUninstantiated());
 			s.remove();
@@ -158,8 +164,8 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getObjectName(), new JGPoint(x, y),
 					myObjectStatsPanel.getCollisionID(), imageName,
 					myObjectStatsPanel.getMovementName().toLowerCase(),
-					myObjectStatsPanel.getMovementSpeed() * 10,
-					myObjectStatsPanel.getMovementDuration(),
+					myObjectStatsPanel.getMovementDuration() * 10,
+					myObjectStatsPanel.getMovementSpeed(),
 					myObjectStatsPanel.getFloating(), objectID);
 					
 		}
@@ -226,10 +232,6 @@ public class LevelEditor extends JGEngine {
 		highlight(s, JGColor.red);
 		highlight(myMover, JGColor.blue);
 	}
-	private void changeStats(){
-		
-	}
-
 	private void selectOnClick() {
 		// new JGRectangle()
 		if (getMouseButton(1)) {

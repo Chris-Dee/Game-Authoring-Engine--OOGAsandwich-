@@ -80,6 +80,12 @@ public class UninstantiatedGameObject {
 	public void setMovementName(String move){
 		objectBehavior=move;
 	}
+	public void setSpeed(int speed){
+		objectSpeed=speed;
+	}
+	public void setDuration(int time){
+		objectTime=time;
+	}
 	public GameObject instantiate() {
 		//System.out.println(objectTime);
 		// TODO: Make this better.
