@@ -20,7 +20,7 @@ public class GameEventManager {
 		Iterator<GameEvent> eventIterator = gameEvents.iterator();
 		while (eventIterator.hasNext()) {
 			GameEvent event = eventIterator.next();
-			if (event.check(this)) {
+			if (event.check(this) && event.isOneTimeEvent()) {
 				eventIterator.remove();
 			} else {
 			}

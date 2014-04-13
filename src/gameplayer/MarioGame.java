@@ -67,7 +67,7 @@ public class MarioGame extends Game {
 		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
 		try {
-			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("5")));
+			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("10")));
 			try {
 				RemoveAction action = new RemoveAction(new ArrayList<Integer>(Arrays.asList(0)), new ArrayList<String>());
 				event.addAction(action);

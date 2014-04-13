@@ -11,7 +11,7 @@ public class TimerEvent extends GameEvent {
 
 	public TimerEvent(int sourceObjectId, List<Integer> recipientObjectIds,
 			List<String> parameters) throws InvalidEventException {
-		super(sourceObjectId, recipientObjectIds, parameters);
+		super(sourceObjectId, recipientObjectIds, parameters, true);
 		if (parameters.isEmpty()) {
 			throw new InvalidEventException("Need a time.");
 		}
