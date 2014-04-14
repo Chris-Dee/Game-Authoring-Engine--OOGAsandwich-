@@ -9,18 +9,20 @@ import java.util.List;
 public class GameEventManager {
 	protected List<GameEvent> gameEvents;
 	protected List<GameObject> gameObjects;
+	protected GamePlayerGUI gamePlayer;
 
 	public GameEventManager(List<GameObject> gameObjects,
-			List<GameEvent> gameEvents) {
+			List<GameEvent> gameEvents, GamePlayerGUI gamePlayer) {
 		this.gameObjects = gameObjects;
 		this.gameEvents = gameEvents;
+		this.gamePlayer = gamePlayer;
 	}
 
 	public void check() {
 		Iterator<GameEvent> eventIterator = gameEvents.iterator();
 		while (eventIterator.hasNext()) {
 			GameEvent event = eventIterator.next();
-			if (event.check(this) && event.isOneTimeEvent()) {
+			if (event.check(this, gamePlayer) && event.isOneTimeEvent()) {
 				eventIterator.remove();
 			}
 		}

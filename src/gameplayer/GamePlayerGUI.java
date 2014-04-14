@@ -194,7 +194,7 @@ public class GamePlayerGUI extends JGEngine{
 			//			else
 			//				currentObjects.add(myObject);
 		}
-		eventManager = new GameEventManager(currentObjects, currentGame.getCurrentLevel().getEvents());
+		eventManager = new GameEventManager(currentObjects, currentGame.getCurrentLevel().getEvents(), this);
 		setPFSize(currentGame.getCurrentLevel().getLevelSize().x*100, currentGame.getCurrentLevel().getLevelSize().y*100);
 		//setPFSize(1000, 1000); // What does PFSize actually do? // Sam - I need the correct size for scrolling to work
 		setBGImage(currentGame.getCurrentLevel().getBackground());

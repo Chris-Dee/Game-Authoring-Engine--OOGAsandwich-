@@ -1,6 +1,7 @@
 package gameEngine;
 
 import gameplayer.GameEventManager;
+import gameplayer.GamePlayerGUI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,9 +67,9 @@ public abstract class GameEvent {
 	 * @return Whether the event was triggered. Can be used to remove the event
 	 *         if it is a one time event, for efficiency.
 	 */
-	public boolean check(GameEventManager manager) {
+	public boolean check(GameEventManager manager, GamePlayerGUI gamePlayer) {
 		if (shouldTriggerEvent() && eventHappened()) {
-			trigger(manager);
+			trigger(manager, gamePlayer);
 			activated = true;
 			return true;
 		}
@@ -89,9 +90,9 @@ public abstract class GameEvent {
 		return isOneTimeEvent;
 	}
 
-	protected void trigger(GameEventManager manager) {
+	protected void trigger(GameEventManager manager, GamePlayerGUI gamePlayer) {
 		for (GameEventAction action : actions) {
-			action.act(manager);
+			action.act(manager, gamePlayer);
 		}
 	}
 
