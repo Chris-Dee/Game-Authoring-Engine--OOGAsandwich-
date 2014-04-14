@@ -68,12 +68,25 @@ public class GamePlayerGUI extends JGEngine{
 		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 	}
 
-	public void paintFrameInGame() {
+	public void paintFrameInGame(){
 		// TODO: Add display of stats, status, points, etc.
 		//TODO: Make this dependent on the current level (if necessary at all)
 		String levelText = currentGame.getCurrentLevel().getLevelName();
 		drawString(levelText,viewWidth()/2,90,0);
 		paintScore();
+	}
+	
+	public void startGameOver(){
+		removeObjects(null,0);
+		removeAllTimers();
+	}
+	
+	public void doFrameGameOver(){
+		
+	}
+	
+	public void paintFrameGameOver(){
+		drawString("Game Over!", viewWidth()/2, viewHeight()/3, 0);
 	}
 
 	public void paintScore() {
@@ -133,6 +146,7 @@ public class GamePlayerGUI extends JGEngine{
 				}else if(i.behavior == "reset"){
 					j.x.reset();
 					j.x.changeHitPoints(-1);
+					die();
 					currentGame.getCurrentLevel().changeScore(-1);
 				}
 			}
@@ -207,6 +221,15 @@ public class GamePlayerGUI extends JGEngine{
 			if(!obj.getIsFloating()){
 				obj.yspeed += mag;
 			}
+		}
+	}
+	
+	private void die(){
+		if(currentGame.getLives()==0){
+			setGameState("GameOver");
+		}
+		else{
+			currentGame.setLives(currentGame.getLives()-1);
 		}
 	}
 
