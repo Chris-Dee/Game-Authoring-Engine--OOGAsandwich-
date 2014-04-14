@@ -46,7 +46,8 @@ public class LevelEditor extends JGEngine {
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
 	private ObjectStatsPanel myObjectStatsPanel;
-	//private Map<String, ObjectStats> statKeeper = new HashMap<String, ObjectStats>();
+	// private Map<String, ObjectStats> statKeeper = new HashMap<String,
+	// ObjectStats>();
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 	private ResourceBundle myResources;
@@ -99,14 +100,13 @@ public class LevelEditor extends JGEngine {
 	public List<GameObject> getSelected() {
 		return selectedObjects;
 	}
-/*
-	public Level getLevel() {
-		return myLevel;
-	}*/
-/*
-	public Map<String, ObjectStats> findStatMap() {
-		return statKeeper;
-	}*/
+
+	/*
+	 * public Level getLevel() { return myLevel; }
+	 */
+	/*
+	 * public Map<String, ObjectStats> findStatMap() { return statKeeper; }
+	 */
 
 	public void setObjectStatsPanel(ObjectStatsPanel panel) {
 		myObjectStatsPanel = panel;
@@ -135,7 +135,7 @@ public class LevelEditor extends JGEngine {
 		return b;
 	}
 
-	public void deleteSelectedObject() {
+	private void deleteSelectedObject() {
 		if (checkKey(KeyBackspace)) {
 			for (GameObject s : selectedObjects) {
 				myLevel.getObjects().remove(s.toUninstantiated());
@@ -144,6 +144,15 @@ public class LevelEditor extends JGEngine {
 			}
 		}
 	}
+	
+	private void placeObject() {
+		if (checkKey(KeyEnter)) {
+			// System.out.println("Adding " + getImageName() + " to screen");
+			clearKey(KeyEnter);
+			addObject(myMover.getImageName(), (int) myMover.x, (int) myMover.y);
+		}
+	}
+	
 
 	/**
 	 * Adds an object to the level and instantiates it
@@ -235,6 +244,7 @@ public class LevelEditor extends JGEngine {
 
 	public void doFrame() {
 		deleteSelectedObject();
+		placeObject();
 		checkInBounds();
 		moveObjects(null, 0);
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
@@ -275,11 +285,12 @@ public class LevelEditor extends JGEngine {
 				myObjectStatsPanel.setStats(new ObjectStats(selectedObjects
 						.get(0).getAllStats()));
 				// TODO set statsPanel to values for recently added object
-			}/*
+			}
 			if (selectedObjects.size() == 0) {
-				myObjectStatsPanel.setStats(myImageToObjectStatsMap.get(myMover.getMoverImage()));
+				myObjectStatsPanel.setStats(myImageToObjectStatsMap.get(myMover
+						.getMoverImage()));
 				// TODO set sliders and shit to myMover stats
-			}*/
+			}
 		}
 
 	}
