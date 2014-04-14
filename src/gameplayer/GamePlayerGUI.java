@@ -74,6 +74,7 @@ public class GamePlayerGUI extends JGEngine{
 		String levelText = currentGame.getCurrentLevel().getLevelName();
 		drawString(levelText,viewWidth()/2,90,0);
 		paintScore();
+		paintLives();
 	}
 	
 	public void startGameOver(){
@@ -89,12 +90,17 @@ public class GamePlayerGUI extends JGEngine{
 		drawString("Game Over!", viewWidth()/2, viewHeight()/3, 0);
 	}
 
-	public void paintScore() {
+	public void paintScore(){
 		//setColor(JGColor.red);
 		String score="Score: "+ currentGame.getCurrentLevel().getCurrentScore();
 		String hitPoints="Hit Points: "+ currentObjects.get(0).getHitPoints();
 		drawString(score,3*viewWidth()/4,24,0);
 		drawString(hitPoints,1*viewWidth()/4,24,0);
+	}
+	
+	public void paintLives(){
+		String lifecounter="Lives: "+ currentGame.getLives();
+		drawString(lifecounter,viewWidth()/5,60,0);
 	}
 
 	public void doLevel(){
