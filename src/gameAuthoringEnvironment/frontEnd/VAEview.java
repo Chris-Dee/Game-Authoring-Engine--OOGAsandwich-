@@ -27,6 +27,8 @@ import data.GameData;
 import data.InvalidDataFileException;
 
 public class VAEview extends JFrame {
+	
+	private static final String TEMPORARY_GAME_NAME = "Current Game";
 	private static final String WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION = "What would you like to call this game?";
 	private static final String DOT_JSON_EXTENSION = ".json";
 	private static final String LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME = "levelComponentList";
@@ -127,43 +129,55 @@ public class VAEview extends JFrame {
 	}
 
 	/**
-	 * Saves the current game to a .txt file in the JSON format. The user
-	 * defines the file name.
+	 * Plays the current iteration of the game. Saves the current game state
+	 * into a temporary file, and then runs that game.
+	 * @throws Exception 
 	 */
-	public void saveToTextFile() {
-		String fileName = JOptionPane
-				.showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
-		try {
-			Field levelComponentListField = myLevelPanel.getClass()
-					.getDeclaredField(
-							LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME);
-			levelComponentListField.setAccessible(true);
-			List<LevelPanelComponent> myLevelComponentsList = (List<LevelPanelComponent>) levelComponentListField
-					.get(myLevelPanel);
-
-			for (LevelPanelComponent component : myLevelComponentsList) {
-				Field levelField = component.getClass().getDeclaredField(
-						LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME);
-				levelField.setAccessible(true);
-				Level thisLevel = (Level) levelField.get(component);
-				myGameData.addObj(thisLevel);
-			}
-			myGameData.setFileName(fileName + DOT_JSON_EXTENSION);
-			myGameData.write();
-			
-			//run game right away
-			new GamePlayerGUI(new Game(fileName + DOT_JSON_EXTENSION));
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
+	public void playGame() throws Exception {
+		saveGame(TEMPORARY_GAME_NAME);
+		new GamePlayerGUI(new Game(TEMPORARY_GAME_NAME + DOT_JSON_EXTENSION));
 	}
 
 	/**
-	 * Loads a game from a JSON file. The previous contents 
-	 * of the viewer are
+	 * Saves the current game to a .txt file in the JSON format. The user
+	 * defines the file name.
+	 * @throws Exception 
+	 */
+	public void saveToTextFile() throws Exception {
+		String fileName = JOptionPane
+				.showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
+		saveGame(fileName);
+
+	}
+	
+	/**
+	 * Saves the current state of the game to a .JSON file
+	 * @param fileName
+	 * 				Name of the file
+	 * @throws Exception
+	 */
+	private void saveGame(String fileName) throws Exception{
+		Field levelComponentListField = myLevelPanel.getClass()
+				.getDeclaredField(
+						LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME);
+		levelComponentListField.setAccessible(true);
+		List<LevelPanelComponent> myLevelComponentsList = (List<LevelPanelComponent>) levelComponentListField
+				.get(myLevelPanel);
+
+		for (LevelPanelComponent component : myLevelComponentsList) {
+			Field levelField = component.getClass().getDeclaredField(
+					LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME);
+			levelField.setAccessible(true);
+			Level thisLevel = (Level) levelField.get(component);
+			myGameData.addObj(thisLevel);
+		}
+		myGameData.setFileName(fileName + DOT_JSON_EXTENSION);
+		myGameData.write();
+
+	}
+
+	/**
+	 * Loads a game from a JSON file. The previous contents of the viewer are
 	 * deleted and replaced with the new contents of the loaded file
 	 */
 	public void loadFromTextFile() {
@@ -177,7 +191,6 @@ public class VAEview extends JFrame {
 		try {
 			myGameData.parse();
 			List<Object> myLevels = myGameData.getObjects("gameEngine.Level");
-
 			myLevelPanel.deleteAllLevels();
 			for (Object level : myLevels) {
 				myLevelPanel.addLevel((Level) level);

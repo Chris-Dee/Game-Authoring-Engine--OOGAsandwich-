@@ -73,22 +73,36 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 		objectID = id;
 	}
-	public ObjectStats getStats(){
-		//TODO need to change the gravity thing to per object, and collID String
-		return new ObjectStats("",objectColid,objectBehavior,objectSpeed,objectTime,5, objectScreenFollow, objectSprite, objectFloating);
+
+	public String[] getStats() {
+		// TODO need to change the gravity thing to per object, and collID
+		// String
+		String[] toReturn = { objectName, objectColid.toString(),
+				objectBehavior, objectSpeed.toString(),
+				Integer.toString(((int) objectTime / 10)), "5",
+				objectScreenFollow.toString(), objectSprite,
+				objectFloating.toString() };
+		return toReturn;
 	}
-	public void setMovementName(String move){
-		objectBehavior=move;
+
+	public void setMovementName(String move) {
+		objectBehavior = move;
 	}
-	public void setSpeed(int speed){
-		objectSpeed=speed;
+
+	public void setSpeed(int speed) {
+		objectSpeed = speed;
 	}
-	public void setDuration(int time){
-		objectTime=time;
+
+	public void setDuration(int time) {
+		objectTime = time;
 	}
+
 	public GameObject instantiate() {
-		//System.out.println(objectTime);
+		// System.out.println(objectTime);
 		// TODO: Make this better.
+		System.out.println(objectName+"  "+objectPosition+"  "+objectColid
+				+"  "+objectSprite+"  "+objectSpeed+"  "+objectTime+" "+objectPosition+
+				" "+objectID);
 		if (objectInputMap != null) {
 			return new GameObject(objectName, objectPosition, objectColid,
 					objectSprite, objectInputMap, objectFloating,

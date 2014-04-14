@@ -3,9 +3,7 @@ package gameAuthoringEnvironment.levelEditor;
 import gameEngine.GameObject;
 
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -27,22 +25,16 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class ObjectStatsPanel extends JPanel {
 	private Dimension panelSize;
-	//Map of object name to its parameters
+	// Map of object name to its parameters
 	private String[] objectTypes = { "Player", "Platform", "Enemy", "Goal",
-	"Scenery" };
+			"Scenery" };
 	private JLabel spacer;
 	private static final int PANEL_WIDTH = 250;
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
 	private ObjectToolbar imageButtons;
-	private String objectName = "Player";
-	private String movementName = "User-Controlled";
 
-	private Integer movementSpeed = 0;
-	private int movementDuration = 0;
 	private int myCollisionID = 0;
-	private int gravityMag = 0;
 	private LevelEditor myEditor;
-	private boolean isFloating = false;
 	private JPanel homePanel = new JPanel();
 	private JSlider mySpeedSlider;
 	private JSlider myDurationSlider;
@@ -75,49 +67,50 @@ public class ObjectStatsPanel extends JPanel {
 		createCheckBoxes();
 		setVisible(true);
 	}
-	public ObjectStats exportStats(){
-		return new ObjectStats(objectName,myCollisionID,movementName, movementSpeed, movementDuration, gravityMag, cameraBox.isSelected(),
-				myEditor.getSelectedImageName(), isFloating);
-	}
+
+	/*
+	 * public ObjectStats exportStats() { return new ObjectStats(objectName,
+	 * myCollisionID, movementName, movementSpeed, movementDuration, gravityMag,
+	 * cameraBox.isSelected(), myEditor.getSelectedImageName(), isFloating); }
+	 */
+
 	public void setStats(ObjectStats objectStats) {
-		
-		if(objectStats!=null){
-		if(objectStats.mySpeed!=null)
-		mySpeedSlider.setValue(objectStats.mySpeed);
-		if(objectStats.myDuration!=null)
-		myDurationSlider.setValue(objectStats.myDuration/10);
-		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
-		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
-		
-		objectType.setSelectedItem(objectTypes[objectStats.myCollID]);
-		System.out.println(objectType.getSelectedItem());
-		movementType.setSelectedItem(objectStats.myMovementPattern);
-		floaterBox.setSelected(objectStats.isFloating);
-		cameraBox.setSelected(objectStats.isCameraFollow);
-		//System.out.println(19999+"  "+objectTypes[objectStats.myCollID]);
-		setSliderEnable();
+
+		if (objectStats != null) {
+			// if (objectStats.mySpeed != null)
+			mySpeedSlider.setValue(objectStats.mySpeed);
+			// if (objectStats.myDuration != null)
+			myDurationSlider.setValue(objectStats.myDuration);
+			myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
+			objectType.setSelectedItem(objectStats.myColType);
+			movementType.setSelectedItem(objectStats.myMovementPattern);
+			floaterBox.setSelected(objectStats.isFloating);
+			cameraBox.setSelected(objectStats.isCameraFollow);
+			setSliderEnable();
 		}
 	}
-	private void setSliderEnable(){
-		if(movementType.getSelectedItem()!="Pace"){
+
+	private void setSliderEnable() {
+		if (movementType.getSelectedItem() == "User-Controlled"
+				|| movementType.getSelectedItem() == "Stationary") {
 			mySpeedSlider.setEnabled(false);
 			myDurationSlider.setEnabled(false);
-		}
-		else{
+		} else {
 			mySpeedSlider.setEnabled(true);
 			myDurationSlider.setEnabled(true);
 		}
 	}
+
 	public String getObjectName() {
-		return objectName;
+		return (String) objectType.getSelectedItem();
 	}
 
 	public String getMovementName() {
-		return movementName;
+		return (String) movementType.getSelectedItem();
 	}
 
 	public boolean getFloating() {
-		return isFloating;
+		return floaterBox.isSelected();
 	}
 
 	public int getCollisionID() {
@@ -125,27 +118,25 @@ public class ObjectStatsPanel extends JPanel {
 	}
 
 	public int getMovementSpeed() {
-		return movementSpeed;
+		return mySpeedSlider.getValue();
 	}
 
 	public int getMovementDuration() {
-		return movementDuration;
+		return myDurationSlider.getValue();
 	}
 
 	public int getGravityMagnitude() {
-		return gravityMag;
+		return myGravityMagnitudeSlider.getValue();
 	}
 
 	private void createCheckBoxes() {
 		JPanel panel = new JPanel();
 		floaterBox = new JCheckBox("Check if floating");
-		// JCheckBox floater=new JCheckBox("Make gravity ");
 		panel.add(floaterBox);
 		floaterBox.setFocusable(false);
 		floaterBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				isFloating = floaterBox.isSelected();
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setIsFloating(floaterBox.isSelected());
 				}
 			}
@@ -169,7 +160,7 @@ public class ObjectStatsPanel extends JPanel {
 		// input
 		// Will also determine what other options are available for user to
 		// define
-		
+
 		final List<String> objectTypesList = Arrays.asList(objectTypes);
 		JLabel type = new JLabel("Object Type");
 		objectType = new JComboBox(objectTypes);
@@ -177,13 +168,11 @@ public class ObjectStatsPanel extends JPanel {
 		objectType.setPreferredSize(COMBO_SIZE);
 		objectType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				objectName = (String) objectType.getSelectedItem();
-				//System.out.println(objectName);
-				myCollisionID = objectTypesList.indexOf(objectName);
-				for(GameObject g:myEditor.getSelected()){
+				myCollisionID = (int) Math.pow(2,
+						objectTypesList.indexOf(getObjectName()));
+				for (GameObject g : myEditor.getSelected()) {
 					g.setCollID(myCollisionID);
-					}
+				}
 			}
 		});
 
@@ -201,11 +190,9 @@ public class ObjectStatsPanel extends JPanel {
 		movementType.addItemListener(new ItemListener() {
 
 			public void itemStateChanged(ItemEvent event) {
-				movementName = event.getItem().toString();
 				setSliderEnable();
 				//TODO change the movement pattern in the gameObject somehow
 			}
-
 		});
 
 		homePanel.add(type);
@@ -217,19 +204,15 @@ public class ObjectStatsPanel extends JPanel {
 	}
 
 	private void createSliders() {
-		mySpeedSlider = initializeSlider("Movement Speed", movementSpeed, false);
+		mySpeedSlider = initializeSlider("Movement Speed", 0);
 		mySpeedSlider.setEnabled(false);
-		myDurationSlider = initializeSlider("Movement Duration",
-				movementDuration, false);
+		myDurationSlider = initializeSlider("Movement Duration", 0);
 		myDurationSlider.setEnabled(false);
-		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude",
-				gravityMag, true);
-		
+		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude", 0);
 	}
 
-	private JSlider initializeSlider(String name, final int value,
-			final boolean isGravity) {
-		final JSlider slider = new JSlider(0, 10);
+	private JSlider initializeSlider(String name, int value) {
+		JSlider slider = new JSlider(0, 10);
 		JLabel label = new JLabel(name);
 		slider.setLabelTable(slider.createStandardLabels(1, 0));
 		slider.setPaintLabels(true);
@@ -253,8 +236,7 @@ public class ObjectStatsPanel extends JPanel {
 	private ChangeListener createGravityListener(final JSlider slider) {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
-				gravityMag = slider.getValue();
-				myEditor.setGravity(gravityMag);
+				myEditor.setGravity(getGravityMagnitude());
 			}
 		};
 	}
@@ -262,10 +244,9 @@ public class ObjectStatsPanel extends JPanel {
 	private ChangeListener createSpeedListener(final JSlider slider) {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
-				movementSpeed = slider.getValue();
-				for(GameObject g:myEditor.getSelected()){
-					g.setSpeed(movementSpeed);
-					//myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
+				for (GameObject g : myEditor.getSelected()) {
+					g.setSpeed(getMovementSpeed());
+					// myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
 				}
 			}
 		};
@@ -273,13 +254,11 @@ public class ObjectStatsPanel extends JPanel {
 
 	private ChangeListener createDurationListener(final JSlider slider) {
 		return new ChangeListener() {
-
 			public void stateChanged(ChangeEvent event) {
-				movementDuration = slider.getValue();
-				for(GameObject g:myEditor.getSelected()){
-					//System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
+				for (GameObject g : myEditor.getSelected()) {
+					// System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
 					try {
-						g.setDuration(movementDuration);
+						g.setDuration(getMovementDuration());
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
