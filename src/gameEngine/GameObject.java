@@ -6,6 +6,7 @@ import gameplayer.Tuple;
 import java.util.Map;
 
 import jgame.*;
+import jgame.JGImage;
 
 public class GameObject extends JGObject {
 
@@ -38,8 +39,21 @@ public class GameObject extends JGObject {
 	public void reset() {
 		x = originalPosition.x;
 		y = originalPosition.y;
+		changeSprite("mobile");
+		//setBBox(0,0, 50, 50);
 	}
-
+	
+	public void changeSprite(String imageName) {
+		setImage(imageName);
+	}
+	
+	/*
+	public void scaleSprite(int width, int height) {
+		JGImage newImage;
+		newImage.loadImage(getImageName());
+		newImage.scale(width, height);
+	}
+	*/
 	public GameObject(String name, JGPoint position, int colid, String sprite,
 			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
 			boolean screenFollow, int id, UninstantiatedGameObject obj) {
