@@ -76,7 +76,9 @@ public class LevelEditor extends JGEngine {
 		defineMedia("tempTable.tbl");
 		defineImage("firebackground", "m", 0, "firebackground.jpg", "-");
 		defineImage("srball", "n", 0, defaultImage, "-");
+		System.out.println("before level move");
 		myMover = new LevelMover(this);
+		System.out.println("after level move");
 		myResources = ResourceBundle
 				.getBundle(GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE
 						+ IMAGE_RESOURCES);
