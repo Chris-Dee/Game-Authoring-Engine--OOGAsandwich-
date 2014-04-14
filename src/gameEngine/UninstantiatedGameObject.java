@@ -1,7 +1,7 @@
 package gameEngine;
 
 import gameAuthoringEnvironment.levelEditor.ObjectStats;
-import gameplayer.Tuple;
+import gameplayer.MethodData;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class UninstantiatedGameObject {
 	Integer objectSpeed;
 	Boolean objectFloating;
 	Boolean objectScreenFollow;
-	Map<Integer, Tuple<String, Integer>> objectInputMap;
+	Map<Integer, MethodData<String, Integer>> objectInputMap;
 	Integer objectID;
 
 	public UninstantiatedGameObject(String name, JGPoint position,
@@ -37,7 +37,7 @@ public class UninstantiatedGameObject {
 
 	public UninstantiatedGameObject(String name, JGPoint position,
 			Integer colid, String sprite,
-			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			Integer id) {
 		objectName = name;
 		objectPosition = position;
@@ -51,7 +51,7 @@ public class UninstantiatedGameObject {
 
 	public UninstantiatedGameObject(String name, JGPoint position,
 			Integer colid, String sprite,
-			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			boolean screenFollow, Integer id) {
 		objectName = name;
 		objectPosition = position;

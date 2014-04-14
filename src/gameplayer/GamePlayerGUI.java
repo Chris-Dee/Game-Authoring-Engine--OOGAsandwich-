@@ -235,7 +235,7 @@ public class GamePlayerGUI extends JGEngine{
 		//System.out.println(getLastKey());
 		for(GameObject obj: currentObjects){
 			GameObjectAction move= obj.getMovement();
-			Map<Integer, Tuple<String,Integer>> characterMap =obj.getCharMap();
+			Map<Integer, MethodData<String,Integer>> characterMap =obj.getCharMap();
 			if(characterMap!=null){
 				boolean keyPressed=false;
 				for(Integer c : characterMap.keySet()){
@@ -245,12 +245,15 @@ public class GamePlayerGUI extends JGEngine{
 						java.lang.reflect.Method method = null;
 						try {
 							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
-							method = move.getClass().getMethod(characterMap.get(c).x, GameObject.class, int.class);
+							method = move.getClass().getMethod(characterMap.get(c).x, GameObject.class, int[].class);
 						} catch (SecurityException e) {
-						} catch (NoSuchMethodException e) {}	
+						} catch (NoSuchMethodException e) {
+							System.out.println("wtf1");
+						}	
 						try {
-							method.invoke(move, obj, characterMap.get(c).y);
+							method.invoke(move, obj, (Object) characterMap.get(c).y);
 						} catch (IllegalArgumentException e) {
+							System.out.println("wtf2");
 						} catch (IllegalAccessException e) {
 						} catch (InvocationTargetException e) {}
 					}
@@ -261,6 +264,8 @@ public class GamePlayerGUI extends JGEngine{
 			}
 
 		}
+		clearKey('Z');
+		clearKey('X');
 		if (getKey('O')){
 			endLevel(currentGame.getNextLevelIndex());
 			clearKey('O');

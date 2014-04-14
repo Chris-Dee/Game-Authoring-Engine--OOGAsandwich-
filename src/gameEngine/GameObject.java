@@ -1,7 +1,7 @@
 package gameEngine;
 
 import gameAuthoringEnvironment.levelEditor.ObjectStats;
-import gameplayer.Tuple;
+import gameplayer.MethodData;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class GameObject extends JGObject {
 	private String myFuckingName;
 	private boolean isFloating;
 	private boolean isScreenFollow;
-	private Map<Integer, Tuple<String, Integer>> charMap;
+	private Map<Integer, MethodData<String, Integer>> charMap;
 	public JGPoint originalPosition;
 	private int myID;
 	private UninstantiatedGameObject myUninstantiatedGameObject;
@@ -55,7 +55,7 @@ public class GameObject extends JGObject {
 	}
 	*/
 	public GameObject(String name, JGPoint position, int colid, String sprite,
-			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			boolean screenFollow, int id, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
@@ -69,7 +69,7 @@ public class GameObject extends JGObject {
 	}
 
 	public GameObject(String name, JGPoint position, int colid, String sprite,
-			Map<Integer, Tuple<String, Integer>> inputMap, boolean floating,
+			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			int id, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
@@ -124,7 +124,7 @@ public class GameObject extends JGObject {
 		return myUninstantiatedGameObject.getStats();
 	}
 
-	public Map<Integer, Tuple<String, Integer>> getCharMap() {
+	public Map<Integer, MethodData<String, Integer>> getCharMap() {
 		return charMap;
 	}
 

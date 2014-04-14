@@ -1,6 +1,6 @@
 package gameEngine;
 
-import gameplayer.Tuple;
+import gameplayer.MethodData;
 import jgame.JGPoint;
 import jgame.JGTimer;
 
@@ -16,8 +16,9 @@ public class GameObjectAction {
 	private boolean behaviorFlag = false;
 	private JGPoint initialPosition;
 	private JGTimer currentTimer;
+	private GameObject currentBullet;
 	
-	private Map<Integer, Tuple<String,Integer>> characterMap;
+	private Map<Integer, MethodData<String,Integer>> characterMap;
 	
 	public GameObjectAction(){
 
@@ -40,7 +41,7 @@ public class GameObjectAction {
 		behaviorTime = time;
 	}
 	
-	public GameObjectAction(Map<Integer, Tuple<String,Integer>> inputMap){
+	public GameObjectAction(Map<Integer, MethodData<String,Integer>> inputMap){
 		characterMap=inputMap;
 	}
 	
@@ -113,25 +114,32 @@ public class GameObjectAction {
 		if(currentTimer!=null)
 		currentTimer.set(duration*10,false);
 	}
-	public Map<Integer, Tuple<String,Integer>> getCharMap(){
+	public Map<Integer, MethodData<String,Integer>> getCharMap(){
 		return characterMap;
 	}
 
-	public void moveRight(GameObject myObj,int magnitude){
-		myObj.xspeed=magnitude;
+	public void moveRight(GameObject myObj,int[] magnitude){
+		myObj.xspeed=magnitude[0];
 	}
 	
-	public void moveLeft(GameObject myObj,int magnitude){
-		myObj.xspeed=-magnitude;
+	public void moveLeft(GameObject myObj,int[] magnitude){
+		myObj.xspeed=-magnitude[0];
 	}
 	
-	public void moveUp(GameObject myObj,int magnitude){
-		myObj.yspeed=-magnitude;
+	public void moveUp(GameObject myObj,int[] magnitude){
+		myObj.yspeed=-magnitude[0];
 	}
 	
-	public void moveDown(GameObject myObj,int magnitude){
-		myObj.yspeed=magnitude;
+	public void moveDown(GameObject myObj,int[] magnitude){
+		myObj.yspeed=magnitude[0];
 	}
+	public void shoot(GameObject myObj,int[] magnitude){
+		//currentBullet.remove();
+		currentBullet=new GameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15, new UninstantiatedGameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15));
+		currentBullet.xspeed=Math.cos(Math.toDegrees(Math.toDegrees(magnitude[1])))*magnitude[0];
+		currentBullet.yspeed=Math.sin(Math.toDegrees(Math.toDegrees(magnitude[1])))*magnitude[0];
+	}
+	
 	public void stopMovement(GameObject myObj){
 		myObj.xspeed=0;
 	}

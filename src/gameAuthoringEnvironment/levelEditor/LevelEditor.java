@@ -14,7 +14,7 @@ import java.util.Vector;
 import gameEngine.GameObject;
 import gameEngine.Level;
 import gameEngine.UninstantiatedGameObject;
-import gameplayer.Tuple;
+import gameplayer.MethodData;
 
 import javax.swing.JPanel;
 
@@ -158,11 +158,11 @@ public class LevelEditor extends JGEngine {
 	public void addObject(String imageName, int x, int y) {
 		UninstantiatedGameObject newObject;
 		if (myObjectStatsPanel.getMovementName().equals("User-Controlled")) {
-			Map<Integer, Tuple<String, Integer>> levelInputMap = new HashMap<Integer, Tuple<String, Integer>>();
-			levelInputMap.put(39, new Tuple<String, Integer>("moveRight", 4));
-			levelInputMap.put(37, new Tuple<String, Integer>("moveLeft", 4));
-			levelInputMap.put(38, new Tuple<String, Integer>("moveUp", 6));
-			levelInputMap.put(40, new Tuple<String, Integer>("moveDown", 6));
+			Map<Integer, MethodData<String, Integer>> levelInputMap = new HashMap<Integer, MethodData<String, Integer>>();
+			levelInputMap.put(39, new MethodData<String, Integer>("moveRight", 4));
+			levelInputMap.put(37, new MethodData<String, Integer>("moveLeft", 4));
+			levelInputMap.put(38, new MethodData<String, Integer>("moveUp", 6));
+			levelInputMap.put(40, new MethodData<String, Integer>("moveDown", 6));
 
 			newObject = new UninstantiatedGameObject("player",
 					new JGPoint(x, y), myObjectStatsPanel.getCollisionID(),
