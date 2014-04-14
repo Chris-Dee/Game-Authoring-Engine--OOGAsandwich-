@@ -53,23 +53,25 @@ public class MarioGame extends Game {
 		List<UninstantiatedGameObject> objs = new ArrayList<UninstantiatedGameObject>();
 
 		int objectID = 0;
-		objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true, objectID)); 
+		objs.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true, objectID,10)); 
 		for(int i = 0; i < 900 /32; i++){
 			objectID++;
-			objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true, objectID));
+			objs.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 550), 2, "brick", true, objectID,0));
 		} 
-		objs.add(new UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true, objectID+1)); 
-		objs.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true, objectID+2));
-		objs.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false, objectID+3)); 
-		objs.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
-		objs.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
+		objs.add(new UninstantiatedGameObject("moving platform", new JGPoint(200, 400), 2, "mobile", "pace", 125, 2, true, objectID+1,0)); 
+		objs.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true, objectID+2,0));
+		objs.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 450), 4,"turtle", "pace", 55, 2, false, objectID+3,0)); 
+		objs.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4,0)); 
+		objs.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5,0)); // This code will eventually be used to parse the data.
 
 
 		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
 		
 		List<UninstantiatedGameObject> objs2 = new ArrayList<UninstantiatedGameObject>();
-		objectID = 0;
+		//objectID = 0;
+		objs2=objs;
+		/*
 		objs2.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true, objectID)); 
 		for(int i = 0; i < 900 /32; i++){
 			objectID++;
@@ -80,9 +82,10 @@ public class MarioGame extends Game {
 		objs2.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 750), 4,"turtle", "pace", 55, 2, false, objectID+3)); 
 		objs2.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
 		objs2.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
-
+	*/
+		objs2.add(new UninstantiatedGameObject("turtle", new JGPoint(500, 750), 4,"turtle", "pace", 55, 2, false, objectID+3,10));
+		objs2.add(new UninstantiatedGameObject("moving platform", new JGPoint(100, 200), 2, "mobile", "pace", 125, 2, true, objectID+6,0)); 
 		
-		objs2.add(new UninstantiatedGameObject("moving platform", new JGPoint(100, 200), 2, "mobile", "pace", 125, 2, true, objectID+6)); 
 		Level secondLevel = new Level("second level ya bish", new JGPoint(4, 4), objs2, "spacebackground", .6);
 		
 		try {

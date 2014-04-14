@@ -19,10 +19,11 @@ public class UninstantiatedGameObject {
 	Boolean objectScreenFollow;
 	Map<Integer, MethodData<String, Integer>> objectInputMap;
 	Integer objectID;
+	Integer objectHitPoints;
 
 	public UninstantiatedGameObject(String name, JGPoint position,
 			Integer colid, String sprite, String behavior, Integer time,
-			Integer speed, Boolean floating, Integer id) {
+			Integer speed, Boolean floating, Integer id, Integer hitPoints) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -33,12 +34,13 @@ public class UninstantiatedGameObject {
 		objectFloating = floating;
 		objectScreenFollow = false;
 		objectID = id;
+		objectHitPoints=hitPoints;
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position,
 			Integer colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			Integer id) {
+			Integer id,Integer hitPoints) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -47,12 +49,13 @@ public class UninstantiatedGameObject {
 		objectFloating = floating;
 		objectScreenFollow = false;
 		objectID = id;
+		objectHitPoints=hitPoints;
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position,
 			Integer colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			boolean screenFollow, Integer id) {
+			boolean screenFollow, Integer id,Integer hitPoints) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -61,10 +64,11 @@ public class UninstantiatedGameObject {
 		objectFloating = floating;
 		objectScreenFollow = screenFollow;
 		objectID = id;
+		objectHitPoints=hitPoints;
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position,
-			Integer colid, String sprite, boolean floating, Integer id) {
+			Integer colid, String sprite, boolean floating, Integer id,Integer hitPoints) {
 		objectName = name;
 		objectPosition = position;
 		objectColid = colid;
@@ -72,6 +76,7 @@ public class UninstantiatedGameObject {
 		objectFloating = floating;
 		objectScreenFollow = false;
 		objectID = id;
+		objectHitPoints=hitPoints;
 	}
 
 	public String[] getStats() {
@@ -102,18 +107,18 @@ public class UninstantiatedGameObject {
 		// TODO: Make this better.
 		System.out.println(objectName+"  "+objectPosition+"  "+objectColid
 				+"  "+objectSprite+"  "+objectSpeed+"  "+objectTime+" "+objectPosition+
-				" "+objectID);
+				" "+objectID+" "+objectHitPoints);
 		if (objectInputMap != null) {
 			return new GameObject(objectName, objectPosition, objectColid,
 					objectSprite, objectInputMap, objectFloating,
-					objectScreenFollow, objectID, this);
+					objectScreenFollow, objectID,objectHitPoints, this);
 		} else if (objectTime != null) {
 			return new GameObject(objectName, objectPosition, objectColid,
 					objectSprite, objectBehavior, objectTime, objectSpeed,
-					objectFloating, objectID, this);
+					objectFloating, objectID, objectHitPoints, this);
 		} else {
 			return new GameObject(objectName, objectPosition, objectColid,
-					objectSprite, objectFloating, objectID, this);
+					objectSprite, objectFloating, objectID, objectHitPoints, this);
 		}
 	}
 }

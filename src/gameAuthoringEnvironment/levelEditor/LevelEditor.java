@@ -166,7 +166,7 @@ public class LevelEditor extends JGEngine {
 
 			newObject = new UninstantiatedGameObject("player",
 					new JGPoint(x, y), myObjectStatsPanel.getCollisionID(),
-					imageName, levelInputMap, false, true, objectID);
+					imageName, levelInputMap, false, true, objectID, 0);
 		} else {
 			// System.out.println(myObjectStatsPanel.getFloating());
 			newObject = new UninstantiatedGameObject(
@@ -175,7 +175,7 @@ public class LevelEditor extends JGEngine {
 					myObjectStatsPanel.getMovementName().toLowerCase(),
 					myObjectStatsPanel.getMovementDuration() * 10,
 					myObjectStatsPanel.getMovementSpeed(),
-					myObjectStatsPanel.getFloating(), objectID);
+					myObjectStatsPanel.getFloating(), objectID,0);
 
 		}
 		newObject.setMovementName(myObjectStatsPanel.getMovementName());

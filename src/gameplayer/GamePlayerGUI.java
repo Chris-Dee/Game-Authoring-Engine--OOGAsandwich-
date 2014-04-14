@@ -79,7 +79,9 @@ public class GamePlayerGUI extends JGEngine{
 	public void paintScore() {
 		//setColor(JGColor.red);
 		String score="Score: "+ currentGame.getCurrentLevel().getCurrentScore();
+		String hitPoints="Hit Points: "+ currentObjects.get(0).getHitPoints();
 		drawString(score,3*viewWidth()/4,24,0);
+		drawString(hitPoints,1*viewWidth()/4,24,0);
 	}
 
 	public void doLevel(){
@@ -130,6 +132,7 @@ public class GamePlayerGUI extends JGEngine{
 					endLevel(currentGame.getNextLevelIndex());
 				}else if(i.behavior == "reset"){
 					j.x.reset();
+					j.x.changeHitPoints(-1);
 					currentGame.getCurrentLevel().changeScore(-1);
 				}
 			}

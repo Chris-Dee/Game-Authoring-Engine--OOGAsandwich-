@@ -135,7 +135,7 @@ public class GameObjectAction {
 	}
 	public void shoot(GameObject myObj,int[] magnitude){
 		//currentBullet.remove();
-		currentBullet=new GameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15, new UninstantiatedGameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15));
+		currentBullet=new GameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15, 0, new UninstantiatedGameObject("bullet", new JGPoint((int)myObj.x,(int) myObj.y), 10, "lemon", true, 15, 0));
 		currentBullet.xspeed=Math.cos(Math.toDegrees(Math.toDegrees(magnitude[1])))*magnitude[0];
 		currentBullet.yspeed=Math.sin(Math.toDegrees(Math.toDegrees(magnitude[1])))*magnitude[0];
 	}

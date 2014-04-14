@@ -18,11 +18,12 @@ public class GameObject extends JGObject {
 	public JGPoint originalPosition;
 	private int myID;
 	private UninstantiatedGameObject myUninstantiatedGameObject;
+	private int myHitPoints;
 
 	// private int myHitPoints;
 
 	public GameObject(String name, JGPoint position, int colid, String sprite,
-			String behavior, int time, int speed, boolean floating, int id,
+			String behavior, int time, int speed, boolean floating, int id, int hitPoints,
 			UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(behavior, time, speed);
@@ -33,7 +34,7 @@ public class GameObject extends JGObject {
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
 		myUninstantiatedGameObject = obj;
-		// myHitPoints=hitPoints;
+		myHitPoints=hitPoints;
 	}
 
 	public void reset() {
@@ -56,7 +57,7 @@ public class GameObject extends JGObject {
 	*/
 	public GameObject(String name, JGPoint position, int colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			boolean screenFollow, int id, UninstantiatedGameObject obj) {
+			boolean screenFollow, int id, int hitPoints, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
 		myFuckingName = name;
@@ -66,11 +67,12 @@ public class GameObject extends JGObject {
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
 		myUninstantiatedGameObject = obj;
+		myHitPoints=hitPoints;
 	}
 
 	public GameObject(String name, JGPoint position, int colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			int id, UninstantiatedGameObject obj) {
+			int id, int hitPoints, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction(inputMap);
 		myFuckingName = name;
@@ -80,10 +82,11 @@ public class GameObject extends JGObject {
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
 		myUninstantiatedGameObject = obj;
+		myHitPoints=hitPoints;
 	}
 
 	public GameObject(String name, JGPoint position, int colid, String sprite,
-			boolean floating, int id, UninstantiatedGameObject obj) {
+			boolean floating, int id, int hitPoints, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
 		myMovement = new GameObjectAction();
 		myFuckingName = name;
@@ -92,6 +95,7 @@ public class GameObject extends JGObject {
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
 		myUninstantiatedGameObject = obj;
+		myHitPoints=hitPoints;
 	}
 	
 	public UninstantiatedGameObject toUninstantiated() {
@@ -150,6 +154,12 @@ public class GameObject extends JGObject {
 	}
 	public int getID() {
 		return myID;
+	}
+	public void changeHitPoints(int magnitude){
+		myHitPoints+=magnitude;
+	}
+	public int getHitPoints(){
+		return myHitPoints;
 	}
 
 }
