@@ -76,19 +76,20 @@ public class LevelEditor extends JGEngine {
 		defineImage("srball", "n", 0, defaultImage, "-");
 		System.out.println("before level move");
 		myMover = new LevelMover(this);
-		System.out.println("after level move");
+
 		myResources = ResourceBundle
 				.getBundle(GAME_AUTHORING_ENVIRONMENT_RESOURCE_PACKAGE
 						+ IMAGE_RESOURCES);
 		myImageToObjectStatsMap = new HashMap<String, ObjectStats>();
 		fillImageToObjectStatsMap();
 		setBGImage(myLevel.getBackground());
-
 		try {
 			fillImageMap(new File(default_path));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println(myMover);
+	
 	}
 	
 	public List<GameObject> getSelected() {
@@ -197,7 +198,7 @@ public class LevelEditor extends JGEngine {
 
 	private void checkInBounds() {
 		if ((Double) myMover.x == null)
-			System.out.println((Double) myMover.x == null);
+			//System.out.println((Double) myMover.x == null);
 		if (myMover.x >= myMover.pfwidth) {
 			// myMover.x=el.xofs;
 			myMover.x = myMover.pfwidth
@@ -220,13 +221,13 @@ public class LevelEditor extends JGEngine {
 		Scanner s = new Scanner(file);
 		int i = 1;
 		while (s.hasNext()) {
-			System.out.println(i);
+		//	System.out.println(i);
 			String[] str = s.nextLine().split(" ");
 			imageMap.put(str[0], str[1]);
 			defineImage(str[0], "a" + i, 0, str[1], "a" + i);
 			i++;
 		}
-		System.out.println("size " + el.images_loaded.size());
+		//System.out.println("size " + el.images_loaded.size());
 	}
 
 	public Map<String, String> getMap() {
@@ -234,14 +235,16 @@ public class LevelEditor extends JGEngine {
 	}
 
 	public void doFrame() {
+
 		deleteSelectedObject();
 		placeObject();
+		if(myMover!=null)
 		checkInBounds();
 		moveObjects(null, 0);
+if(myMover!=null)
 		setViewOffset((int) myMover.x, (int) myMover.y, true);
-		 //System.out.println("doFrame");
 		selectOnClick();
-		// setBGImage(myLevel.getBackground());
+
 	}
 
 	public void paintFrame() {

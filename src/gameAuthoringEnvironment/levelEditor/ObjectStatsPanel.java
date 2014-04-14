@@ -36,9 +36,12 @@ public class ObjectStatsPanel extends JPanel {
 	private int myCollisionID = 0;
 	private LevelEditor myEditor;
 	private JPanel homePanel = new JPanel();
-	private JSlider mySpeedSlider;
-	private JSlider myDurationSlider;
-	private JSlider myGravityMagnitudeSlider;
+	// private JSlider mySpeedSlider;
+	// private JSlider myDurationSlider;
+	// private JSlider myGravityMagnitudeSlider;
+	private SliderObject mySpeedSlider;
+	private SliderObject myDurationSlider;
+	private SliderObject myGravityMagnitudeSlider;
 	private JComboBox objectType;
 	private JComboBox movementType;
 	JCheckBox floaterBox;
@@ -193,62 +196,56 @@ public class ObjectStatsPanel extends JPanel {
 	}
 
 	private void createSliders() {
-		mySpeedSlider = initializeSlider("Movement Speed", 0);
+		int[] range = { 0, 10 };
+		mySpeedSlider = new SliderObject("Movement Speed", 0, range);
+		mySpeedSlider.addChangeListener(new SpeedListener());
 		mySpeedSlider.setEnabled(false);
-		myDurationSlider = initializeSlider("Movement Duration", 0);
+		// mySpeedSlider.addChangeListener(createSpeedListener(mySpeedSlider));
+
+		myDurationSlider = new SliderObject("Movement Duration", 0, range);
+		myDurationSlider.addChangeListener(new DurationListener());
 		myDurationSlider.setEnabled(false);
-		myGravityMagnitudeSlider = initializeSlider("Gravity Magnitude", 0);
+		// myDurationSlider.addChangeListener(createDurationListener(myDurationSlider));
+
+		myGravityMagnitudeSlider = new SliderObject("Gravity Magnitude", 0,range);
+		myGravityMagnitudeSlider.addChangeListener(new GravityListener());
+		// myGravityMagnitudeSlider.addChangeListener(createGravityListener(myGravityMagnitudeSlider));
+
+		homePanel.add(mySpeedSlider);
+		homePanel.add(myDurationSlider);
+		homePanel.add(myGravityMagnitudeSlider);
 	}
 
-	private JSlider initializeSlider(String name, int value) {
-		JSlider slider = new JSlider(0, 10);
-		JLabel label = new JLabel(name);
-		slider.setLabelTable(slider.createStandardLabels(1, 0));
-		slider.setPaintLabels(true);
-		slider.setValue(0);
-		slider.setFocusable(false);
-		if (name.equals("Movement Speed")) {
-			slider.addChangeListener(createSpeedListener(slider));
-		}
-		if (name.equals("Movement Duration")) {
-			slider.addChangeListener(createDurationListener(slider));
-		}
-		if (name.equals("Gravity Magnitude")) {
-			slider.addChangeListener(createGravityListener(slider));
+	private class GravityListener implements ChangeListener {
+		public GravityListener() {
 		}
 
-		homePanel.add(label);
-		homePanel.add(slider);
-		return slider;
+		public void stateChanged(ChangeEvent event) {
+			myEditor.setGravity(getGravityMagnitude());
+		};
 	}
 
-	private ChangeListener createGravityListener(final JSlider slider) {
-		return new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				myEditor.setGravity(getGravityMagnitude());
+	private class SpeedListener implements ChangeListener {
+		public SpeedListener() {
+		}
+
+		public void stateChanged(ChangeEvent event) {
+			for (GameObject g : myEditor.getSelected()) {
+				g.setSpeed(getMovementSpeed());
 			}
 		};
 	}
 
-	private ChangeListener createSpeedListener(final JSlider slider) {
-		return new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				for (GameObject g : myEditor.getSelected()) {
-					g.setSpeed(getMovementSpeed());
-				}
-			}
-		};
-	}
+	private class DurationListener implements ChangeListener {
+		public DurationListener() {
+		}
 
-	private ChangeListener createDurationListener(final JSlider slider) {
-		return new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				for (GameObject g : myEditor.getSelected()) {
-					try {
-						g.setDuration(getMovementDuration());
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+		public void stateChanged(ChangeEvent event) {
+			for (GameObject g : myEditor.getSelected()) {
+				try {
+					g.setDuration(getMovementDuration());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		};

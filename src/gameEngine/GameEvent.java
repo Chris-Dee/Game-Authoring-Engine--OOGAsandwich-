@@ -3,6 +3,7 @@ package gameEngine;
 import gameplayer.GameEventManager;
 import gameplayer.GamePlayerGUI;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,6 +89,24 @@ public abstract class GameEvent {
 
 	public boolean isOneTimeEvent() {
 		return isOneTimeEvent;
+	}
+
+	/**
+	 * Get a list of parameters that should be set by the users.
+	 * 
+	 * @return A list of ParameterDescs. Each has a description() and a name()
+	 *         method to get information on the fields.
+	 */
+	public List<ParameterDesc> getParameters() {
+		List<ParameterDesc> paramDescriptions = new ArrayList<ParameterDesc>();
+		for (Field field : this.getClass().getDeclaredFields()) {
+			ParameterDesc paramDescription = field
+					.getAnnotation(ParameterDesc.class);
+			if (paramDescription != null) {
+				paramDescriptions.add(paramDescription);
+			}
+		}
+		return paramDescriptions;
 	}
 
 	protected void trigger(GameEventManager manager, GamePlayerGUI gamePlayer) {

@@ -16,8 +16,8 @@ import javax.swing.border.TitledBorder;
 
 public class LevelPanelComponent extends JPanel {
 
-	private static final int YPOS_FOR_HEIGHT_PRINT = 30;
-	private static final int YPOS_FOR_WIDTH_PRINT = 50;
+	private static final int YPOS_FOR_HEIGHT_PRINT = 50;
+	private static final int YPOS_FOR_WIDTH_PRINT = 30;
 	private static final int XPOS_FOR_PRINT = 5;
 	private static final int DOUBLE_CLICK_NUMBER = 2;
 	private LevelPanel myLevelPanel;
@@ -185,9 +185,9 @@ public class LevelPanelComponent extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawString("Width: " + myLevel.getLevelSize().x, XPOS_FOR_PRINT,
+		g.drawString("Width: " + myLevel.getLevelSize().y, XPOS_FOR_PRINT,
 				YPOS_FOR_WIDTH_PRINT);
-		g.drawString("Height: " + myLevel.getLevelSize().y, XPOS_FOR_PRINT,
+		g.drawString("Height: " + myLevel.getLevelSize().x, XPOS_FOR_PRINT,
 				YPOS_FOR_HEIGHT_PRINT);
 	}
 }
