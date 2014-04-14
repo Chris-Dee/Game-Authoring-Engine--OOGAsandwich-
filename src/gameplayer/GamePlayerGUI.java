@@ -152,6 +152,23 @@ public class GamePlayerGUI extends JGEngine{
 		}
 		return collisions;
 	}
+	public HashMap<Tuple<Integer, Integer>, ArrayList<Tuple<GameObject, GameObject>>> getCollisions(ArrayList<Tuple<Integer, Integer>> collisions){
+		HashMap<Tuple<Integer, Integer>, ArrayList<Tuple<GameObject, GameObject>>> collisionsByCollisionIDs = new HashMap<Tuple<Integer, Integer>, ArrayList<Tuple<GameObject,GameObject>>>();
+		for(Tuple<Integer, Integer> collisionIDs: collisions){
+			collisionsByCollisionIDs.put(collisionIDs, new ArrayList<Tuple<GameObject,GameObject>>());
+		}
+		for(GameObject i: currentObjects){
+			for(GameObject j: currentObjects){
+				if(i != j){
+					Tuple<Integer, Integer> collisionRelation = new Tuple<Integer, Integer>(i.colid, j.colid);
+					if(collisionsByCollisionIDs.containsKey(collisionRelation)){
+						collisionsByCollisionIDs.get(collisionRelation).add(new Tuple<GameObject,GameObject>(i, j));
+					}
+				}
+			}
+		}
+		return collisionsByCollisionIDs;
+	}
 	
 	private void endLevel(int nextLevel){
 		//TODO: wrap up the current level and go to the next one
