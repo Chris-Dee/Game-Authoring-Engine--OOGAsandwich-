@@ -4,8 +4,10 @@ import java.util.List;
 
 import gameEngine.GameEvent;
 import gameEngine.InvalidEventException;
+import gameEngine.ParameterDesc;
 
 public class TimerEvent extends GameEvent {
+	@ParameterDesc(name = "Delay", description = "Number of frames to wait before triggering the timer.")
 	protected int delay;
 	protected long startTime;
 
