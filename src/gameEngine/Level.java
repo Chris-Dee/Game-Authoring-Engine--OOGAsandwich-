@@ -35,6 +35,7 @@ public class Level {
 		name = levelName;
 		levelObjects = new ArrayList<UninstantiatedGameObject>();
 		levelBG = defaultBackground;
+		events = new ArrayList<GameEvent>();
 	}
 
 	public void initialize() {
