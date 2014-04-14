@@ -22,7 +22,6 @@ public class GameEventManager {
 			GameEvent event = eventIterator.next();
 			if (event.check(this) && event.isOneTimeEvent()) {
 				eventIterator.remove();
-			} else {
 			}
 		}
 	}
