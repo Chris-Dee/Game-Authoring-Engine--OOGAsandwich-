@@ -20,7 +20,6 @@ import javax.swing.JToolBar;
 public class ObjectToolbar extends JPanel {
 	private LevelEditor myLevelEditor;
 	private static final String RESOURCE_PATH = "src/gameAuthoringEnvironment/levelEditor/";
-	private String currentImageName;
 
 	/**
 	 * Toolbar that displays all available object images. Click on each image in
@@ -35,7 +34,6 @@ public class ObjectToolbar extends JPanel {
 	}
 
 	private void initializeToolbar() {
-		currentImageName = myLevelEditor.getMover().getImageName();
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
 		this.setFocusable(false);
@@ -71,7 +69,6 @@ public class ObjectToolbar extends JPanel {
 
 			public void actionPerformed(ActionEvent arg0) {
 				myLevelEditor.getMover().changeImage(imageName);
-				// myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
 				myLevelEditor.setStats(imageName);
 			}
 		});

@@ -19,6 +19,7 @@ public class LevelPanel extends JPanel {
 	// Game game
 	private List<LevelPanelComponent> levelComponentList;
 	private BasicLevelStats statsPanel;
+
 	/**
 	 * Panel to display current levels available in game.
 	 * 
@@ -30,17 +31,16 @@ public class LevelPanel extends JPanel {
 		levelComponentList = new ArrayList<LevelPanelComponent>();
 		statsPanel = stats;
 		initialize();
-		// System.out.println("l29LP");
 		stats.setLevelPanel(this);
 	}
 
 	private void initialize() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		Dimension s = getToolkit().getScreenSize();
 		setBackground(new Color(0, 0, 0));
 		fillPanels();
 	}
-	public void changeBGEnable(boolean b){
+
+	public void changeBGEnable(boolean b) {
 		statsPanel.toggleBGEnabled(b);
 	}
 
@@ -52,7 +52,6 @@ public class LevelPanel extends JPanel {
 		}
 
 		for (int i = 0; i < EMPTY_SPACE_CONSTANT - levelComponentList.size(); i++) {
-			// this.add(new LevelPanelComponent(new Color(255,255,255),""+i));
 			JPanel emptyPanel = new JPanel();
 			emptyPanel.setBackground(new Color(255, 255, 255));
 			this.add(emptyPanel);
@@ -106,7 +105,6 @@ public class LevelPanel extends JPanel {
 				return currentLevelPanelComponent;
 			}
 		}
-
 		return null;
 	}
 
@@ -123,10 +121,10 @@ public class LevelPanel extends JPanel {
 				LevelPanelComponent.NORMAL_COLOR, name, this));
 		fillPanels();
 	}
-	
-	public void addLevel(Level level){
-		LevelPanelComponent toAdd = new LevelPanelComponent(LevelPanelComponent.NORMAL_COLOR,level,this);
-		//toAdd.setAllObjectsActive();
+
+	public void addLevel(Level level) {
+		LevelPanelComponent toAdd = new LevelPanelComponent(
+				LevelPanelComponent.NORMAL_COLOR, level, this);
 		levelComponentList.add(toAdd);
 		fillPanels();
 	}
@@ -152,7 +150,6 @@ public class LevelPanel extends JPanel {
 			levelComponent.setActive(false);
 			levelComponent.revalidate();
 			levelComponent.repaint();
-
 		}
 	}
 
@@ -169,13 +166,14 @@ public class LevelPanel extends JPanel {
 		setLevelName(null);
 		fillPanels();
 	}
-	
+
 	/**
-	 * Removes all levels from the current game. Used when loading a new game into the GAE.
+	 * Removes all levels from the current game. Used when loading a new game
+	 * into the GAE.
 	 */
-	
-	public void deleteAllLevels(){
-		for (int i = levelComponentList.size() - 1; i>=0; i--) {
+
+	public void deleteAllLevels() {
+		for (int i = levelComponentList.size() - 1; i >= 0; i--) {
 			deleteLevel(levelComponentList.get(i));
 		}
 	}

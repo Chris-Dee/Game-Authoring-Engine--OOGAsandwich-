@@ -13,19 +13,6 @@ public class ObjectStats {
 	// TODO could definitely get rid of this
 	public boolean isFloating;
 
-	public ObjectStats(String colType, Integer collID, String movementPattern, Integer speed, Integer duration,
-			Integer gravMag, boolean cameraFollow, String imageName, boolean floating) {
-		myColType = colType;
-		myCollID = collID;
-		myMovementPattern = movementPattern;
-		mySpeed = speed;
-		myDuration = duration;
-		myGravMag = gravMag;
-		isCameraFollow = cameraFollow;
-		myImageName = imageName;
-		isFloating = floating;
-	}
-
 	public ObjectStats(String[] statsArray) {
 		myColType = statsArray[0];
 		myCollID = Integer.parseInt(statsArray[1]);
@@ -36,5 +23,14 @@ public class ObjectStats {
 		isCameraFollow = Boolean.parseBoolean(statsArray[6]);
 		myImageName = statsArray[7];
 		isFloating = Boolean.parseBoolean(statsArray[8]);
+	}
+
+	public ObjectStats(String colType, Integer collID, String movementPattern,
+			Integer speed, Integer duration, Integer gravMag,
+			boolean cameraFollow, String imageName, boolean floating) {
+		this(new String[] { colType, collID.toString(), movementPattern,
+				speed.toString(), duration.toString(), gravMag.toString(),
+				Boolean.toString(cameraFollow), imageName,
+				Boolean.toString(floating) });
 	}
 }
