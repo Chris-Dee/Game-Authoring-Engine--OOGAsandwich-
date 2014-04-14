@@ -110,6 +110,7 @@ public class GameObjectAction {
 		//isStart=true;
 		myObj.x=initialPosition.x;
 		myObj.y=initialPosition.y;
+		if(currentTimer!=null)
 		currentTimer.set(duration*10,false);
 	}
 	public Map<Integer, Tuple<String,Integer>> getCharMap(){
