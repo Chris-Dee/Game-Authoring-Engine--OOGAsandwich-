@@ -3,7 +3,6 @@ package gameplayer;
 import gameEngine.Game;
 import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
-import gameEngine.Goal;
 import gameEngine.InvalidEventActionException;
 import gameEngine.InvalidEventException;
 import gameEngine.Level;

@@ -16,7 +16,6 @@ public class GamePlayerGUI extends JGEngine{
 
 	private Game currentGame;
 	private List<GameObject> currentObjects;
-	private List<Goal> levelGoals;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	//private Level currentLevel;
 	private GameEventManager eventManager;
@@ -106,6 +105,7 @@ public class GamePlayerGUI extends JGEngine{
 		return targetObjs;
 	}
 
+	/*
 	public void checkGoals(){
 		for(Goal i: levelGoals){
 			List<GameObject> goalObjs = findTargets(i.getTargets());
@@ -114,7 +114,7 @@ public class GamePlayerGUI extends JGEngine{
 			}
 		}
 	}
-
+	*/
 	public void checkCollisions(){
 		for(BasicCollision i: currentGame.collisionRules){
 			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
@@ -183,7 +183,6 @@ public class GamePlayerGUI extends JGEngine{
 		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();;
-		levelGoals = new ArrayList<Goal>();
 		for(UninstantiatedGameObject i : currentGame.getCurrentLevel().getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
 

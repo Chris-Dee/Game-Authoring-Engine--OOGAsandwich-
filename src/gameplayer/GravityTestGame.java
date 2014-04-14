@@ -3,7 +3,6 @@ package gameplayer;
 import gameEngine.Game;
 import gameEngine.GameObject;
 import gameEngine.GameObjectAction;
-import gameEngine.Goal;
 import gameEngine.Level;
 import gameEngine.UninstantiatedGameObject;
 
