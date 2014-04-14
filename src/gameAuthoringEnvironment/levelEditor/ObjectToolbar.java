@@ -35,7 +35,7 @@ public class ObjectToolbar extends JPanel {
 	}
 
 	private void initializeToolbar() {
-		currentImageName=myLevelEditor.myMover.getImageName();
+		currentImageName = myLevelEditor.getMover().getImageName();
 		JToolBar toolbar = new JToolBar();
 		toolbar.setOrientation(1);
 		this.setFocusable(false);
@@ -56,14 +56,10 @@ public class ObjectToolbar extends JPanel {
 		if (imageCheck.exists()) {
 			try {
 				URL imageURL = imageCheck.toURI().toURL();
-				try {
-					Image img = ImageIO.read(imageURL);
-					button.setIcon(new ImageIcon(img));
-					createListener(button, imageName);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} catch (MalformedURLException e) {
+				Image img = ImageIO.read(imageURL);
+				button.setIcon(new ImageIcon(img));
+				createListener(button, imageName);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -74,8 +70,8 @@ public class ObjectToolbar extends JPanel {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				myLevelEditor.myMover.changeImage(imageName);
-				//myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
+				myLevelEditor.getMover().changeImage(imageName);
+				// myLevelEditor.myMover.setStats(myLevelEditor.findStatMap().get(imageName));
 				myLevelEditor.setStats(imageName);
 			}
 		});
