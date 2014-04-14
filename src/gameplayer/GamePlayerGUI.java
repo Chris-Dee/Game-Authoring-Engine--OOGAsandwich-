@@ -16,7 +16,6 @@ public class GamePlayerGUI extends JGEngine{
 
 	private Game currentGame;
 	private List<GameObject> currentObjects;
-	// TODO: Make a collection of levels so we can dynamically get the level's current objects
 	//private Level currentLevel;
 	private GameEventManager eventManager;
 
@@ -106,11 +105,9 @@ public class GamePlayerGUI extends JGEngine{
 	public void doLevel(){
 		//does the frame of whatever the current level is and then updates the games objects
 
-		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		// currentLevel.doFrame();
 		doInputs();
 		doGravity(currentGame.getCurrentLevel().getGravityVal());
-		//		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 		eventManager.check();
 	}
 
@@ -126,16 +123,6 @@ public class GamePlayerGUI extends JGEngine{
 		return targetObjs;
 	}
 
-	/*
-	public void checkGoals(){
-		for(Goal i: levelGoals){
-			List<GameObject> goalObjs = findTargets(i.getTargets());
-			if(i.checkGoal(goalObjs)){
-				endLevel(i.getNextLevel());
-			}
-		}
-	}
-	*/
 	public void checkCollisions(){
 		for(BasicCollision i: currentGame.collisionRules){
 			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
@@ -200,21 +187,13 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void constructLevel(){
-		// This is where you take output from parser and construct the game and levels
-		// This is temporary for testing.
-		//currentLevel = currentGame.getCurrentLevel();
-		//currentLevelInput = currentLevel.getLevelInput();
-		// TODO: Make this dependent on input from the data group.
+
 		currentObjects = new ArrayList<GameObject>();;
 		for(UninstantiatedGameObject i : currentGame.getCurrentLevel().getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
 
 			currentObjects.add(i.instantiate());
-			//			if(myObject.getFuckingName().equals("goal")){
-			//				levelGoals.add((Goal) myObject);
-			//			}
-			//			else
-			//				currentObjects.add(myObject);
+
 		}
 		eventManager = new GameEventManager(currentObjects, currentGame.getCurrentLevel().getEvents(), this);
 		setPFSize(currentGame.getCurrentLevel().getLevelSize().x*100, currentGame.getCurrentLevel().getLevelSize().y*100);
@@ -264,7 +243,6 @@ public class GamePlayerGUI extends JGEngine{
 	}
 
 	public void doInputs(){
-		//System.out.println(getLastKey());
 		for(GameObject obj: currentObjects){
 			GameObjectAction move= obj.getMovement();
 			Map<Integer, MethodData<String,Integer>> characterMap =obj.getCharMap();
@@ -276,18 +254,19 @@ public class GamePlayerGUI extends JGEngine{
 						keyPressed=true;
 						java.lang.reflect.Method method = null;
 						try {
-							//System.out.println(characterMap.get(c).get(obj.getFuckingName()));
 							method = move.getClass().getMethod(characterMap.get(c).x, GameObject.class, int[].class);
 						} catch (SecurityException e) {
+							System.out.println("error1");
 						} catch (NoSuchMethodException e) {
-							System.out.println("wtf1");
+							System.out.println("error2");
 						}	
 						try {
 							method.invoke(move, obj, (Object) characterMap.get(c).y);
 						} catch (IllegalArgumentException e) {
-							System.out.println("wtf2");
+							System.out.println("error3");
 						} catch (IllegalAccessException e) {
-						} catch (InvocationTargetException e) {}
+							System.out.println("error4");
+						} catch (InvocationTargetException e) {System.out.println("error5");}
 					}
 				}
 				if (!keyPressed){
