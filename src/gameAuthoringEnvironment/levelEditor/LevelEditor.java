@@ -31,8 +31,7 @@ public class LevelEditor extends JGEngine {
 	private static final int FRAMES_PER_SECOND = 250;
 	private static final int SCREEN_HEIGHT = 600;
 	private static final int SCREEN_WIDTH = 600;
-	// TODO Why is this public?
-	public LevelMover myMover;
+	private LevelMover myMover;
 	private int clickCount = 0;
 	private Map<String, String> imageMap = new HashMap<String, String>();
 	private Level myLevel;
@@ -46,8 +45,6 @@ public class LevelEditor extends JGEngine {
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_TOP = 5;
 	private static final int BALL_OFF_SCREEN_ADJUSTMENT_Y_BOTTOM = 10;
 	private ObjectStatsPanel myObjectStatsPanel;
-	// private Map<String, ObjectStats> statKeeper = new HashMap<String,
-	// ObjectStats>();
 
 	private final String defaultImage = "/gameAuthoringEnvironment/levelEditor/Resources/red.gif";
 	private ResourceBundle myResources;
@@ -93,22 +90,10 @@ public class LevelEditor extends JGEngine {
 			e.printStackTrace();
 		}
 	}
-
-	/*
-	 * public String getSelectedImageName() { if (selectedObject.size() > 0)
-	 * return selectedObject.get(0).getImageName(); return null; }
-	 */
-
+	
 	public List<GameObject> getSelected() {
 		return selectedObjects;
 	}
-
-	/*
-	 * public Level getLevel() { return myLevel; }
-	 */
-	/*
-	 * public Map<String, ObjectStats> findStatMap() { return statKeeper; }
-	 */
 
 	public void setObjectStatsPanel(ObjectStatsPanel panel) {
 		myObjectStatsPanel = panel;
@@ -131,6 +116,10 @@ public class LevelEditor extends JGEngine {
 		setPFSize(myLevel.getLevelSize().x, myLevel.getLevelSize().y);
 	}
 
+	public LevelMover getMover() {
+		return myMover;
+	}
+
 	public boolean checkKey(int key) {
 		Boolean b = getKey(key);
 		clearLastKey();
@@ -148,7 +137,7 @@ public class LevelEditor extends JGEngine {
 	}
 	
 	private void placeObject() {
-		if (checkKey(KeyEnter)) {
+		if (checkKey(KeyEnter) && !myMover.getImageName().equals("srball")) {
 			// System.out.println("Adding " + getImageName() + " to screen");
 			clearKey(KeyEnter);
 			addObject(myMover.getImageName(), (int) myMover.x, (int) myMover.y);
