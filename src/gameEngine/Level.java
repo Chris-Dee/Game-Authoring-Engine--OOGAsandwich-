@@ -18,11 +18,13 @@ public class Level {
 	public static final String defaultBackground="blankbackground";
 	private int GAME_SCORE=100;
 	private List<GameEvent> events;
+	private String levelName;
 
-	public Level(String levelName, JGPoint size,
+	public Level(String lvlName, JGPoint size,
 			List<UninstantiatedGameObject> objects,
 			String background, double gravityMagnitude) {
 		//initialize();
+		levelName = lvlName;
 		levelSize = size;
 		levelObjects = objects;
 		levelBG = background;
@@ -94,5 +96,9 @@ public class Level {
 	
 	public void addEvent(GameEvent event){
 		events.add(event);
+	}
+	
+	public String getLevelName(){
+		return levelName;
 	}
 }

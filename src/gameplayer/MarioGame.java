@@ -66,8 +66,26 @@ public class MarioGame extends Game {
 
 		Level firstLevel = new Level("first level", new JGPoint(4, 4), objs, "skyblue", .6);//,new LevelInput(levelInputMap));
 		
+		
+		List<UninstantiatedGameObject> objs2 = new ArrayList<UninstantiatedGameObject>();
+		objectID = 0;
+		objs2.add(new UninstantiatedGameObject("player", new JGPoint(50, 500),1, "mario", levelInputMap, false, true, objectID)); 
+		for(int i = 0; i < 900 /32; i++){
+			objectID++;
+			objs2.add(new UninstantiatedGameObject("brick", new  JGPoint(i * 32, 750), 2, "brick", true, objectID));
+		} 
+		objs2.add(new UninstantiatedGameObject("moving platform", new JGPoint(200, 600), 2, "mobile", "pace", 125, 2, true, objectID+1)); 
+		objs2.add(new UninstantiatedGameObject("stationary platform", new JGPoint(590,350), 2, "stationary", true, objectID+2));
+		objs2.add(new UninstantiatedGameObject("turtle", new JGPoint(300, 750), 4,"turtle", "pace", 55, 2, false, objectID+3)); 
+		objs2.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
+		objs2.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
+
+		
+		objs2.add(new UninstantiatedGameObject("moving platform", new JGPoint(100, 200), 2, "mobile", "pace", 125, 2, true, objectID+6)); 
+		Level secondLevel = new Level("second level ya bish", new JGPoint(4, 4), objs2, "spacebackground", .6);
+		
 		try {
-			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("10")));
+			TimerEvent event = new TimerEvent(-1, new ArrayList<Integer>(), new ArrayList<String>(Arrays.asList("50")));
 			try {
 				RemoveAction action = new RemoveAction(new ArrayList<Integer>(Arrays.asList(0)), new ArrayList<String>());
 				event.addAction(action);
@@ -80,9 +98,10 @@ public class MarioGame extends Game {
 		}
 		
 		List<Level> myLevels = new ArrayList<Level>();
-		myLevels.add(firstLevel);
+		myLevels.add(0,firstLevel);
+		myLevels.add(1,secondLevel);
 		addListOfLevels(myLevels);
-		setCurrentLevel(myLevels.get(0));
+		setCurrentLevel(0);
 		
 	}
 }

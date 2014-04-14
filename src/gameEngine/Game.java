@@ -16,7 +16,7 @@ import jgame.JGPoint;
 
 public class Game {
 	private List<Level> allLevels;
-	private Level currentLevel;
+	private int currentLevel;
 	protected JGPoint screenSize;
 	public String mediaTablePath;
 	private GameData myGameData;
@@ -49,7 +49,7 @@ public class Game {
 				myLevels.add((Level) obj);
 			}
 			addListOfLevels(myLevels);
-			setCurrentLevel(myLevels.get(0));
+			setCurrentLevel(0);
 		} catch (InvalidDataFileException e) {
 			e.printStackTrace();
 		}
@@ -93,12 +93,15 @@ public class Game {
 		allLevels.addAll(levels);
 	}
 	public Level getCurrentLevel() {
-		return currentLevel;
+		return allLevels.get(currentLevel);
 	}
-	public void setCurrentLevel(Level currentLevel) {
-		this.currentLevel = currentLevel;
+	public void setCurrentLevel(int levelIndex) {
+		this.currentLevel = levelIndex;
 	}
 	public JGPoint getSize() {
 		return screenSize;
+	}
+	public int getNextLevelIndex() {
+		return currentLevel+1;
 	}
 }

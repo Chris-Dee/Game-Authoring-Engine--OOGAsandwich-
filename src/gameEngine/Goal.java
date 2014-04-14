@@ -1,5 +1,7 @@
 package gameEngine;
 
+
+
 import java.util.List;
 
 import jgame.JGPoint;
@@ -27,3 +29,4 @@ public abstract class Goal extends GameObject{
 	
 	public abstract boolean checkGoal();
 }
+

@@ -18,8 +18,7 @@ public class GamePlayerGUI extends JGEngine{
 	private List<GameObject> currentObjects;
 	private List<Goal> levelGoals;
 	// TODO: Make a collection of levels so we can dynamically get the level's current objects
-	private Level currentLevel;
-	private boolean levelOver = false;
+	//private Level currentLevel;
 	private GameEventManager eventManager;
 
 
@@ -56,10 +55,8 @@ public class GamePlayerGUI extends JGEngine{
 	 * One-time setup of the game.
 	 */
 	public void startInGame(){
-		constructGame(); //sets levels
-		setPFSize(currentLevel.getLevelSize().x*100, currentLevel.getLevelSize().y*100);
-		//setPFSize(1000, 1000); // What does PFSize actually do? // Sam - I need the correct size for scrolling to work
-		setBGImage(currentLevel.getBackground());
+		constructLevel(); //sets levels
+		
 	}
 
 	/**
@@ -78,16 +75,14 @@ public class GamePlayerGUI extends JGEngine{
 	public void paintFrameInGame() {
 		// TODO: Add display of stats, status, points, etc.
 		//TODO: Make this dependent on the current level (if necessary at all)
-		String levelText = "Test Level";
-		if(levelOver)
-			levelText = "Level Complete";
+		String levelText = currentGame.getCurrentLevel().getLevelName();
 		drawString(levelText,viewWidth()/2,90,0);
 		paintScore();
 	}
-	
+
 	public void paintScore() {
 		//setColor(JGColor.red);
-		String score="Score: "+ currentLevel.getCurrentScore();
+		String score="Score: "+ currentGame.getCurrentLevel().getCurrentScore();
 		drawString(score,3*viewWidth()/4,24,0);
 	}
 
@@ -97,11 +92,11 @@ public class GamePlayerGUI extends JGEngine{
 		//TODO: figure out more in-depth about how jgame tracks objects so we make sure updating them works right
 		// currentLevel.doFrame();
 		doInputs();
-		doGravity(currentLevel.getGravityVal());
-//		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
+		doGravity(currentGame.getCurrentLevel().getGravityVal());
+		//		setViewOffset((int)avgScreenX(currentObjects),(int)avgScreenY(currentObjects),true);
 		eventManager.check();
 	}
-	
+
 	private List<GameObject> findTargets(List<Integer> targetIDs){
 		List<GameObject> targetObjs = new ArrayList<GameObject>();
 		for(Integer i : targetIDs){
@@ -113,7 +108,7 @@ public class GamePlayerGUI extends JGEngine{
 		}
 		return targetObjs;
 	}
-	
+
 	public void checkGoals(){
 		for(Goal i: levelGoals){
 			List<GameObject> goalObjs = findTargets(i.getTargets());
@@ -135,9 +130,10 @@ public class GamePlayerGUI extends JGEngine{
 			ArrayList<Tuple<GameObject,GameObject>> temp = getCollisions(i.colid1, i.colid2);
 			for(Tuple<GameObject,GameObject> j: temp){
 				if(i.behavior == "endlevel"){
-					endLevel(0);
+					endLevel(currentGame.getNextLevelIndex());
 				}else if(i.behavior == "reset"){
 					j.x.reset();
+					currentGame.getCurrentLevel().changeScore(-1);
 				}
 			}
 		}
@@ -155,38 +151,40 @@ public class GamePlayerGUI extends JGEngine{
 		}
 		return collisions;
 	}
-	
-	private void endLevel(int nextLevel){
+
+	private void endLevel(int nextLevelIndex){
 		//TODO: wrap up the current level and go to the next one
 		for(GameObject i: currentObjects){
 			i.remove();
 		}
-		levelOver = true;
-		//TODO: Call something to construct the new level and switch to that new level
+		currentGame.setCurrentLevel(nextLevelIndex);
+		constructLevel();
 	}
 
-	public void constructGame(){
+	public void constructLevel(){
 		// This is where you take output from parser and construct the game and levels
 		// This is temporary for testing.
-		currentLevel = currentGame.getCurrentLevel();
+		//currentLevel = currentGame.getCurrentLevel();
 		//currentLevelInput = currentLevel.getLevelInput();
 		// TODO: Make this dependent on input from the data group.
 		currentObjects = new ArrayList<GameObject>();;
 		levelGoals = new ArrayList<Goal>();
-		for(UninstantiatedGameObject i : currentLevel.getObjects()){
+		for(UninstantiatedGameObject i : currentGame.getCurrentLevel().getObjects()){
 			//TODO: Instantiate based on if sprite is on screen
-			
+
 			currentObjects.add(i.instantiate());
-//			if(myObject.getFuckingName().equals("goal")){
-//				levelGoals.add((Goal) myObject);
-//			}
-//			else
-//				currentObjects.add(myObject);
+			//			if(myObject.getFuckingName().equals("goal")){
+			//				levelGoals.add((Goal) myObject);
+			//			}
+			//			else
+			//				currentObjects.add(myObject);
 		}
-		levelOver = false;
-		eventManager = new GameEventManager(currentObjects, currentLevel.getEvents());
+		eventManager = new GameEventManager(currentObjects, currentGame.getCurrentLevel().getEvents());
+		setPFSize(currentGame.getCurrentLevel().getLevelSize().x*100, currentGame.getCurrentLevel().getLevelSize().y*100);
+		//setPFSize(1000, 1000); // What does PFSize actually do? // Sam - I need the correct size for scrolling to work
+		setBGImage(currentGame.getCurrentLevel().getBackground());
 	}
-	
+
 	public void doGravity(double mag){
 		for(GameObject obj : currentObjects){
 			if(!obj.getIsFloating()){
@@ -194,7 +192,7 @@ public class GamePlayerGUI extends JGEngine{
 			}
 		}
 	}
-	
+
 	public double avgScreenX(List<GameObject> objs){
 		double xtot = 0;
 		int cnt = 0;
@@ -206,7 +204,7 @@ public class GamePlayerGUI extends JGEngine{
 		}
 		return xtot / cnt;
 	}
-	
+
 	public double avgScreenY(List<GameObject> objs){
 		double ytot = 0;
 		int cnt = 0;
@@ -228,6 +226,7 @@ public class GamePlayerGUI extends JGEngine{
 				boolean keyPressed=false;
 				for(Integer c : characterMap.keySet()){
 					if(getKey(c)){
+
 						keyPressed=true;
 						java.lang.reflect.Method method = null;
 						try {
@@ -247,6 +246,10 @@ public class GamePlayerGUI extends JGEngine{
 				}
 			}
 
+		}
+		if (getKey('O')){
+			endLevel(currentGame.getNextLevelIndex());
+			clearKey('O');
 		}
 
 	}

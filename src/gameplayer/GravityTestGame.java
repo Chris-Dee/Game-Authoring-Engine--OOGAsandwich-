@@ -64,6 +64,6 @@ public class GravityTestGame extends Game{
 		
 		
 		addLevel(firstLevel);
-		setCurrentLevel(firstLevel);
+		setCurrentLevel(0);
 	}
 }
