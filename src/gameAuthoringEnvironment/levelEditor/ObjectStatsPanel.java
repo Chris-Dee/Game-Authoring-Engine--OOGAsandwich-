@@ -144,8 +144,7 @@ public class ObjectStatsPanel extends JPanel {
 		cameraBox = new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO code to make the camera follow that object
-				for (GameObject g : myEditor.getSelected()) {
+				for(GameObject g:myEditor.getSelected()){
 					g.setIsScreenFollowing(cameraBox.isSelected());
 				}
 			}
@@ -192,6 +191,7 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void itemStateChanged(ItemEvent event) {
 				setSliderEnable();
+				//TODO change the movement pattern in the gameObject somehow
 			}
 		});
 
@@ -254,7 +254,6 @@ public class ObjectStatsPanel extends JPanel {
 
 	private ChangeListener createDurationListener(final JSlider slider) {
 		return new ChangeListener() {
-
 			public void stateChanged(ChangeEvent event) {
 				for (GameObject g : myEditor.getSelected()) {
 					// System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;

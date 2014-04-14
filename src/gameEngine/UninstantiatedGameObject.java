@@ -100,6 +100,9 @@ public class UninstantiatedGameObject {
 	public GameObject instantiate() {
 		// System.out.println(objectTime);
 		// TODO: Make this better.
+		System.out.println(objectName+"  "+objectPosition+"  "+objectColid
+				+"  "+objectSprite+"  "+objectSpeed+"  "+objectTime+" "+objectPosition+
+				" "+objectID);
 		if (objectInputMap != null) {
 			return new GameObject(objectName, objectPosition, objectColid,
 					objectSprite, objectInputMap, objectFloating,

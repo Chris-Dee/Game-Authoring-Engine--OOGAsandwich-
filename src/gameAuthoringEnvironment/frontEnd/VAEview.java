@@ -191,7 +191,6 @@ public class VAEview extends JFrame {
 		try {
 			myGameData.parse();
 			List<Object> myLevels = myGameData.getObjects("gameEngine.Level");
-
 			myLevelPanel.deleteAllLevels();
 			for (Object level : myLevels) {
 				myLevelPanel.addLevel((Level) level);
