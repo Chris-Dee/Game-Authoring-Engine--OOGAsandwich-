@@ -27,7 +27,7 @@ import data.GameData;
 import data.InvalidDataFileException;
 
 public class VAEview extends JFrame {
-	
+
 	private static final String TEMPORARY_GAME_NAME = "Current Game";
 	private static final String WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION = "What would you like to call this game?";
 	private static final String DOT_JSON_EXTENSION = ".json";
@@ -131,7 +131,8 @@ public class VAEview extends JFrame {
 	/**
 	 * Plays the current iteration of the game. Saves the current game state
 	 * into a temporary file, and then runs that game.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public void playGame() throws Exception {
 		saveGame(TEMPORARY_GAME_NAME);
@@ -141,25 +142,25 @@ public class VAEview extends JFrame {
 	/**
 	 * Saves the current game to a .txt file in the JSON format. The user
 	 * defines the file name.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public void saveToTextFile() throws Exception {
 		String fileName = JOptionPane
 				.showInputDialog(WHAT_WOULD_YOU_LIKE_TO_CALL_THIS_GAME_QUESTION);
 		saveGame(fileName);
-
 	}
-	
+
 	/**
 	 * Saves the current state of the game to a .JSON file
+	 * 
 	 * @param fileName
-	 * 				Name of the file
+	 *            Name of the file
 	 * @throws Exception
 	 */
-	private void saveGame(String fileName) throws Exception{
+	private void saveGame(String fileName) throws Exception {
 		Field levelComponentListField = myLevelPanel.getClass()
-				.getDeclaredField(
-						LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME);
+				.getDeclaredField(LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME);
 		levelComponentListField.setAccessible(true);
 		List<LevelPanelComponent> myLevelComponentsList = (List<LevelPanelComponent>) levelComponentListField
 				.get(myLevelPanel);
@@ -173,7 +174,6 @@ public class VAEview extends JFrame {
 		}
 		myGameData.setFileName(fileName + DOT_JSON_EXTENSION);
 		myGameData.write();
-
 	}
 
 	/**

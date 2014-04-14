@@ -68,26 +68,15 @@ public class ObjectStatsPanel extends JPanel {
 		setVisible(true);
 	}
 
-	/*
-	 * public ObjectStats exportStats() { return new ObjectStats(objectName,
-	 * myCollisionID, movementName, movementSpeed, movementDuration, gravityMag,
-	 * cameraBox.isSelected(), myEditor.getSelectedImageName(), isFloating); }
-	 */
-
 	public void setStats(ObjectStats objectStats) {
-
-		if (objectStats != null) {
-			// if (objectStats.mySpeed != null)
-			mySpeedSlider.setValue(objectStats.mySpeed);
-			// if (objectStats.myDuration != null)
-			myDurationSlider.setValue(objectStats.myDuration);
-			myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
-			objectType.setSelectedItem(objectStats.myColType);
-			movementType.setSelectedItem(objectStats.myMovementPattern);
-			floaterBox.setSelected(objectStats.isFloating);
-			cameraBox.setSelected(objectStats.isCameraFollow);
-			setSliderEnable();
-		}
+		mySpeedSlider.setValue(objectStats.mySpeed);
+		myDurationSlider.setValue(objectStats.myDuration);
+		myGravityMagnitudeSlider.setValue(objectStats.myGravMag);
+		objectType.setSelectedItem(objectStats.myColType);
+		movementType.setSelectedItem(objectStats.myMovementPattern);
+		floaterBox.setSelected(objectStats.isFloating);
+		cameraBox.setSelected(objectStats.isCameraFollow);
+		setSliderEnable();
 	}
 
 	private void setSliderEnable() {
@@ -144,7 +133,7 @@ public class ObjectStatsPanel extends JPanel {
 		cameraBox = new JCheckBox("Camera Toggle");
 		cameraBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for(GameObject g:myEditor.getSelected()){
+				for (GameObject g : myEditor.getSelected()) {
 					g.setIsScreenFollowing(cameraBox.isSelected());
 				}
 			}
@@ -191,7 +180,7 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void itemStateChanged(ItemEvent event) {
 				setSliderEnable();
-				//TODO change the movement pattern in the gameObject somehow
+				// TODO change the movement pattern in the gameObject somehow
 			}
 		});
 
@@ -246,7 +235,6 @@ public class ObjectStatsPanel extends JPanel {
 			public void stateChanged(ChangeEvent event) {
 				for (GameObject g : myEditor.getSelected()) {
 					g.setSpeed(getMovementSpeed());
-					// myEditor.findStatMap().get(g.getName()).mySpeed=movementSpeed;
 				}
 			}
 		};
@@ -256,7 +244,6 @@ public class ObjectStatsPanel extends JPanel {
 		return new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
 				for (GameObject g : myEditor.getSelected()) {
-					// System.out.println(myEditor.findStatMap());//.myDuration=movementDuration;
 					try {
 						g.setDuration(getMovementDuration());
 					} catch (InterruptedException e) {

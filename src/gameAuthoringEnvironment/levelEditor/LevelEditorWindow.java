@@ -2,7 +2,6 @@ package gameAuthoringEnvironment.levelEditor;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
 import gameAuthoringEnvironment.frontEnd.OptionsPanel;
-import gameAuthoringEnvironment.frontEnd.PresetsBar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,13 +16,13 @@ import javax.swing.JPanel;
 
 public class LevelEditorWindow extends JFrame {
 	private LevelPanelComponent myLevelPanelComponent;
-	private LevelEditor levelEdit;
+	private LevelEditor myLevelEditor;
 
 	/**
 	 * Window that holds the level editor
 	 * 
 	 * @param levelPanelComponent
-	 * 				Component in the GUI that holds the level information
+	 *            Component in the GUI that holds the level information
 	 */
 	public LevelEditorWindow(LevelPanelComponent levelPanelComponent) {
 		myLevelPanelComponent = levelPanelComponent;
@@ -33,7 +32,7 @@ public class LevelEditorWindow extends JFrame {
 	private void initialize() {
 		setVisible(true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setTitle("Level Editor" /*levelEdit.getName()*/);
+		setTitle("Level Editor");
 		setLayout(new BorderLayout());
 		setExitAction();
 		makeMainPanel();
@@ -44,8 +43,8 @@ public class LevelEditorWindow extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				levelEdit.clearGame();
-				levelEdit.destroy();
+				myLevelEditor.clearGame();
+				myLevelEditor.destroy();
 				myLevelPanelComponent.setActive(true);
 				e.getWindow().dispose();
 				myLevelPanelComponent.changeEnableBG(true);
@@ -57,20 +56,16 @@ public class LevelEditorWindow extends JFrame {
 		JPanel mainPanel = (JPanel) getContentPane();
 
 		try {
-			levelEdit = new LevelEditor(myLevelPanelComponent.getLevel());
+			myLevelEditor = new LevelEditor(myLevelPanelComponent.getLevel());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mainPanel.add(levelEdit, BorderLayout.CENTER);
-		mainPanel.add(new LevelObjectBar(myLevelPanelComponent.getLevel(), levelEdit),
-				BorderLayout.WEST);
-		// PresetsBar currently doesn't do anything, not sure of potential
-		// future purpose
-
-		// mainPanel.add(new PresetsBar(), BorderLayout.EAST);
-
-		mainPanel.add(new ObjectEditorContainer(levelEdit), BorderLayout.EAST);
+		mainPanel.add(myLevelEditor, BorderLayout.CENTER);
+		mainPanel.add(new LevelObjectBar(myLevelPanelComponent.getLevel(),
+				myLevelEditor), BorderLayout.WEST);
+		mainPanel.add(new ObjectEditorContainer(myLevelEditor),
+				BorderLayout.EAST);
 
 		pack();
 	}
