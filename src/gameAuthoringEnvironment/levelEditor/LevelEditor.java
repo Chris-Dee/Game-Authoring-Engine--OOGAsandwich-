@@ -279,6 +279,9 @@ public class LevelEditor extends JGEngine {
 							for (GameObject g : v)
 								selectedObjects.remove(g);
 				}
+				else{
+					selectedObjects.clear();
+				}
 			}
 			// System.out.println(selectedObject.size());
 			if (selectedObjects.size() == 1) {
