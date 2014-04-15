@@ -41,11 +41,16 @@ public class GameObjectAction {
 		behaviorTime = time;
 	}
 	
-	public GameObjectAction(Map<Integer, MethodData<String,Integer>> inputMap){
+	public GameObjectAction(String objectBehavior,Map<Integer, MethodData<String,Integer>> inputMap){
 		characterMap=inputMap;
+		behavior=objectBehavior;
+	}
+	public String getMovementPattern(){
+		return behavior;
 	}
 	
 	private void pace(int time, int speed, final GameObject myObj) throws InterruptedException{
+		//System.out.println("I am Pacing!!");
 		myObj.xspeed = speed;
 		final int timer=time;
 		currentTimer=new JGTimer(behaviorTime,false) {
@@ -61,6 +66,7 @@ public class GameObjectAction {
 	}
 	
 	public void start(GameObject obj){
+		//setInitialPosition(new JGPoint((int)obj.x,(int)obj.y));
 		isStart = false;
 		if(behaviorFlag){
 			doReflect(behavior.toLowerCase(), behaviorTime, behaviorSpeed, obj);
@@ -98,19 +104,22 @@ public class GameObjectAction {
 		
 	}
 	public void setSpeed(int speed, GameObject myObj){
-		System.out.println("Setting speed to: "+speed);
 		behaviorSpeed=speed;
-		myObj.xspeed=speed;
-		//isStart=true;
+		if(initialPosition!=null){
 		myObj.x=initialPosition.x;
 		myObj.y=initialPosition.y;
+		}
+		if(currentTimer!=null)
+		currentTimer.set(behaviorTime,false);
+		myObj.xspeed=Math.abs(speed);
 	}
 	public void setDuration(int duration, GameObject myObj) throws InterruptedException{
 		behaviorTime=duration*10;
-		System.out.println("Setting duration to: "+duration);
-		//isStart=true;
+		if(initialPosition!=null){
 		myObj.x=initialPosition.x;
 		myObj.y=initialPosition.y;
+		}
+		myObj.xspeed=Math.abs(myObj.xspeed);
 		if(currentTimer!=null)
 		currentTimer.set(duration*10,false);
 	}

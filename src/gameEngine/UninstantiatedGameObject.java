@@ -50,6 +50,7 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = false;
 		objectID = id;
 		objectHitPoints=hitPoints;
+		objectBehavior="User-Controlled";
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position,
@@ -65,6 +66,9 @@ public class UninstantiatedGameObject {
 		objectScreenFollow = screenFollow;
 		objectID = id;
 		objectHitPoints=hitPoints;
+		objectSpeed=0;
+		objectTime=0;
+		objectBehavior="User-Controlled";
 	}
 
 	public UninstantiatedGameObject(String name, JGPoint position,
@@ -108,12 +112,13 @@ public class UninstantiatedGameObject {
 //		System.out.println(objectName+"  "+objectPosition+"  "+objectColid
 //				+"  "+objectSprite+"  "+objectSpeed+"  "+objectTime+" "+objectPosition+
 //				" "+objectID+" "+objectHitPoints);
+		System.out.println(objectInputMap==null);
 		if (objectInputMap != null) {
-			return new GameObject(objectName, objectPosition, objectColid,
+			return new GameObject(objectName,objectBehavior, objectPosition, objectColid,
 					objectSprite, objectInputMap, objectFloating,
 					objectScreenFollow, objectID,objectHitPoints, this);
 		} else if (objectTime != null) {
-			return new GameObject(objectName, objectPosition, objectColid,
+			return new GameObject(objectName, objectBehavior, objectPosition, objectColid,
 					objectSprite, objectBehavior, objectTime, objectSpeed,
 					objectFloating, objectID, objectHitPoints, this);
 		} else {

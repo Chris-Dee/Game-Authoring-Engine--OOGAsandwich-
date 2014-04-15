@@ -32,7 +32,7 @@ public class ObjectStatsPanel extends JPanel {
 	private static final int PANEL_WIDTH = 250;
 	private static final Dimension COMBO_SIZE = new Dimension(PANEL_WIDTH, 30);
 	private ObjectToolbar imageButtons;
-
+	private boolean speedEnable=false;
 	private int myCollisionID = 0;
 	private LevelEditor myEditor;
 	private JPanel homePanel = new JPanel();
@@ -83,12 +83,14 @@ public class ObjectStatsPanel extends JPanel {
 	}
 
 	private void setSliderEnable() {
-		if (movementType.getSelectedItem() == "User-Controlled"
-				|| movementType.getSelectedItem() == "Stationary") {
+		if (movementType.getSelectedItem().equals("User-Controlled")
+				|| movementType.getSelectedItem().equals( "Stationary")) {
 			mySpeedSlider.setEnabled(false);
+			speedEnable=false;
 			myDurationSlider.setEnabled(false);
 		} else {
 			mySpeedSlider.setEnabled(true);
+			speedEnable=true;
 			myDurationSlider.setEnabled(true);
 		}
 	}
@@ -183,6 +185,14 @@ public class ObjectStatsPanel extends JPanel {
 
 			public void itemStateChanged(ItemEvent event) {
 				setSliderEnable();
+				for(GameObject g:myEditor.getSelected()){
+					if(!movementType.getSelectedItem().equals(g.getMovement().getMovementPattern())
+							/*&&g.getMovement().getMovementPattern()!=null*/){
+					g.setMovementPattern((String) movementType.getSelectedItem());
+					System.out.println("state changed");
+					System.out.println(g.getMovement().getMovementPattern()+"  "+movementType.getSelectedItem());
+					}
+				}
 				// TODO change the movement pattern in the gameObject somehow
 			}
 		});
@@ -230,8 +240,12 @@ public class ObjectStatsPanel extends JPanel {
 		}
 
 		public void stateChanged(ChangeEvent event) {
-			for (GameObject g : myEditor.getSelected()) {
-				g.setSpeed(getMovementSpeed());
+			setSliderEnable();
+			//System.out.println(movementType.getSelectedItem());
+			if(speedEnable){
+				for (GameObject g : myEditor.getSelected()) {
+					g.setSpeed(getMovementSpeed());
+				}
 			}
 		};
 	}
