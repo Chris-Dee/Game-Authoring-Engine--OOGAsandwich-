@@ -1,4 +1,5 @@
 package jgame;
+import gameAuthoringEnvironment.levelEditor.LevelEditor;
 import jgame.impl.JGEngineInterface;
 import jgame.impl.Animation;
 //import java.awt.*;
@@ -51,8 +52,9 @@ import jgame.impl.Animation;
 public class JGObject {
 	static int next_id = 0; 
 	/** global which might be accessed concurrently */
-	static JGEngineInterface default_engine=null;
+	protected static JGEngineInterface default_engine=null;
 
+	protected static LevelEditor editor_engine=null;
 	/** The engine's viewWidth and viewHeight, stored in a local variable
 	* for extra speed.*/
 	public static int viewwidth,viewheight;
@@ -83,6 +85,8 @@ public class JGObject {
 		}
 		if (default_engine!=null) return false;
 		default_engine=engine;
+		if(default_engine instanceof LevelEditor)
+		editor_engine=(LevelEditor) engine;
 		// copy some constants from engine for fast access
 		viewwidth=engine.viewWidth();
 		viewheight=engine.viewHeight();

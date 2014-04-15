@@ -77,7 +77,6 @@ public class VAEview extends JFrame {
 		JPanel mainPanel = (JPanel) this.getContentPane();
 		mainPanel.setBackground(backgroundColor);
 		mainPanel.setLayout(new BorderLayout());
-
 		JPanel editPanel = new JPanel(new BorderLayout());
 		BasicLevelStats stats = new BasicLevelStats();
 		ScrollPane levelList = createLevelListPane(stats);

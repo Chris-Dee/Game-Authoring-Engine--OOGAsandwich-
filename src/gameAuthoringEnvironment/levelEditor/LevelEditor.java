@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import gameEngine.GameObject;
 import gameEngine.Level;
@@ -25,7 +26,7 @@ import jgame.JGRectangle;
 import jgame.platform.JGEngine;
 
 public class LevelEditor extends JGEngine {
-	private List<GameObject> selectedObjects = new ArrayList<GameObject>();
+	private List<GameObject> selectedObjects = new CopyOnWriteArrayList<GameObject>();
 	private static final String default_path = "src/gameAuthoringEnvironment/levelEditor/Resources/initObject";
 	private static final int MAX_FRAME_SKIP = 3;
 	private static final int FRAMES_PER_SECOND = 250;
@@ -74,7 +75,7 @@ public class LevelEditor extends JGEngine {
 		defineMedia("tempTable.tbl");
 		defineImage("firebackground", "m", 0, "firebackground.jpg", "-");
 		defineImage("srball", "n", 0, defaultImage, "-");
-		System.out.println("before level move");
+		//System.out.println("before level move");
 		myMover = new LevelMover(this);
 
 		myResources = ResourceBundle
@@ -88,7 +89,6 @@ public class LevelEditor extends JGEngine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println(myMover);
 	
 	}
 	
@@ -98,6 +98,9 @@ public class LevelEditor extends JGEngine {
 
 	public void setObjectStatsPanel(ObjectStatsPanel panel) {
 		myObjectStatsPanel = panel;
+	}
+	public ObjectStatsPanel getObjectStatsPanel(){
+		return myObjectStatsPanel;
 	}
 
 	public void setStats(String imageName) {
@@ -130,11 +133,14 @@ public class LevelEditor extends JGEngine {
 	private void deleteSelectedObject() {
 		if (checkKey(KeyBackspace)) {
 			for (GameObject s : selectedObjects) {
-				myLevel.getObjects().remove(s.toUninstantiated());
-				s.remove();
-				selectedObjects.remove(s);
+				deleteObject(s);
 			}
 		}
+	}
+	public void deleteObject(GameObject g){
+		myLevel.getObjects().remove(g.toUninstantiated());
+		g.remove();
+		selectedObjects.remove(g);
 	}
 	
 	private void placeObject() {
@@ -156,7 +162,7 @@ public class LevelEditor extends JGEngine {
 	 * @param y
 	 *            y position of image
 	 */
-	public void addObject(String imageName, int x, int y) {
+	public GameObject addObject(String imageName, int x, int y) {
 		UninstantiatedGameObject newObject;
 		if (myObjectStatsPanel.getMovementName().equals("User-Controlled")) {
 			Map<Integer, MethodData<String, Integer>> levelInputMap = new HashMap<Integer, MethodData<String, Integer>>();
@@ -181,8 +187,10 @@ public class LevelEditor extends JGEngine {
 		}
 		newObject.setMovementName(myObjectStatsPanel.getMovementName());
 		objectID++;
-		myLevel.addObjects(newObject);
-		newObject.instantiate();
+		addObjectsToLevel(newObject);
+		System.out.println("is instantiated");
+		GameObject debug=newObject.instantiate();
+		return debug;
 	}
 
 	public void setGravity(double value) {
@@ -197,8 +205,6 @@ public class LevelEditor extends JGEngine {
 	}
 
 	private void checkInBounds() {
-		if ((Double) myMover.x == null)
-			//System.out.println((Double) myMover.x == null);
 		if (myMover.x >= myMover.pfwidth) {
 			// myMover.x=el.xofs;
 			myMover.x = myMover.pfwidth
@@ -239,10 +245,10 @@ public class LevelEditor extends JGEngine {
 		deleteSelectedObject();
 		placeObject();
 		if(myMover!=null)
-		checkInBounds();
+			checkInBounds();
 		moveObjects(null, 0);
-if(myMover!=null)
-		setViewOffset((int) myMover.x, (int) myMover.y, true);
+		if(myMover!=null)
+			setViewOffset((int) myMover.x, (int) myMover.y, true);
 		selectOnClick();
 
 	}
@@ -268,7 +274,7 @@ if(myMover!=null)
 					if (!v.get(0).equals(myMover))
 						if (!selectedObjects.contains(v.get(0)))
 							for (GameObject g : v)
-								selectedObjects.add(v.get(0));
+								addSelectedObject(v.get(0));
 						else
 							for (GameObject g : v)
 								selectedObjects.remove(g);
@@ -288,9 +294,15 @@ if(myMover!=null)
 		}
 
 	}
+	public void addSelectedObject(GameObject g){
+		selectedObjects.add(g);
+	}
 
 	public void clearGame() {
 		selectedObjects.clear();
+	}
+	public void addObjectsToLevel(UninstantiatedGameObject u){
+		myLevel.addObjects(u);
 	}
 
 	private void highlight(JGObject object, JGColor color) {

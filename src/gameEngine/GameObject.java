@@ -1,12 +1,12 @@
 package gameEngine;
 
+import gameAuthoringEnvironment.levelEditor.LevelEditor;
 import gameAuthoringEnvironment.levelEditor.ObjectStats;
 import gameplayer.MethodData;
 
 import java.util.Map;
 
 import jgame.*;
-import jgame.JGImage;
 
 public class GameObject extends JGObject {
 
@@ -22,11 +22,12 @@ public class GameObject extends JGObject {
 
 	// private int myHitPoints;
 
-	public GameObject(String name, JGPoint position, int colid, String sprite,
+	public GameObject(String name,String objectBehavior, JGPoint position, int colid, String sprite,
 			String behavior, int time, int speed, boolean floating, int id, int hitPoints,
 			UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction(behavior, time, speed);
+		//System.out.println(behavior+" "+time+" "+speed);
+		myMovement = new GameObjectAction(objectBehavior, time, speed);
 		myMovement.setInitialPosition(new JGPoint((int)this.x,(int)this.y));
 		myFuckingName = name;
 		isFloating = floating;
@@ -55,11 +56,11 @@ public class GameObject extends JGObject {
 		newImage.scale(width, height);
 	}
 	*/
-	public GameObject(String name, JGPoint position, int colid, String sprite,
+	public GameObject(String name, String objectBehavior, JGPoint position, int colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			boolean screenFollow, int id, int hitPoints, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction(inputMap);
+		myMovement = new GameObjectAction(objectBehavior, inputMap);
 		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = screenFollow;
@@ -70,11 +71,11 @@ public class GameObject extends JGObject {
 		myHitPoints=hitPoints;
 	}
 
-	public GameObject(String name, JGPoint position, int colid, String sprite,
+	public GameObject(String name,String objectBehavior, JGPoint position, int colid, String sprite,
 			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
 			int id, int hitPoints, UninstantiatedGameObject obj) {
 		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction(inputMap);
+		myMovement = new GameObjectAction(objectBehavior,inputMap);
 		myFuckingName = name;
 		isFloating = floating;
 		isScreenFollow = false;
@@ -106,12 +107,19 @@ public class GameObject extends JGObject {
 		if (myMovement.getIsStart()) {
 			myMovement.start(this);
 		}
-		// System.out.println("move");
 	}
 
 	public String getFuckingName() {
 		return myFuckingName;
 	}
+	public void setMovementPattern(String pattern){	
+		myUninstantiatedGameObject.objectBehavior=pattern;
+		GameObject g=editor_engine.addObject(myUninstantiatedGameObject.objectSprite, myUninstantiatedGameObject.objectPosition.x, 
+				myUninstantiatedGameObject.objectPosition.y);
+		editor_engine.addSelectedObject(g);
+		
+		editor_engine.deleteObject(this);
+		}
 
 	public boolean getIsFloating() {
 		return isFloating;

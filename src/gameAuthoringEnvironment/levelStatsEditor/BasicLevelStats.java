@@ -2,7 +2,7 @@ package gameAuthoringEnvironment.levelStatsEditor;
 
 import gameAuthoringEnvironment.frontEnd.LevelPanel;
 import gameAuthoringEnvironment.frontEnd.PanelFactory;
-import gameAuthoringEnvironment.levelEditor.LevelSizeSliders;
+
 
 import java.awt.Dimension;
 import java.awt.Font;
