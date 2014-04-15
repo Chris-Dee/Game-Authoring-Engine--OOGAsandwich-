@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class OptionsPanel extends JMenuBar {
 	
 
-	VAEview myViewer;
+	private VAEview myViewer;
 
 	/**
 	 * User options panel for tasks such as saving, loading, etc.
@@ -68,6 +68,5 @@ public class OptionsPanel extends JMenuBar {
 
 		add(file);
 		setVisible(true);
-		myViewer.setJMenuBar(this);
 	}
 }

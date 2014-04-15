@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 public class ObjectPanel extends JPanel {
 	private LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
-	private ResourceBundle myResources;
 	private Color myBackgroundColor;
 
 	/**
@@ -27,7 +26,6 @@ public class ObjectPanel extends JPanel {
 	 */
 	public ObjectPanel(LevelPanel levelPanel, Color backgroundColor) {
 		myLevelPanel = levelPanel;
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 		makeMainFrame();
 		myBackgroundColor = backgroundColor;
 		setBackground(myBackgroundColor);
@@ -44,7 +42,7 @@ public class ObjectPanel extends JPanel {
 		buttonModule.setLayout(new BoxLayout(buttonModule, BoxLayout.Y_AXIS));
 		final JTextField levelName = new JTextField(0);
 		buttonModule.add(levelName);
-		JButton level = new JButton(myResources.getString("NewLevelButton"));
+		JButton level = new JButton("New Level");
 		level.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myLevelPanel.addLevel(levelName.getText());

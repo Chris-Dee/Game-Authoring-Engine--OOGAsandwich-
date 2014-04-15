@@ -34,10 +34,8 @@ public class VAEview extends JFrame {
 	private static final String DOT_JSON_EXTENSION = ".json";
 	private static final String LEVEL_PANEL_LEVEL_COMPONENT_LIST_FIELD_NAME = "levelComponentList";
 	private static final String LEVEL_PANEL_COMPONENT_LEVEL_FIELD_NAME = "myLevel";
-	private OptionsPanel myOptionsPanel;
 	private LevelPanel myLevelPanel;
 	private static final String DEFAULT_RESOURCE_FILE_NAME = "resources.GameAuthoringEnvironment";
-	private ResourceBundle resources;
 	private static final Color backgroundColor = Color.BLACK;
 	private static final int LEVEL_LIST_SIZE_X = 600;
 	private static final int LEVEL_LIST_SIZE_Y = 600;
@@ -66,7 +64,6 @@ public class VAEview extends JFrame {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setVisible(true);
 		setLayout(new BorderLayout());
-		resources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_NAME);
 		try {
 			myGameData = new GameData("");
 		} catch (InvalidDataFileException e) {
@@ -87,7 +84,6 @@ public class VAEview extends JFrame {
 				BorderLayout.EAST);
 		editPanel.add(stats, BorderLayout.CENTER);
 
-		myOptionsPanel = new OptionsPanel(this);
 
 		levelList.setPreferredSize(new Dimension(LEVEL_PANEL_SIZE_X, HEIGHT));
 		mainPanel.add(levelList);
@@ -98,6 +94,9 @@ public class VAEview extends JFrame {
 				.getCurrentKeyboardFocusManager();
 		MyDispatcher dispatch = new MyDispatcher();
 		manager.addKeyEventDispatcher(dispatch);
+		
+		this.setJMenuBar(new OptionsPanel(this));
+
 		pack();
 	}
 
