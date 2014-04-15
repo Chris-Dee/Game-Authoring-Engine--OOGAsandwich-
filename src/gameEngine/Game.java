@@ -22,6 +22,7 @@ public class Game {
 	private GameData myGameData;
 	public ArrayList<BasicCollision> collisionRules;
 	public ArrayList<TriggerCollision> collisionTriggers;
+	private int lives;
 	
 	public Game(){
 		allLevels = new ArrayList<Level>();
@@ -32,6 +33,7 @@ public class Game {
 			e.printStackTrace();
 		}
 		collisionTriggers = new ArrayList<TriggerCollision>();
+		lives = 3;
 	}
 	
 	public Game(String dirPath) throws ClassNotFoundException{
@@ -62,6 +64,7 @@ public class Game {
 				modMatrix, 1, 0)));
 		collisionTriggers.add(new TriggerCollision("endlevel", 8, 1));
 		collisionTriggers.add(new TriggerCollision("reset", 1, 4));
+		lives = 3;
 	}
 	
 	/*
@@ -103,5 +106,11 @@ public class Game {
 	}
 	public int getNextLevelIndex() {
 		return currentLevel+1;
+	}
+	public void setLives(int l) {
+		lives = l;
+	}
+	public int getLives() {
+		return lives;
 	}
 }

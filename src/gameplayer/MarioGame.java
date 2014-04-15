@@ -83,7 +83,7 @@ public class MarioGame extends Game {
 		objs2.add(new UninstantiatedGameObject("luigi", new JGPoint(600, 450), 4, "luigi",otherInputMap, false, objectID+4)); 
 		objs2.add(new UninstantiatedGameObject("mushroom", new JGPoint(800, 400), 8, "mushroom", true, objectID+5)); // This code will eventually be used to parse the data.
 	*/
-		objs2.add(new UninstantiatedGameObject("turtle", new JGPoint(500, 750), 4,"turtle", "pace", 55, 2, false, objectID+3,10));
+		//objs2.add(new UninstantiatedGameObject("turtle", new JGPoint(500, 750), 4,"turtle", "pace", 55, 2, false, objectID+3,10));
 		objs2.add(new UninstantiatedGameObject("moving platform", new JGPoint(100, 200), 2, "mobile", "pace", 125, 2, true, objectID+6,0)); 
 		
 		Level secondLevel = new Level("second level ya bish", new JGPoint(4, 4), objs2, "spacebackground", .6);

@@ -9,10 +9,10 @@ import java.util.List;
 public class GameEventManager {
 	protected List<GameEvent> gameEvents;
 	protected List<GameObject> gameObjects;
-	protected GamePlayerGUI gamePlayer;
+	protected GamePlayerGame gamePlayer;
 
 	public GameEventManager(List<GameObject> gameObjects,
-			List<GameEvent> gameEvents, GamePlayerGUI gamePlayer) {
+			List<GameEvent> gameEvents, GamePlayerGame gamePlayer) {
 		this.gameObjects = gameObjects;
 		this.gameEvents = gameEvents;
 		this.gamePlayer = gamePlayer;

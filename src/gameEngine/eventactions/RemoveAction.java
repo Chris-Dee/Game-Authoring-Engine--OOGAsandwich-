@@ -5,7 +5,7 @@ import java.util.List;
 import gameEngine.GameEventAction;
 import gameEngine.InvalidEventActionException;
 import gameplayer.GameEventManager;
-import gameplayer.GamePlayerGUI;
+import gameplayer.GamePlayerGame;
 
 public class RemoveAction extends GameEventAction{
 
@@ -17,7 +17,7 @@ public class RemoveAction extends GameEventAction{
 	}
 
 	@Override
-	public void act(GameEventManager manager, GamePlayerGUI gamePlayer) {
+	public void act(GameEventManager manager, GamePlayerGame gamePlayer) {
 		manager.getObjectById(recipientIDs.get(0)).remove();
 	}
 }
