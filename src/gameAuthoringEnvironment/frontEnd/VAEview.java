@@ -4,6 +4,7 @@ import gameAuthoringEnvironment.levelStatsEditor.BasicLevelStats;
 import gameEngine.Game;
 import gameEngine.Level;
 import gameplayer.GamePlayerGUI;
+import gameplayer.GamePlayerGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

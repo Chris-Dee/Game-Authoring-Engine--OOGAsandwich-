@@ -1,7 +1,7 @@
 package gameEngine;
 
 import gameplayer.GameEventManager;
-import gameplayer.GamePlayerGUI;
+import gameplayer.GamePlayerGame;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public abstract class GameEventAction {
 		this.arguments = arguments;
 	}
 	
-	public abstract void act(GameEventManager manager, GamePlayerGUI gamePlayer);
+	public abstract void act(GameEventManager manager, GamePlayerGame gamePlayer);
 
 }
