@@ -1,0 +1,8 @@
+#Key Bindings
+#Thu May 08 12:48:08 EDT 2014
+40=moveDown,Player
+39=moveRight,Player
+38=jump,Player
+37=moveLeft,Player
+32=moveUp,Player
+77=usePowerUps,Player

@@ -1,5 +1,6 @@
 package jgame.platform;
 
+import gameauthoringenvironment.leveleditor.LevelEditor;
 import jgame.impl.*;
 import jgame.*;
 import java.awt.*;
@@ -191,6 +192,7 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	// public static final int KeyEsc=27;
 	// public static final int KeyEnter=10;
 	public static final int KeyBackspace = KeyEvent.VK_BACK_SPACE;
+	private static JGEngine lastEngine;
 	public static final int KeyTab = KeyEvent.VK_TAB;
 	// /** Keymap equivalent of mouse button. */
 	// public static final int KeyMouse1=256, KeyMouse2=257, KeyMouse3=258;
@@ -249,6 +251,8 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 	}
 
 	public void defineMedia(String filename) {
+		if((lastEngine==null||!lastEngine.getClass().equals(getClass())))
+		//if(this instanceof LevelEditor)
 		el.defineMedia(this, filename);
 	}
 
@@ -266,6 +270,9 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 
 	public JGObject getObject(String index) {
 		return el.getObject(index);
+	}
+	public JGObject getObjectByID(int id){
+		return el.getObjectByID(id);
 	}
 
 	public void moveObjects(String prefix, int cidmask) {
@@ -430,8 +437,20 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 				setColor(bgg, el.bg_color);
 				bgg.fillRect(x, y, el.scaledtilex, el.scaledtiley);
 			} else {
-				int xtile = el.moduloFloor(xi, bg_image.tiles.x);
-				int ytile = el.moduloFloor(yi, bg_image.tiles.y);
+				//System.out.println(bg_image.tiles.x);
+				//System.out.println(bg_image.tiles.y);
+				int xtile;
+				if(bg_image.tiles.x==0){
+				xtile=0;
+				}
+					else{
+				 xtile = el.moduloFloor(xi, bg_image.tiles.x);
+				}
+				int ytile;
+				if(bg_image.tiles.y==0)
+					ytile = 1;
+				else
+					ytile = el.moduloFloor(yi, bg_image.tiles.y);
 				bgg.drawImage(((JREImage) el.getImage(bg_image.imgname)).img,
 						x, y, x + el.scaledtilex, y + el.scaledtiley, xtile
 								* el.scaledtilex, ytile * el.scaledtiley,
@@ -1327,6 +1346,7 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 
 	public void destroy() {
 		// kill game thread
+		lastEngine=this;
 		el.is_exited = true;
 		// applets cannot interrupt threads; their threads will
 		// be destroyed for them (not always, though ...).
@@ -1343,16 +1363,22 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
 		// remove frame??
 		// close files?? that appears to be unnecessary
 		// reset global variables
+		JGObject.resetIDCount();
 		if (el.is_inited) {
 			JGObject.setEngine(null);
 		}
+		System.out.println("lastEngine");
 		System.out.println("JGame engine disposed.");
 	}
 
 	public void setViewOffset(int xofs, int yofs, boolean centered) {
 		el.setViewOffset(xofs, yofs, centered);
 	}
-
+	
+	public void setViewOffset(JGPoint ofs, boolean centered) {
+		el.setViewOffset(ofs.x, ofs.y, centered);
+	}
+	
 	public void setBGImgOffset(int depth, double xofs, double yofs,
 			boolean centered) {
 	}

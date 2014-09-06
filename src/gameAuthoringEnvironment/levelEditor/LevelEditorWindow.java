@@ -1,20 +1,18 @@
-package gameAuthoringEnvironment.levelEditor;
+package gameauthoringenvironment.leveleditor;
 
-import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
-import gameAuthoringEnvironment.frontEnd.OptionsPanel;
+import gameauthoringenvironment.frontend.LevelPanelComponent;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class LevelEditorWindow extends JFrame {
+
+	private static final String LEVEL_EDITOR_TITLE = "Level Editor";
 	private LevelPanelComponent myLevelPanelComponent;
 	private LevelEditor myLevelEditor;
 
@@ -32,7 +30,7 @@ public class LevelEditorWindow extends JFrame {
 	private void initialize() {
 		setVisible(true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setTitle("Level Editor");
+		setTitle(LEVEL_EDITOR_TITLE);
 		setLayout(new BorderLayout());
 		setExitAction();
 		makeMainPanel();
@@ -58,12 +56,10 @@ public class LevelEditorWindow extends JFrame {
 		try {
 			myLevelEditor = new LevelEditor(myLevelPanelComponent.getLevel());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mainPanel.add(myLevelEditor, BorderLayout.CENTER);
-		mainPanel.add(new LevelObjectBar(myLevelPanelComponent.getLevel(),
-				myLevelEditor), BorderLayout.WEST);
+		mainPanel.add(new LevelStatsBar(myLevelEditor), BorderLayout.WEST);
 		mainPanel.add(new ObjectEditorContainer(myLevelEditor),
 				BorderLayout.EAST);
 

@@ -1,6 +1,7 @@
 package gameplayer;
 
-import gameEngine.Game;
+import gameengine.Game;
+import gameplayer.examplegames.MarioGame;
 
 import java.io.IOException;
 
@@ -8,6 +9,6 @@ import data.InvalidDataFileException;
 
 public class GamePlayerRunner {
 	public static void main(String[]args) throws IOException, InvalidDataFileException, ClassNotFoundException {
-		new GamePlayerGUI(new MarioGame());
+		new GamePlayerFrame(new MarioGame());//new MarioGame());//new MarioGame());
 	}
 }

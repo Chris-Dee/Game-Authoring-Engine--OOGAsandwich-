@@ -1,7 +1,7 @@
-package gameAuthoringEnvironment.levelStatsEditor;
+package gameauthoringenvironment.levelstatseditor;
 
-import gameAuthoringEnvironment.frontEnd.LevelPanel;
-import gameAuthoringEnvironment.frontEnd.PanelFactory;
+import gameauthoringenvironment.frontend.LevelPanel;
+import gameauthoringenvironment.frontend.PanelFactory;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class BasicLevelStats extends JPanel {
+	private static final String PLEASE_SELECT_A_LEVEL_TEXT = "Please select a level";
+	private static final int JPANEL_SIZE_OFFSET_LARGER_X = 500;
+	private static final int JPANEL_SIZE_OFFSET_LARGER_Y = 800;
+	private static final int JPANEL_SIZE_OFFSET = 30;
+	private static final String ADD_AND_SELECT_A_LEVEL_LABEL = "Add and Select a Level!";
 	LevelPanel myLevelPanel;
 	JLabel levelName;
 	JPanel editPane;
@@ -28,18 +33,15 @@ public class BasicLevelStats extends JPanel {
 		makeLevelEditor(this);
 	}
 
-	// TODO: Honestly I have no idea when this method is called or what it is
-	// doing. It's sometime in the beginning of the program
 	/**
-	 * 
+	 * Sets the initial background based on the levelPanel given.
 	 * @param levelPanel
-	 *            LevelPanel that is to be selected
+	 *            LevelPanel that is to be selected.
 	 */
 
 	public void setLevelPanel(LevelPanel levelPanel) {
-		myLevelPanel = levelPanel;
 		try {
-			chooser=new BackgroundChooser(myLevelPanel);
+			chooser=new BackgroundChooser(levelPanel);
 			editPane.add(chooser);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -52,15 +54,15 @@ public class BasicLevelStats extends JPanel {
 		editPane = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		editPane.setLayout(new BoxLayout(editPane, BoxLayout.Y_AXIS));
-		levelName = new JLabel("Add and Select a Level!");
+		levelName = new JLabel(ADD_AND_SELECT_A_LEVEL_LABEL);
 		levelName.setFont(headingFont);
 		levelName.setHorizontalAlignment(SwingConstants.CENTER);
 		editPane.add(levelName);
-		editPane.add(PanelFactory.makeVerticalSpacerPanel(30));
+		editPane.add(PanelFactory.makeVerticalSpacerPanel(JPANEL_SIZE_OFFSET));
 
 		mainPanel.add(editPane);
 		// mainPanel.add(new LevelSizeSliders());
-		mainPanel.add(PanelFactory.makeVerticalSpacerPanel(800));
+		mainPanel.add(PanelFactory.makeVerticalSpacerPanel(JPANEL_SIZE_OFFSET_LARGER_X, JPANEL_SIZE_OFFSET_LARGER_Y));
 	}
 
 	/**
@@ -73,7 +75,7 @@ public class BasicLevelStats extends JPanel {
 		levelName.setText(name);
 
 		if (name == null) {
-			levelName.setText("Please select a level");
+			levelName.setText(PLEASE_SELECT_A_LEVEL_TEXT);
 		}
 	}
 

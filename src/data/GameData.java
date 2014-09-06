@@ -1,14 +1,9 @@
 package data;
 
-import gameAuthoringEnvironment.frontEnd.LevelPanelComponent;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +11,22 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class GameData {
-	private String _filename;
-	private Map<String, List<Object>> objMap;
+	protected String filename;
+	protected Map<String, List<Object>> objMap;
+	protected JsonAdapter<?>[] adapters;
 
-	
 	/**
 	 * Creates a GameData object initialized from a file. The file is saved if
 	 * write() is called
 	 * 
 	 * @param filename
 	 *            The name of the file
-	 * @throws InvalidDataFileException
+	 * @param adapters
+	 *            Custom adapters to use for serialization / deserialization.
 	 */
-	public GameData(String filename) throws InvalidDataFileException {
-		_filename = filename;
+	public GameData(String filename, JsonAdapter<?>... adapters) {
+		this.adapters = adapters;
+		this.filename = filename;
 		objMap = new HashMap<String, List<Object>>();
 	}
 
@@ -51,7 +48,7 @@ public class GameData {
 	}
 
 	public void setFileName(String filename) {
-		_filename = filename;
+		this.filename = filename;
 	}
 
 	/**
@@ -59,7 +56,7 @@ public class GameData {
 	 */
 	@Override
 	public String toString() {
-		PropertiesWriter writer = new JsonWriter(objMap);
+		PropertiesWriter writer = new JsonWriter(objMap, adapters);
 		return writer.toString();
 	}
 
@@ -73,7 +70,7 @@ public class GameData {
 	public void write() throws IOException {
 		String jsonString = this.toString();
 
-		File myFile = new File(_filename);
+		File myFile = new File(filename);
 		if (!myFile.exists()) {
 			myFile.createNewFile();
 		}
@@ -87,7 +84,7 @@ public class GameData {
 	private String readFile() {
 		String fileText = null;
 		try {
-			fileText = new Scanner(new File(_filename)).useDelimiter("\\A")
+			fileText = new Scanner(new File(filename)).useDelimiter("\\A")
 					.next();
 		} catch (FileNotFoundException e) {
 			// Do nothing, we just need to write to this file
@@ -97,7 +94,7 @@ public class GameData {
 
 	public Map<String, List<Object>> parse() throws InvalidDataFileException {
 		String jsonString = readFile();
-		PropertiesReader jsonReader = new JsonReader(jsonString);
+		PropertiesReader jsonReader = new JsonReader(jsonString, adapters);
 		try {
 			objMap = jsonReader.parse();
 		} catch (ClassNotFoundException e) {

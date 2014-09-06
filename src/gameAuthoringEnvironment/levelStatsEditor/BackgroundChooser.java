@@ -1,7 +1,7 @@
-package gameAuthoringEnvironment.levelStatsEditor;
+package gameauthoringenvironment.levelstatseditor;
 
-import gameAuthoringEnvironment.frontEnd.LevelPanel;
-import gameAuthoringEnvironment.frontEnd.PanelFactory;
+import gameauthoringenvironment.frontend.LevelPanel;
+import gameauthoringenvironment.frontend.PanelFactory;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -23,9 +24,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import tempresources.FileDeleter;
+import tempresources.ImageCopyUtil;
+
 //Adding new images is having problems because JGame is being a little bitch.
 
 public class BackgroundChooser extends JPanel {
+	private static final String DELETE_CURRENT_IMAGE_BUTTON_TEXT = "Delete Current Image";
+	private static final String ADD_IMAGE_BUTTON_TEXT = "Add Image";
+	private static final String UPLOAD_BUTTON_TEXT = "upload";
+	private static final String BG_NAME_LABEL = "BG name";
+	private static final String ADD_NEW_BACKGROUND_IMAGE_LABEL = "Add New Background Image";
 	LevelPanel myLevelPanel;
 	private final String delimiter = " ";
 	private final String initialSelection = "Rock";
@@ -58,14 +67,14 @@ public class BackgroundChooser extends JPanel {
 
 	private Map<String, String> initializeImageMap(File file)
 			throws FileNotFoundException {
-		Map<String, String> bgMap = new TreeMap<String, String>();
+		Map<String, String> backgroundMap = new TreeMap<String, String>();
 		Scanner s = new Scanner(file);
 		while (s.hasNext()) {
 			String[] str = s.nextLine().split(" ");
-			System.out.println(str[0]);
-			bgMap.put(str[0], str[1]);
+			if(str.length>=2)
+			backgroundMap.put(str[0], str[1]);
 		}
-		return bgMap;
+		return backgroundMap;
 	}
 
 	public void makeBackgroundChooser(JPanel homePanel) {
@@ -99,22 +108,26 @@ public class BackgroundChooser extends JPanel {
 
 	private void makeFileChooserButton(JPanel homePanel) {
 		JPanel editorPanel = new JPanel();
-		homePanel.add(new JLabel("Add New Background Image"));
+		homePanel.add(new JLabel(ADD_NEW_BACKGROUND_IMAGE_LABEL));
 		editorPanel.setLayout(new BoxLayout(editorPanel, BoxLayout.X_AXIS));
-		editorPanel.add(new JLabel("BG name"));
+		editorPanel.add(new JLabel(BG_NAME_LABEL));
 		bgName = new JTextField(0);
 		editorPanel.add(bgName);
 		homePanel.add(editorPanel);
-		JButton uploadImage = new JButton("upload");
+		JButton uploadImage = new JButton(UPLOAD_BUTTON_TEXT);
 		uploadImage.addActionListener(new FileChoose(this));
 		editorPanel.add(uploadImage);
-		JButton addImage = new JButton("Add Image");
+		JPanel buttonPanel=new JPanel();
+		JButton addImage = new JButton(ADD_IMAGE_BUTTON_TEXT);
+		buttonPanel.add(addImage);
 		addImage.addActionListener(new AddImage(this));
-		homePanel.add(addImage);
+		JButton deleteImage=new JButton(DELETE_CURRENT_IMAGE_BUTTON_TEXT);
+		deleteImage.addActionListener(new DeleteImage());
+		buttonPanel.add(deleteImage);
+		homePanel.add(buttonPanel);
 	}
 
 	private void setBackgroundToSelected() {
-		System.out.println(myBackgroundMap);
 		String newBG = myBackgroundMap.get(model.getSelectedItem());
 		myLevelPanel.findActivePanel().changeDefaultBackground((String) model.getSelectedItem());
 	}
@@ -132,6 +145,7 @@ public class BackgroundChooser extends JPanel {
 		model.setEnabled(b);
 	}
 	private class FileChoose implements ActionListener {
+		private static final String DEFAULT_USER_DIRECTORY = "user.dir";
 		JPanel home;
 
 		public FileChoose(JPanel homePanel) {
@@ -140,6 +154,7 @@ public class BackgroundChooser extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
+			//fileChooser.setCurrentDirectory(new File(System.getProperty(DEFAULT_USER_DIRECTORY)));
 			int returnVal = fileChooser.showOpenDialog(home);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String file = fileChooser.getSelectedFile().getAbsolutePath();
@@ -163,11 +178,25 @@ public class BackgroundChooser extends JPanel {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			myBackgroundMap.put(bgName.getText(), uploadedFile);
-			System.out.println(myBackgroundMap);
 			model.addItem(bgName.getText());
+			ImageCopyUtil imageCopier=new ImageCopyUtil();
+			try {
+				imageCopier.copyImageToResources(uploadedFile, bgName.getText());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			myBackgroundMap.put(bgName.getText(), uploadedFile);
+			//System.out.println(myBackgroundMap);
+			
 		}
 
+	}
+	private class DeleteImage implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			new FileDeleter().unwriteFromBGinit((String)model.getSelectedItem());
+			model.removeItem(model.getSelectedItem());
+		}
 	}
 
 	class ItemChangeListener implements ItemListener {

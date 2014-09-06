@@ -7,15 +7,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class JsonReader extends PropertiesReader {
-	public JsonReader(String serializedText) {
+	protected JsonAdapter<?>[] adapters;
+
+	public JsonReader(String serializedText, JsonAdapter<?>... adapters) {
 		super(serializedText);
-		// TODO Auto-generated constructor stub
+		this.adapters = adapters;
 	}
 
 	@Override
@@ -23,7 +26,11 @@ public class JsonReader extends PropertiesReader {
 		// https://code.google.com/p/google-gson/source/browse/trunk/extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java
 		JsonParser parser = new JsonParser();
 		JsonObject gameObj = parser.parse(_serializedText).getAsJsonObject();
-		Gson gson = new Gson();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		for (JsonAdapter<?> adapter : adapters) {
+			gsonBuilder.registerTypeAdapter(adapter.getType(), adapter);
+		}
+		Gson gson = gsonBuilder.create();
 		Map<String, List<Object>> objMap = new HashMap<String, List<Object>>();
 		for (Entry<String, JsonElement> el : gameObj.entrySet()) {
 			List<Object> objs = new ArrayList<Object>();

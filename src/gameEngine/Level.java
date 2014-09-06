@@ -1,29 +1,39 @@
-package gameEngine;
+package gameengine;
+
+import gameengine.gameevents.GameEvent;
 
 import java.util.*;
 
 import jgame.JGPoint;
+import jgame.JGTimer;
 
 public class Level {
 
+	private static final int TIMER_DEFAULT = 30;
 	private List<UninstantiatedGameObject> levelObjects;
-	public static final JGPoint defaultSize = new JGPoint(2, 6);
+	public static final JGPoint DEFAULT_SIZE = new JGPoint(2, 6);
 	/**
 	 * Total playfield size, which can larger than screensize.
 	 */
 	private JGPoint levelSize;
 	private String levelBG;
-	private String name;
-	private double gravityVal;
-	public static final String defaultBackground="blankbackground";
-	private int GAME_SCORE=100;
-	private List<GameEvent> events;
 	private String levelName;
+	private double gravityVal;
+	private static final String DEFAULT_BACKGROUND = "blankbackground";
+	private List<GameEvent> events;
+	private int timeLeft;
+	private int startingTime;
+	private boolean hasTimer;
 
 	public Level(String lvlName, JGPoint size,
-			List<UninstantiatedGameObject> objects,
-			String background, double gravityMagnitude) {
-		//initialize();
+			List<UninstantiatedGameObject> objects, String background,
+			double gravityMagnitude, int levelTime) {
+		if (levelTime <= 0) {
+			hasTimer = false;
+		} else {
+			hasTimer = true;
+			timeLeft = levelTime;
+		}
 		levelName = lvlName;
 		levelSize = size;
 		levelObjects = objects;
@@ -33,19 +43,42 @@ public class Level {
 	}
 
 	public Level(String levelName) {
-		initialize();
-		name = levelName;
+		levelSize = DEFAULT_SIZE;
+		this.levelName = levelName;
 		levelObjects = new ArrayList<UninstantiatedGameObject>();
-		levelBG = defaultBackground;
+		levelBG = DEFAULT_BACKGROUND;
 		events = new ArrayList<GameEvent>();
+		timeLeft = 0;
+		gravityVal = 0;
 	}
 
-	public void initialize() {
-		levelSize = defaultSize;
+	public boolean hasTimer() {
+		return hasTimer;
 	}
 
-	public String getName() {
-		return name;
+	public int getCurrentTime() {
+		return timeLeft;
+	}
+	public void resetTime(){
+		setCurrentTime(startingTime);
+	}
+
+	public void setCurrentTime(int time) {
+		if (time <= 0) {
+			hasTimer = false;
+		} else {
+			hasTimer = true;
+			timeLeft = time;
+		}
+	}
+
+	public void startGameTime() {
+		int timer = TIMER_DEFAULT;
+		new JGTimer(timer, false) {
+			public void alarm() {
+				timeLeft--;
+			}
+		};
 	}
 
 	public void changeStartingBackground(String bg) {
@@ -83,23 +116,28 @@ public class Level {
 	public void setGravityVal(double value) {
 		gravityVal = value;
 	}
-	
-	public void changeScore(int magnitude){
-		GAME_SCORE+=magnitude;
-	}
-	public int getCurrentScore(){
-		return GAME_SCORE;
-	}
-	
-	public List<GameEvent> getEvents(){
+
+	public List<GameEvent> getEvents() {
 		return events;
 	}
-	
-	public void addEvent(GameEvent event){
-		events.add(event);
+
+	public void addEvent(GameEvent... events) {
+		this.events.addAll(Arrays.asList(events));
 	}
-	
-	public String getLevelName(){
+
+	public void removeEvent(GameEvent event) {
+		events.remove(event);
+	}
+
+	public String getLevelName() {
 		return levelName;
+	}
+
+	public int getStartingTime() {
+		return startingTime;
+	}
+
+	public void setStartingTime(int time) {
+		startingTime = time;
 	}
 }

@@ -1,0 +1,46 @@
+Jumps,Mario Game,Sam,1
+Score,Mario Game,Sam,2
+Deaths,Mario Game,Sam,4
+Jumps,Mario Game,Chris,5
+Score,Mario Game,Chris,6
+Deaths,Mario Game,Chris,4
+Enemies Killed,Mario Game,Chris,1
+Jumps,Mario Game,Jeff,11
+Deaths,Mario Game,Jeff,4
+Enemies Killed,Mario Game,Jeff,1
+Score,Mario Game,Jeff,1
+Time Left,Mario Game,Ethan,75
+Jumps,Mario Game,Ethan,22
+Score,Mario Game,Ethan,3
+Deaths,Mario Game,Ethan,4
+Enemies Killed,Mario Game,Ethan,2
+Time Left,Mario Game,Sam,83
+Distance Travelled,Mario Game,Sam,3220
+Jumps,Mario Game,Sam,6
+Score,Mario Game,Sam,8
+Deaths,Mario Game,Sam,4
+Enemies Killed,Mario Game,Sam,2
+Time Left,Mario Game,Rahul,88
+Distance Travelled,Mario Game,Rahul,1500
+Jumps,Mario Game,Rahul,2
+Score,Mario Game,Rahul,1
+Enemies Killed,Mario Game,Rahul,1
+Deaths,Mario Game,Rahul,4
+Time Left,Mario Game,null,90
+Distance Travelled,Mario Game,null,1795
+Jumps,Mario Game,null,4
+Enemies Killed,Mario Game,null,1
+Deaths,Mario Game,null,3
+Time Left,Mario Game,,89
+Distance Travelled,Mario Game,,1430
+Jumps,Mario Game,,3
+Deaths,Mario Game,,4
+Time Left,Mario Game,null,70
+Distance Travelled,Mario Game,null,855
+Jumps,Mario Game,null,7
+Score,Mario Game,null,3
+Time Left,Mario Game,null,70
+Distance Travelled,Mario Game,null,950
+Jumps,Mario Game,null,2
+Score,Mario Game,null,1
+Deaths,Mario Game,null,2

@@ -13,13 +13,14 @@ import org.junit.Test;
 
 import data.GameData;
 import data.InvalidDataFileException;
+import data.SandwichGameData;
 
 public class GameDataTest {
 	GameData gameData;
 
 	@Before
 	public void setUp() throws InvalidDataFileException {
-		gameData = new GameData("");
+		gameData = new SandwichGameData();
 	}
 
 	@Test
@@ -70,11 +71,11 @@ public class GameDataTest {
 	public void testWritingToAndReadingFromFile() {
 		GameData data;
 		try {
-			data = new GameData("test.txt");
+			data = new SandwichGameData("test.txt");
 			data.addObj(new Integer(5));
 			data.addObj(new Integer(7));
 			data.write();
-			data = new GameData("test.txt");
+			data = new SandwichGameData("test.txt");
 			Map<String, List<Object>> value = (Map<String, List<Object>>) data
 					.parse();
 			assertEquals(value.toString(), "{java.lang.Integer=[5, 7]}");

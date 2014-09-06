@@ -11,7 +11,7 @@ import java.net.*;
 import java.lang.reflect.*;
 /** Some handy utilities for loading an manipulating images, bypassing Java's
  * object disoriented way of handling images; used internally by jgame. */
-class JREImage implements JGImage {
+public class JREImage implements JGImage {
 
 	// use default component here?
 	static Component output_comp=null;
@@ -38,9 +38,9 @@ class JREImage implements JGImage {
 	public Object texture=null, stretched_texture=null;
 
 	/** Create new image */
-	JREImage (Image img) { this.img=img; }
+	public JREImage (Image img) { this.img=img; }
 	/** Create handle to image functions. */
-	JREImage () {}
+	public JREImage () {}
 
 	/** Load image from resource path (using getResource).  Note that GIFs are
 	 * loaded as _translucent_ indexed images.   Images are cached: loading
@@ -87,6 +87,7 @@ class JREImage implements JGImage {
 
 
 	public JGPoint getSize() {
+		//System.out.println(img.getWidth(observer)+"obsv");
 		return new JGPoint(
 			img.getWidth(observer),
 			img.getHeight(observer) );

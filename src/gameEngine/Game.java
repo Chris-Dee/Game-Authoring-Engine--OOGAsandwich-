@@ -1,51 +1,46 @@
-package gameEngine;
-
-import gameplayer.BasicCollision;
-import gameplayer.GameObjectModification;
-import gameplayer.TriggerCollision;
+package gameengine;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
+import jgame.JGPoint;
 import data.GameData;
 import data.InvalidDataFileException;
-import jgame.JGPoint;
+import data.SandwichGameData;
 
 public class Game {
 	private List<Level> allLevels;
 	private int currentLevel;
 	protected JGPoint screenSize;
-	public String mediaTablePath;
 	private GameData myGameData;
-	public ArrayList<BasicCollision> collisionRules;
-	public ArrayList<TriggerCollision> collisionTriggers;
-	private int lives;
-	
-	public Game(){
+	private static int lives;
+	private int startingLives;
+	private int totalScore = 0;
+	private String myGameName;
+
+	/**
+	 * Initializes a Game
+	 */
+	public Game() {
 		allLevels = new ArrayList<Level>();
-		collisionRules = new ArrayList<BasicCollision>();
-		try {
-			myGameData = new GameData("");
-		} catch (InvalidDataFileException e) {
-			e.printStackTrace();
-		}
-		collisionTriggers = new ArrayList<TriggerCollision>();
+		myGameData = new SandwichGameData();
 		lives = 3;
+		startingLives=lives;
 	}
-	
-	public Game(String dirPath) throws ClassNotFoundException{
+
+	/**
+	 * Initializes a saved Game from a file
+	 */
+	public Game(String dirPath) throws ClassNotFoundException {
 		allLevels = new ArrayList<Level>();
-		collisionRules = new ArrayList<BasicCollision>();
-		mediaTablePath = "mario.tbl";
 		screenSize = new JGPoint(900, 900);
 		try {
-			myGameData = new GameData("");
+			myGameData = new SandwichGameData();
 			myGameData.setFileName(dirPath);
 			myGameData.parse();
-			List<Object> myLevelObjects = myGameData.getObjects("gameEngine.Level");
+			List<Object> myLevelObjects = myGameData
+					.getObjects("gameengine.Level");
 			List<Level> myLevels = new ArrayList<Level>();
 			for (Object obj : myLevelObjects) {
 				myLevels.add((Level) obj);
@@ -55,62 +50,68 @@ public class Game {
 		} catch (InvalidDataFileException e) {
 			e.printStackTrace();
 		}
-		collisionTriggers = new ArrayList<TriggerCollision>();
-		int[][] modMatrix = { { 1, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, -1, 0, 1, 0, 0 } };
-		collisionRules.add(new BasicCollision(1, 2, new GameObjectModification(
-				modMatrix, 1, 0)));
-		collisionRules.add(new BasicCollision(4, 2, new GameObjectModification(
-				modMatrix, 1, 0)));
-		collisionTriggers.add(new TriggerCollision("endlevel", 8, 1));
-		collisionTriggers.add(new TriggerCollision("reset", 1, 4));
-		lives = 3;
+		if (lives <= 0) {
+			lives = 3;
+		}
+		startingLives = lives;
+		myGameName = dirPath.substring(0, dirPath.length() - 5);
 	}
-	
-	/*
-	public Game(String dirPath){
-		allLevels = new ArrayList<Level>();
-		size = new JGPoint(640, 480);
-		loadLevels(dirPath);
-		mediaTablePath = dirPath + "/media.tbl";
-	}
-	public void loadLevels(String filePath){
-		
-	}
-	public void initialize() {
-		currentLevel = allLevels.get(0);
-	}
-	public JGPoint getSize() {
-		return size;
-	}
-	*/
-	public Game getExample() throws IOException, InvalidDataFileException{
-		
-		Game game = new Game();
-		return game;
-	}
+
 	protected void addLevel(Level level) {
 		allLevels.add(level);
 	}
+
 	protected void addListOfLevels(List<Level> levels) {
 		allLevels.addAll(levels);
 	}
+
 	public Level getCurrentLevel() {
 		return allLevels.get(currentLevel);
 	}
-	public void setCurrentLevel(int levelIndex) {
+
+	public boolean setCurrentLevel(int levelIndex) {
+		if (levelIndex >= allLevels.size()) {
+			return false;
+		}
 		this.currentLevel = levelIndex;
+		return true;
 	}
+
 	public JGPoint getSize() {
 		return screenSize;
 	}
+
 	public int getNextLevelIndex() {
-		return currentLevel+1;
+		return currentLevel + 1;
 	}
-	public void setLives(int l) {
+
+	public static void setLives(int l) {
 		lives = l;
 	}
+
 	public int getLives() {
 		return lives;
+	}
+
+	public void setTotalScore(int score) {
+		totalScore = score;
+	}
+
+	public int getTotalScore() {
+		return totalScore;
+	}
+
+	public void reset() {
+		setLives(startingLives);
+		setTotalScore(0);
+		setCurrentLevel(0);
+	}
+
+	public String getGameName() {
+		return myGameName;
+	}
+
+	public void setGameName(String name) {
+		myGameName = name;
 	}
 }

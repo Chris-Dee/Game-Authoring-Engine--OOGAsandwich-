@@ -10,47 +10,27 @@ import javax.swing.JOptionPane;
 
 public class GamePlayerOptionsBar extends JMenuBar {
 
-	private static final String RESTART_GAME_QUESTION_TEXT = "Are you sure you want to start over?";
-	private static final String RESTART_GAME = "Restart game?";
+	private static final String FILE_CONSTANT = "File";
+	private static final String RESTART_GAME_BUTTON_TEXT = "Reset Game";
+
+	private ActionListener myRestartListener;
 
 	/**
 	 * Makes JMenuBar at top of the game player.
 	 */
-	public GamePlayerOptionsBar() {
+
+	public GamePlayerOptionsBar(ActionListener restartListener) {
+		myRestartListener = restartListener;
 		initialize();
 	}
 
 	private void initialize() {
-		JMenu file = new JMenu("File");
-		JMenuItem startItem = new JMenuItem("Play game");
-		startItem.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				int restartGame = JOptionPane.showConfirmDialog(null,
-						RESTART_GAME_QUESTION_TEXT, RESTART_GAME,
-						JOptionPane.YES_NO_OPTION);
-				if (restartGame==0){ //Player chose yes,restart the game
-					System.out.println("yay!");
-				}
-			}
-
-		});
-
-		JMenuItem highScoresItem = new JMenuItem("High Scores");
-		highScoresItem.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Implement action
-
-			}
-
-		});
+		JMenu file = new JMenu(FILE_CONSTANT);
+		JMenuItem startItem = new JMenuItem(RESTART_GAME_BUTTON_TEXT);
+		startItem.addActionListener(myRestartListener);
 
 		file.add(startItem);
-		file.add(highScoresItem);
-
 		add(file);
 		setVisible(true);
 	}
-
 }

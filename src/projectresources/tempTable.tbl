@@ -1,0 +1,42 @@
+splash_image	-	0	projectResources/Super_Mario_Brothers_Sprites_by_Spikestuff.png	-
+
+icons_map		projectResources/icons8x8-d-tr.gif		0	0	8	8	0	0
+
+mario		?		0		projectResources/mario.png		_
+luigi		?		0		projectResources/luigi.png		_
+mushroom		?		0		projectResources/mushroom.png		_
+hero-r		?		0		projectResources/person.gif			-
+brick		-		0	projectResources/brick.png	-
+turtle		-		0	projectResources/spiketurtle.png	-
+stationary	-		0	projectResources/stationarytile.png	-
+mobile		-		0	projectResources/mobileplatform.png	-
+metal		_		0	projectResources/metal.jpg	_
+skyblue		-		0	projectResources/skyblue.jpg		-
+blankbackground		-		0	projectResources/blankbackground.jpg		-
+Rock		-		0	projectResources/blankbackground.jpg		-
+mario		-		0	projectResources/mario.png		-
+block		-		0	projectResources/blockobject.jpg		-
+goomba		-		0	projectResources/goombaobject.png		-
+lemon		-		0	projectResources/lemonobject.jpg		-
+lime		-		0	projectResources/limeobject.gif	-
+orange		-		0	projectResources/orangeobject.jpg		-
+pacMan		-		0	projectResources/pacmanobject.jpg		-
+tree		-		0	projectResources/treeobject.jpg		-
+Fire		-		0	projectResources/firebackground.jpg		-
+Forest		-		0	projectResources/forestbackground.jpg		-
+Lemons?		-		0	projectResources/lemonbackground.jpg		-
+Money		-		0	projectResources/moneybackground.jpg		-
+Space		-		0	projectResources/spacebackground.jpg		-
+Clouds		-		0	projectResources/skybackground.jpg		-
+White		-		0	projectResources/blankbackground.jpg		-
+srball	-	0	projectResources/red.gif	-
+fractal		-		0	tempresources/Capture12cc.PNG		-
+realSpider.GIF		-		0	tempresources/realSpider.GIF		-
+fractal		-		0	tempresources/dart-icon.gif		-
+realSpider.GIF		-		0	tempresources/realSpider.GIF		-
+bullet	-		0	tempresources/Bullet Bill.png		-
+fractal		-		0	tempresources/Capture8.PNG		-
+dsfasdas		-		0	tempresources/Capture12 cc.PNG		-
+fractal		-		0	tempresources/Capture12c.PNG		-
+realSpider.GIF		-		0	tempresources/realSpider.GIF		-
+stone.jpg		-		0	tempresources/stone.jpg		-

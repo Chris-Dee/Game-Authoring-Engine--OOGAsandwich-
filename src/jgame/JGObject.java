@@ -1,5 +1,5 @@
 package jgame;
-import gameAuthoringEnvironment.levelEditor.LevelEditor;
+import gameauthoringenvironment.leveleditor.LevelEditor;
 import jgame.impl.JGEngineInterface;
 import jgame.impl.Animation;
 //import java.awt.*;
@@ -50,7 +50,7 @@ import jgame.impl.Animation;
 
  */
 public class JGObject {
-	static int next_id = 0; 
+	protected static int next_id = 0; 
 	/** global which might be accessed concurrently */
 	protected static JGEngineInterface default_engine=null;
 
@@ -95,6 +95,9 @@ public class JGObject {
 		updateEngineSettings();
 		return true;
 	}
+	public static void resetIDCount(){
+		next_id=0;
+	}
 	/** Called automatically by the engine to signal changes to pfWrap,
 	* gameSpeed, pfWidth/Height, viewX/YOfs.  The current values of these
 	* settings are stored in the JGObject local variables. */
@@ -135,7 +138,7 @@ public class JGObject {
 	public int colid;
 	/** Object's global identifier; may not change during the lifetime of the
 	 * object. */
-	String name;
+	protected String name;
 	/** Number of move() steps before object removes itself, -1 (default)
 	 * is never; -2 means expire when off-playfield, -3 means expire when
 	 * off-view, -4 means suspend when off-view, -5 means suspend when
@@ -167,14 +170,14 @@ public class JGObject {
 	 * bbox instead. */
 	JGRectangle tilebbox=null;
 	/** The bbox that should override the image bbox if not null. */
-	JGRectangle bbox=null;
+	protected JGRectangle bbox=null;
 
 	/** You can use this to call methods in the object's engine.  Even handier
 	 * is to have the objects as inner class of the engine. */
 	public transient JGEngineInterface eng;
 
 	/* dimensions of last time drawn  */
-	double lastx=0, lasty=0;
+	double lastx, lasty;
 	/* bbox/tilebbox is copied into these variables each time */
 	JGRectangle lastbbox_copy=new JGRectangle();
 	JGRectangle lasttilebbox_copy=new JGRectangle();
@@ -191,11 +194,13 @@ public class JGObject {
 		// XXX the test on suspend should really be done after the
 		// constructor of the subclass is finished, in case the position is
 		// changed later in the constructor.
+		
 		if ((int)expiry==suspend_off_view
 		||  (int)expiry==suspend_off_view_expire_off_pf) {
 			if (!isInView(eng.getOffscreenMarginX(),eng.getOffscreenMarginY()))
 				suspend();
 		}
+		
 		eng.markAddObject(this);
 	}
 
@@ -209,6 +214,7 @@ public class JGObject {
 	/** Set bbox definition to override the image bbox.  */
 	public void setBBox(int x,int y, int width,int height) {
 		bbox = new JGRectangle(x,y,width,height);
+		
 	}
 	/** Clear bbox definition so that we use the image bbox again. */
 	public void clearBBox() { bbox=null; }
@@ -390,9 +396,14 @@ public class JGObject {
 	* @param gfxname  id of animation or image, null = no image */
 	public JGObject (String name, boolean unique_id,
 	double x,double y,int collisionid,String gfxname) {
+		if(!unique_id)
+			next_id--;
 		initObject(default_engine,
-				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
+				name + (/*unique_id ?*/ ""+(next_id++) /*: ""*/ ), collisionid );
+		
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		setGraphic(gfxname);
 	}
 
@@ -404,6 +415,8 @@ public class JGObject {
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		setGraphic(gfxname);
 		this.expiry=expiry;
 	}
@@ -415,6 +428,8 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname,
 	int tilebbox_x,int tilebbox_y, int tilebbox_width,int tilebbox_height) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -429,6 +444,8 @@ public class JGObject {
 	int tilebbox_x,int tilebbox_y, int tilebbox_width,int tilebbox_height,
 	int expiry) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -443,6 +460,8 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname,
 	double xspeed, double yspeed) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -456,6 +475,8 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname,
 	double xspeed, double yspeed, int expiry) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -471,6 +492,8 @@ public class JGObject {
 	int tilebbox_x,int tilebbox_y, int tilebbox_width,int tilebbox_height,
 	double xspeed, double yspeed) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -486,6 +509,8 @@ public class JGObject {
 	int tilebbox_x,int tilebbox_y, int tilebbox_width,int tilebbox_height,
 	double xspeed, double yspeed, int expiry) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -501,6 +526,8 @@ public class JGObject {
 	double x,double y,int collisionid,String gfxname,
 	int xdir, int ydir, double xspeed, double yspeed, int expiry) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -516,6 +543,8 @@ public class JGObject {
 	int tilebbox_x,int tilebbox_y, int tilebbox_width,int tilebbox_height,
 	int xdir, int ydir, double xspeed, double yspeed, int expiry) {
 		setPos(x,y);
+		lastx = x;
+		lasty = y;
 		initObject(default_engine,
 				name + (unique_id ? ""+(next_id++) : "" ), collisionid );
 		setGraphic(gfxname);
@@ -569,7 +598,27 @@ public class JGObject {
 		}
 		return null;
 	}
-
+	
+	/** Get object collision bounding box for next frame in pixels using speed.
+	* Has actual coordinate offset.
+	* @return copy of bbox in pixel coordinates, null if no bbox
+	*/
+	public JGRectangle getNextBBox() {
+		if (bbox != null) 
+			return new JGRectangle(
+					bbox.x + (int) x + (int) xspeed,
+					bbox.y + (int) y + (int) yspeed,
+					bbox.width,
+					bbox.height);
+		if (imgbbox!=null) {
+			return new JGRectangle(
+					imgbbox.x + (int) x + (int) xspeed,
+					imgbbox.y + (int) y + (int) yspeed,
+					imgbbox.width,
+					imgbbox.height);
+		}
+		return null;
+	}
 	//JGRectangle bbox_const = new JGRectangle(0,0,0,0);
 
 	/** Get object collision bounding box in pixels.
@@ -661,7 +710,8 @@ public class JGObject {
 	}
 
 	/** Update the imgbbox variable. */
-	void updateImageBBox() {
+	protected void updateImageBBox() {
+	//	System.out.println(imgname);
 		if (imgbbox==null && imgname!=null) {
 			imgbbox = eng.getImageBBox(imgname);
 		}
@@ -1148,5 +1198,5 @@ public class JGObject {
 
 	/** Override to define custom paint actions. */
 	public void paint() {}
+	
 }
-

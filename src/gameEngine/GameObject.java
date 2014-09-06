@@ -1,146 +1,142 @@
-package gameEngine;
+package gameengine;
 
-import gameAuthoringEnvironment.levelEditor.LevelEditor;
-import gameAuthoringEnvironment.levelEditor.ObjectStats;
-import gameplayer.MethodData;
-
-import java.util.Map;
-
+import gameplayer.MovementParameters;
+import java.util.ArrayList;
 import jgame.*;
+import gameengine.powerups.*;
 
 public class GameObject extends JGObject {
 
-	private GameObjectAction myMovement;
-	private String myFuckingName;
+	private GameObjectMovement myMovement;
+	private String prefixName;
 	private boolean isFloating;
 	private boolean isScreenFollow;
-	private Map<Integer, MethodData<String, Integer>> charMap;
 	public JGPoint originalPosition;
 	private int myID;
 	private UninstantiatedGameObject myUninstantiatedGameObject;
 	private int myHitPoints;
+	private int myColID;
+	private int jumpSpeed = 10;
+	private int moveSpeed = 5;
+	public ArrayList<PowerUp> myItems;
+	private boolean canJump;
+	private int jumpCounter;
 
-	// private int myHitPoints;
-
-	public GameObject(String name,String objectBehavior, JGPoint position, int colid, String sprite,
-			String behavior, int time, int speed, boolean floating, int id, int hitPoints,
-			UninstantiatedGameObject obj) {
-		super(name, true, position.x, position.y, colid, sprite);
-		//System.out.println(behavior+" "+time+" "+speed);
-		myMovement = new GameObjectAction(objectBehavior, time, speed);
-		myMovement.setInitialPosition(new JGPoint((int)this.x,(int)this.y));
-		myFuckingName = name;
+	public GameObject(String name, JGPoint position,
+			int colid, String sprite,
+			MovementParameters myMovementParams,
+			boolean floating, boolean screenFollow, int id, int hitPoints,
+			UninstantiatedGameObject obj, boolean updateID) {
+		super(name, updateID, position.x, position.y, colid, sprite);
+		myMovement = new GameObjectMovement(myMovementParams);
+		myMovement.setInitialPosition(new JGPoint((int) this.x, (int) this.y));
+//		myMovement.setEngine((gameplayer.GamePlayerEngine)this.eng);
+		prefixName = name;
 		isFloating = floating;
-		isScreenFollow = false;
+		isScreenFollow = screenFollow;
 		originalPosition = new JGPoint(position.x, position.y);
 		myID = id;
+		myColID = colid;
 		myUninstantiatedGameObject = obj;
-		myHitPoints=hitPoints;
+		myHitPoints = hitPoints;
+		myItems = new ArrayList<PowerUp>();
+//		if (myMovementParams.getBehaviorName().equals("usercontrolled")) {
+//			moveSpeed = myMovementParams.getDuration() / 10;
+//			jumpSpeed = myMovementParams.getSpeed() * 2;
+//		}
+		canJump = true;
+		jumpCounter = 0;
+	}
+
+	public UninstantiatedGameObject toUninstantiated() {
+		return myUninstantiatedGameObject;
 	}
 
 	public void reset() {
 		x = originalPosition.x;
 		y = originalPosition.y;
-		changeSprite("mobile");
-		//setBBox(0,0, 50, 50);
 	}
-	
+
 	public void changeSprite(String imageName) {
 		setImage(imageName);
 	}
-	
-	/*
-	public void scaleSprite(int width, int height) {
-		JGImage newImage;
-		newImage.loadImage(getImageName());
-		newImage.scale(width, height);
-	}
-	*/
-	public GameObject(String name, String objectBehavior, JGPoint position, int colid, String sprite,
-			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			boolean screenFollow, int id, int hitPoints, UninstantiatedGameObject obj) {
-		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction(objectBehavior, inputMap);
-		myFuckingName = name;
-		isFloating = floating;
-		isScreenFollow = screenFollow;
-		charMap = inputMap;
-		originalPosition = new JGPoint(position.x, position.y);
-		myID = id;
-		myUninstantiatedGameObject = obj;
-		myHitPoints=hitPoints;
-	}
-
-	public GameObject(String name,String objectBehavior, JGPoint position, int colid, String sprite,
-			Map<Integer, MethodData<String, Integer>> inputMap, boolean floating,
-			int id, int hitPoints, UninstantiatedGameObject obj) {
-		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction(objectBehavior,inputMap);
-		myFuckingName = name;
-		isFloating = floating;
-		isScreenFollow = false;
-		charMap = inputMap;
-		originalPosition = new JGPoint(position.x, position.y);
-		myID = id;
-		myUninstantiatedGameObject = obj;
-		myHitPoints=hitPoints;
-	}
-
-	public GameObject(String name, JGPoint position, int colid, String sprite,
-			boolean floating, int id, int hitPoints, UninstantiatedGameObject obj) {
-		super(name, true, position.x, position.y, colid, sprite);
-		myMovement = new GameObjectAction();
-		myFuckingName = name;
-		isFloating = floating;
-		isScreenFollow = false;
-		originalPosition = new JGPoint(position.x, position.y);
-		myID = id;
-		myUninstantiatedGameObject = obj;
-		myHitPoints=hitPoints;
-	}
-	
-	public UninstantiatedGameObject toUninstantiated() {
-		return myUninstantiatedGameObject;
-	}
 
 	public void move() {
+		if(this.name.equals("player"))
+			System.out.println(canJump);
 		if (myMovement.getIsStart()) {
 			myMovement.start(this);
 		}
+		if(yspeed != 0){
+			canJump = false;
+		}
+		else{
+			
+			jumpCounter++;
+			if(jumpCounter == 5){
+				canJump = true;
+				jumpCounter = 0;
+			}
+		}
+
+		// JGame was changed to create duplicates of objects with the name+180
+		// as the object name. This code basically checks if the object iamges
+		// need to be reset,
+		// given their current velocities
+		if (xspeed > 0
+				&& getImageName().substring(getImageName().length() - 3)
+						.equals("180"))
+			setImage(getImageName().substring(0, getImageName().length() - 3));
+		if (xspeed < 0
+				&& !getImageName().substring(getImageName().length() - 3)
+						.equals("180"))
+			setImage(getImageName() + "180");
 	}
 
-	public String getFuckingName() {
-		return myFuckingName;
+	/**
+	 * JGObject sometimes adds integers to the name. The prefixName is the exact
+	 * String of the name that the user input into the GAE.
+	 * 
+	 * @return
+	 */
+	public String getPrefixName() {
+		return prefixName;
 	}
-	public void setMovementPattern(String pattern){	
-		myUninstantiatedGameObject.objectBehavior=pattern;
-		GameObject g=editor_engine.addObject(myUninstantiatedGameObject.objectSprite, myUninstantiatedGameObject.objectPosition.x, 
-				myUninstantiatedGameObject.objectPosition.y);
+
+	public void setMovementPattern(String pattern) {
+		myUninstantiatedGameObject.objectBehavior = pattern;
+		GameObject g = editor_engine.addObject(
+				myUninstantiatedGameObject.objectSprite,
+				myUninstantiatedGameObject.objectPosition.x,
+				myUninstantiatedGameObject.objectPosition.y, false);
 		editor_engine.addSelectedObject(g);
-		
+
 		editor_engine.deleteObject(this);
-		}
+	}
+
+	public int getColID() {
+		return myColID;
+	}
 
 	public boolean getIsFloating() {
 		return isFloating;
 	}
-	public void setCollID(int collID){
-		myID=collID;
-		myUninstantiatedGameObject.objectColid=collID;
+
+	public void setCollID(int collID) {
+		myColID = collID;
+		myUninstantiatedGameObject.objectColid = collID;
 	}
-	public void setIsFloating(boolean b){
-		isFloating=b;
-		myUninstantiatedGameObject.objectFloating=b;
+
+	public void setIsFloating(boolean b) {
+		isFloating = b;
+		myUninstantiatedGameObject.objectFloating = b;
 	}
-	public String[] getAllStats(){
+
+	public String[] getAllStats() {
 		return myUninstantiatedGameObject.getStats();
 	}
 
-	public Map<Integer, MethodData<String, Integer>> getCharMap() {
-		return charMap;
-	}
-
-	public GameObjectAction getMovement() {
+	public GameObjectMovement getMovement() {
 		return myMovement;
 	}
 
@@ -150,24 +146,83 @@ public class GameObject extends JGObject {
 
 	public void setIsScreenFollowing(boolean b) {
 		isScreenFollow = b;
-		myUninstantiatedGameObject.objectScreenFollow=b;
+		myUninstantiatedGameObject.objectScreenFollow = b;
 	}
-	public void setSpeed(int speed){
-		myMovement.setSpeed(speed,this);
+
+	public void setSpeed(int speed) {
+		myMovement.setSpeed(speed, this);
 		myUninstantiatedGameObject.setSpeed(speed);
 	}
-	public void setDuration(int duration) throws InterruptedException{
-	myMovement.setDuration(duration,this);
-	myUninstantiatedGameObject.setDuration(duration*10);
+
+	public void setDuration(int duration) throws InterruptedException {
+		myMovement.setDuration(duration, this);
+		myUninstantiatedGameObject.setDuration(duration * 10);
 	}
+
 	public int getID() {
 		return myID;
 	}
-	public void changeHitPoints(int magnitude){
-		myHitPoints+=magnitude;
+
+	public void changeHitPoints(int magnitude) {
+		myHitPoints += magnitude;
 	}
-	public int getHitPoints(){
+
+	public int getHitPoints() {
 		return myHitPoints;
+	}
+
+	public void addPowerUp(PowerUp pu) {
+		myItems.add(pu);
+	}
+
+	public void removePowerUp(PowerUp pu) {
+		myItems.remove(pu);
+	}
+
+	public void changeName(String text) {
+		prefixName = text;
+		name = prefixName + (myID + 1);
+		myUninstantiatedGameObject.setName(prefixName);
+	}
+
+	public int getMoveSpeed() {
+		return moveSpeed;
+	}
+
+	public void setMoveSpeed(int newMoveSpeed) {
+		moveSpeed = newMoveSpeed;
+	}
+
+	public int getJumpSpeed() {
+		return jumpSpeed;
+	}
+
+	public void setJumpSpeed(int newJumpSpeed) {
+		jumpSpeed = newJumpSpeed;
+	}
+	
+	public void setFloat(boolean isfloat){
+		this.isFloating = isfloat;
+	}
+	
+	public boolean getCanJump(){
+		return canJump;
+	}
+	
+	public void setCanJump(boolean canJump){
+		this.canJump = canJump;
+	}
+	
+	public void incrementJumpCounter(){
+		jumpCounter++;
+	}
+	
+	public void resetJumpCounter(){
+		jumpCounter = 0;
+	}
+	
+	public int getJumpCounter(){
+		return jumpCounter;
 	}
 
 }

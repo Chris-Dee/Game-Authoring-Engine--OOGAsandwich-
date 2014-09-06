@@ -1,0 +1,9 @@
+#Key Bindings
+#Sat Apr 26 19:26:59 EDT 2014
+524=moveHoriz,chris
+154=moveUp,chris
+36=jump,chris
+71=options,Universal
+70=jump,Platform1
+192=moveLeft,chris
+155=moveDown,chris

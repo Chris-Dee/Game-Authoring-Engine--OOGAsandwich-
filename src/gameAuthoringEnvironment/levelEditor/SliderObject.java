@@ -1,6 +1,4 @@
-package gameAuthoringEnvironment.levelEditor;
-
-import java.awt.Component;
+package gameauthoringenvironment.leveleditor;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -10,9 +8,9 @@ import javax.swing.event.ChangeListener;
 
 public class SliderObject extends JPanel {
 
-	private String myLabel;
-	// private int myValue;
+	private static final int SLIDER_TICKMARK = 1;
 	private JSlider mySlider;
+	private int[] myRange;
 
 	/**
 	 * Creates a slider object. This can be used to adjust values on the fly
@@ -30,26 +28,11 @@ public class SliderObject extends JPanel {
 		this.add(new JLabel(label));
 		// myValue = startingValue;
 		mySlider = new JSlider(range[0], range[1]);
+		myRange = range;
 		setValue(startingValue);
 		initialize(this);
 	}
-
-	private JPanel initialize(JPanel homePanel) {
-		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.Y_AXIS));
-		homePanel.add(sliderPanel());
-		return homePanel;
-	}
-
-	private JPanel sliderPanel() {
-		JPanel panel = new JPanel();
-
-		mySlider.setLabelTable(mySlider.createStandardLabels(1, 0));
-		mySlider.setPaintLabels(true);
-		mySlider.setFocusable(false);
-		panel.add(mySlider);
-
-		return panel;
-	}
+	
 
 	/**
 	 * Returns current value of the slider
@@ -114,4 +97,22 @@ public class SliderObject extends JPanel {
 	public JSlider getSlider() {
 		return mySlider;
 	}
+
+	private JPanel initialize(JPanel homePanel) {
+		homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.Y_AXIS));
+		homePanel.add(sliderPanel());
+		return homePanel;
+	}
+
+	private JPanel sliderPanel() {
+		JPanel panel = new JPanel();
+
+		mySlider.setLabelTable(mySlider.createStandardLabels(SLIDER_TICKMARK, myRange[0]));
+		mySlider.setPaintLabels(true);
+		mySlider.setFocusable(false);
+		panel.add(mySlider);
+
+		return panel;
+	}
+
 }

@@ -1,29 +1,38 @@
-package gameEngine.gameevents;
+package gameengine.gameevents;
 
+import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
-import gameEngine.GameEvent;
-import gameEngine.InvalidEventException;
-import gameEngine.ParameterDesc;
+import gameengine.eventactions.InvalidEventActionException;
+import gameplayer.GamePlayerEngine;
 
 public class TimerEvent extends GameEvent {
-	@ParameterDesc(name = "Delay", description = "Number of frames to wait before triggering the timer.")
+	private static final int FRAMES_PER_DELAY_UNIT = 30;
+	@ParameterDesc(name = "Delay", description = "Number of frames to wait before triggering the timer.", type = Integer.class)
 	protected int delay;
 	protected long startTime;
 
-	public TimerEvent(int sourceObjectId, List<Integer> recipientObjectIds,
-			List<String> parameters) throws InvalidEventException {
-		super(sourceObjectId, recipientObjectIds, parameters, true);
+	public TimerEvent() throws InvalidEventException {
+		super();
+	}
+
+	public TimerEvent(List<String> parameters, String name)
+			throws InvalidEventException {
+		super(parameters, name);
 		if (parameters.isEmpty()) {
-			throw new InvalidEventException("Need a time.");
+			throw new InvalidEventException();
 		}
 		startTime = 0;
-		delay = 30 * Integer.parseInt(parameters.get(0));
+		delay = FRAMES_PER_DELAY_UNIT * Integer.parseInt(parameters.get(0));
+		this.delay = FRAMES_PER_DELAY_UNIT * Integer.parseInt(parameters.get(0));
+
 	}
 
 	@Override
-	protected boolean eventHappened() {
+	protected boolean eventHappened(GamePlayerEngine gamePlayer) {
 		startTime += 1;
 		return startTime >= delay;
 	}
 }
+
